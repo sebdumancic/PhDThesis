@@ -5,22 +5,21 @@
 
 \newglossaryentry{ai}{name={AI},description={Artificial intelligence}}
 
-A growing number of digital devices and the amount of information they produce and store has put Artificial intelligence (\gls{ai}) at the frontier of today's society.
-AI has changed the perspective on such massive amounts of data, which are nowadays transformed from a mare record of an event to a carrier of useful information.
-In a sense similar to the tests designed by psychologists and sociologists, AI allows us to sort through the mountains of data and exploit it to gain insights in many aspects of everyday life.
-This potential is perhaps best summarised in a quote by the mathematician Clive Humbly:
-\begin{quote}
-	Data is the new oil. It’s valuable, but if unrefined it cannot really be used. It has to be changed into gas, plastic, chemicals, etc to create a valuable entity that drives profitable activity; so must data be broken down, analysed for it to have value.
-\end{quote}
-The exploitation of information has already significantly changed the landscape of todays economy over several past decades, most evident in the shift in the Forbes' \textit{Fortune 500} list.
-This list, ranking the most successful companies worldwide, has traditionally been dominated by big oil companies.
-However, in recent years IT companies have started to take over the dominion; among the ten most valuable companies, five are IT companies -- Apple, Alphabet, Microsoft, Amazon and Facebook.
-Though AI is the core business only of Facebook and Alphabet's subsidiary Google, it plays a major role in business of the other companies.
+The development of the $21^{\text{st}}$ century was largely shaped by the transformative influence of information technology, and on its frontier is  Artificial intelligence (\gls{ai}).
+Ever since the development of the Google search engine at the beginning of the century, numerous \gls{ai} algorithms have been used to aid tasks typically done by humans.
+It's impact is evident in the changing landscape of today's economy.
+Forbes' Fortune 500 list, ranking the most successful companies worldwide, was typically dominated by oil companies in the $20^{th}$ century.
+In recent year, however, the dominion has shifted towards the It companies; among the ten most valuable companies, five are IT -- Apple, Alphabet, Microsoft, Amazon and Facebook.
+Although we can say that the \gls{ai} is the core business only for the Alphabet's subsidiary Google, \gls{ai} is present in the ever increasing number of products of the other companies.
+
+
+
+
 
 
 
 % TODO: Despite the importance it is difficult to say What AI does - behaves intelligently
-Despite its importance, it is still difficult to say what \gls{ai} precisely is.
+Despite its importance, it is still difficult to say what \gls{ai} precisely is. [.......]
 
 
 
@@ -38,23 +37,55 @@ Last decades have also witnessed many breakthrough application of AI including A
 
 \newglossaryentry{ml}{name={ML},description={Machine Learning}}
 \newglossaryentry{srl}{name={SRL},description={Statistical relational learning}}
-This thesis is situated in the subfields of AI called \textit{machine learning} (\gls{ml}) and \textit{statistical relational learning} (\gls{srl}).
 
 
-Machine learning is probably the most prominent field of AI in the 21$^{\text{st}}$ century.
-It concerns development of AI systems that \textit{improve their performance with experience}.
-These systems learn concepts and skills from examples, provided by the expert, or through interaction with the environment, opening a possibility of new discovering knowledge.
-Moreover, it brings the power of computer programming to non-experts, which could now program computer by simply providing examples of the desired task.
+One aspect that made \gls{ai} influential is the growing number of digital devices and the amount of information they produce and store.
+If we would be able to extract useful information from the massive data, it has the potential to reveal patterns and insights about many aspects of the everyday life.
+This is similar in sense to the tests designed by psychologists and sociologists, with a difference that we don't start with designing the quoestionairre but instead  often start from the available data.\gls{ai}
+This way \gls{ai} has changed the perspective data, which are nowadays transformed from a mare record of an event to a carrier of useful information.
+
+
+A branch of \gls{ai} concerned with extracting useful patterns from the data are machine learning (\gls{ml}), which is perhaps the most prominent representative of \gls{ai}.
+Machine learning develops \gls{ai} systems that \textit{improve their performance with experience}.
+These systems learn concepts and skills from examples, the data provided by the expert, or through interaction with the environment.
+The impact of such systems is huge: from discovering new knowledge to bringing the power of computer programming to non-experts which could simply show the computer how to solve the task instead of programming it.
 
 
 
-A common principle of many machine learning algorithms is that of learning a \textit{model of the world}. 
+How exploiting such data has influenced the modern world is perhaps best summarised  in a quote by the mathematician Clive Humbly:
+\begin{quote}
+	Data is the new oil. It’s valuable, but if unrefined it cannot really be used. It has to be changed into gas, plastic, chemicals, etc to create a valuable entity that drives profitable activity; so must data be broken down, analysed for it to have value.
+\end{quote}
+
+
+
+
+A common idea underlying many machine learning algorithms is that of learning a \textit{model of the world}. 
 This assumes that a learning task is defined as a system with clearly defined inputs and outputs.
 A typical machine learning algorithm is given the data, inputs and desired outputs, and its task is to discover a \textit{decision function}, system's gear wheels transforming the inputs to the output(s).
 A huge variety of the existing machine learning algorithms differs in how they \textit{represent} the task.
 
 
 % TODO: introduce an example that covers several ways of representing the decision function
+\begin{table}
+	\centering
+	\caption{Example dataset}
+	\begin{tabular}{@{}lccccccc@{}}
+		\toprule
+		\textbf{ID} &\multicolumn{6}{c}{\textbf{Features}} 									& \textbf{Target} \\
+		\cmidrule(lr){2-7} 
+					& legs	& fluffiness		& diary 		& playful	& spits? 	& bites? 	&	\\
+		\midrule
+		cat			& 4		& 4				& carnivore	& sometimes & no		 	& sometimes	&  \checkmark \\
+		dog			& 4		& 5				& carnivore	& yes		& no		& no		& \checkmark \\
+		duck		& 2		& 2				& herbivore	& no			& no		& no		& $\times$ \\
+		\multicolumn{8}{c}{\ldots} \\
+		alpaca		& 4		& 5				& herbivore & yes		& sometimes	& no		& ? \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:pets}
+\end{table}
+
 
 \paragraph{Example (The art of machine learning in a nutshell)} Imagine your self choosing a new pet.
 Being an \gls{ai} enthusiast, and having to choose among a vast variety of potential pets, you decide to use a machine learning algorithm to help you with the decision.
@@ -82,28 +113,16 @@ For example, we could replace \texttt{no} with 0, \texttt{sometimes} with 1 and 
 Many choices are possible, and the right one depends on the task at hand.
 
 
+Once the model has been learning, either by finding the rules or by tuning the weights of the decision function, the model can be applied to make decision about new examples.
+For instance, if we wish to know whether an alpaca would make a good pet, we can ask the model.
+Looking at the first rule, the answer would be \texttt{yes} as alpaca has four legs and the level of fluffiness above 4. 
 
-As the example X shows, it is necessary to differentiate between the representation of \textit{data} and the representation of  \textit{decision function}.
+
+
+As the example above shows, it is necessary to differentiate between the representation of \textit{data} and the representation of  \textit{decision function}.
 This thesis focuses on the data representation aspect and inherits the representation of decision function from the existing methods.
 
-\begin{table}
-	\centering
-	\caption{Example dataset}
-	\begin{tabular}{@{}lccccccc@{}}
-		\toprule
-		\textbf{ID} &\multicolumn{6}{c}{\textbf{Features}} 									& \textbf{Target} \\
-		\cmidrule(lr){2-7} 
-					& legs	& fluffiness		& diary 		& playful	& spits? 	& bites? 	&	\\
-		\midrule
-		cat			& 4		& 4				& carnivore	& sometimes & no		 	& sometimes	&  \checkmark \\
-		dog			& 4		& 5				& carnivore	& yes		& no		& no		& \checkmark \\
-		duck		& 2		& 2				& herbivore	& no			& no		& no		& $\times$ \\
-		\multicolumn{8}{c}{\ldots} \\
-		alpaca		& 4		& 5				& herbivore & yes		& sometimes	& no		& ? \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:pets}
-\end{table}
+
 
 
 
@@ -112,37 +131,54 @@ First, one has to decide about the data representation \textit{format}.
 Data format describe the basic form, a template, the data will take.
 By far the most popular choice is the \textit{tabular representation}, e.g., Excel sheets, but other options include graphs, networks and even programming languages.
 The second issue is concerned with the \textit{content} of the data itself, i.e., defining the \textit{features} of the task.
-This populates the content of the specified template.
+This populates the template with the content.
 
 
 
 Both data representation aspects have a critical impact on the success of the machine learning application.
-Choosing an insufficient data format prevents us from even capturing all intricacies of the data.
-While tabular data format is by far the most popular one, it is also the least expressive one (it can capture only a simple data).
-For example, complex graph structured data is impossible to represent in a simple Excel sheet.
+Choosing an insufficient data format prevents us from capturing all intricacies of the data.
+Even more crucial is the choice of the features.
+If the features themselves do not contain the information, no \gls{ml} algorithm will be able to successfully solve the task.
+In contrast, insufficient data format might not be able to capture \textit{everything} about the data, but it is possible that it capture \textit{most} of the relevant information.
 
 
 
-A powerful way to overcome this representational limitations is to use \textit{predicate logic} as a data representation format. 
-The field of AI combining machine learning with logic is known as \textit{Statistical relational Artificial intelligence} \cite{GetoorSRL,Raedt:2016:SRA:3027718} and Inductive logic programming \cite{LucRLbook}.
-These methods combine three pillars of Artificial intelligence: it uses \textit{predicate logic} to represent complex data formats, \textit{probability theory} to capture the uncertainty of reasoning and \textit{machine learning} for learning models that leverage both logic and probability from data.
-This renders SRL methods amongst the most expressive AI methods, i.e., they can easily represent tabular data, networks and graphs as well as entire computer programs. 
-
-
-
-Selecting the appropriate format is rarely sufficient for a good performance -- choosing the right and informative features is the last step to cross.
-Knowing which features carry the right information to solve the learning task is difficult, finding them requires an extensive domain knowledge. 
-Consequently, finding informative features is typically a labour-intensive task, taking the vast majority of development of the machine learning model [citation?].
+Identifying the right and informative features for the task is no easy task.
+Developing a \gls{ml} model typically proceeds in four steps: 1) collecting the data, 2) designing the features, 3) learning the model, and 4) evaluation the model.
+However, this is rarely a linear procedure; the practitioners typically have to iterate between steps 2 and 4 to find the suitable features, resulting in a labour-intensive task taking the vast majority of the development [citation?].
+The main reason why find the informative features is difficult is that one typically uses machine learning algorithm to solve the task the one does not know how to solve.
+As the solution is unknown, it is even more difficult to know which information has to be a part of the solution.
 
 
 
 Motivated by the difficulty of manually finding informative features, machine learning practitioners have started to develop formal framework that can find informative features without expert intervention.
 These methods fall under umbrella of \textit{representation} or \textit{deep learning} \cite{Goodfellow2016, Bengio:2009}.
-\textit{Deep} refers to the idea of creating several layers of \textit{latent features} before solving the given task.
+\textit{Deep} refers to the idea of creating several layers of \textit{latent features}, defined in terms of the given features, before solving the given task.
 These methods, typically based on Artificial neural networks, have sparked a revolution within Artificial intelligence over the last decade.
 As a result, many solution in the fields of computer vision, speech recognition and text processing have witnessed impressive improvements.
+This problem is the central part of this thesis.
 % TODO: put some of the results
 
+
+
+There is the second part of the puzzle that is important for this thesis - that of data representation format.
+The vast majority of progress on representation learning has focused on tabular data format.
+However, the real world data is rarely tabular. [Put Stackoverflow example]
+The progress towards representation learning on structured data, that contain examples and their mutual relationships, has focused on \textit{re-representing} structured data in tabular format.
+This is clearly limiting as tabular representation can rarely capture all of the intricacies of structured data. 
+
+
+
+A powerful way to overcome this representational limitations is to use \textit{predicate logic} as a data representation format. 
+The field of AI combining machine learning with logic is known as \textit{Statistical relational learning} (\gls{srl}) \cite{GetoorSRL,Raedt:2016:SRA:3027718} and Inductive logic programming \cite{LucRLbook}.
+These methods combine three pillars of Artificial intelligence: it uses \textit{predicate logic} to represent complex data formats, \textit{probability theory} to capture the uncertainty of reasoning and \textit{machine learning} for learning models that leverage both logic and probability from data.
+This renders SRL methods amongst the most expressive AI methods, i.e., they can easily represent tabular data, networks and graphs as well as entire computer programs. 
+
+
+
+
+
+% TODO: SRL methods have rich formalism for expressive complex problems and inference, but the learning is still difficult; therefore, RL can be helpful to simplify the learning
 
 
 
@@ -178,7 +214,6 @@ In contrast, the roman system is the one we are rarely confronted with after the
 	\label{fig:cogease}
 \end{figure}
 
-% TODO: give a simple algorithms exercise: searching for something in a set vs array
 
 
 \paragraph{Example} Consider now a typical programming task from a first-year programming course: \textit{given a collection of elements, implement a function that checks whether a given element is present in the collection}.
@@ -187,15 +222,34 @@ However, if the collection of elements is large, for example containing tens of 
 Using the sets one can check the existence of the elements almost instantly; in contrast, searching through an array resulting in traversing the collection until we find the required element.
 
 
-% TODO: give an example of counting itemsets with a complex rules which elements should be counted 
 
-\textbf{TODO: give an example of counting itemsets with a complex rule which elements should be counted; then  }
+\paragraph{Example} 
+Many of the objects/concepts we interact with are not the \textit{physical manifestation} but \textit{abstraction} that make communication easier.
+For instance, a \textit{penguin} is an abstract concept, a language construct, referring to a medium-sized bird that does not fly but swims, has a beak, is of black and white colour and lives in places at the southern hemisphere.
+Moreover, one can say that a bird is the abstraction of a specific specific group of animals that fly.
+Such \textit{representation changes}, abstractions, help us to communicate effectively.
+Without them, communication about categories as specific as penguin would be tedious as it would  require providing the entire definition of a category, not just a single word.
 
 
-All of the examples above point to the same conclusion -- \textit{representation matters} both for human and computational problem solvers.
-There is, therefore, a little surprise that one of the big revolutions in AI came from learning how to represent a given problem.
 
 
+All of the examples above point to the same conclusion -- \textit{representation matters} and \textit{change of representation} is an important tool of intelligence.
+The first examples illustrates how even the simplest task can be made more difficult by using different representation.
+The second example illustrates how change of representation can make a correct solution much efficient.
+Finally, the third examples illustrates how introducing of abstract concepts makes communication more effective.
+Unfortunately, machine learning algorithms were not capable of changing the representation autonomously until very recently.
+Even the recent progress is quite limited in its scope.
+Therefore, incorporating general methods for representation change into machine learning algorithms has a big potential to substantially increase their problem solving abilities.
+
+
+
+
+
+
+\newglossaryentry{ann}{name={ANN},description={Artificial neural network}}
+The critical limitations of the existing representation learning we are addressing in this thesis are the following.
+First, the vast majority of representation learning approaches are based on the Artificial neural networks (\gls{ann}).
+As a consequence, the existing approaches focus almost extensively in tabular and signal-like data such as images, sound and text.
 
 However, critically accessing the current progress of representation learning methods reveals several weaknesses.
 First, the existing approaches extensively focus on tabular and signal-like data, such as images, speech and text.
@@ -209,7 +263,7 @@ ANNS are ill fitted for structured problems. (Add )
 
 
 
-% TODO: SRL methods have rich formalism for expressive complex problems and inference, but the learning is still difficult; therefore, RL can be helpful to simplify the learning
+
 
 
 This thesis addresses the issues/limitation outline above.
@@ -225,6 +279,12 @@ Our long term goal is to develop the tools that allow the methods from artificia
 
 
 
+In this thesis we focus on the following research question:
+
+\begin{quote}
+	How can we lift the existing representation learning techniques to the rich knowledge representation framework of predicate logic?
+\end{quote}
+
 
 
 
@@ -235,11 +295,7 @@ Our long term goal is to develop the tools that allow the methods from artificia
 
 \section{Thesis contributions}
 
-In this thesis we focus on the following research question:
 
-\begin{quote}
-	How can we lift the existing representation learning techniques to the rich knowledge representation framework of predicate logic?
-\end{quote}
 
 
 We identify \textit{four main contributions} within this thesis addressing that research question.
