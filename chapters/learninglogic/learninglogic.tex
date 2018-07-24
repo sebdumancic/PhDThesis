@@ -2,24 +2,171 @@
 
 
 
-% TODO: the previous chapter should clearly motivate the importance of representation, focus of the thesis
-
-% TODO: describe a few examples of data (tabular, excel, networks, programs)
-
-% TODO: what is a general language to represent all of it?
-
-
-
 
 
 \section{Representing data with logic}
 
 
-% TODO: syntax (clausal logic?)
 
-% TODO: semantics
 
 % TODO: cover the examples in logical format (focus on the strengths of logic)
+
+\subsection{Propositional logic}
+
+Propositional logic is a formalism for reasoning about the truth assignments of \textit{propositions}.
+Propositions are statements about the world being modelled, and can be \texttt{true} or \texttt{false}.
+
+
+The propositions are constructed from propositional \textit{variables} and \textit{connectivity operators}.
+Propositional variables denote \textit{aspects} of the world considered by the model, for instance, \texttt{sun}, \texttt{rainbow} and \texttt{bob\_runs}.
+Variables are used in propositions as \textit{literals} -- a propositional variable or its negation.
+The connectivity operators compose literals into more complicated statements.
+Such operators in \textit{conjunction} (AND operator), \textit{disjunction} (OR operator), \textit{implication} (IF-THEN operator) and \textit{equivalence} (IF-AND-ONLY-IF	operator).
+
+
+A \textit{logical theory} is a collection of propositions, more precisely, a conjunction of propositions.
+An \textit{interpretation} is a truth assignment for each of the propositional variables.
+An interpretation satisfies a given proposition if it evaluates to \texttt{true} for the given truth assignments to the variables.
+An interpretation that satisfies the proposition is the \textit{model} of that proposition.
+
+
+
+\paragraph{Example} The proposition \texttt{playful} $\wedge$ \texttt{fluffy} $\Rightarrow$ \texttt{ideal\_pet} encodes that when something is playful (variable \texttt{playful} is true) and fluffy (variable \texttt{fluffy} is true )then it is an ideal pet (variable \texttt{ideal\_pet} is true).
+Every interpretation in which \texttt{ideal\_pet} is true is a model of this proposition.
+
+
+
+
+Once the theory describing the knowledge is available, different \textit{inference} tasks can be considered.
+The most fundamental task is that of \textit{consistency} or \textit{satisfiability} checking, which checks whether the theory has a model.
+The task of \textit{validity} checking checks whether every interpretation is a model.
+The task of \textit{model counting}, a generalisation of both aforementioned tasks, counts the number of models of the theory.
+
+
+
+
+
+
+
+
+
+\subsection{Predicate logic}
+
+
+Propositional logic is suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations between objects is extremely tedious.
+For instance, to indicate that two animals are of the same species would require introducing new boolean variables for each pair of animals, such as \texttt{same\_species\_dog\_cat}, and specifying their truth assignments.
+
+
+
+To over come this issue, \textit{predicate logic} extends the propositional logic with \textit{objects} and \textit{relations} between them, resulting in a powerful language for representing mathematical formalism.
+An especially attractive feature of predicate logic is its universal \textit{inference algorithm} -- one can state a set of axioms, or facts, and theorems in predicate logic and rely on \textit{resolution} \cite{Robinson:1965:Resolution} inference algorithm to derive new axioms and theorems from the old ones.
+
+
+
+The language of predicate logic is similar to the one of the propositional logic.
+The core building blocks of predicate logic formulas are \textit{four} types of symbols: \textit{constant} (referring to individual objects), \textit{variable} (referring to groups of objects), \textit{function} and \textit{predicate} symbols.
+
+
+The statements in predicate logic, the formulas, are composed of \textit{terms}, \textit{atoms} and \textit{connectivity operators}.
+A \textit{term} is defined as:
+\begin{itemize}
+	\item a variable is a term
+	\item if $f / n$ is a function symbol and $t_1,t_2,...,t_n$ are terms, then function $f(t_1,...,t_n)$ is a term.
+\end{itemize}
+
+
+An \textit{atom} is of the form $p(t_1,...,t_n)$ where $p/n$ is a predicate symbol and $t_1,...,t_n$ are terms.
+A \textit{literal} is an atom or its negation.
+
+
+Finally, a \textit{formula} in predicate logic is defined as:
+\begin{itemize}
+	\item An atom is a formula
+	\item \texttt{true} and \texttt{false} are formulas
+	\item If $\phi$ and $\psi$ are formulas, so are $\phi \wedge \psi$, $\phi \vee \psi$, $\phi \rightarrow \psi$, $\phi \leftrightarrow \psi$ and $\not \phi$
+	\item If $\phi$ is a formula and $X$ is a variable, so are $\forall X \phi$ and $\exists X \phi$.
+\end{itemize}
+
+
+A \textit{literal} in predicate logic is an atom or its negation.
+Formula is \textit{ground} if it does not contain logical variables, meaning that the variables are \textit{bind} to the exact objects or individuals.
+
+
+ 
+ 
+ 
+
+
+Evaluating formulas in predicate logic is not as simple as in the propositional logic.
+The main complication comes from the usage of variables.
+Thus, in order to specify the interpretation one first has to, for each predicate,  map logical variables to a set of domain elements, i.e., each predicate has to be \textit{grounded}.
+Once groundings are obtained, each grounding of a predicate is associated with \textit{true} or \textit{false}.
+
+
+
+\paragraph{Example} Mapping the previous example in propositional logic to predicate logic results in the following formula: $\forall X$ \texttt{is\_playful(X)} $\wedge$ \texttt{is\_fluffy(X)} $\Rightarrow$ \texttt{ideal\_pet(X)}.
+ Predicate logic allows us to easily express more complex knowledge relating different objects.
+ For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend: $\forall X, \exists Y$ \texttt{is\_playful(X)} $\wedge$ \texttt{is\_fluffy(X)} $\wedge$ \texttt{friends(X,Y)} $\Rightarrow$ \texttt{ideal\_pet(X)}.
+ Assuming the domain being $\{$\texttt{cat,hamster,alpaca}$\}$, the grounding of the predicate \texttt{is\_playful(X)} are: \texttt{is\_playful(cat)}, \texttt{is\_playful(hamster)} and \texttt{is\_playful(alpaca)}.
+ 
+ 
+ 
+ 
+ Predicate logic allows us to represent knowledge about the world in a very compact manner: grounded atoms specify facts about the world, while logical formulas general properties and relationships that would otherwise be too cumbersome to write as facts.
+ 
+ 
+ 
+ 
+
+
+ 
+
+
+
+\subsection{Logic programming}
+
+
+\textit{Logic programming} uses language of predicate logic for computer programming.
+It uses a subset of predicate logic in which the domains are restricted to \textit{Herbrand base} -- the set of all ground atoms that can be constructed from the constant and function symbols in the alphabet.
+Furthermore, it restricts the formulas to be in the for of \textit{Horn clauses}.
+
+
+A \textit{clause} is a disjunction of literals:
+
+\begin{center}
+	\texttt{A}$_1$  $\vee$ \ldots $\vee$ \texttt{A}$_n$.
+\end{center}
+
+More generally, if some of the literals in a clause are \textit{negated}
+
+$$ \text{\texttt{A}}_1 \vee \text{\ldots} \vee \text{\texttt{A}}_n \vee \neg \text{\texttt{B}}_1 \vee \text{\texttt{\ldots}} \vee \neg \text{\texttt{B}}_m$$
+
+then the clause can be written as an \textit{if-then} rule, for instance in the logic programming language \textit{Prolog}:
+
+$$ \underbrace{\text{\texttt{A}}_1, \text{\ldots}, \text{\texttt{A}}_n}_{\text{\textit{head}}} \text{\texttt{:-}} \underbrace{\text{\texttt{B}}_1, \text{\texttt{\ldots}}, \text{\texttt{B}}_m}_{\text{\textit{body}}}.$$
+
+Comma in the \textit{head} of the rule stands for a disjunction, while in the \textit{body} it indicates the conjunction of literals.
+A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$.
+
+
+
+A very attractive property of clausal logic is that it forms a very general framework for representing knowledge.
+For example, a clausal statement with $n > 0$ and $m = 0$ indicates a fact.
+If $n, m>0$, then such a statement is a rule.
+A statement wit $n=0$ and $m > 0$ represents a \textit{Prolog query}.
+Moreover, even the learning algorithm itself can be represented as a set of clauses.
+
+
+
+The main difference between predicate logic and logic programming is in the interpretation of the implication operator.
+Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic programming takes a procedural interpretation of implication (\texttt{:-}). 
+
+
+
+
+
+
+
 
 
 
@@ -34,25 +181,142 @@
 \section{Inductive logic programming}
 
 
-% TODO: machine learning typically done on  tabular data, that does not work for us
+So far, we have seen why predicate and clausal logic are a desirable framework for data representation.
+What has not been discussed so far is their connection with machine learning.
 
-% TODO: define ILP problem 
+
+\textit{Inductive logic programming} \cite{LucRLbook,Lavrac:1993:ILP:562956} is the field of \gls{ai} combining machine learning with logic programming representation language.
+Intuitively, \gls{ilp} considers the problem of learning a logic theory, a set of clauses, predicting the target predicate.
+
+More specifically, \gls{ilp} is defined as follows
+
+\begin{definition}{(\gls{ilp} learning task)}
+	
+	
+\textbf{Given}
+ a set of positive $\mathcal{E}^+$ and negative $\mathcal{E}^-$ examples, $\mathcal{E} = \mathcal{E}^+ \cup \mathcal{E}^-$ ,
+ a language bias $\mathcal{L}$ -- a language of clauses,
+ a covers relation $c$,
+ a background knowledge or theory $\mathcal{B}$,
+
+
+\textbf{Find} a set of clauses $\mathcal{T} \subset \mathcal{L}$ such that $\mathcal{T}$ (together with $\mathcal{B}$) covers all positive and no negative examples
+
+\end{definition}
+
+
+
+Several components form an ILP problem.
+First, there are positive and negative examples; going back to our \textit{pet} example, positive examples would be pets we previously liked, while the negative examples would be pets we would not like to purchase again.
+Second, a typical \gls{ilp} learner requires a specification how to construct candidate clauses.
+This is known as \textit{language bias}, and it is usually specified in a form of syntactic constraints on candidate formulas.
+For instance, one can use only clauses with at most 3 literals in a body and at most 3 distinct logical variables.
+Third, one has to provide a \textit{covers} relation.
+Intuitively, \textit{covers} relation specifies how do we use a theory to make predictions about the examples.
+Typical choice in \gls{ilp} is to use \textit{entailment} as \textit{covers} relation:
+
+\begin{definition}{(Entailment)}
+	Let $\mathcal{C}$ be a set of clauses and $c$ be a clause (a fact in our case). $\mathcal{C}$ \textit{logically entails} $c$, $\mathcal{C} \models c$, if and only if all models of $\mathcal{C}$ are also models of $c$. 
+\end{definition}
+Fourth, \textit{background knowledge} or \textit{theory} represent either any additional knowledge one might have about the examples.
+In our pet example, the background knowledge consists of the information about diet, playfulness and biting habits of potential pets.
+Additionally, background knowledge can contain additional \textit{rules} encoding experts knowledge, for instance: \textit{an animal that bites is potentially aggressive}.
+
+
 
 
 \subsection{Learning as Search}
 
-% TODO: illustrate the main loop with example
+Learning \gls{ilp} models reduces to \textit{searching trough a set of candidate clauses and identifying a few most effective ones}.
+As the space of all possible formulas would be enormous, searching it blindly would not be feasible.
+Therefore, we are forced to search the space of possibilities conservatively so that we identify good candidates as fast as possible.
+Many different \gls{ilp} algorithms have been proposed so far, but the vast majority of them follow one of the two prominent frameworks of exploring the space of candidate clauses: \textit{general-to-specific} and \textit{specific-to-general}.
 
 
-\subsubsection{Case study: TILDE}
 
-\subsubsection{Case study: Aleph}
+To understand these two learning frameworks, we need to understand two notions -- \textit{generality} and \textit{specialization}.
+
+\begin{definition}{(Generality)}
+Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$. 
+Clause $c_1$ is \textit{more general} than clause $c_2$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$. 
+\end{definition}
+
+
+
+\begin{definition}{(Specialization)}
+Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$. 
+Clause $c_2$ is \textit{specialization} of clause $c_1$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$. 
+\end{definition}
+
+
+
+
+\begin{algorithm}
+	
+	\caption{\gls{ilp} learning loop}
+	\begin{algorithmic}
+		\STATE $\text{Queue} \leftarrow \text{\textit{initialize}}$
+		\STATE $\text{Examples} \leftarrow \{\text{\ldots}\}$
+		\STATE $\text{Theory} \leftarrow \emptyset$
+		
+		\WHILE{not \textit{stop}}
+			\STATE \textit{candidate} $\leftarrow$ take from Queue
+			\IF{\textit{candidate} satisfies quality criteria}
+				\STATE Theory $\leftarrow$ Theory $\cup$ \textit{candidate}
+				\STATE $\text{Examples} \leftarrow \text{Examples} \setminus \{c(\text{\textit{candidate},Examples})\}$
+			\ELSE
+				\STATE $\text{Queue} \leftarrow \text{Queue} \cup \rho(\text{\textit{candidate}})$
+			\ENDIF
+			
+			\STATE $\text{Queue} \leftarrow \text{prune(Queue)}$
+				
+		\ENDWHILE
+		\RETURN Theory
+		
+	\end{algorithmic}
+	\label{alg:ilploop}
+\end{algorithm}
+
+
+Both framework follow the same steps, illustrated in Algorithm \ref{alg:ilploop}, and differ only in small details.
+The maintain a \textit{queue} of candidates, and iteratively test candidates from the \textit{queue}.
+If a candidate clause satisfies a certain quality criteria, it is added to the final theory and all examples it \textit{entails} are removed from the example pool.
+If a candidate does not satisfy the quality criteria, the refinements of the candidate (obtained through the $\rho$ function) are added to the candidate queue.
+Afterwards, the queue of candidates is pruned by removing unnecessary candidates.
+This procedure repeats until a certain stop criteria is met.
+
+
+
+The two frameworks differ in two main steps: initialisation of the candidate queue, and the $\rho$ function.
+The \textit{general-to-specific} approaches initialise the queue with an \textit{empty} clause and generate new candidate by adding new literals to a candidate clause, iteratively generating longer and longer clauses.
+The \textit{specific-to-general} approaches state from very specific clauses, and gradually generalise them to cover more examples.
+
+
+
+
+A wide landscape of \gls{ilp} algorithms comes from modifying these few choices choices: queue initialisation, $\rho$ function, stopping and quality criteria.
+A common choice for the stopping criteria is to stop when no more examples can be covered.
+The choice for a quality is a more difficult one, and it typically involves specifying the minimal accuracy for a clause to be acceptable, minimal number of examples to cover and so on.
+
+
+
+
+
+
 
 
 \section{Probabilistic logic programming}
 
 % TODO: motivation: logic is too strict, we can benefit from uncertainty
 
+
+
+
+
+\subsection{Problog}
+
+
+\subsection{Markov logic networks}
 
 
 
