@@ -1,0 +1,42 @@
+\chapter{Background}\label{ch:background}
+
+
+\section{Machine Learning}
+
+\section{Relational machine learning}
+
+\subsection{Clustering}
+
+A related problem is community detection \cite{Karypis:1998:FHQ:305219.305248,Fortunato201075} concerned with identifying a densely connected components in graphs.
+CURLED considers a more general problem in which \textit{disconnected} vertices (and edges) can form clusters as well.
+
+
+\section{Enhancing relational learners with clustering}
+
+Clustering has been previously recognized as an effective way of enhancing relational learners.
+\cite{Popescul2004} apply k-means clustering to instances, create predicates for new clusters and add them to the original data.
+\textit{Multiple relational clustering (MRC)} \cite{Kok2007,Kok2008} is a relational probabilistic clustering framework based on Markov logic networks \cite{Richardson2006} clustering both vertices and relationships. 
+Both approaches are instances of predicate invention \cite{Kramer1995,Craven2001}, concerned with extending the vocabulary given to a learner by discovering novel concepts in data.
+CURLED differs in several ways.
+Whereas \cite{Popescul2004} develop a method specifically  for document classification, CURLED is a general \textit{off-the-shelf} procedure that can be applied to any relational domain.
+Moreover, CUR$^2$LED clusters both instances and relations, whereas \cite{Popescul2004} cluster only instances.
+In contrast to MRC which does not put any assumptions in the model, CURLED is a more informed approach that explicitly defines different notions of relational similarity to be used for clustering.
+Though MRC was used as a component in structure learning, it does not provide new language constructs, but simplifies the search over possible formulas.
+CURLED learns a model directly from the new features.
+
+
+
+
+\section{Knowledge graph embeddings}
+
+Much of the recent work focused on  \textit{embedding} relational data into \textit{vector spaces} \cite{Nickel0TG16,DBLP:conf/nips/Niepert16,Bordes:2011:LSE,Bordes:2013:TEM,DBLP:conf/icml/NiepertAK16}.
+The essential idea behind these approaches is to map relational concepts to a low-dimensional vectors spaces, and replace logical reasoning with algebra.
+%The drawbacks of these approaches is that the latent features are not interpretable, don't preserve the relational information and require huge amounts of data.
+Rather than inventing an Euclidean space of relational instances, CURLED relies on clustering and a variety of similarity measures to create new features.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

@@ -7,7 +7,7 @@
 
 The development of the $21^{\text{st}}$ century was largely shaped by the transformative influence of information technology, and on its frontier is  Artificial intelligence (\gls{ai}).
 Ever since the development of the Google search engine at the beginning of the century, numerous \gls{ai} algorithms have been used to aid tasks typically done by humans.
-It's impact is evident in the changing landscape of today's economy.
+Its impact is evident in the changing landscape of today's economy.
 Forbes' Fortune 500 list, ranking the most successful companies worldwide, was typically dominated by oil companies in the $20^{th}$ century.
 In recent year, however, the dominion has shifted towards the It companies; among the ten most valuable companies, five are IT -- Apple, Alphabet, Microsoft, Amazon and Facebook.
 Although we can say that the \gls{ai} is the core business only for the Alphabet's subsidiary Google, \gls{ai} is present in the ever increasing number of products of the other companies.
@@ -19,12 +19,12 @@ Although we can say that the \gls{ai} is the core business only for the Alphabet
 
 
 % TODO: Despite the importance it is difficult to say What AI does - behaves intelligently
-Despite its importance, it is still difficult to say what \gls{ai} precisely is. [.......]
-
-
-
-
-Ai is a broad field including many different subfields and tasks, not all of them concerned with extracting insights from data.
+Despite its importance, it is still difficult to say what \gls{ai} precisely is. 
+One of the most common definition describes \gls{ai} as building \textit{machines that think like humans}.
+However, this definition is not operative as we still don't understand how the humans think.
+A more operative definition is that of \gls{ai} creating \textit{machines that behave intelligently}.
+This  way \gls{ai} machines only have to act intelligently and does not require understanding the human intelligence.
+\gls{ai} is a broad field including many different subfields and tasks.
 Examples include problems of planning and scheduling, automated reasoning, theorem proving, robotics, language understanding and many others.
 Many problems within AI often require a combination of different methods.
 Last decades have also witnessed many breakthrough application of AI including AlphaGo \cite{SilverHuangEtAl16nature,silver2017mastering} which has dominated the best human player in the game of Go, Watson \cite{journals/aim/FerrucciBCFGKLMNPSW10} which has defeated the top human players in the question-answering game of Jeopardy!, self-driving cars and DeepBlue \cite{Hsu:2002:BDB:601291}  which defeated the world champion in chess, Gary Kasparov.
@@ -34,14 +34,15 @@ Last decades have also witnessed many breakthrough application of AI including A
 
 
 \section{Machine learning and logic}
+\label{sec:intro_ml}
 
-\newglossaryentry{ml}{name={ML},description={Machine Learning}}
+\newglossaryentry{ml}{ name={ML}, description={Machine Learning}}
 \newglossaryentry{srl}{name={SRL},description={Statistical relational learning}}
-
+\newglossaryentry{ilp}{name={ILP},description={Inductive logic programming}}
 
 One aspect that made \gls{ai} influential is the growing number of digital devices and the amount of information they produce and store.
 If we would be able to extract useful information from the massive data, it has the potential to reveal patterns and insights about many aspects of the everyday life.
-This is similar in sense to the tests designed by psychologists and sociologists, with a difference that we don't start with designing the quoestionairre but instead  often start from the available data.\gls{ai}
+This is similar in sense to the tests designed by psychologists and sociologists, with a difference that we don't start with designing the questionairre but instead  often start from the available data.\gls{ai}
 This way \gls{ai} has changed the perspective data, which are nowadays transformed from a mare record of an event to a carrier of useful information.
 
 
@@ -66,7 +67,7 @@ A typical machine learning algorithm is given the data, inputs and desired outpu
 A huge variety of the existing machine learning algorithms differs in how they \textit{represent} the task.
 
 
-% TODO: introduce an example that covers several ways of representing the decision function
+
 \begin{table}
 	\centering
 	\caption{Example dataset}
@@ -173,12 +174,16 @@ A powerful way to overcome this representational limitations is to use \textit{p
 The field of AI combining machine learning with logic is known as \textit{Statistical relational learning} (\gls{srl}) \cite{GetoorSRL,Raedt:2016:SRA:3027718} and Inductive logic programming \cite{LucRLbook}.
 These methods combine three pillars of Artificial intelligence: it uses \textit{predicate logic} to represent complex data formats, \textit{probability theory} to capture the uncertainty of reasoning and \textit{machine learning} for learning models that leverage both logic and probability from data.
 This renders SRL methods amongst the most expressive AI methods, i.e., they can easily represent tabular data, networks and graphs as well as entire computer programs. 
+[Put illustration with Problog]
 
 
 
+\gls{srl} formalisms have given us powerful tools to represent complex models and use them for inference.
+However, learning models from scratch has proven to be a difficult task, mostly because it includes expensive inference as a sub-procedure.
+A lot of progress on learning the rules of the such logical models have been made within the \gls{ilp} community, which ignores the probabilistic aspect and focuses purely on logic.
+The key reason why learning is difficult for \gls{srl} models is that the learning task can be described as searching for the best predictive formulas.
+However, the space of all possible formulas is huge and suffers from \textit{combinatorial explosion}.
 
-
-% TODO: SRL methods have rich formalism for expressive complex problems and inference, but the learning is still difficult; therefore, RL can be helpful to simplify the learning
 
 
 
@@ -192,9 +197,9 @@ This renders SRL methods amongst the most expressive AI methods, i.e., they can 
 
 It is well known is psychology that the the ability of solving the task substantially depends on the way the task is represented.
 
-% TODO: example arabic vs roman numbers addition; connect to 
+ 
 \paragraph{Example} Consider the tasks in the Figure \ref{fig:cogease}.
-The figure gives two simple addition tasks: one with arabic and the second one with roman numbers.
+These are two simple addition tasks: one with arabic and the second one with roman numbers.
 Both task are surely sufficiently easy to solve. 
 However, paying attention to the effort it takes to solve each of the task, you will notice that solving the task on the right require more effort.
 Moreover, it will take you more time solve it than the task on left.
@@ -235,7 +240,7 @@ Without them, communication about categories as specific as penguin would be ted
 
 All of the examples above point to the same conclusion -- \textit{representation matters} and \textit{change of representation} is an important tool of intelligence.
 The first examples illustrates how even the simplest task can be made more difficult by using different representation.
-The second example illustrates how change of representation can make a correct solution much efficient.
+The second example illustrates how change of representation can make a correct but slow solution much efficient.
 Finally, the third examples illustrates how introducing of abstract concepts makes communication more effective.
 Unfortunately, machine learning algorithms were not capable of changing the representation autonomously until very recently.
 Even the recent progress is quite limited in its scope.
@@ -247,39 +252,39 @@ Therefore, incorporating general methods for representation change into machine 
 
 
 \newglossaryentry{ann}{name={ANN},description={Artificial neural network}}
-The critical limitations of the existing representation learning we are addressing in this thesis are the following.
-First, the vast majority of representation learning approaches are based on the Artificial neural networks (\gls{ann}).
-As a consequence, the existing approaches focus almost extensively in tabular and signal-like data such as images, sound and text.
-
-However, critically accessing the current progress of representation learning methods reveals several weaknesses.
-First, the existing approaches extensively focus on tabular and signal-like data, such as images, speech and text.
-Structured data, such as graphs and relational data, have only recently started to receive attention.
-Moreover, the existing approaches for representation learning with relational data focuses on inventing new ways of re-representing relational data in a tabular format.
-Second, the strong suit of logic based approaches to machine learning, besides their expressiveness, is their interpretability.
-Currently the main tool for learning representations are Artificial neural networks, which are black-box models that are very difficult, if not impossible, to interpret.
-Third, learning representations with neural networks is \textit{black magic}.
-They are universal approximators, meaning they can approximate any function, but a lot of time is spent on finding the right architecture.
-ANNS are ill fitted for structured problems. (Add )
+The critical limitations of the existing representation learning methods we address in this thesis are the  following.
+First, the vast majority of representation learning approaches are based on the formalism of Artificial neural networks (\gls{ann}).
+\gls{ann}s are known to be universal approximators, meaning that they can approximate any desired function given enough data, but are focused on tabular and signal-like data, including images, sound and text.
+There are, thus, ill-suited for relational data formats.
+Consequently, the majority of representation learning approaches for relational data focus on re-representing the data in a tabular format, which necessarily introduced the loss of information.
+Second, \gls{ann}s are by their design uninterpretable.
+Therefore, even though latent representation created by \gls{ann}s often perform quite well, it is often impossible to extract knowledge from the novel representation.
+This undermines the trust in \gls{ml} models.
+Third, learning representations with \gls{ann}s is often \textit{magic} --  the methods often have a large number of parameters, and their performance heavily depends on them.
+Unfortunately, most of the time there is no clear guidance how to chose these parameters.
 
 
 
 
 
 
-This thesis addresses the issues/limitation outline above.
-It takes the opposite direction than the existing literature on representation learning with relational data: instead of approximating the more expressive logic framework with less expressive tabular format, we will lift the ideas from the representation learning to logical framework.
+
+To overcome the issues outlined above, we take take the opposite direction than the existing literature on representation learning with relational data: instead of approximating the more expressive logic framework with less expressive tabular format, we will lift the ideas from the representation learning to logical framework.
 This view offers several benefits.
-First, it is very expressive as it uses the programming language to define the decision functions.
-Second, it is declarative.
-Third, it is interpretable.
+First, it is expressive as it uses the programming language as the representation language. 
+Using a programming language as a representation language allows us to tackle many complicated problem which cannot be expressed in single-table format.
+Moreover, programming concepts such as recursion allow us to express complicated properties in a compact manner.
+Second, it is declarative. 
+In contrast to imperative programming paradigms which specify each step towards the solution, declarative programming paradigms specify the solution and leave it to a solver to find the correct steps.
+Consequently, programs written in declarative programming languages are typically much shorter than the ones written in the imperative paradigms.
+Third, it is interpretable. [...]
 
 
 
-Our long term goal is to develop the tools that allow the methods from artificial intelligence and machine learning to 
-
-
-
-In this thesis we focus on the following research question:
+Our long term goal is to develop the tools that allow \gls{ml} methods, in particular the ones within the \gls{srl} and \gls{ilp} literature, to change the representation on demand.
+This will significantly reduce the effort needed from a human expert in order to find informative features for the task.
+Moreover, as the goal of \gls{ai} is to develop autonomous \textit{intelligent agents} [norving and rusell] capable of acting independently in the world, the ability to change the representation for the given task is an important part of it.
+To contribute to the goal, this thesis explores different ideas approaching the following research question: 
 
 \begin{quote}
 	How can we lift the existing representation learning techniques to the rich knowledge representation framework of predicate logic?
@@ -289,7 +294,6 @@ In this thesis we focus on the following research question:
 
 
 
-% TODO: long term objective - SRL systems that can change the representation of the task that suits them the best
 
 
 
@@ -377,6 +381,7 @@ This chapter is based on the following publications:
 The following chapters explore different ideas towards learning relational latent features.
 \textbf{Chapter \ref{ch:symmetries}} introduces the idea of using approximate symmetries in data as a latent representation of data.
 It relies on the previously introduced relational clustering framework to identify various approximate symmetries, i.e. groups of relational objects that are \textit{similar} but not \textit{identical} to each other, and treats the identified symmetries as latent features.
+Furthermore, it introduces a method for explaining the created latent features.
 \textbf{Chapter \ref{ch:alps}} introduces \textit{auto-encoding logic programs}, a declarative generalisation of the auto-encoder architecture \cite{Hinton504} that uses logic programs as a computational framework.
 It introduces a general modelling framework for auto-encoding logic programs, as well as a general solver based on the constraint satisfaction problem that learns them from the declarative models provided by the user.
 These chapters are based on the following publications:

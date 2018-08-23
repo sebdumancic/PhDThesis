@@ -1,39 +1,68 @@
 \chapter{Learning latent features by capturing approximate symmetries}\label{ch:symmetries}
 
-Every machine learning task inherently depends on the quality of provided features.
-A good set of features is thus a crucial precondition for the good performance of any classifier. 
-Yet, finding such a set in practice has proven to be a tedious and time-consuming task.
-Furthermore, substantial domain knowledge and exploration are often required.
-To address this issue,  \textit{representation learning} \cite{Bengio:2009} focuses on automatic learning of good multi-level data representations.
+This chapter explores the idea of learning relational representations by identifying symmetries in the data -- groups of relational objects \textit{similar} to each other, and using the group membership information as latent representation of data.
+The proposed approach builds upon the previously introduced relational clustering method and extends it towards the relation clustering.
+ 
 
 
-One of the prominent paradigms within representation learning, and the one this work focuses on, is unsupervised representation learning ($\mathcal{URL}$) \cite{Hinton504,Bengio07greedylayer-wise,RanzatoBL07}.
-These approaches take a \textit{generative stance} on learning a feature hierarchy and require no supervision.
+
+\section{Introduction}
+
+
+%Every machine learning task inherently depends on the quality of provided features.
+%A good set of features is thus a crucial precondition for the good performance of any classifier. 
+%Yet, finding such a set in practice has proven to be a tedious and time-consuming task.
+%Furthermore, substantial domain knowledge and exploration are often required.
+%To address this issue,  \textit{representation learning} \cite{Bengio:2009} focuses on automatic learning of good multi-level data representations.
+
+
+\newglossaryentry{url}{name={URL},description={Unsupervised Representation Learning}}
+The prominent paradigm within representation learning this works focuses on is unsupervised representation learning (\gls{url}) \cite{Hinton504,Bengio07greedylayer-wise,RanzatoBL07}.
+These approaches take a \textit{generative stance} on learning a feature hierarchy, meaning that they do not require any supervision.
 As supervision is ignored, the obtained representation are not tailored for one specific task but can rather be shared among multiple tasks.
 Intuitively, these methods find useful features by compressing the original data by means of a  multiple-clustering procedure, in which an instance can belong to more than one cluster.
 The obtained features indicate cluster assignments of instances and, thus, a classifier learns from cluster memberships instead of the original data.
 
 
-One major limitation of the existing approaches is that they focus on vectorized data representations.
-Hence, the ubiquitous and abundant structured and relational data, which additionally describes relationships between instances, are not well supported. 
-This data is often viewed as a hypergraph\footnote{A hypergraph is a graph in which edges can connect more than two vertices.}, in which instances form vertices and their relationships form hyperedges.
-Such data emerges in many real-life problems.
-For instance, chemical and biological data describing molecules or protein interaction networks are naturally expressed in graph-structured formats.
-In social networks, many instances interact with each other.
-Relational data is commonly expressed in \textit{predicate logic}, a powerful language unifying the representation of vectors, graphs and sequences.
-This, consequently, subsumes any data stored in a relational database.
+%One major limitation of the existing approaches is that they focus on vectorized data representations.
+%Hence, the ubiquitous and abundant structured and relational data, which additionally describes relationships between instances, are not well supported. 
+%This data is often viewed as a hypergraph\footnote{A hypergraph is a graph in which edges can connect more than two vertices.}, in which instances form vertices and their relationships form hyperedges.
+%Such data emerges in many real-life problems.
+%For instance, chemical and biological data describing molecules or protein interaction networks are naturally expressed in graph-structured formats.
+%In social networks, many instances interact with each other.
+%Relational data is commonly expressed in \textit{predicate logic}, a powerful language unifying the representation of vectors, graphs and sequences.
+%This, consequently, subsumes any data stored in a relational database.
+
+
+An interesting view on many of the \gls{url} methods is that of \textit{producing latent representation by clustering}.
+For instance, auto-encoders and Restricted Boltzmann machines typically produce a sparse latent representation where each example has a small number of \textit{activated} latent features.
+This can be seen as assigning examples to multiple clusterings. 
+
+
+A particularly interesting approach is a general pipeline for learning a feature hierarchy by means of clustering \cite{coates2011analysis} (Figure \ref{fig:kmeansh}).
+Assuming a spatial order of features (i.e., pixels), the introduced framework (i) extracts image patches, i.e., subsets of pixel from the original images candidating as a potential high-level feature, (ii) pre-processes each patch (e.g. normalisation), and (iii) learns a feature-mapping by clustering image patches.
+The authors show that such general procedure with a simple k-means algorithm can perform as well as the specialised algorithms, such as auto-encoders and  Restricted Boltzmann machines.
+An interesting part about this approach is that it does not require any new algorithm, but a simple adaptation of a method present in machine learning since '60s \cite{kmeans}.
 
 
 
-Here we focus on the problem of \textit{unsupervised} learning a \textit{feature hierarchy} with relational data.
-To this end, we introduce CURLED - a \textit{clustering-based unsupervised relational representation learning with explicit distributed representation}.
-CUTLED is inspired by the work of \cite{coates2011analysis} in which the authors introduce a general pipeline for learning a feature hierarchy by means of clustering.
-Assuming a spatial order of features (i.e., pixels), the introduced framework (i) extracts image patches, i.e., subsets of pixel from the original images candidating as a potential high-level feature, (ii) pre-processes each patch (e.g. normalization), and (iii) learns a feature-mapping by clustering image patches.
-The authors show that such general procedure with a simple k-means algorithm can perform as well as the specialized algorithms, such as auto-encoders and  Restricted Boltzmann machines.
 
 
-CURLED learns a new representation by clustering both instances and their relationships.
-A distinctive feature of  CURLED is that the relational structure is  preserved throughout the hierarchy, contrasted to the existing approaches that replace relational structures with vectors.
+\begin{figure}
+	\medskip
+	\centering
+	\includegraphics[width=.9\linewidth]{kmeanshierarchy}
+	\caption{Learning latent feature with k-means}
+	\label{fig:kmeansh}
+\end{figure}
+
+
+
+\newglossaryentry{curled}{name={CUR$^2$LED},description={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation}}
+%Here we focus on the problem of \textit{unsupervised} learning a \textit{feature hierarchy} with relational data.
+This work introduces \gls{curled} - a \textit{clustering-based unsupervised relational representation learning with explicit distributed representation}, inspired by the work of \cite{coates2011analysis}.
+\gls{curled} learns a new representation by clustering both instances and their relationships.
+A distinctive feature of  \gls{curled} is that the relational structure is  preserved throughout the hierarchy, contrasted to the \gls{kge} approaches that replace relational structures with vectors.
 Another distinctive feature is the notion of \textit{similarity interpretation}.
 When clustering relational data, a similarity of relational objects is an ambiguous concept.
 Two relational objects might be similar according to their attributes, relationships, or a combination of both.
@@ -41,7 +70,7 @@ The notion of similarity interpretation precisely states the exact source of sim
 
 
 
-CURLED exploits this ambiguity to its advantage by using the similarity interpretations to encode a \textit{distributed representation} of data -- one of the pillars underlying the success of representation learning methods.
+\gls{curled} exploits this ambiguity to its advantage by using the similarity interpretations to encode a \textit{distributed representation} of data -- one of the pillars underlying the success of representation learning methods.
 Intuitively, it refers to a concept of  reasonably-sized representation that captures a huge number of possible configurations \cite{Bengio2013RLR}.
 In contrast to the one-hot representations which require $N$ parameters to represent $N$ regions,  distributed representations require $N$ parameters to represent up to $2^N$ regions.
 The main difference is that a concept within a distributed representation is represented with several independently manipulated factors, instead of exactly one factor as with one-hot representations.
@@ -50,7 +79,14 @@ The similarity interpretation defines the exact factors that can be manipulated 
 
 
 
-The contributions of this paper include (i)  a general framework for learning relational feature hierarchies by means of clustering, (ii) a principled way of generating distributed relational representations based on different similarity interpretations, (iii) a general framework for hyperedge clustering and (iv) the experimental evaluation of the proposed framework.
+The contributions of this work include
+\begin{itemize}
+	\item[(i)] a general framework for learning relational feature hierarchies by means of clustering
+	\item[(ii)] a principled way of generating distributed relational representations based on different similarity interpretations
+	\item[(iii)] a general framework for hyperedge clustering, and 
+	\item[(iv)] the experimental evaluation of the proposed framework.
+\end{itemize}
+
 
 
 \section{Representation Learning via Clustering}
@@ -63,27 +99,27 @@ The complexity of relational data causes several issues in devising a general re
 In the i.i.d. case (drawn independently from the same population), the dataset contains only instances and their features, thus, one clusters the instances.
 However, relational data additionally describes relationships among instances and  varies from a single large network of many interconnected entities (a \textit{mega-example}) to a set of many disconnected networks where each network is an example.
 Ideally, one would address both cases.
-CURLED assumes that relational data is provided as a labelled hypergraph, where examples form vertices and relations between them form hyperedges, and does not make a distinction between the above-mentioned cases.
+\gls{curled} assumes that relational data is provided as a labelled hypergraph, where examples form vertices and relations between them form hyperedges, and does not make a distinction between the above-mentioned cases.
 Formally said, the data structure is a typed, labelled hypergraph $H = (V,E, \tau, \lambda)$ with $V$ being a set of vertices, $E$ a set of hyperedges, $\tau$  a function  assigning a type to each vertex and hyperedge, and $\lambda$ a function assigning a vector of values to each vertex. 
-CURLED learns a new representation by clustering both \textit{vertices and hyperedges in a hypergraph}.
-Considering that vertices have associated types, CURLED does not allow mixing of types, i.e., a cluster can contain only vertices of the same type.
+\gls{curled} learns a new representation by clustering both \textit{vertices and hyperedges in a hypergraph}.
+Considering that vertices have associated types, \gls{curled} does not allow mixing of types, i.e., a cluster can contain only vertices of the same type.
 The same holds for hyperedges which connect vertices of different types. 
 
 
-\begin{figure}
+\begin{sidewaysfigure}
   \centering
   \medskip
-  \includegraphics[width=.9\textwidth]{curled}
-  \caption{An illustration of CURLED procedure. The left-most figure represents a given hypergraph, where colour of a vertex indicates its feature value. The graph (i.e., vertices and edges) is then clustered according to different similarity interpretations. The upper clustering is based on vertex attributes: the vertices are clustered into \textit{red} and \textit{black} ones, while the edges are clustered according to the colour of the vertices they connect. The bottom clustering is based on the structure of the neighbourhoods. The vertices are clustered into a group that have only \textit{black} neighbours (\{{\tt1}\}), only \textit{red} neighbours (\{{\tt 6,7}\}), and neighbours of both colours (\{{\tt 2,3,4,5}\}). The edges are clustered into a group of edges connecting \textit{black} vertices with only \textit{black} neighbours and \textit{black} vertices with \textit{red} neighbours (\{{\tt1-2,1-3}\}), a group of edges connecting \textit{red} vertices with only \textit{red} neighbours to \textit{red} vertices with neighbours of both colour (\{{\tt6-7}\}), and so on. The final step transforms the obtained clusterings into a relational representation. The procedure can further be repeated to create more layers of features. }
+  \includegraphics[width=.99\textwidth]{curled}
+  \caption{An illustration of \gls{curled} procedure. The left-most figure represents a given hypergraph, where colour of a vertex indicates its feature value. The graph (i.e., vertices and edges) is then clustered according to different similarity interpretations. The upper clustering is based on vertex attributes: the vertices are clustered into \textit{red} and \textit{black} ones, while the edges are clustered according to the colour of the vertices they connect. The bottom clustering is based on the structure of the neighbourhoods. The vertices are clustered into a group that have only \textit{black} neighbours (\{{\tt1}\}), only \textit{red} neighbours (\{{\tt 6,7}\}), and neighbours of both colours (\{{\tt 2,3,4,5}\}). The edges are clustered into a group of edges connecting \textit{black} vertices with only \textit{black} neighbours and \textit{black} vertices with \textit{red} neighbours (\{{\tt1-2,1-3}\}), a group of edges connecting \textit{red} vertices with only \textit{red} neighbours to \textit{red} vertices with neighbours of both colour (\{{\tt6-7}\}), and so on. The final step transforms the obtained clusterings into a relational representation. The procedure can further be repeated to create more layers of features. }
   \label{fig:curled}
-\end{figure}
+\end{sidewaysfigure}
 
 
 \textbf{(2)}
 The features are the only source of similarity between instances in the i.i.d. data.
 In the relational context, a similarity is an ambiguous notion that can originate in the  features of relational objects, structures of their neighbourhoods (both feature- and relationship-wise), interconnectivity or graph proximity, just to name a few.
-Furthermore, which interpretation is needed for a particular task is not known in advance, making $\mathcal{URL}$ inherently more difficult.
-To find a representation effective for many tasks, CURLED addresses \textit{multiple interpretations of relational similarity simultaneously.}
+Furthermore, which interpretation is needed for a particular task is not known in advance, making \gls{url} inherently more difficult.
+To find a representation effective for many tasks, \gls{curled} addresses \textit{multiple interpretations of relational similarity simultaneously.}
 How exactly that is achieved is discussed in the next section, together with a similarity measure used for this purpose.
 
 
@@ -94,9 +130,9 @@ How to automatically construct such hierarchies is currently under-explored.
 Consequently, the performance of these methods is sensitive to the parameter setting, requiring substantial expertise in order to choose the optimal number of features.
 This constitutes a major bottleneck for relational \textit{type-aware} feature hierarchies, as separate values should be chosen for each type in data (and combination thereof for hyperedges).
 
-To tackle this infeasibility, CURLED builds upon a vast literature on \textit{the clustering selection problem} \cite{Arbelaitz:2013}, which is concerned with the selection of optimal number of clusters from data.
+To tackle this infeasibility, \gls{curled} builds upon a vast literature on \textit{the clustering selection problem} \cite{Arbelaitz:2013}, which is concerned with the selection of optimal number of clusters from data.
 This automatic clustering selection strategies mitigate the problem of the manual specification of feature hierarchies.
-CURLED leverages  two distinct approaches: \textit{(1) a difference-like criterion} \cite{Vendramin:2010}, and \textit{(2) a quality based criterion of Silhouette index} \cite{Rousseeuw:1987}.
+\gls{curled} leverages  two distinct approaches: \textit{(1) a difference-like criterion} \cite{Vendramin:2010}, and \textit{(2) a quality based criterion of Silhouette index} \cite{Rousseeuw:1987}.
 
 
 Difference-like criteria assess relative improvements on some relevant characteristic of the data (e.g. within-cluster similarity) over a set of successive data partitions produced by gradually increasing the number of clusters ($N$).
@@ -131,7 +167,7 @@ We refer to the cluster-induced representation as a $\mathcal{C}$-representation
 
  
 The introduced pipeline is illustrated in Figure~\ref{fig:curled}.
-CURLED specified thus far describes a \textit{meta-procedure} how to use any clustering algorithm to obtain a latent representation.
+\gls{curled} specified thus far describes a \textit{meta-procedure} how to use any clustering algorithm to obtain a latent representation.
 In the experiments we use spectral and hierarchical clustering.
 
 
@@ -140,38 +176,39 @@ In the experiments we use spectral and hierarchical clustering.
 \label{sec:Clustering}
 
 
-CURLED relies on ReCeNT introduce previously, a relational clustering framework focused on clustering vertices in a hypergraph.
+\gls{curled} relies on the previously introduced approach ReCeNT.
 What makes ReCeNT an attractive relational clustering framework is the wide range of similarities it considers.
-Furthermore, which similarity is used is easily adaptable with just a few parameters.
-We provide a concise and intuitive description here, and refer the reader to the original paper for the details.
-
-
-The core concept of ReCeNT is a \textit{neighbourhood tree} (NT).
-The NT is a rooted directed graph describing a neighbourhood of a certain vertex in the hypergraph.
-It provides a summary of all paths that can be taken, starting from that particular vertex.
-The depth of a NT, i.e., how many vertices a path can contain excluding the root vertex, is pre-specified.
-ReCeNT compares two vertices by comparing their NTs.
-
-
-
-This comparison is achieved by first decomposing the NT into different multisets.
-The multiset $V^l_{t}(g)$ contains all vertices of type $t$ at distance $l$ of a particular NT $g$.
-$E^l(g)$ is the multiset of hyperedge labels between vertices of distances $l$ and $l+1$.
-Finally, $B^l_{t,a}(g)$ is the multiset of values of attribute $a$ observed among the nodes of type $t$ at distance $l$.
-Using only these three types of multisets, one can express a wide range of similarities.
-What ReCeNT considers are:
-\begin{enumerate}
-    \item the similarity of the root vertices in terms of attribute values, by means of $B^0_{t,a}$ 
-    \item the similarity of attribute values of the neighbouring vertices, by means of $B^{l>0}_{t,a}$ 
-    \item the connectivity of the root vertices, by means of $V^l_t$ 
-    \item the similarity of neighbourhoods in terms of the vertex identities, by means of $V^l_t$ 
-    \item the similarity of hyperedge labels of two neighbourhoods, by means of $E^l$.
-\end{enumerate}
-
-
-Each of the components represents a distinct notion of similarity.
 We will refer to them as \textit{core similarities}.
-These core similarities can further be combined to represent more complex similarities.
+Furthermore, which similarity is used is easily adaptable with just a few parameters.
+%We provide a concise and intuitive description here, and refer the reader to the original paper for the details.
+
+
+%The core concept of ReCeNT is a \textit{neighbourhood tree} (NT).
+%The NT is a rooted directed graph describing a neighbourhood of a certain vertex in the hypergraph.
+%It provides a summary of all paths that can be taken, starting from that particular vertex.
+%The depth of a NT, i.e., how many vertices a path can contain excluding the root vertex, is pre-specified.
+%ReCeNT compares two vertices by comparing their NTs.
+
+
+
+%This comparison is achieved by first decomposing the NT into different multisets.
+%The multiset $V^l_{t}(g)$ contains all vertices of type $t$ at distance $l$ of a particular NT $g$.
+%$E^l(g)$ is the multiset of hyperedge labels between vertices of distances $l$ and $l+1$.
+%Finally, $B^l_{t,a}(g)$ is the multiset of values of attribute $a$ observed among the nodes of type $t$ at distance $l$.
+%Using only these three types of multisets, one can express a wide range of similarities.
+%What ReCeNT considers are:
+%\begin{enumerate}
+%    \item the similarity of the root vertices in terms of attribute values, by means of $B^0_{t,a}$ 
+%    \item the similarity of attribute values of the neighbouring vertices, by means of $B^{l>0}_{t,a}$ 
+%    \item the connectivity of the root vertices, by means of $V^l_t$ 
+%    \item the similarity of neighbourhoods in terms of the vertex identities, by means of $V^l_t$ 
+%    \item the similarity of hyperedge labels of two neighbourhoods, by means of $E^l$.
+%\end{enumerate}
+
+
+%Each of the components represents a distinct notion of similarity.
+%We will refer to them as \textit{core similarities}.
+%These core similarities can further be combined to represent more complex similarities.
 
 
 \subsection{Hyperedge Similarity}
@@ -224,6 +261,32 @@ For example, setting $w_1 = 1, w_{2,3,4,5} = 0$ uses only the attributes of vert
 Setting $w_3 = 1, w_{1,2,4,5} = 0$ on the other hand would identify clusters as a densely connected components. 
 As the similarity interpretation is provided by the user, we say it \textit{explicitly} defines the distributed representation.
 
+
+
+
+\section{Related Work}
+\label{sec:Related}
+
+Clustering has been previously recognized as an effective way of enhancing relational learners.
+\cite{Popescul2004}  apply k-means clustering to instances, create predicates for new clusters and add them to the original data.
+\textit{Multiple relational clustering (MRC)} \cite{Kok2007,Kok2008} is a relational probabilistic clustering framework based on Markov logic networks \cite{Richardson2006} clustering both vertices and relationships. 
+Both approaches are instances of predicate invention \cite{Kramer1995,Craven2001}, concerned with extending the vocabulary given to a learner by discovering novel concepts in data.
+\gls{curled} differs in several ways.
+Whereas \cite{Popescul2004} develop a method specifically  for document classification, \gls{curled} is a general \textit{off-the-shelf} procedure that can be applied to any relational domain.
+Moreover, CUR$^2$LED clusters both instances and relations, whereas \cite{Popescul2004} cluster only instances.
+In contrast to MRC which does not put any assumptions in the model, \gls{curled} is a more informed approach that explicitly defines different notions of relational similarity to be used for clustering.
+Though MRC was used as a component in structure learning, it does not provide new language constructs, but simplifies the search over possible formulas.
+\gls{curled} learns a model directly from the new features.
+
+
+A related problem is community detection \cite{Karypis:1998:FHQ:305219.305248,Fortunato201075} concerned with identifying a densely connected components in graphs.
+\gls{curled} considers a more general problem in which \textit{disconnected} vertices (and edges) can form clusters as well.
+
+
+Much of the recent work focused on  \textit{embedding} relational data into \textit{vector spaces} \cite{Nickel0TG16,DBLP:conf/nips/Niepert16,Bordes:2011:LSE,Bordes:2013:TEM,DBLP:conf/icml/NiepertAK16}.
+The essential idea behind these approaches is to map relational concepts to a low-dimensional vectors spaces, and replace logical reasoning with algebra.
+%The drawbacks of these approaches is that the latent features are not interpretable, don't preserve the relational information and require huge amounts of data.
+Rather than inventing an Euclidean space of relational instances, \gls{curled} relies on clustering and a variety of similarity measures to create new features.
 
 
 \section{Experiments and Results}
@@ -369,12 +432,12 @@ Third, the choice of a clustering algorithm matters, and spectral clustering doe
 Fourth, the choice of treating hyperedges as ordered (by \textit{combination}) or unordered (\textit{merging}) sets is data-dependent, and the difference in performance is observed.
 
 
-Combining the results from \textbf{Q1}, \textbf{Q2} and \textbf{Q3} shows that \textit{the main benefit} of CURLED is \textit{the transformation of data such that it becomes easier to express complex dependencies}.
+Combining the results from \textbf{Q1}, \textbf{Q2} and \textbf{Q3} shows that \textit{the main benefit} of \gls{curled} is \textit{the transformation of data such that it becomes easier to express complex dependencies}.
 Consequently, the obtained models have lower complexities and  their performance often improves.
 
 
 \textbf{Q4.} To ensure that the previously discussed results do not over-fit the data, we additionally perform model selection.
-We dedicate one fold as the \textit{validation set}, and use the remaining folds to find the best parameter values of both CURLED and TILDE.
+We dedicate one fold as the \textit{validation set}, and use the remaining folds to find the best parameter values of both \gls{curled} and TILDE.
 Table \ref{tab:MS} summarizes the results and reports the selected choice of parameter, together with the performance on the validation set.
 These results are consistent with the ones in Table~\ref{tab:Results}: $\mathcal{C}$-representation improves the performance in the majority of cases, and the selected parameters correspond to the best performing ones in Table~\ref{tab:Results}.
 
@@ -412,27 +475,27 @@ These results are consistent with the ones in Table~\ref{tab:Results}: $\mathcal
 
 
 \textbf{Q5.}
-Table~\ref{tab:Results} shows that CURLED substantially outperforms MRC on all datasets, achieving better performance on all datasets except the IMDB.
+Table~\ref{tab:Results} shows that \gls{curled} substantially outperforms MRC on all datasets, achieving better performance on all datasets except the IMDB.
 Moreover, MRC rarely shows benefit over the original data representation, with an exception on the Hepatitis dataset.
 Considering the model complexity, the models learned on MRC-induced representation are substantially more complex than the ones learned on $\mathcal{C}$-representations.
-Table~\ref{tab:Size} summarize the number of clusters created by CURLED and MRC.
-MRC creates substantially more clusters than CURLED. 
+Table~\ref{tab:Size} summarize the number of clusters created by \gls{curled} and MRC.
+MRC creates substantially more clusters than \gls{curled}. 
 Because of this, the found clusters contain only a few objects which makes it difficult to generalize well, and increases the model complexity.
-The number of clusters found by CURLED is relatively high, because it finds a representation of data suitable for many classification tasks over the same datasets.
+The number of clusters found by \gls{curled} is relatively high, because it finds a representation of data suitable for many classification tasks over the same datasets.
 Thus, most of the features are redundant for one specific task, but clearly contain better information as the models learned on them perform better and have lower complexity.
 
 
-The computational complexity of CURLED is impossible to state in general, as it depends on the choice of (and is dominated by) the clustering algorithm.
+The computational complexity of \gls{curled} is impossible to state in general, as it depends on the choice of (and is dominated by) the clustering algorithm.
 Performing a 5-fold cross validation on a single CPU took approximately 5 minutes for the IMDB and UWCSE datasets, 24 hours for the Terrorists dataset and approximately a week for the remaining datasets.
 Though expensive, latent representation has to be created only once and can be reused for many tasks with the same dataset.
-Moreover, CURLED is easily parallelizable which can substantially improve its efficiency.
+Moreover, \gls{curled} is easily parallelized which can substantially improve its efficiency.
 
 
 \begin{table}[t]
 \captionsetup{justification=centerlast}
 \begin{center}
 \footnotesize
-\caption{Vocabulary sizes. M indicates MRC, while S and H indicate CURLED representations with spectral and hierarchical clustering, respectively. Vocabulary sizes obtained with \textit{merging} and \textit{combination} similarities were similar, so only the one for merging is reported. }
+\caption{Vocabulary sizes. M indicates MRC, while S and H indicate \gls{curled} representations with spectral and hierarchical clustering, respectively. Vocabulary sizes obtained with \textit{merging} and \textit{combination} similarities were similar, so only the one for merging is reported. }
 \resizebox{0.98\linewidth}{!}{%
 \begin{tabular}[t]{ccccccc}
 	\toprule
@@ -473,11 +536,161 @@ Moreover, CURLED is easily parallelizable which can substantially improve its ef
 
 
 
+\section{Opening the black box of latent features}
+
+We have previously argued that the lack of interpretability of the latent features is one of the strongest weaknesses of deep learning methods.
+In this section we describe a simple method helping us understand the meaning of the latent features created by \gls{curled}.
 
 
 
 
 
+
+\subsection{Discovering the explanations of latent features}
+
+Although the latent features discovered by \gls{curled} are defined extensionally, the intuitive specification of the similarity measure (and its core similarities) makes \gls{curled} a transparent method with a clear description which elements of neighbourhood trees make two instances similar.
+Consequently, discovering the meaning of latent features is substantially easier than with the embedding approaches (and deep learning in general).
+
+Each latent feature corresponds to a cluster and the meaning of the features is reflected in the \textit{prototype} of the cluster.
+To approximate the \textit{mean} or \textit{prototypical} neighbourhood tree, we search for the elements common to all neighbourhood trees forming a cluster.
+These elements can be either attribute values, edge types or vertex identities.
+The similarity interpretations used to obtain the cluster limits which elements are considered to be a part of a definition.
+Moreover, neighbourhood trees are compared by the relative frequencies of their elements, not the existence only.
+Therefore, to find a mean neighbourhood tree and the meaning of a latent feature, we search for \textit{the elements with similar relative frequencies within each neighbourhood tree forming a cluster}.
+
+
+
+\begin{figure}[t]
+	\centering
+	\medskip
+    \includegraphics[scale=0.3]{processIllustration}
+    \caption{\textbf{Discovering the meaning of latent features by analysing their relations.} Properties that describe latent features are the ones that have similar relative frequency in all neighbourhood trees. Starting from a cluster of instances viewed as neighbourhood trees (left), the relative frequencies of elements are calculated for each neighbourhood tree (middle). Next, the mean and standard deviation of relative frequencies are calculated for each individual element within the cluster (right). Which elements \textit{explain} the latent features is decided with $\theta$-confidence. Setting $\theta$ to 0.3 identifies \texttt{advisedBy} and \texttt{teaches} as relevant elements (in black).}
+    \label{fig:Process}
+\end{figure}
+
+
+
+
+
+To identify such elements, we proceed in three steps illustrated in Figure~\ref{fig:Process}.
+\begin{enumerate}
+	\item \textbf{Calculate the relative frequencies of all elements within each individual neighbourhood tree, per level and vertex type}.
+    	In case of discrete attributes, that corresponds to a distribution of its values.
+		In case of numerical attributes, we consider its mean value.
+		In case of vertex identities and edge types, we simply look into their frequencies with respect to the depth in a neighbourhood tree.
+        In the example in Figure~\ref{fig:Process}, the neighbourhood tree for \texttt{profA} contains two \texttt{advisedBy} relations, thus its frequency is $\frac{2}{3}$.
+    \item \textbf{Calculate the mean and standard deviation of relative frequency for each element within a cluster}.
+        In Figure~\ref{fig:Process}, the frequencies of the \texttt{advisedBy} elements in individual neighbourhood trees are $\frac{2}{3}, \frac{2}{3} \text{and} \frac{1}{3}$. Thus, its mean is $0.55$ with a standard deviation of $0.15$.
+    \item \textbf{Select relevant elements.}
+    	The final step involves a decision which elements should form a definition of a latent feature.
+        Relevant elements are identified by a notion of \textit{$\theta$-confidence} which captures the allowed amount of variance in order to element to be relevant.
+\end{enumerate}
+
+
+\begin{definition}{\textbf{($\theta$-confidence)}}
+An element with mean value $\mu$ and standard deviation $\sigma$  in a cluster,  is said to be $\theta$-confident if $\sigma \in [0, \theta \cdot \mu]$.
+\end{definition}
+ 
+In Figure~\ref{fig:Process}, setting $\theta$ to 0.3 makes \texttt{advisedBy} a $0.3$-confident element, because its standard deviation of 0.15 is within the range $[0, 0.3 \cdot 0.55] = [0, 0.165]$ specified by $\theta$.
+In contrast, \texttt{member} is not a $0.3$-confident elements as its standard deviation is outside the range $[0, 0.3 \cdot 0.11] = [0, 0.0363]$.
+
+
+The above-described procedure explains the latent features in terms of distribution of the elements in the neighbourhood of an instance, which has its pros and cons.
+On the downside, this type of explanation does not conform to the standard first-order logic syntax common within relational learning.
+Despite this reduced readability, these explanations are substantially more transparent and interpretable than the ones produced by the embeddings approaches.
+However, one benefit of this approach is that it increases the expressivity of a relational learner by extensionally defining  properties otherwise inexpressible in the first-order logic.
+
+
+\subsection{A few examples}
+
+
+%We devise the experiments to answer the following question:
+
+ %\textit{Are latent features created by \gls{curled} interpretable and do they capture sensible information?}
+
+
+%The results  obtained in \gls{curled} can be divided in three categories.
+%The first category contains the IMDB and UWCSE datasets; these datasets present easy relational learning tasks in which the original data representation is sufficient for almost perfect performance.
+%The main benefit of latent representations for these tasks was the reduction of model complexity.
+%The second category includes the TerroristAttack dataset, in which the main benefit of latent representation was the reduction of complexity, but not the performance.
+%The third category involves the Hepatitis, Mutagenesis and WebKB datasets.
+%These tasks benefited from latent representations in both performance and reduced model complexity.
+%That is especially true for the Hepatitis and WebKB datasets on which the performance was improved by a large margin.
+
+
+%We take a representative task from each of the categories.
+%Precisely, we use IMDB, UWCSE, Hepatitis and TerroristAttack datasets in our experiments.
+%Both IMDB and UWCSE datasets were included as they are easy to understand without the domain knowledge, and thus useful for analysing the interpretability of relational latent features.
+%As for the parameters of latent representation, we take the best parameters on individual datasets selected by the model selection procedure in \cite{Dumancic2017}.
+%We set $\theta$ to $0.3$.
+
+
+%\subsection{Interpretability}
+
+\begin{figure}[t]
+	\centering
+	\medskip
+    \includegraphics[scale=0.3]{IMDBtrees}
+    \caption{Relational decision trees learned on the original (left) and latent (right) data representation of the IMDB dataset. The dashed ellipse indicates the target predicate and its arguments. The first argument, marked \texttt{A} and declared as input (\texttt{+}), denotes a person. The second argument, marked \texttt{B} and declared as output (\texttt{-}), states the label of the instance given by \texttt{A}. The values in the leaves of the decision trees are assignments to \texttt{B}. The dashed rectangle describes the latent feature -- for each level of the \textit{mean neighbourhood tree}, $\theta$-confident elements are listed with the mean and standard deviation.  }
+    \label{fig:IMDBtree}
+\end{figure}
+
+
+
+To illustrate the interpretability of relational features, we show examples of latent features created for two easy to interpret dataset - IMDB and UWCSE.
+We show that the relational decision trees  learned on both original and latent representations.
+The explanations of latent features are provided as well.
+
+
+
+Figure~\ref{fig:IMDBtree} shows the decision trees learned on the IMDB dataset.
+The task is to distinguish between actors and directors -- this is a simple relational learning task and both original and latent decision tree achieve the perfect performance with only a single node.
+Even though latent representation does not seem beneficial in this particular case, it is interesting to see that the selected latent feature captures the same information as the decision tree learned on the original data -- person instances in \texttt{cluster\_1} are the ones that have a relationship with \texttt{movie} instances, and have worked under another person (a director).
+
+
+
+\begin{figure}[t]
+	\centering
+	\medskip
+	\includegraphics[scale=0.28]{UWCSEtrees}
+    \caption{Relational decision trees learned on the original (left) and latent (right) representations of the UWCSE dataset. The elements have the same meanings as in Figure~\ref{fig:IMDBtree}. }
+    \label{fig:UWCSEtree}
+\end{figure}
+
+
+
+Figure~\ref{fig:UWCSEtree} shows the decision trees for the UWCSE dataset, which benefit from the latent features.
+Despite the simplicity of distinguishing students from professors, the decision tree learned on the latent features is more compact and has only a single node whereas the decision tree learned on the original features consists of three nodes.
+The latent feature here again captures similar knowledge as the original decision tree but expressed in a simpler manner -- professor is someone who either has a position at the faculty, or is connected to people who are currently in a certain phase of a study program and have been in the program for a certain number of years.
+
+
+
+
+What is particularly interesting about the examples above is that, even though the latent features are created in an unsupervised manner, they match the provided label very well.
+Moreover, they seem to almost perfectly capture the labelled information as only a few features are needed to outperform the decision tree learned on the original data representation.
+This observation shows that \gls{curled} is indeed capturing sensible knowledge in the latent space.
+
+
+
+Both aforementioned examples are easy to understand and interpret without an extensive domain knowledge.
+The other tasks that have benefited more from the latent features are substantially more difficult to understand.
+For instance, the latent features created from the Mutagenesis dataset reduce the complexity of the relational decision tree from 27 to only 3 nodes, while improving the accuracy for 4 \%.
+Similarly, on the Hepatitis dataset the latent features reduced the complexity of a decision tree from 22 nodes down to 5, improving the accuracy for 11 \%.
+Because these examples require an extensive knowledge to interpret them, we leave them out from this work.
+
+
+
+\section{Conclusion}
+\label{sec:Conc}
+
+
+This work introduces \gls{curled} - a clustering-based framework for unsupervised representation learning with relational data, which describes both instances and relationships between them.
+Viewing relational data as hypergraph, \gls{curled} learns new features by clustering both instances and their relationships. i.e., vertices and hyperedges in the corresponding hypergraph.
+To support such procedure, we introduce a general hyperedges clustering framework based on similarity of vertices participating in the hyperedge.
+A distinct feature of \gls{curled} is the way it uses the ambiguity of similarity within relational data, i.e., whether two relational objects are similar due to their features of relationships, to generate distributed representation of data.
+We design several experiments to verify the usefulness of latent representation generated by \gls{curled}.
+The results show that the latent representations created by \gls{curled} provide a better representation of data that results in models of lower complexity and better performance. 
+In future work, we will extend \gls{curled} towards semi-supervised settings, and investigate alternative ways for learning a distributed representations directly from data.
 
 
 
