@@ -5,6 +5,21 @@ This chapter focuses on analysing the properties of relational latent representa
 It starts by analysing the representations created by CUR$^2$LED and identifies two properties -- entropy and sparsity, that offer insights into why representations created by CUR$^2$LED are effective.
 The second contribution of this chapter is a systematic comparison of logic-based \gls{srl} and \gls{ilp} methods with knowledge graph embeddings on a set of standard benchmarks.
 
+This chapter is based on the following publications:
+
+\begin{quote}
+	\bibentry{Dumancic2018}
+\end{quote}
+
+\begin{quote}
+	\bibentry{AnalysisSubmitted}
+\end{quote}
+
+\section{Introduction}
+
+
+A common criticism of deep learning is that 
+
 
 
 \section{Why are CUR$^2$LED representations effective?}
@@ -207,158 +222,155 @@ However, similar kind of analysis for embedding spaces is currently missing in t
 Further research towards combining relational and deep learning methods might greatly benefit from understanding up- and downsides of both directions of research, and developing new ideas that combine advantages of both.
 
 
+
+
+
+
 \section{On embeddings as an alternative paradigm for relational learning}
 
 
-%Learning from complex relational domains, where data contains instances and their mutual relationships, has typically been the focus of logic and graph-based machine learning methods.
-%\textit{Statistical relational learning} (SRL)  \cite{Getoor:2007,Raedt:2016:SRA:3027718} uses the representational and reasoning framework of first-order logic to compactly represent such data, and combines it with probabilistic graphical models to facilitate reasoning under uncertainty.
-%As first-order logic is a very general representation language, it serves as a unifying representational framework for many tasks such as classification, clustering, link prediction, and probabilistic modelling.
-%\textit{Graph mining} (GM) approaches  \cite{Chakrabarti:2006:GML:1132952.1132954} approach relational data as graph-structured data.
+Learning from complex relational domains, where data contains instances and their mutual relationships, has typically been the focus of the symbolic machine learning methods.
+Symbolic \textit{Statistical relational learning} (SRL)  \cite{GetoorSRL,Raedt:2016:SRA:3027718} uses the representational and reasoning framework of first-order logic to compactly represent such data, and combines it with probabilistic graphical models to facilitate reasoning under uncertainty.
+As first-order logic is a very general representation language, it serves as a unifying representational framework for many tasks such as classification, clustering, link prediction, and probabilistic modelling.
+\textit{Graph mining} (GM) approaches  \cite{Chakrabarti:2006:GML:1132952.1132954} approach relational data as graph-structured data.
 
 
-\textit{Representation learning} for relational data has shown promising results for specific relational tasks such as knowledge base completion~\cite{Nickel0TG16}.
-Knowledge graph embedding (KGE) methods take a radically different approach from the symbolic methods, and aim to represent instances and their relationship as vectors and/or matrices in the Euclidean space.
+
+
+Recent years have yielded a novel \textit{distributional} paradigm within the SRL community, \textit{Knowledge graph embeddings} (KGEs)~\cite{EmbeddingsOverview} inspired by the recent success of deep neural networks and representation learning. 
+These representation learning methods for relational data have shown promising results for specific relational tasks such as knowledge base completion (KBC)~\cite{Nickel0TG16}.
+KGEs take a radically different approach from the symbolic methods, and aim to \textit{re-represent} instances and their relationships as vectors and/or matrices in the Euclidean space.
 Intuitively, KGEs introduce a novel view on relational propositionalization \cite{Kramer2001}.
 The hope is that the geometry of the embedding space would resemble the structure of the data by, for example, keeping the instances participating in the same relationships close in the Euclidean space.
 This in turn allows one to apply standard propositional machine learning tools and retain their scalability, while at the same time preserving certain properties of structured relational data.
-These methods have proven to be very effective for the task of knowledge graph completion, where the goal is to identify missing links in the existing knowledge graph. They have also proven to be scalable to very large knowledge graphs.
-
-
-Motivated by the success of KGE methods, there has been some recent work on combining more traditional logic-based SRL with representation learning methods.
-\cite{Sourek:2015:LRN:2996831.2996838}   introduce a relational extensions of neural networks (NN) by developing a template language for constructing neural networks from logical rules and data.
-\cite{Kazemi2018} take a different view on relational NNs by means of the the relational logistic regression \cite{KazemiLR2014}.
-\cite{Dumancic2017} introduced a task-agnostic relational latent feature learning pipeline based on clustering that can be combined with any relational learner.
+These methods have proven to be very effective for the task of knowledge graph completion, where the goal is to identify missing links in the existing knowledge graph. 
+They have also proven to be scalable to very large knowledge graphs.
 
 
 
 
 
 Unfortunately, these research directions have largely been developed in isolation and little understanding is currently available on the relative advantages of the respective approaches.
-Not only do they focus on different tasks but also different evaluation metrics.
-\gls{kge} methods, also referred to as \textit{latent feature models}, typically focus on knowledge graph completion which requires very simple forms of relational reasoning. The evaluation metrics are often measuring the quality of rankings generated by the respective scoring functions. 
-\gls{srl} methods, also referred to as \textit{observed feature models}, typically focus on learning from small relational data, employing more complex forms of logical reasoning.
-
-
-The focus of these methods already outlines the basic understanding of their limitations.
-A major advantage KGE methods is their scalability -- they easily operate on knowledge graphs with millions of facts and thousands of relations.
-The main drawbacks of KGE methods are the black-box nature, limited reasoning on local information, and the difficulty of handling unseen instances.
-\gls{srl} methods are capable of capturing very complex relational patterns, are interpretable, and generalize beyond seen data. Unfortunately, both inference and learning in SRL is highly complex, limiting its applicability.
+The major strength of KGEs is their scalability -- they easily operate on knowledge graphs with millions of facts and thousands of relations, and the similarity of symbols emerging from the Euclidean space.
+As they essentially \textit{vectorize} the data, the scalability of KGEs benefits from very fast computational frameworks leveraging the strengths on GPUs.
+Symbolic SRL methods, on the other hand, are capable of capturing very complex relational patterns, are interpretable and flexible reasoning systems -- once the model of the domain is obtained, a user can pose any query w.r.t. the model and does not have to commit to a predefined target.
 
 
 
-In this work, we systematically compare KGE and logic-based SRL methods on standard relational classification and clustering tasks. We hope this contributes to a better understanding of their relative strengths and weaknesses. We focus on standard relational data sets as they offer more variety of tasks and reasoning complexity. We include both quantitative, in terms of performance, and qualitative analysis, in terms of extracted patterns of reasoning, in order to gain more insights into the suitability of these different methods. 
+The major weakness of KGEs is that vectorization of complex relational data is necessarily an \textit{approximation} of it, not the exact re-representation.
+We currently lack any measure of the quality of such mapping.
+Furthermore, KGEs are black-box and uninterpretable, limited reasoning capabilities focused on local information, and have difficult time handling unseen instances.
+The weakness of the symbolic SRL methods is that both inference and learning with such methods is highly complex, limiting its applicability, as well as lack of ways to represent similarity between symbols.
+
+
+
+The two respective branches also focus on different tasks.
+KGE methods typically focus on knowledge graph completion which requires very simple forms of relational reasoning. The evaluation metrics are often measuring the quality of rankings generated by the respective scoring functions.
+Symbolic SRL methods typically focus on learning from small relational data, employing more complex forms of logical reasoning.
+
+
+
+
+The SRL community has recognised the strengths of both research directions, resulting in several works combining the symbolic and distributional ideas.
+Several works~\cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted} impose various logical properties as constraints on the embeddings spaces.
+Sourek et al (\cite{Sourek:2015:LRN:2996831.2996838})  introduce a relational extensions of neural networks by developing a template language for constructing neural networks from logical rules and data.
+Kazemi and Poole (\cite{Kazemi2018}) take a different view on relational NNs by means of the relational logistic regression \cite{KazemiLR2014}.
+Dumancic and Blockeel (\cite{Dumancic2017}) introduced a task-agnostic relational latent feature learning pipeline based on clustering that can be combined with any relational learner.
+Rockt\"{a}schel and Riedel (\cite{DTP2017}) introduce a differentiable version of the Prolog backward chaining reasoning algorithm.
+
+
+
+This work contributes towards better understanding of the relative strengths and weaknesses of the aforementioned paradigms.
+We perform a systematics comparison of KGEs and symbolic SRL approaches on various standard relational classification, as well as the knowledge base completion tasks.
+Standard relational classification datasets offer variety of tasks requiring various level of reasoning complexity, while standard KBC datasets offer insights on real-life large knowledge graphs.
+We include both quantitative, in terms of performance, and qualitative analysis, in terms of extracted patterns of reasoning, in order to gain more insights into the suitability of these different methods.
+
+
+
+
  
 
 
 
 
+\subsection{Comparing symbolic and distributional methods}
+
+
+AS stated before, the current understanding of the relative strengths and weaknesses of KGEs and symbolic SRL methods in very limited.
+Several works, however, do offer interesting insights.
+Nickel et al. (\cite{NickleNIPS2014}) and Toutanova and Chen (\cite{toutanova2015observed}) show that including both latent features from KGEs and the observable features, in form of random walks over knowledge graphs, in a join model can greatly increase the performance and reduce the learning complexity.
+Pujara et al. (\cite{pujara:emnlp17}) show that KGEs have difficulties handling data with high degree of sparsity and noise -- which is the case with every automatically created knowledge graph.  
+Grefenstette (\cite{GrefenstetteTFDS}) introduces a formula framework for simulating logical reasoning through tensor calculation, which can be seen as a form of embeddings that does not require learning.
+
+
+The work most related to ours is that of Toutanova and Chen (\cite{toutanova2015observed}) and Vig et al. (\cite{VigILP2017}).
+Toutanova and Chen compare KGEs with a simple method that takes the types of incoming edges in a knowledge graph as features (termed observable patterns), and show that such simple observable patterns outperform KGEs on some datasets.
+However, they offer no greater insight in possible reasons.
+Vig et al.  compare symbolic SRL methods with embeddings obtained by the Siamese neural network~\cite{Bromley:1993:SVU:2987189.2987282}, and focus on analysing the impact of the available \textit{background knowledge} on the performance.
+Their results indicate that KGEs might be beneficial when the background knowledge about the tsk at hand is limited, but is such knowledge is available then the symbolic methods are preferable.
+Out work presented in this paper differs in a way that it goes beyond quantitative analysis and includes substantial qualitative analysis w.r.t. the complexity of reasoning needed to address the task.
 
 
 
+\subsection{Aims, Materials and Methods}
 
-%%%%%%%%%%%%%%%%%%
-%
-%	RELATED WORK
-%
-%%%%%%%%%%%%%%%%%%
-\subsection{What do we know so far?}
+The main goal of this study is to identify the strengths and weaknesses of  \gls{kge} and symbolic \gls{srl} approaches to learning and reasoning with relational data.
+Concretely, we focus on the following question:
 
-%\paragraph{Knowledge graph embeddings}
+\begin{displayquote}
+\textit{Are \gls{kge}s a viable alternative to symbolic methods for relational classification?}
+\end{displayquote}
 
-%Knowledge graph embeddings have emerged as an alternative paradigm for learning and reasoning with structured relational data.
-%They replace symbols, i.e. instances and their relation predicates, with vectors and matrices in Euclidean space.
-%That way the reasoning is performed through algebraic manipulations instead of more costly logical inference.
-%The underlying idea of KGE methods is to associate a score with atoms in a database.
-%Learning then consists of finding the vector representation of instances and their relations by maximizing (minimizing) the scores of the atoms in the database and minimizing (maximizing) the score of atoms not in the database.
-%Two prototypical examples are:
 %\begin{itemize}
-	%\setlength{\itemindent}{1.2cm}
-%	\item \textbf{TransE} \cite{BordesNIPS2013} which interprets relations as translations between instances in the Euclidean space. For each atom \texttt{r(h,t)}, \texttt{r} being a relation and \texttt{h} and \texttt{t} \textit{head} and \textit{tail} instances respectively, the score equals
- % 				$$ s(r,h,t) = -||\mathbf{e}_h + \mathbf{e}_r - \mathbf{e}_t ||, $$
- % 				i.e., the vector representation $\mathbf{e}_h$ of a \textit{head} instance translated by the relation vector $\mathbf{e}_r$ should be close to the vector representation $\mathbf{e}_t$ \textit{tail} instance
-%	\item \textbf{DistMult}  \cite{YangYHGD14a} which focuses on pairwise interactions of \textit{latent} features with the following score
-%				$$ s(r,h,t) = (\mathbf{e}_h \ocircle \mathbf{e}_r)\mathbf{e}_t^T $$
-%				where $\ocircle$ is an element-wise product.
+%	\setlength{\itemindent}{1em}
+%	\item[\textbf{Q1}] \textit{Are KGEs a viable alternative to logic-based methods for relational classification?}
+%	\item[\textbf{Q2}] \textit{Are KGEs a viable alternative for relational clustering methods?} 
 %\end{itemize}
 
-%Checking the validity/truthfulness of any fact comes down to evaluating its score. The majority of KGE methods proposed so far \cite{EmbeddingsOverview} are a variation on the above scoring functions.
- 
+\noindent More specifically, we focus on the following task
 
+\begin{displayquote}
+\textit{Given a set of \textbf{target instances} (entities in a knowledge base), learn a model that predicts the value of the labels associated with those instances. We consider fully relational models learning the logical theory for predicting the labels, and a feature based models learning from the vector representation of target instances.}
+\end{displayquote}
 
+%\begin{itemize}
+%    \setlength{\itemindent}{1em}
+%    \item[\textbf{T1}] Given a set of \textit{target instances} (entities in a knowledge base), learn a model that predicts the value of the labels associated with those instances. We consider fully relational models learning the logical theory for predicting the labels, and a feature based models learning from the vector representation of target instances.
+%    \item[\textbf{T2}] Given a set of instances of a specific type or domain, group them into a pre-specified number of groups. We consider methods operating on logical representation of data as well as those operating on the vector representation of instances.
+%\end{itemize}
 
-
-Understanding of advantages and disadvantages of KGE and logic-based SRL methods is currently very limited.
-\cite{NickleNIPS2014} show that including both observable patterns, in form of random walks over a knowledge graph, and latent features from KGEs can greatly increase their performance and reduce the learning complexity.
-\cite{pujara:emnlp17} show that KGEs have difficulties handling data with high degree of sparsity and noise -- which is the case with every automatically created knowledge graph.  
-Finally, \cite{VigILP2017} show that KGE could be beneficial when the background knowledge about the task at hand is limited, but if such knowledge is available then the SRL methods are preferable.
-\cite{GrefenstetteTFDS}  introduces a formal framework for simulating logical reasoning through tensor calculation.
-
-
-
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%
-%
-%	METHODOLOGY
-%
-%%%%%%%%%%%%%%%%%
-\subsection{Methodology}
-
-The main goal of this study is to identify the strengths and weaknesses of  KGE and logic-based SRL approaches to learning and reasoning with relational data.
-Concretely, we focus on the following questions:
-\begin{itemize}
-	\setlength{\itemindent}{1em}
-	\item[\textbf{Q1}] \textit{Are KGEs a viable alternative to logic-based methods for relational classification?}
-	\item[\textbf{Q2}] \textit{Are KGEs a viable alternative for relational clustering methods?} 
-\end{itemize}
-
-More specifically, we focus on the following tasks:
-\begin{itemize}
-    \setlength{\itemindent}{1em}
-    \item[\textbf{T1}] Given a set of \textit{target instances} (entities in a knowledge base), learn a model that predicts the value of the labels associated with those instances. We consider fully relational models learning the logical theory for predicting the labels, and a feature based models learning from the vector representation of target instances.
-    \item[\textbf{T2}] Given a set of instances of a specific type or domain, group them into a pre-specified number of groups. We consider methods operating on logical representation of data as well as those operating on the vector representation of instances.
-\end{itemize}
-
-Furthermore, we compare the two approaches across various tasks in order to \textit{determine under which conditions KGEs are preferable to logic-based SRL methods and vice versa}.
+Our focus is exclusively on the classification tasks as they give us a well-defined and clear performance measure, in contrast to the clustering task which is ill-defined ~\cite{Estivill-Castro:2002}.
 Given that KGEs are sensitive to the hyper-parameters, especially the size of the embeddings, we investigate the magnitude of those effects.
-Sensitivity to the hyper-parameter setup is less of a concern for classification tasks where one can use labels to tune the hyper-parameters. However, it poses a major issue for clustering tasks where no labels exists and there are no clear-cut performance criteria.
-A potential option would be to rely on certain geometric measures. These are, however, often based on various assumptions of limited generality and do not offer a performance measure such as classification accuracy~\cite{Estivill-Castro:2002}.
+Sensitivity to the hyper-parameter setup is less of a concern for classification tasks where one can use labels to tune the hyper-parameters, but it does give an insights into the expected effort in order to get a satisfying results. 
 
 
-\begin{table}[t]
-	\centering
-	
-	\caption{Dataset properties summarize the number of target and all instances, the number of attributes, and the number of relation types.}
-	\begin{tabular}{@{}lcccccc@{}}
-		\toprule
-		\textbf{Dataset} 	& \multicolumn{2}{c}{\textbf{Instances}} 		& \multicolumn{2}{c}{\textbf{Attributes}}	& \multicolumn{2}{c}{\textbf{Relations}} \\
-							\cmidrule(rl){2-3} \cmidrule(lr){4-5} \cmidrule(l){6-7}
-							& Target 				& Total					&   Target				& Total				& Target		& Total						\\
-		\midrule
-		Hepa				& 500					& 5919					& 2						& 12				& 3				& 3						\\
-		Muta				& 230					& 6124					& 3						& 7					& 3				& 7in						\\
-		Terror				& 1293					& 1293					& 104					& 104				& 2				& 2						\\
-		WebKB				& 920					& 3880					& 763					& 1207				& 4				& 5						\\
-		\bottomrule
-	\end{tabular}
-	\label{tab:properties}
-\end{table}
 
 
-\paragraph{Data}
+
+KGE methods are usually trained to assign high score to all facts in a knowledge base, not to specific \textit{target} facts.
+To make sure this training criteria does not put KGEs at a disadvantage, once the embeddings are obtained, we use them as the input data for a classifier learning the predictive model for the pre-specified target.
+
+
+
+As KGE methods are focused on the knowledge graph completion task, they assume that all instances are given at once and focus on filling in the missing links in data.
+Therefore, they have difficulties with unseen instances.
+We do not address this issue here, but simply learn the representation of both training and test data at the same time (with labels excluded).
+It is, however, worth noting that KGE methods have a certain advantage due to this.
+
+
+\subsubsection{Materials}
+
+
+
+\paragraph{Relational classification dataset}
 We take standard relational learning data sets and use the available labels as ground truth for both classification and clustering.
 The IMDB data set is a snapshot of the Internet Movie Database, describing a set of movies with their actors and directors. 
 The task is to distinguish between actors and directors.
 The UWCSE data set describes the employees of the University of Washington, their roles, publications, and courses.
 The task is to distinguish between students and professors.
 The Mutagenesis data set consists of a set of molecules and their structures, with the goal of predicting whether a compound is mutagenic or not.
+The Carcinogenesis data is a similar dataset, but focuses on a different compound property.
+The Yeast dataset describes a data about regulatory paths in the genome of yeast, and the target is to predict active paths.
 The WebKB dataset describes web pages of four US universities and their corresponding link structure.
 The pages are classified into seven groups according to their roles such as personal, departmental or project page.
 The Terrorists data set contains a network of terrorist attacks, each assigned to of the 6 types of attacks.
@@ -368,307 +380,786 @@ Some of the properties are list in Table~\ref{tab:properties}.
 For each property, we differentiate between target instances -- instances which contain labels, and the rest.
 This gives us a better opportunity to detect the conditions under which either of the respective approaches is preferable.
 In contrast, standard KB completion data sets are often very simple and  only simple path-type rules are required to achieve a reasonable performance.
-Therefore, the only disadvantage of standard relational methods is that they might very inefficient because of the data set size.
+Therefore, the disadvantage of standard relational methods is that they might very inefficient because of the data set size.
+Additionally, if the provided data does not contain useful features, KGE methods might still be able to extract certain useful patterns through the latent features.
 
 
 
-\paragraph{Classification Experiments}
-We perform standard nested cross-validation. For each split the training data is used to learn the models and tune their parameters (using an inner cross-validation loop) and the unseen fold is used for testing.
-We report the performance in terms of accuracy as an average over individual splits. The labels were excluded from the data when learning the KGEs and considered only during the training of the classifier.
-
-
-\paragraph{Clustering Experiments}
-For the clustering experiments, we cluster the entire data set at once using the number of distinct labels as the number of clusters.
-Once the clustering is obtained, we compare it to the ground truth determined by the class labels using the adjusted Rand index \cite{MoreyARI} as evaluation measure.
-We use Spectral \cite{Spectral} and Hierarchical \cite{Agglomerative} clustering algorithms and compare embedding-based clustering with state-of-the-art relational clustering method ReCeNT \cite{Dumancic2017a}.
-ReCeNT defines a very flexible similarity measure for relational objects which is used in the conjunction with the 
-
-
-\paragraph{Knowledge Graph Embeddings}
-
-Many KGEs exist in the literature \cite{EmbeddingsOverview}.
-We decide to focus on two prototypical and commonly used instances: TransE  and DistMult. We evaluate the dimensions in $\{10, 20, 30, 50, 80, 100\}$ and train for 100 epochs.
-
-As KGE methods are focused on the knowledge graph completion task, they assume that all instances are given at once and focus on filling in the missing links in data.
-Therefore, they have difficulties with unseen instances.
-We do not address this issue here, but simply learn the representation of both training and test data at the same time (with labels excluded).
-
-\paragraph{Relational Learning}
-
-We currently limit the analysis to Inductive logic programming (ILP) methods \cite{LucRLbook} and ignore the probabilistic aspect of SRL methods.
-This is solely due to better predictive rule induction support of ILP.
-For that reason, we decide to use the relational decision tree learner TILDE \cite{Blockeel1998285} as a relational  baseline.
-We report results of two TILDE variants: one trained on the original (logical) data representation (termed TILDE), and the one trained on the \textit{relational} latent features created by CUR$^2$LED \cite{Dumancic2017} (termed TILDE-latent).
-CUR$^2$LED creates latent features that remain in the logical representation (i.e., are expressed through predicate logic) and should not be confused with the vector representation based latent features.
-
-
-
-
-
-
-
-
-
-\subsection{Classification Results}
-
-
-\begin{figure}
-	\centering
-		\includegraphics[height=8cm]{classification.pdf}
-		\caption{Classification performance. Individual rows contain results with distinct KGE methods. The color indicates whether the learning is propositional or relational. The performance of TILDE variants is simply duplicated on two graphs, for easier comparison.}
-		\label{fig:classification} 
-\end{figure}
-		
-
-\begin{figure}
-	\centering
-		\includegraphics[height=8cm]{classification_dimension}
-		\caption{Performance of KGEs varies substantially with the dimension. The rows show performance of the KGE methods, while the brightness indicates the dimension. (WebKB has a separate scale because the performance is in a very different range compared to other datasets)}
-		\label{fig:clasVariance}
-\end{figure}
-		
-
-
-
-
-
-\begin{table*}[h!]
+\begin{table}[t]
 	\centering
 	
-	\caption{Properties of extracted rules are summarized as a proportion of relation and attribute predicates they contain. \textit{Rule properties} section describes the proportion of rules that contain  \textit{relation} predicates only, \textit{attribute} predicates only and the mix of both, for each dataset. \textit{Dataset properties} section shows the proportion of possible attribute and relation predicates that are used in the extracted rules. For example, the rules on the Hepatitis dataset use 100 \% of the possible attribute predicates, and 66 \% of relation predicates. \textit{Neighbourhood} refers to the proportion of attribute and relation predicates of the non-target instances for which a direct link with target instances exists. }
-	\begin{tabular}{@{}lccccccc@{}}
-		\toprule
-		\textbf{Dataset}		& \textbf{Reasoning depth} 	& \multicolumn{3}{c}{\textbf{Rule properties}} 	& \multicolumn{3}{c}{\textbf{Dataset properties}} \\
-		\cmidrule(lr){3-5} \cmidrule(l){6-8}
-							& 				  			& Relations   		& Attributes 	& Mix		& Attributes        & Relations	& Neighbourhood	     \\
-							\midrule 
-		Hepatitis   		& 1.4				  		& 10 \%				& 38 \%			& 52 \%		& 100 \%					&  66 \%				& 70 \%				\\
-		Terrorists			& 1							& 0	\%				& 95 \%			& 5 \%		& 35 \%				& 100 \%		& 0 \%			\\
-		Mutagenesis			& 0							& 0 \%				& 100 \%		& 0 \%		& 100 \%					& 0 \%	& 0 \%				\\
-		WebKB				& 2							& 5 \%				& 76 \%			& 19 \%		& 4 \%				& 50 \%		& 1 \%		\\ 	\bottomrule 	
-	\end{tabular}
+	\caption{Dataset properties summarise the number of target and all instances, the number of attributes, and the number of relation types.}
+		\begin{tabular}{@{}lcccccc@{}}
+			\toprule
+			\textbf{Dataset} 	& \multicolumn{2}{c}{\textbf{Instances}} 		& \multicolumn{2}{c}{\textbf{Attributes}}	& \multicolumn{2}{c}{\textbf{Relations}} \\
+								\cmidrule(rl){2-3} \cmidrule(lr){4-5} \cmidrule(l){6-7}
+								& Target 				& Total					&   Target				& Total				& Target		& Total						\\
+			\midrule
+			Hepa				& 500					& 5919					& 2						& 12				& 3				& 3						\\
+			Muta				& 230					& 6124					& 3						& 7					& 3				& 7						\\
+			Terror				& 1293					& 1293					& 104					& 104				& 2				& 2						\\
+			WebKB				& 920					& 3880					& 763					& 1207				& 4				& 5						\\
+			Carc				& 1700					& 45940					& 0						& 71				& 28			& 28 \\
+			Yeast				& 13750					& 13750					& 1836					& 1836				& 1				& 1 \\
+			UWCSE				& 2824					& 3714					& 0						& 23				& 1				& 5 \\
+			\bottomrule
+		\end{tabular}
+	\label{tab:properties}
+\end{table}
+
+
+\paragraph{Knowledge base completion datasets}
+Our experiments include standard KBC datasets, FB15k-237 and WN18-RR.
+FB15k-237~\cite{toutanova2015observed} is a subset of Freebase which contains approximately 15000 entities and 237 relations; this is an improved version of the predecessor FB15k, but with inverse relations removed, which gave overly optimistic performance \cite{toutanova2015observed}.
+WN18-RR~\cite{dettmers2018conve} is a subset of the WordNet knowledge graph, consisting of approximately 50 000 entities and 11 relations.
+It is an improved version of the WN18 dataset, which had the same problem as FB15k.
+
+
+
+
+\paragraph{Knowledge graph embeddings}
+Due to the shear magnitude of the existing KGE methods \cite{EmbeddingsOverview}, including a large sample in the comparison would be infeasible.
+Moreover, it is not clear whether a big difference in performance is expected~\cite{DBLP:conf/rep4nlp/KadlecBK17}.
+Therefore, we focus on the two prototypical and, arguably, most used approaches -- TransE and DistMult, as well as the state-of-the-art approach of ComplEx \cite{trouillon2016complex}.
+It is important to note that ComplEx produces embeddings in the \textit{complex Euclidean space} and that each entity is associated with two embeddings - \textit{real} and \textit{imaginary} one.
+In order to create a single embedding out of these two, we consider three version of ComplEx embeddings: (1) taking an average of two embeddings, (2) their sum, and (3) concatenation of two embeddings.
+
+
+
+
+\paragraph{Classifiers}
+\newglossaryentry{kfoil}{name={kFOIL},description={kFOIL}}
+When using machine learning algorithms for prediction, it is important to consider the bias an algorithm introduces.
+To better understand how the difference in performance between KGEs and symbolic SRL methods is influenced by the bias of the particular machine learning algorithm, we experiment with three different ML families -- decision trees (DT), support vector machines (SVM) and $k$ nearest neighbours (kNN), and their relational counterparts -- relational decision tree TILDE~\cite{Blockeel1998285}, relational kernel machines \gls{kfoil}~\cite{Landwehr:2006:KLS:1597538.1597601} and kNN with a relational similarity measure of ReCeNT~\cite{DumancicMLJ2017}.
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Methods}
+
+
+\paragraph{Relational classification}
+We perform standard nested cross-validation. 
+For each split the training data is used to learn the models and tune their parameters (using an inner cross-validation loop) and the unseen fold is used for testing.
+We report the relative performance of KGEs to the relational baseline in terms of differences in accuracies, $acc_{KGE} - acc_{relational~ baseline}$, averaged over individual splits. 
+The labels were excluded from the data when learning the KGEs and considered only during the training of the classifier.
+
+
+The embeddings of each relational data were obtained before learning a classifier.
+The dimensions of the embeddings were varied in $\{10, 20, 30, 50, 80, 100\}$; we include smaller dimension because standard relational dataset tend to have much smaller number of entities than the KBC datasets (see Table \ref{tab:properties}).
+All embeddings were trained to 100 epochs, and saved in steps of 20.
+We do not use the validation set and metrics such as mean reciprocal rank to select the best hyper-parameters for the embeddings, as they may not be perfectly correlated with the predictive accuracy; instead, we treat the dimension and the number of epochs for training as additional parameters while training the classifiers as part of the inner cross-validation loop. 
+
+
+\paragraph{Knowledge base completion}
+For the experiments with the knowledge base completion datasets, we do not re-train the KGEs but report the results from \cite{dettmers2018conve} which are considered to be state-of-the-art.
+These experiments include several methods: DistMult~\cite{YangYHGD14a}, ComplEx~\cite{trouillon2016complex}, R-CGN~\cite{Schlichtkrull2017ModelingRD} and ConvE~\cite{dettmers2018conve}.
+Relational decision tree TILDE is used as a relational baseline due to its simplicity and speed
+One model is trained for each relation, and the mean and weighted (by the number of examples in the relation) accuracy is reported. 
+The training procedure is the same as for the experiments regarding the relational classification datasets, with an exception that only one (pre-defined) test split is used. 
+KGEs are usually evaluated by how well they rank the correct answers to a triple in which either the subject or objects are left out (i.e, $<\mathbf{s},\mathbf{r},\mathbf{?}>$ or $<\mathbf{?},\mathbf{r},\mathbf{?}>$), and the metrics used are ranking measure such as \textit{mean reciprocal rank} and \textit{hits @ K} (\textit{is the correct answer among the top K ranked answers}) \cite{BordesNIPS2013}.
+Such ranking are difficult to obtain with the ILP methods, which makes the comparison somewhat difficult.
+As Hits@1 directly correspond to the accuracy, and we use this as a primary mean of the comparison.  
+
+
+
+
+
+
+
+\subsection{Comparative results}
+
+\subsubsection{Relational classification}
+
+
+\begin{figure}[!htb]
+	\centering
+	\begin{subfigure}{0.98\linewidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{decisiontrees}
+		\caption{Performance with decision trees\label{fig:dtres}}
+	\end{subfigure}
+	
+	\begin{subfigure}{0.98\linewidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{svms}
+		
+		\caption{Performance with svms\label{fig:svms}}
+	\end{subfigure}
+	
+	\begin{subfigure}{0.98\linewidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{knns}
+		
+		\caption{Performance with kNNs\label{fig:knns}}
+	\end{subfigure}
+	
+	\caption{Performances with difference classifiers}
+\end{figure}
+
+
+
+
+
+\begin{table}[h!]
+	\centering
+	
+	\caption{Properties of extracted rules are summarised as a proportion of relation and attribute predicates they contain. \textit{Rule properties} section describes the proportion of rules that contain  \textit{relation} predicates only, \textit{attribute} predicates only and the mix of both, for each dataset. \textit{Dataset properties} section shows the proportion of possible attribute and relation predicates that are used in the extracted rules. For example, the rules on the Hepatitis dataset use 100 \% of the possible attribute predicates, and 66 \% of relation predicates. \textit{Neighbourhood} refers to the proportion of attribute and relation predicates of the non-target instances for which a direct link with target instances exists. }
+	\resizebox{.95\linewidth}{!}{
+		\begin{tabular}{@{}lccccccc@{}}
+			\toprule
+			\textbf{Dataset}		& \textbf{Model} 	& \multicolumn{3}{c}{\textbf{Rule properties}} 	& \multicolumn{3}{c}{\textbf{Dataset properties}} \\
+			\cmidrule(lr){3-5} \cmidrule(l){6-8}
+								& \textbf{complexity}		& Relations   		& Attributes 	& Mix		& Attributes        & Relations	& Neighbourhood	     \\
+								\midrule 
+			Hepatitis   		& 15					  		& 10 \%				& 38 \%			& 52 \%		& 100 \%					&  66 \%				& 70 \%				\\
+			Carcinogenesis		& 24							& 0 \%				& 0 \%			& 100\%		& 	--	 			& 100 \% & 72 \% \\
+			UWCSE				& 35.5						& 0 \%				& 2 \%			& 98 \%		&	75 \%			&	80 \%		& 0 \% \\
+			Terrorists			& 17.65						& 0	\%				& 95 \%			& 5 \%		& 35 \%				& 100 \%		& 0 \%			\\
+			Mutagenesis			& 9.4						& 0 \%				& 100 \%		& 0 \%		& 100 \%					& 0 \%	& 0 \%				\\
+			WebKB				& 38							& 5 \%				& 76 \%			& 19 \%		& 4 \%				& 50 \%		& 1 \%		\\ 
+			
+			Yeast 				& 188.4						& 0 \%				& 8 \%			& 92 \%		& 78 \%				&	100 \%		& -- \\
+			\bottomrule 	
+		\end{tabular}
+	}
 	\label{tab:ruleproperties}
-\end{table*}
-
-
-We first focus on comparing the classifiers with the same learning bias, namely propositional and relational decision trees (DT), as this constitutes the fairest comparison.
-The results (Figure~\ref{fig:classification}) show that the decision tree trained on the embedding features outperforms TILDE only on the Hepatitis data set.
-However, it does not outperform TILDE-latent on any data set. The performance is similar only on the Terrorists data set.
-This implicates that relational learners are able to capture certain information that embeddings likely do not contain.
-Moreover, fully acknowledging relational information (especially distinguishing between attributes of instances and their mutual relationships) while learning the latent representation \cite{Dumancic2017} seems beneficial as TILDE-latent outperform TILDE in all but one case.
-An important aspect to keep in mind is that KGE methods see both training and test data at training time.
-This gives them a certain advantage and the question is to what extent this effects the performance.
-We did not observe significant difference between TransE and DistMult.
-
-
-The classifiers with non-linear decision function, non-linear SVM and kNN, perform substantially better than the decision tree with the embedding features.
-Even though both SVM and kNN are able to capture more complex feature interactions than a decision tree, the results indicate that their results are not significantly better than those of the relational methods.
-SVM strongly outperforms TILDE on the Hepatitis dataset, both are similar in performance of the Mutagenesis and Terrorists dataset while TILDE performs much better on the WebKB dataset.
-kNN slightly outperforms TILDE on the Hepatitis, performs slightly worse than TILDE on Mutagenesis and Terrorists, and substantially worse on the WebKB data set.
-TILDE-latent outperforms SVM and kNN on the Mutagenesis and WebKB data, is much closer in performance to SVM and kNN of the Hepatititis but struggles with the Terrorists.
-These results suggest that the ability to capture more complex dependencies allows SVM and kNN to compensate for the lack of the explicit relational information.
-This also suggests that then labelled instance are not linearly separable in the embedding space, which explain why both SVM and kNN perform much better than DTs.
+\end{table}
 
 
 
+The experiments with (relational) decision trees (Figure \ref{fig:dtres}) indicate that the decision tree trained on the embeddings features outperform TILDE only on two datasets-- Hepatitis and Carcinogenesis, while performance is equal on the UWCSE dataset.
+The results also indicate that the performance of various KGE models is relatively similar, but \textit{DistMult} and \textit{ComplEXconcat} seem to have a slight edge.
 
-Analyzing these results with respect to the semantics of the predicates used in the extracted rules yields further interesting results.
+
+
+What is most interesting in these results is not the difference in the performance itself, but \textit{whether we could explain what gives KGE methods (dis)advantage on certain datasets?}
+In order to do so, we analyse the results with respect to the semantics of the predicates used in the extracted rules, which yields further interesting results.
 More precisely, we differentiate between \textit{attribute predicates} that associate a specific value of an attribute with an instance, and \textit{relation predicates} that connect two instances.
 We further distinguish between \textit{target} instances having an associated label, and \textit{neighbourhood} instances that provide additional data.
 %We summarise (Table~\ref{tab:properties}) the properties of the rules induced by TILDE in terms of (i) \textit{the proportion of rules that are composed of relation predicates only, attributes predicates only and the mixture of both}, and (ii) \textit{the proportion of attribute and relation predicates used in the induced rules w.r.t. the available predicates in the dataset}.
-Properties of rules learned by TILDE (Table~\ref{tab:ruleproperties}) suggest that KGE have an edge over the SRL methods when most of the information in the neighbourhood of instances is relevant.
-For example, on the Hepatitis data set  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
-This also holds for the Terrorists data; though 35 \% does not constitutes 'most of the information in the neighbourhood', we have found that many of the attributes are highly correlated and thus the number of predictive attributes is effectively higher.
+Table~\ref{tab:ruleproperties} summarises the rules extracted by TILDE w.r.t. the above-discussed interpretation.
 
 
-The remaining two data sets are different in the sense that only a fraction of information is found predictive.
+The results indicate an interesting connection between the performance and the amount of data information that is found predictive: the properties of TILDE rules extracted for the Hepatitis and Carcinogenesis datasets reveal that the majority of provided information, both attributes and relations, are found predictive.
+For instance, on the Hepatitis dataset  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
+Similar numbers hold for the Carcinogenesis data.
+
+
+
+The remaining datasets are different in that regard -- only a fraction of information is found predictive.
 On the Mutagenesis data set\footnote{we use the version of the data set without any rings structures and additional background knowledge which is difficult to incorporate in KGE methods}, even though all the attributes of molecules are found predictive, none of the relations were found predictive and thus none of the information about atoms they contain.
 Thus, only a fraction of available information is used.
 On the WebKB data set only 4 \% of the attributes have been found predictive, as well as 50 \% of relations.
+
+
+
+The results and the analysis of the rules suggest that KGE have an edge over the SRL methods when \textit{most of the information in the neighbourhood of instances is relevant}. 
 An explanation for such a big difference in performance might be that SRL methods have to select few predictive rules while learning theories, and thus can discard irrelevant information.
 In contrast, the learning principle of KGEs is designed to take all of the information into account, which seems to make them underperform.
 
 
 
-Figure~\ref{fig:clasVariance} show the differences in performances when the dimension of the embeddings is changed.
-These results indicate the importance of choosing the embedding dimension, as the performance varies substantially with the dimension.
-That is especially true for the Mutagenesis and WebKB datasets.
-Unfortunately, there does not seem to be a general rules how to choose the dimension: higher does not lead to better results.
-Fortunately, this is not a major issue for the classification tasks as the dimension can be treated as a parameter to tune.
+
+Similar trend is also evident when the (relational) SVM is used as a classifier.
+However, KGE-based methods achieve better relative performance on the Hepatitis, Carcinogenesis and UWCSE dataset, while the difference in performance is much less pronounced on the Mutagenesis and Terrorists datasets.
+It is interesting to note that symbolic and KGE-based methods do not benefit equally by using the more powerful learner.
+We attribute this to the fact that kFOIL essentially creates a \textit{binary embedding} -- it identifies a set of useful relational features (similar to random walks), followed by learning a kernel SVM on such binary data.
+Therefore,  it is closer to the KGE-based methods than the fully relational once, and it is likely that it looses some of the semantics of relational data by binarising it.
 
 
 
+The pattern, however, disappears with the kNN classifier.
+Whereas previously KGE-based methods substantially outperformed symbolic methods on the Hepatitis, Carcinogenesis and UWCSE datasets, relational versions of kNN perform equally well on the Hepatitis dataset and outperform KGE-based methods on the Carcinogenesis and UWCSE datasets.
+KGE-based methods seem to gain advantage on the Mutagenesis dataset, but the remaining datasets prefer symbolic approaches.
+However, a general trend is that the differences in performances are much less pronounced compared to the results with decision trees and SVMs, except on the WebKB.
+We suspect that the reason for this is that similarity is difficult to measure with relational data, despite a considerable body of work addressing the problem \cite{DumancicMLJ2017}, and KGEs might be a viable alternative. 
 
 
 
-\subsection{Clustering results}
-
-The first issue when using KGEs for entity clustering is which distance or similarity measure to use.
-Even though KGEs embed instances in Euclidean space, that space is usually high-dimensional and, thus, simple Euclidean distance is likely not to be informative.
-Therefore, to better understand how to use KGEs for clustering, we first survey the possible distance and similarity measures.
-We focus on the measure available in the \texttt{sci-kit learn} package \cite{scikit-learn} in combination with Spectral and Hierarchical clustering.
-
-
-
-\begin{table}
-	\caption{Ranking of similarity measure for Spectral clustering.}
-		\label{tab:ranksSpectral}
-		\begin{tabular}{@{}llcccccc@{}}
-				\toprule
-				\textbf{Embed}		& \textbf{Measure}	& \multicolumn{5}{c}{\textbf{Dimension}}	& \textbf{Avg} \\
-								\cmidrule(lr){3-7}
-								&					&  10	& 30		& 50	& 80 	& 100		&				\\
-								\midrule
-				transE			& polynomial			& 2.2	& 2.4	& 2.2	& 2.0	& 2.2		& 2.23			\\
-								& sigmoid			& 2.8	& 3.6	& 3.2	& 2.4	& 3.2		& 3.0    \\
-								& rbf				& 3.0	& 2.6	& 3.6	& 3.2	& 3.0		& 3.03		\\
-								& laplace			& 4.0	& 3.0	& 3.3	& 3.4	& 3.4		& 3.33			\\
-								& NN				& 3.0	& 3.8	& 3.6	& 3.2	& 3.6		& 3.4		\\
-				distMult			& polynomial			& 3.2	& 1.6	& 1.6	& 1.6	& 1.4		& 1.9		\\
-								& rbf				& 2.4	& 2.8	& 3.2	& 3.0	& 3.6		& 2.83        \\
-								& sigmoid			& 2.6	& 3.0	& 2.6	& 2.4	& 2.8		& 2.9			\\
-								& NN				& 3.6	& 3.4	& 3.8	& 3.4	& 3.0		& 3.53				\\
-								& laplacian			& 3.2	& 4.2	& 3.8	& 4.6	& 4.2		& 3.83				\\
-				\bottomrule	
-				
-			\end{tabular}
-\end{table}
-	
-		
-\begin{table}
-	\caption{Rankings of distances for Hierarchical clustering.}
-		\label{tab:ranksHierarchical}
-		\begin{tabular}{@{}llcccccc@{}}
-				\toprule
-				\textbf{Embed}		& \textbf{Measure}	& \multicolumn{5}{c}{\textbf{Dimension}}	& \textbf{Avg} \\
-								\cmidrule(lr){3-7}
-								&					&  10	& 30		& 50	& 80 	& 100		&				\\
-								\midrule
-				transE			& cosine				& 3.8	& 6.0	& 3.8	& 3.8	& 4.4		& 4.43			\\
-								& correlation		& 6.8	& 4.2	& 8.4	& 4.2	& 4.0		& 5.5    \\
-								& braycurtis			& 8.4	& 5.2	& 4.6	& 4.2	& 8.4		& 6.37		\\
-								& canberra			& 7.2	& 9.2	& 9.4	& 5.2	& 5.2		& 7.9			\\
-								& chebysev			& 6.0	& 13.0	& 13.2	& 9.8	& 10.0		& 9.73		\\
-				distMult			& correlation		& 6.0	& 3.8	& 8.0	& 2.0	& 7.4		& 5.87				\\
-								& cosine				& 8.8	& 8.0	& 2.2	& 5.4	& 8.2		& 6.7        \\
-								& braycurtis			& 7.2	& 8.8	& 5.8	& 2.6	& 5.8		& 6.83			\\
-								& l1				& 6.2	& 7.4	& 9.2	& 11.8	& 7.2		& 8.0			\\
-								& canberra			& 11.0	& 10.6	& 5.6	& 4.2	& 6.2		& 8.27				\\
-				\bottomrule	
-				
-			\end{tabular}
-\end{table}	
-		
-	
-
-
-
-
-We first use every distance and similarity measure available to perform clustering for each of the dimensions in $\{10, 30, 50, 80, 100\}$.
-Within each dimension, we rank the measure according to their performance per dataset and report average rank per dimension.
-The ranks for the five best performing ones are reported in Table~\ref{tab:ranksSpectral} for Spectral clustering and in Table~\ref{tab:ranksHierarchical} for Hierarchical clustering.
-
-
-
-These results suggest that clustering with KGE is not straightforward as there is no single measure that is an obvious winner.
-Polynomial kernel seems to be the overall winner with spectral clustering, but it is mostly the second best measure to use on the individual data set.
-The results with hierarchical clustering show even greater variance: cosine and correlation distances seem to be an overall winner but they average ranks spread between 4 and 6.
-This means that a different distance/similarity measure is the most appropriate one for each data set, but at the same time it performs bad with different data set and embeddings dimension,
-Therefore, a major challenge with using KGEs as a means for relational clustering is the choice of the right distance or similarity, but unfortunately clustering settings does not provide a ground truth that can be used to find the most suitable measure.
-In further experiments, we use cosine and polynomial distance.
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.8\linewidth]{clustering}
-	\caption{Clustering performance per dataset. The first two rows correspond to distinct KGE methods, while the third one contains results of the relational clustering approach.  }
-	\label{fig:clustering}
-\end{figure}
-
-
-Comparing the performance of clustering approaches yields mixed results (Figure~\ref{fig:clustering}).
-For instance, on the IMDB data set embeddings do better than the relational methods with Hierarchical clustering, while the relational methods substantially outperforms KGEs with Spectral clustering.
-Similar holds for the Terrorists and WebKB data.
-However, on the Mutagenesis and UWCSE data sets, relational methods to better in both cases.
-With an exception in the Terrorists data, the best overall result is achieved by the relational learning approach.
-It is interesting to note that these are the same data sets where relational methods have the advantage in the classification settings.
-It is also interesting to note that, while relational clustering method seems to achieve better results with Spectral clustering, the performance of clustering algorithms is more balanced in the case of KGEs.
-This implies that the KGEs introduce \textit{smoother} geometry that is more accessible to wider class of clustering algorithms, but more elaborate experiments are needed to confirm this.
-
-
-
+To validate our conclusion, we design a control experiment focusing on the WebKB dataset where the difference in performance is the largest.
+We created the second version of the dataset that contains only the information, both relations and attributes, deemed useful by the symbolic SRL methods.
+More precisely, in the case of decision trees we take the information deemed useful by decision trees, while in the case of SVM we take the information found useful by kFOIL.
+For the case of kNN, it is not easy to identify the exact information that makes the most influence on the relational similarity measure; therefore, we use the information identified by TILDE and kFOIL.
+If our observation is correct and not the result of randomness, the performance of KGEs should improve on this filtered version of the dataset.
+The results (Figure \ref{fig:filter_results}) do confirm so: the difference in performance of KGEs and symbolic SRL methods reduces in the cases of decision trees (Figure \ref{fig:dt_difference}) and SVMs (Figure \ref{fig:svm_difference}), especially when decision trees are used.
+Interestingly, TransE and DistMult seem to benefit from that more than ComplEx.
+The differences in performance between KGEs and symbolic SRL methods do not disappear completely -- we attribute this to the sparsity of the filtered graph, as it is known that the quality of the embeddings rely on the level sparsity of the knowledge graph~\cite{pujara:emnlp17}.
+Moreover, filtering the data might have filtered out some of the useful information that coincidently correlates well with information deemed useful by the symbolic learner.
+Thus, inclusion of such information might be beneficial to KGEs, but we do not have a way to detect it easily.
+Moreover, we have noticed that there is a relatively small overlap between information found predictive by TILDE and kFOIL, indicating that the bias of the learning algorithm plays an important roles in detecting which parts of the available information is predictive.
+The kNN results again diverge from this trend, and the results suggest that KGE-based methods perform worse than with the unfiltered dataset.
+The likely reason for that is that the filtered information matches the bias of decision trees and SVMs, but not the kNNs similarity measure, and further confirms that measuring the similarity in relational data is a difficult problem.
 
 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.8\linewidth]{clustering_dimension}
-	\caption{The performance of clustering method varies substantially with dimension (indicated by the brightness). }
-	\label{fig:clusVariance}
+	\begin{subfigure}{0.32\linewidth}
+		\centering
+		\includegraphics[width=.85\linewidth]{dt_filter}
+		\caption{Decision trees \label{fig:dt_difference}}
+	\end{subfigure}
+	\begin{subfigure}{0.32\linewidth}
+		\centering
+		\includegraphics[width=.85\linewidth]{svm_difference}
+		\caption{SVM \label{fig:svm_difference}}
+	\end{subfigure}
+	\begin{subfigure}{0.32\linewidth}
+		\centering
+		\includegraphics[width=.85\linewidth]{knn_difference}
+		\caption{kNN \label{fig:knn_difference}}
+	\end{subfigure}
+	\caption{Results on the filtered version of the WebKB dataset show the improvement in the performance of KGE-based methods in combination with decision trees and SVMs, but not when kNN is used.}
+	\label{fig:filter_results}
 \end{figure}
 
 
 
-Unfortunately, using KGEs for clustering seems to be highly sensitive to the choice of dimension (Figure~\ref{fig:clusVariance}).
-Simply altering the dimension varies the results from a completely random clustering (ARI$\approx 0$), to the best obtained one.
-As finding the means to somehow choose the correct value directly from the data is very difficult for clustering, this severely limits the applicability of KGEs for clustering tasks.
-
-
-
-\subsection{Conclusions and Future Work}
-
-
-The most important takeaway messages from this work are the following:
-\begin{itemize}
-	\item \textbf{KGE seems to be suitable for curated data} KGEs seem to have difficulties in the case when only a small fraction of available information is necessary for the given prediction task. SRL methods do not have that issue as they cherry pick useful information during the learning phase. This observation explains why KGEs perform well on the knowledge base completion task where the complexity of reasoning is low, but the dataset is huge. This further indicates the target use cases for the respective approaches: KGEs target simple relational reasoning with huge amounts of data, while SRL targets complex reasoning tasks with not a lot of data.
-	\item \textbf{KGE might be useful for relational clustering but needs further research} Although logic-based relational clustering algorithms achieve the overall best results, clustering instances in the embeddings space does not lack much behind. They certainly show potential for this task, however they rise many problem, such as the question of an appropriate distance/similarity measure.
-	\item \textbf{Hyper-parameters matter a lot} A major disadvantage of KGEs is their sensitivity to hyper-parameters. Out experiments show there is no clear strategy for choosing the right dimension. Though this might be less of an issue for classification problems, it poses a major one for clustering where there is no option to tune the parameters.
-\end{itemize}
-
-
-Besides the above outlined point, some obvious (dis)advantages are worth re-iterating here.
-A strong advantage of KGEs is their scalability, at the expense of their black-box nature and limited reasoning capabilities.
-SRL methods are a direct opposite -- they can capture very complex reasoning, are interpretable but currently of a limited scalability.
-
-
-
-The analysis presented here is still preliminary and has to be extended in several ways.
-We plan to extend this study in three main directions.
-First, adding more datasets is necessary to confirm the preliminary results.
-Second, including a larger variety of relational learners is necessary to get a complete picture.
-Currently we considered only TILDE as the relational baseline, which was often outperformed by SVM and kNN trained on the embeddings of entities.
-Therefore, a fairer comparison would be to compare embedding-based SVM and kNN with relational learners with similar non-linear decision functions such as kFOIL \cite{Landwehr:2006:KLS:1597538.1597601}, nFOIL \cite{Landwehr:2005:NIN:1619410.1619460} and kNN with relational similarity measures \cite{DumancicMLJ2017,Shervashidze:2011:WGK:1953048.2078187}.
-Third, we focus here on the prototypical KGE methods of TransE and DistMult and including other state-of-the-art KGE methods, such as ComplEx \cite{trouillon2016complex} and ConvE \cite{dettmers2018conve}, is worthwhile (though the performance is likely to be very similar \cite{DBLP:conf/rep4nlp/KadlecBK17}).
-
-
-Additionally, a careful inspection of the scalability of SRL methods on the standard KGE knowledge graph might be interesting.
-Though SRL methods are in principle less scalable than the KGEs, one might overcome that by limiting the expressivity of SRL methods by limiting the length of clauses.
-Such a restriction might not have a big impact on the performance for standard KGE tasks, but might largely increase the scalability.
-
-
-As a final note, this work does not aim to critique the KGEs, but should serve as point for new research directions combining the strengths of the two respective approaches.
-There is obviously a need to integrate them, and several approaches already explore this line of work \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted,Schlichtkrull2017ModelingRD}.
-However, all of the existing approaches focus on incorporating certain logical concepts into KGEs.
-This unfortunately uses little of the power of first-order logic while retaining all of the disadvantages of KGEs.
 
 
 
 
 
+\subsubsection{Knowledge base completion}
+
+
+\begin{table*}[h]
+	\centering
+	\caption{Knowledge base completion results}
+	\label{tab:kbcres}
+	\resizebox{\linewidth}{!}{%
+		\begin{tabular}{@{}lrrrrrr@{}}
+		\toprule
+						& \multicolumn{3}{c}{\textbf{FB15-237}} & \multicolumn{3}{c}{\textbf{WN18-RR}} \\
+			\cmidrule(lr){2-4} \cmidrule{5-7}
+			
+						& Mean accuracy & Weighted accuracy & Mean complexity 	& Mean accuracy & Weighted accuracy & Mean complexity \\
+			\midrule
+			
+		\textbf{TILDE} 	& .95			& .98				& 10.15			  	& .90			& .83				& 231 \\
+		\midrule
+						& Hits@1			& Hits@3 			& Hits@10			& Hits@1			& Hits@3 			& Hits@10 \\	
+						\cmidrule(lr){2-4} \cmidrule{5-7}
+		\textbf{ConvE}	&	.327			&	.356				&	.501				& .40				&	.44				&	.52		\\
+		\textbf{Complex}&	.158			&	.275				&	.428				& .41				&	.46				&	.51		\\
+		\textbf{DistMult}&	.155			&	.263				&	.419				&	.39				&	.44				&	.49		\\
+		\textbf{R-GCN}	&	.153			&	.258				&	.417				&	--				&		--			&		--	\\
+		\bottomrule
+		
+		
+		\end{tabular}
+	}
+\end{table*}
+
+
+The results on the KBC datasets (Table \ref{tab:kbcres}) indicate that the symbolic SRL methods perform rather well on these datasets.
+On the FB15k-237 dataset, TILDE achieves the mean accuracy of 95\% and the wighted mean accuracy of 98\% while inducing relatively simple model having on average 10.15 nodes in the tree.
+The WN18-RR dataset is rather different than the FB15k-237: TILDE achieves the mean accuracy of 90\% but the weighted mean accuracy of 83\% which means that the relations with higher number of test examples are predicate less accurately.
+The results show that this dataset is much more complex than the FB15k-237 as it requires rather long chains of reasoning, indicated by large TILDE trees having on average 231 nodes.
+
+
+The performance of KGE methods lags behind.
+On the FB15k-237 dataset, the best performing methods in ConvE with Hits@1 of .327 and Hits@10 at .501.
+On the WN18-RR dataset, ConvE also performs the best with Hits@1 of 0.40 and Hits@10 of 0.52.
+These results are consistent with the conclusion from the experiments on relational classification: the size of TILDE trees indicate the relevant information requires several \textit{hops} in a knowledge graph and it is not in the intermediate neighbourhood of entities.
 
 
 
 
-\section{Conclusion}
+
+\subsection{Key messages}
 
 
 Many problem nowadays are naturally expressed in form of relational and graph structures data.
 This includes social and protein interaction networks, biological data, knowledge graphs and many more.
-Two main machine learning paradigms for analysing such data, knowledge graphs embeddings and statistical relational learning, have mostly been studied in isolation so far.
-This work is the first, to the best of our knowledge, that systematically compares these two paradigms on the standard machine learning tasks -- classification and clustering.
-Our preliminary results indicate that knowledge graph embeddings are suitable when data is  \textit{curated} -- when only the \textit{relevant} information is preserved in the data, while the major strength of the statistical relational learning methods is their ability to select relevant information during training.
-Embedding methods also show certain potential relational clustering, but also raise issues due to their sensitivity to the hyper-parameter choice.
-We hope this work inspires new research directions focused on combining the strengths of both approaches.
+Two main machine learning paradigms for analysing such data, knowledge graphs embeddings and  symbolic statistical relational learning, have mostly been studied in isolation so far.
+This work is the first, to the best of our knowledge, that systematically compares these two paradigms on the standard tasks from both domains -- relational classification and knowledge base completion.
+Our results point to the following conclusion:
+\begin{itemize}
+	\item \textbf{KGE seems to be suitable for curated data.}  KGEs seem to be at disadvantage when only a small fraction of available information is useful for the given prediction task. Symbolic SRL methods do not have that issue as they can cherry pick useful information during the learning phase. This conclusion was further confirmed by the control experiment in which the uninformative data (as found by the symbolic methods) was removed from the dataset -- the difference in performance between KGEs and symbolic methods has decreased.
+	\item  \textbf{Symbolic methods outperform KGEs on knowledge based completion tasks.} We have noticed a large gap in the performance between symbolic and KGE methods when compared on the standard KBC datasets: whereas symbolic methods achieve accuracy $> 90$\%, KGE methods struggle and achieve the accuracy $\approx 50$\%. This suggest that the KGEs, at least in the current state, are more suitable for the interactive inspections of large knowledge graphs than for the automatic reasoning.
+	\item \textbf{KGEs might be a good way to measure the similarity in relational data.} On most datasets, KGE and symbolic methods had almost identical performance when learning based on similarities was employed. This suggest that KGE-based similarity is competitive with the large body of works on this problem.
+\end{itemize} 
+
+This work is not meant as criticism of any of the considered approaches, but hopes to identify \textit{useful bits} of individual approaches that might be worth integrating.
+We hope this work inspires new research directions focused on combining the strengths of both approaches as both communities has already started to explore \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted,Schlichtkrull2017ModelingRD}.
+
+
+
+
+
+
+
+
+
+
+
+%Learning from complex relational domains, where data contains instances and their mutual relationships, has typically been the focus of logic and graph-based machine learning methods.
+%\textit{Statistical relational learning} (SRL)  \cite{Getoor:2007,Raedt:2016:SRA:3027718} uses the representational and reasoning framework of first-order logic to compactly represent such data, and combines it with probabilistic graphical models to facilitate reasoning under uncertainty.
+%As first-order logic is a very general representation language, it serves as a unifying representational framework for many tasks such as classification, clustering, link prediction, and probabilistic modelling.
+%\textit{Graph mining} (GM) approaches  \cite{Chakrabarti:2006:GML:1132952.1132954} approach relational data as graph-structured data.
+
+
+%\textit{Representation learning} for relational data has shown promising results for specific relational tasks such as knowledge base completion~\cite{Nickel0TG16}.
+%Knowledge graph embedding (KGE) methods take a radically different approach from the symbolic methods, and aim to represent instances and their relationship as vectors and/or matrices in the Euclidean space.
+%Intuitively, KGEs introduce a novel view on relational propositionalization \cite{Kramer2001}.
+%The hope is that the geometry of the embedding space would resemble the structure of the data by, for example, keeping the instances participating in the same relationships close in the Euclidean space.
+%This in turn allows one to apply standard propositional machine learning tools and retain their scalability, while at the same time preserving certain properties of structured relational data.
+%These methods have proven to be very effective for the task of knowledge graph completion, where the goal is to identify missing links in the existing knowledge graph. They have also proven to be scalable to very large knowledge graphs.
+%
+%
+%Motivated by the success of KGE methods, there has been some recent work on combining more traditional logic-based SRL with representation learning methods.
+%\cite{Sourek:2015:LRN:2996831.2996838}   introduce a relational extensions of neural networks (NN) by developing a template language for constructing neural networks from logical rules and data.
+%\cite{Kazemi2018} take a different view on relational NNs by means of the the relational logistic regression \cite{KazemiLR2014}.
+%\cite{Dumancic2017} introduced a task-agnostic relational latent feature learning pipeline based on clustering that can be combined with any relational learner.
+%
+%
+%
+%
+%
+%Unfortunately, these research directions have largely been developed in isolation and little understanding is currently available on the relative advantages of the respective approaches.
+%Not only do they focus on different tasks but also different evaluation metrics.
+%\gls{kge} methods, also referred to as \textit{latent feature models}, typically focus on knowledge graph completion which requires very simple forms of relational reasoning. The evaluation metrics are often measuring the quality of rankings generated by the respective scoring functions. 
+%\gls{srl} methods, also referred to as \textit{observed feature models}, typically focus on learning from small relational data, employing more complex forms of logical reasoning.
+%
+%
+%The focus of these methods already outlines the basic understanding of their limitations.
+%A major advantage KGE methods is their scalability -- they easily operate on knowledge graphs with millions of facts and thousands of relations.
+%The main drawbacks of KGE methods are the black-box nature, limited reasoning on local information, and the difficulty of handling unseen instances.
+%\gls{srl} methods are capable of capturing very complex relational patterns, are interpretable, and generalize beyond seen data. Unfortunately, both inference and learning in SRL is highly complex, limiting its applicability.
+%
+%
+%
+%In this work, we systematically compare KGE and logic-based SRL methods on standard relational classification and clustering tasks. We hope this contributes to a better understanding of their relative strengths and weaknesses. We focus on standard relational data sets as they offer more variety of tasks and reasoning complexity. We include both quantitative, in terms of performance, and qualitative analysis, in terms of extracted patterns of reasoning, in order to gain more insights into the suitability of these different methods. 
+% 
+%
+%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%
+%%
+%%	RELATED WORK
+%%
+%%%%%%%%%%%%%%%%%%%
+%\subsection{What do we know so far?}
+%
+%%\paragraph{Knowledge graph embeddings}
+%
+%%Knowledge graph embeddings have emerged as an alternative paradigm for learning and reasoning with structured relational data.
+%%They replace symbols, i.e. instances and their relation predicates, with vectors and matrices in Euclidean space.
+%%That way the reasoning is performed through algebraic manipulations instead of more costly logical inference.
+%%The underlying idea of KGE methods is to associate a score with atoms in a database.
+%%Learning then consists of finding the vector representation of instances and their relations by maximizing (minimizing) the scores of the atoms in the database and minimizing (maximizing) the score of atoms not in the database.
+%%Two prototypical examples are:
+%%\begin{itemize}
+%	%\setlength{\itemindent}{1.2cm}
+%%	\item \textbf{TransE} \cite{BordesNIPS2013} which interprets relations as translations between instances in the Euclidean space. For each atom \texttt{r(h,t)}, \texttt{r} being a relation and \texttt{h} and \texttt{t} \textit{head} and \textit{tail} instances respectively, the score equals
+% % 				$$ s(r,h,t) = -||\mathbf{e}_h + \mathbf{e}_r - \mathbf{e}_t ||, $$
+% % 				i.e., the vector representation $\mathbf{e}_h$ of a \textit{head} instance translated by the relation vector $\mathbf{e}_r$ should be close to the vector representation $\mathbf{e}_t$ \textit{tail} instance
+%%	\item \textbf{DistMult}  \cite{YangYHGD14a} which focuses on pairwise interactions of \textit{latent} features with the following score
+%%				$$ s(r,h,t) = (\mathbf{e}_h \ocircle \mathbf{e}_r)\mathbf{e}_t^T $$
+%%				where $\ocircle$ is an element-wise product.
+%%\end{itemize}
+%
+%%Checking the validity/truthfulness of any fact comes down to evaluating its score. The majority of KGE methods proposed so far \cite{EmbeddingsOverview} are a variation on the above scoring functions.
+% 
+%
+%
+%
+%
+%Understanding of advantages and disadvantages of KGE and logic-based SRL methods is currently very limited.
+%\cite{NickleNIPS2014} show that including both observable patterns, in form of random walks over a knowledge graph, and latent features from KGEs can greatly increase their performance and reduce the learning complexity.
+%\cite{pujara:emnlp17} show that KGEs have difficulties handling data with high degree of sparsity and noise -- which is the case with every automatically created knowledge graph.  
+%Finally, \cite{VigILP2017} show that KGE could be beneficial when the background knowledge about the task at hand is limited, but if such knowledge is available then the SRL methods are preferable.
+%\cite{GrefenstetteTFDS}  introduces a formal framework for simulating logical reasoning through tensor calculation.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%
+%%
+%%	METHODOLOGY
+%%
+%%%%%%%%%%%%%%%%%%
+%\subsection{Methodology}
+%
+%The main goal of this study is to identify the strengths and weaknesses of  KGE and logic-based SRL approaches to learning and reasoning with relational data.
+%Concretely, we focus on the following questions:
+%\begin{itemize}
+%	\setlength{\itemindent}{1em}
+%	\item[\textbf{Q1}] \textit{Are KGEs a viable alternative to logic-based methods for relational classification?}
+%	\item[\textbf{Q2}] \textit{Are KGEs a viable alternative for relational clustering methods?} 
+%\end{itemize}
+%
+%More specifically, we focus on the following tasks:
+%\begin{itemize}
+%    \setlength{\itemindent}{1em}
+%    \item[\textbf{T1}] Given a set of \textit{target instances} (entities in a knowledge base), learn a model that predicts the value of the labels associated with those instances. We consider fully relational models learning the logical theory for predicting the labels, and a feature based models learning from the vector representation of target instances.
+%    \item[\textbf{T2}] Given a set of instances of a specific type or domain, group them into a pre-specified number of groups. We consider methods operating on logical representation of data as well as those operating on the vector representation of instances.
+%\end{itemize}
+%
+%Furthermore, we compare the two approaches across various tasks in order to \textit{determine under which conditions KGEs are preferable to logic-based SRL methods and vice versa}.
+%Given that KGEs are sensitive to the hyper-parameters, especially the size of the embeddings, we investigate the magnitude of those effects.
+%Sensitivity to the hyper-parameter setup is less of a concern for classification tasks where one can use labels to tune the hyper-parameters. However, it poses a major issue for clustering tasks where no labels exists and there are no clear-cut performance criteria.
+%A potential option would be to rely on certain geometric measures. These are, however, often based on various assumptions of limited generality and do not offer a performance measure such as classification accuracy~\cite{Estivill-Castro:2002}.
+%
+%
+%\begin{table}[t]
+%	\centering
+%	
+%	\caption{Dataset properties summarize the number of target and all instances, the number of attributes, and the number of relation types.}
+%	\begin{tabular}{@{}lcccccc@{}}
+%		\toprule
+%		\textbf{Dataset} 	& \multicolumn{2}{c}{\textbf{Instances}} 		& \multicolumn{2}{c}{\textbf{Attributes}}	& \multicolumn{2}{c}{\textbf{Relations}} \\
+%							\cmidrule(rl){2-3} \cmidrule(lr){4-5} \cmidrule(l){6-7}
+%							& Target 				& Total					&   Target				& Total				& Target		& Total						\\
+%		\midrule
+%		Hepa				& 500					& 5919					& 2						& 12				& 3				& 3						\\
+%		Muta				& 230					& 6124					& 3						& 7					& 3				& 7in						\\
+%		Terror				& 1293					& 1293					& 104					& 104				& 2				& 2						\\
+%		WebKB				& 920					& 3880					& 763					& 1207				& 4				& 5						\\
+%		\bottomrule
+%	\end{tabular}
+%	\label{tab:properties}
+%\end{table}
+%
+%
+%\paragraph{Data}
+%We take standard relational learning data sets and use the available labels as ground truth for both classification and clustering.
+%The IMDB data set is a snapshot of the Internet Movie Database, describing a set of movies with their actors and directors. 
+%The task is to distinguish between actors and directors.
+%The UWCSE data set describes the employees of the University of Washington, their roles, publications, and courses.
+%The task is to distinguish between students and professors.
+%The Mutagenesis data set consists of a set of molecules and their structures, with the goal of predicting whether a compound is mutagenic or not.
+%The WebKB dataset describes web pages of four US universities and their corresponding link structure.
+%The pages are classified into seven groups according to their roles such as personal, departmental or project page.
+%The Terrorists data set contains a network of terrorist attacks, each assigned to of the 6 types of attacks.
+%Finally, the Hepatitis data set describes a set of patients with a diagnosis of Hepatitis B and C.
+%We intentionally focus on standard relational learning data sets because they typically expose more variety of reasoning: required reasoning ranges from attribute-only reasoning to multi-hop reasoning.
+%Some of the properties are list in Table~\ref{tab:properties}.
+%For each property, we differentiate between target instances -- instances which contain labels, and the rest.
+%This gives us a better opportunity to detect the conditions under which either of the respective approaches is preferable.
+%In contrast, standard KB completion data sets are often very simple and  only simple path-type rules are required to achieve a reasonable performance.
+%Therefore, the only disadvantage of standard relational methods is that they might very inefficient because of the data set size.
+%
+%
+%
+%\paragraph{Classification Experiments}
+%We perform standard nested cross-validation. For each split the training data is used to learn the models and tune their parameters (using an inner cross-validation loop) and the unseen fold is used for testing.
+%We report the performance in terms of accuracy as an average over individual splits. The labels were excluded from the data when learning the KGEs and considered only during the training of the classifier.
+%
+%
+%\paragraph{Clustering Experiments}
+%For the clustering experiments, we cluster the entire data set at once using the number of distinct labels as the number of clusters.
+%Once the clustering is obtained, we compare it to the ground truth determined by the class labels using the adjusted Rand index \cite{MoreyARI} as evaluation measure.
+%We use Spectral \cite{Spectral} and Hierarchical \cite{Agglomerative} clustering algorithms and compare embedding-based clustering with state-of-the-art relational clustering method ReCeNT \cite{Dumancic2017a}.
+%ReCeNT defines a very flexible similarity measure for relational objects which is used in the conjunction with the 
+%
+%
+%\paragraph{Knowledge Graph Embeddings}
+%
+%Many KGEs exist in the literature \cite{EmbeddingsOverview}.
+%We decide to focus on two prototypical and commonly used instances: TransE  and DistMult. We evaluate the dimensions in $\{10, 20, 30, 50, 80, 100\}$ and train for 100 epochs.
+%
+%As KGE methods are focused on the knowledge graph completion task, they assume that all instances are given at once and focus on filling in the missing links in data.
+%Therefore, they have difficulties with unseen instances.
+%We do not address this issue here, but simply learn the representation of both training and test data at the same time (with labels excluded).
+%
+%\paragraph{Relational Learning}
+%
+%We currently limit the analysis to Inductive logic programming (ILP) methods \cite{LucRLbook} and ignore the probabilistic aspect of SRL methods.
+%This is solely due to better predictive rule induction support of ILP.
+%For that reason, we decide to use the relational decision tree learner TILDE \cite{Blockeel1998285} as a relational  baseline.
+%We report results of two TILDE variants: one trained on the original (logical) data representation (termed TILDE), and the one trained on the \textit{relational} latent features created by CUR$^2$LED \cite{Dumancic2017} (termed TILDE-latent).
+%CUR$^2$LED creates latent features that remain in the logical representation (i.e., are expressed through predicate logic) and should not be confused with the vector representation based latent features.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%\subsection{Classification Results}
+%
+%
+%\begin{figure}
+%	\centering
+%		\includegraphics[height=8cm]{classification.pdf}
+%		\caption{Classification performance. Individual rows contain results with distinct KGE methods. The color indicates whether the learning is propositional or relational. The performance of TILDE variants is simply duplicated on two graphs, for easier comparison.}
+%		\label{fig:classification} 
+%\end{figure}
+%		
+%
+%\begin{figure}
+%	\centering
+%		\includegraphics[height=8cm]{classification_dimension}
+%		\caption{Performance of KGEs varies substantially with the dimension. The rows show performance of the KGE methods, while the brightness indicates the dimension. (WebKB has a separate scale because the performance is in a very different range compared to other datasets)}
+%		\label{fig:clasVariance}
+%\end{figure}
+%		
+%
+%
+%
+%
+%
+%\begin{table*}[h!]
+%	\centering
+%	
+%	\caption{Properties of extracted rules are summarized as a proportion of relation and attribute predicates they contain. \textit{Rule properties} section describes the proportion of rules that contain  \textit{relation} predicates only, \textit{attribute} predicates only and the mix of both, for each dataset. \textit{Dataset properties} section shows the proportion of possible attribute and relation predicates that are used in the extracted rules. For example, the rules on the Hepatitis dataset use 100 \% of the possible attribute predicates, and 66 \% of relation predicates. \textit{Neighbourhood} refers to the proportion of attribute and relation predicates of the non-target instances for which a direct link with target instances exists. }
+%	\begin{tabular}{@{}lccccccc@{}}
+%		\toprule
+%		\textbf{Dataset}		& \textbf{Reasoning depth} 	& \multicolumn{3}{c}{\textbf{Rule properties}} 	& \multicolumn{3}{c}{\textbf{Dataset properties}} \\
+%		\cmidrule(lr){3-5} \cmidrule(l){6-8}
+%							& 				  			& Relations   		& Attributes 	& Mix		& Attributes        & Relations	& Neighbourhood	     \\
+%							\midrule 
+%		Hepatitis   		& 1.4				  		& 10 \%				& 38 \%			& 52 \%		& 100 \%					&  66 \%				& 70 \%				\\
+%		Terrorists			& 1							& 0	\%				& 95 \%			& 5 \%		& 35 \%				& 100 \%		& 0 \%			\\
+%		Mutagenesis			& 0							& 0 \%				& 100 \%		& 0 \%		& 100 \%					& 0 \%	& 0 \%				\\
+%		WebKB				& 2							& 5 \%				& 76 \%			& 19 \%		& 4 \%				& 50 \%		& 1 \%		\\ 	\bottomrule 	
+%	\end{tabular}
+%	\label{tab:ruleproperties}
+%\end{table*}
+%
+%
+%We first focus on comparing the classifiers with the same learning bias, namely propositional and relational decision trees (DT), as this constitutes the fairest comparison.
+%The results (Figure~\ref{fig:classification}) show that the decision tree trained on the embedding features outperforms TILDE only on the Hepatitis data set.
+%However, it does not outperform TILDE-latent on any data set. The performance is similar only on the Terrorists data set.
+%This implicates that relational learners are able to capture certain information that embeddings likely do not contain.
+%Moreover, fully acknowledging relational information (especially distinguishing between attributes of instances and their mutual relationships) while learning the latent representation \cite{Dumancic2017} seems beneficial as TILDE-latent outperform TILDE in all but one case.
+%An important aspect to keep in mind is that KGE methods see both training and test data at training time.
+%This gives them a certain advantage and the question is to what extent this effects the performance.
+%We did not observe significant difference between TransE and DistMult.
+%
+%
+%The classifiers with non-linear decision function, non-linear SVM and kNN, perform substantially better than the decision tree with the embedding features.
+%Even though both SVM and kNN are able to capture more complex feature interactions than a decision tree, the results indicate that their results are not significantly better than those of the relational methods.
+%SVM strongly outperforms TILDE on the Hepatitis dataset, both are similar in performance of the Mutagenesis and Terrorists dataset while TILDE performs much better on the WebKB dataset.
+%kNN slightly outperforms TILDE on the Hepatitis, performs slightly worse than TILDE on Mutagenesis and Terrorists, and substantially worse on the WebKB data set.
+%TILDE-latent outperforms SVM and kNN on the Mutagenesis and WebKB data, is much closer in performance to SVM and kNN of the Hepatititis but struggles with the Terrorists.
+%These results suggest that the ability to capture more complex dependencies allows SVM and kNN to compensate for the lack of the explicit relational information.
+%This also suggests that then labelled instance are not linearly separable in the embedding space, which explain why both SVM and kNN perform much better than DTs.
+%
+%
+%
+%
+%Analyzing these results with respect to the semantics of the predicates used in the extracted rules yields further interesting results.
+%More precisely, we differentiate between \textit{attribute predicates} that associate a specific value of an attribute with an instance, and \textit{relation predicates} that connect two instances.
+%We further distinguish between \textit{target} instances having an associated label, and \textit{neighbourhood} instances that provide additional data.
+%%We summarise (Table~\ref{tab:properties}) the properties of the rules induced by TILDE in terms of (i) \textit{the proportion of rules that are composed of relation predicates only, attributes predicates only and the mixture of both}, and (ii) \textit{the proportion of attribute and relation predicates used in the induced rules w.r.t. the available predicates in the dataset}.
+%Properties of rules learned by TILDE (Table~\ref{tab:ruleproperties}) suggest that KGE have an edge over the SRL methods when most of the information in the neighbourhood of instances is relevant.
+%For example, on the Hepatitis data set  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
+%This also holds for the Terrorists data; though 35 \% does not constitutes 'most of the information in the neighbourhood', we have found that many of the attributes are highly correlated and thus the number of predictive attributes is effectively higher.
+%
+%
+%The remaining two data sets are different in the sense that only a fraction of information is found predictive.
+%On the Mutagenesis data set\footnote{we use the version of the data set without any rings structures and additional background knowledge which is difficult to incorporate in KGE methods}, even though all the attributes of molecules are found predictive, none of the relations were found predictive and thus none of the information about atoms they contain.
+%Thus, only a fraction of available information is used.
+%On the WebKB data set only 4 \% of the attributes have been found predictive, as well as 50 \% of relations.
+%An explanation for such a big difference in performance might be that SRL methods have to select few predictive rules while learning theories, and thus can discard irrelevant information.
+%In contrast, the learning principle of KGEs is designed to take all of the information into account, which seems to make them underperform.
+%
+%
+%
+%Figure~\ref{fig:clasVariance} show the differences in performances when the dimension of the embeddings is changed.
+%These results indicate the importance of choosing the embedding dimension, as the performance varies substantially with the dimension.
+%That is especially true for the Mutagenesis and WebKB datasets.
+%Unfortunately, there does not seem to be a general rules how to choose the dimension: higher does not lead to better results.
+%Fortunately, this is not a major issue for the classification tasks as the dimension can be treated as a parameter to tune.
+%
+%
+%
+%
+%
+%
+%\subsection{Clustering results}
+%
+%The first issue when using KGEs for entity clustering is which distance or similarity measure to use.
+%Even though KGEs embed instances in Euclidean space, that space is usually high-dimensional and, thus, simple Euclidean distance is likely not to be informative.
+%Therefore, to better understand how to use KGEs for clustering, we first survey the possible distance and similarity measures.
+%We focus on the measure available in the \texttt{sci-kit learn} package \cite{scikit-learn} in combination with Spectral and Hierarchical clustering.
+%
+%
+%
+%\begin{table}
+%	\caption{Ranking of similarity measure for Spectral clustering.}
+%		\label{tab:ranksSpectral}
+%		\begin{tabular}{@{}llcccccc@{}}
+%				\toprule
+%				\textbf{Embed}		& \textbf{Measure}	& \multicolumn{5}{c}{\textbf{Dimension}}	& \textbf{Avg} \\
+%								\cmidrule(lr){3-7}
+%								&					&  10	& 30		& 50	& 80 	& 100		&				\\
+%								\midrule
+%				transE			& polynomial			& 2.2	& 2.4	& 2.2	& 2.0	& 2.2		& 2.23			\\
+%								& sigmoid			& 2.8	& 3.6	& 3.2	& 2.4	& 3.2		& 3.0    \\
+%								& rbf				& 3.0	& 2.6	& 3.6	& 3.2	& 3.0		& 3.03		\\
+%								& laplace			& 4.0	& 3.0	& 3.3	& 3.4	& 3.4		& 3.33			\\
+%								& NN				& 3.0	& 3.8	& 3.6	& 3.2	& 3.6		& 3.4		\\
+%				distMult			& polynomial			& 3.2	& 1.6	& 1.6	& 1.6	& 1.4		& 1.9		\\
+%								& rbf				& 2.4	& 2.8	& 3.2	& 3.0	& 3.6		& 2.83        \\
+%								& sigmoid			& 2.6	& 3.0	& 2.6	& 2.4	& 2.8		& 2.9			\\
+%								& NN				& 3.6	& 3.4	& 3.8	& 3.4	& 3.0		& 3.53				\\
+%								& laplacian			& 3.2	& 4.2	& 3.8	& 4.6	& 4.2		& 3.83				\\
+%				\bottomrule	
+%				
+%			\end{tabular}
+%\end{table}
+%	
+%		
+%\begin{table}
+%	\caption{Rankings of distances for Hierarchical clustering.}
+%		\label{tab:ranksHierarchical}
+%		\begin{tabular}{@{}llcccccc@{}}
+%				\toprule
+%				\textbf{Embed}		& \textbf{Measure}	& \multicolumn{5}{c}{\textbf{Dimension}}	& \textbf{Avg} \\
+%								\cmidrule(lr){3-7}
+%								&					&  10	& 30		& 50	& 80 	& 100		&				\\
+%								\midrule
+%				transE			& cosine				& 3.8	& 6.0	& 3.8	& 3.8	& 4.4		& 4.43			\\
+%								& correlation		& 6.8	& 4.2	& 8.4	& 4.2	& 4.0		& 5.5    \\
+%								& braycurtis			& 8.4	& 5.2	& 4.6	& 4.2	& 8.4		& 6.37		\\
+%								& canberra			& 7.2	& 9.2	& 9.4	& 5.2	& 5.2		& 7.9			\\
+%								& chebysev			& 6.0	& 13.0	& 13.2	& 9.8	& 10.0		& 9.73		\\
+%				distMult			& correlation		& 6.0	& 3.8	& 8.0	& 2.0	& 7.4		& 5.87				\\
+%								& cosine				& 8.8	& 8.0	& 2.2	& 5.4	& 8.2		& 6.7        \\
+%								& braycurtis			& 7.2	& 8.8	& 5.8	& 2.6	& 5.8		& 6.83			\\
+%								& l1				& 6.2	& 7.4	& 9.2	& 11.8	& 7.2		& 8.0			\\
+%								& canberra			& 11.0	& 10.6	& 5.6	& 4.2	& 6.2		& 8.27				\\
+%				\bottomrule	
+%				
+%			\end{tabular}
+%\end{table}	
+%		
+%	
+%
+%
+%
+%
+%We first use every distance and similarity measure available to perform clustering for each of the dimensions in $\{10, 30, 50, 80, 100\}$.
+%Within each dimension, we rank the measure according to their performance per dataset and report average rank per dimension.
+%The ranks for the five best performing ones are reported in Table~\ref{tab:ranksSpectral} for Spectral clustering and in Table~\ref{tab:ranksHierarchical} for Hierarchical clustering.
+%
+%
+%
+%These results suggest that clustering with KGE is not straightforward as there is no single measure that is an obvious winner.
+%Polynomial kernel seems to be the overall winner with spectral clustering, but it is mostly the second best measure to use on the individual data set.
+%The results with hierarchical clustering show even greater variance: cosine and correlation distances seem to be an overall winner but they average ranks spread between 4 and 6.
+%This means that a different distance/similarity measure is the most appropriate one for each data set, but at the same time it performs bad with different data set and embeddings dimension,
+%Therefore, a major challenge with using KGEs as a means for relational clustering is the choice of the right distance or similarity, but unfortunately clustering settings does not provide a ground truth that can be used to find the most suitable measure.
+%In further experiments, we use cosine and polynomial distance.
+%
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.8\linewidth]{clustering}
+%	\caption{Clustering performance per dataset. The first two rows correspond to distinct KGE methods, while the third one contains results of the relational clustering approach.  }
+%	\label{fig:clustering}
+%\end{figure}
+%
+%
+%Comparing the performance of clustering approaches yields mixed results (Figure~\ref{fig:clustering}).
+%For instance, on the IMDB data set embeddings do better than the relational methods with Hierarchical clustering, while the relational methods substantially outperforms KGEs with Spectral clustering.
+%Similar holds for the Terrorists and WebKB data.
+%However, on the Mutagenesis and UWCSE data sets, relational methods to better in both cases.
+%With an exception in the Terrorists data, the best overall result is achieved by the relational learning approach.
+%It is interesting to note that these are the same data sets where relational methods have the advantage in the classification settings.
+%It is also interesting to note that, while relational clustering method seems to achieve better results with Spectral clustering, the performance of clustering algorithms is more balanced in the case of KGEs.
+%This implies that the KGEs introduce \textit{smoother} geometry that is more accessible to wider class of clustering algorithms, but more elaborate experiments are needed to confirm this.
+%
+%
+%
+%
+%
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.8\linewidth]{clustering_dimension}
+%	\caption{The performance of clustering method varies substantially with dimension (indicated by the brightness). }
+%	\label{fig:clusVariance}
+%\end{figure}
+%
+%
+%
+%Unfortunately, using KGEs for clustering seems to be highly sensitive to the choice of dimension (Figure~\ref{fig:clusVariance}).
+%Simply altering the dimension varies the results from a completely random clustering (ARI$\approx 0$), to the best obtained one.
+%As finding the means to somehow choose the correct value directly from the data is very difficult for clustering, this severely limits the applicability of KGEs for clustering tasks.
+%
+%
+%
+%\subsection{Conclusions and Future Work}
+%
+%
+%The most important takeaway messages from this work are the following:
+%\begin{itemize}
+%	\item \textbf{KGE seems to be suitable for curated data} KGEs seem to have difficulties in the case when only a small fraction of available information is necessary for the given prediction task. SRL methods do not have that issue as they cherry pick useful information during the learning phase. This observation explains why KGEs perform well on the knowledge base completion task where the complexity of reasoning is low, but the dataset is huge. This further indicates the target use cases for the respective approaches: KGEs target simple relational reasoning with huge amounts of data, while SRL targets complex reasoning tasks with not a lot of data.
+%	\item \textbf{KGE might be useful for relational clustering but needs further research} Although logic-based relational clustering algorithms achieve the overall best results, clustering instances in the embeddings space does not lack much behind. They certainly show potential for this task, however they rise many problem, such as the question of an appropriate distance/similarity measure.
+%	\item \textbf{Hyper-parameters matter a lot} A major disadvantage of KGEs is their sensitivity to hyper-parameters. Out experiments show there is no clear strategy for choosing the right dimension. Though this might be less of an issue for classification problems, it poses a major one for clustering where there is no option to tune the parameters.
+%\end{itemize}
+%
+%
+%Besides the above outlined point, some obvious (dis)advantages are worth re-iterating here.
+%A strong advantage of KGEs is their scalability, at the expense of their black-box nature and limited reasoning capabilities.
+%SRL methods are a direct opposite -- they can capture very complex reasoning, are interpretable but currently of a limited scalability.
+%
+%
+%
+%The analysis presented here is still preliminary and has to be extended in several ways.
+%We plan to extend this study in three main directions.
+%First, adding more datasets is necessary to confirm the preliminary results.
+%Second, including a larger variety of relational learners is necessary to get a complete picture.
+%Currently we considered only TILDE as the relational baseline, which was often outperformed by SVM and kNN trained on the embeddings of entities.
+%Therefore, a fairer comparison would be to compare embedding-based SVM and kNN with relational learners with similar non-linear decision functions such as kFOIL \cite{Landwehr:2006:KLS:1597538.1597601}, nFOIL \cite{Landwehr:2005:NIN:1619410.1619460} and kNN with relational similarity measures \cite{DumancicMLJ2017,Shervashidze:2011:WGK:1953048.2078187}.
+%Third, we focus here on the prototypical KGE methods of TransE and DistMult and including other state-of-the-art KGE methods, such as ComplEx \cite{trouillon2016complex} and ConvE \cite{dettmers2018conve}, is worthwhile (though the performance is likely to be very similar \cite{DBLP:conf/rep4nlp/KadlecBK17}).
+%
+%
+%Additionally, a careful inspection of the scalability of SRL methods on the standard KGE knowledge graph might be interesting.
+%Though SRL methods are in principle less scalable than the KGEs, one might overcome that by limiting the expressivity of SRL methods by limiting the length of clauses.
+%Such a restriction might not have a big impact on the performance for standard KGE tasks, but might largely increase the scalability.
+%
+%
+%As a final note, this work does not aim to critique the KGEs, but should serve as point for new research directions combining the strengths of the two respective approaches.
+%There is obviously a need to integrate them, and several approaches already explore this line of work \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted,Schlichtkrull2017ModelingRD}.
+%However, all of the existing approaches focus on incorporating certain logical concepts into KGEs.
+%This unfortunately uses little of the power of first-order logic while retaining all of the disadvantages of KGEs.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%\section{Conclusion}
+%
+%
+%Many problem nowadays are naturally expressed in form of relational and graph structures data.
+%This includes social and protein interaction networks, biological data, knowledge graphs and many more.
+%Two main machine learning paradigms for analysing such data, knowledge graphs embeddings and statistical relational learning, have mostly been studied in isolation so far.
+%This work is the first, to the best of our knowledge, that systematically compares these two paradigms on the standard machine learning tasks -- classification and clustering.
+%Our preliminary results indicate that knowledge graph embeddings are suitable when data is  \textit{curated} -- when only the \textit{relevant} information is preserved in the data, while the major strength of the statistical relational learning methods is their ability to select relevant information during training.
+%Embedding methods also show certain potential relational clustering, but also raise issues due to their sensitivity to the hyper-parameter choice.
+%We hope this work inspires new research directions focused on combining the strengths of both approaches.
 
 
 

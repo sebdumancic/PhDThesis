@@ -23,10 +23,12 @@
 \supervisor{Prof.~dr.~ir.~H.~Blockeel}{}
 
 \president{Prof.~dr.~ir.~The~Chairman}
-\jury{Prof.~dr.~ir.~The~One\\
-      Prof.~dr.~ir.~The~Other
+\jury{Prof.~dr.~ir.~J.~Davis\\
+      Prof.~dr.~ir.~J.~Suykens
 }
-\externaljurymember{Prof.~dr.~External~Jurymember}{Far Away}
+\externaljurymember{Prof.~dr.~David~Poole}{University of British Columbia, Canada}
+\externaljurymember{Prof.~dr.~Sebastian~Riedel}{University College London, United Kingdom}
+\externaljurymember{Dr.~Mathias~Niepert}{NEC Labs Europe, Germany}
 
 % Your research group within the department
 % e.g. iMinds-DistriNet, Scientific Computing Group, ...
@@ -116,11 +118,30 @@
 \usepackage{xcolor,colortbl}
 \usepackage{epigraph}
 \usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{algorithmic}
+\usepackage{rotating}
+%\usepackage{wasysym}
+\usepackage{subcaption}
+\usepackage{cleveref}
+\usepackage{csquotes}
+%\usepackage{algorithm}
+
+
+%\usepackage{newcent}
+%\usepackage{helvet}
+\usepackage{mathpazo}
+\DeclareSymbolFontAlphabet{\mathcal}   {symbols}
 
 \usepackage{bibentry}
 \nobibliography*
+
+\newtheorem{definition}{Definition}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
+
+\newglossaryentry{alp}{name={Alp},description={Auto-encoding Logic Program}}
+\newcommand{\alp}[1]{\gls{alp}#1}
+\newcommand{\todo}[1]{\textcolor{red}{[#1]}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,13 +187,10 @@
 
 
 \includechapter{introduction}
-%\includechapter{background}
 \includechapter{learninglogic}
 \includechapter{learningrepresentations}
-%\includechapter{relationalrepresentations}
 \includechapter{clustering}
 \includechapter{symmetries}
-%\includechapter{demystifying}
 \includechapter{autoencoders}
 \includechapter{embeddinganalysis}
 
@@ -196,7 +214,7 @@
 \includebibliography
 % BibTex
 \bibliographystyle{acm}
-\bibliography{allpapers}
+\bibliography{allpapers,mypapers,starai}
 % BibLatex (comment lines above and comment out biblatex lines in preamble)
 %\printbibliography[title=\bibname]
 %\instructionsbibliography

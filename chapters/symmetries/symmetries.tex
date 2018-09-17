@@ -2,6 +2,19 @@
 
 This chapter explores the idea of learning relational representations by identifying symmetries in the data -- groups of relational objects \textit{similar} to each other, and using the group membership information as latent representation of data.
 The proposed approach builds upon the previously introduced relational clustering method and extends it towards the relation clustering.
+This chapter is based on the following publications:
+
+\begin{quote}
+	\bibentry{DBLP:journals/corr/DumancicB16}
+\end{quote}
+
+\begin{quote}
+	\bibentry{Dumancic2017}
+\end{quote}
+
+\begin{quote}
+	\bibentry{Dumancic2017b}
+\end{quote}
  
 
 
@@ -61,9 +74,16 @@ An interesting part about this approach is that it does not require any new algo
 \newglossaryentry{curled}{name={CUR$^2$LED},description={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation}}
 %Here we focus on the problem of \textit{unsupervised} learning a \textit{feature hierarchy} with relational data.
 This work introduces \gls{curled} - a \textit{clustering-based unsupervised relational representation learning with explicit distributed representation}, inspired by the work of \cite{coates2011analysis}.
-\gls{curled} learns a new representation by clustering both instances and their relationships.
-A distinctive feature of  \gls{curled} is that the relational structure is  preserved throughout the hierarchy, contrasted to the \gls{kge} approaches that replace relational structures with vectors.
-Another distinctive feature is the notion of \textit{similarity interpretation}.
+The core idea behind \gls{curled} is that capturing groups of similar relational objects serve as a good \textit{proxy} for useful representations, as it identifies \textit{locally consistent} regions in example space.
+All members in such a group are \textit{symmetric} to each other, meaning that for the purpose of reasoning they can be interchanged with one another.
+They are approximately symmetric as they are similar, but not identical.
+
+
+
+Though \gls{curled} is not the first approach to rely on clustering procedure to enhance the predictive performance, it posses' two three distinctive features.
+First, it learns a new representation by clustering both instances and their relationships.
+Second, the relational structure is  preserved throughout the hierarchy, contrasted to the \gls{kge} approaches that replace relational structures with vectors.
+Third, it relies on the notion of \textit{similarity interpretation}.
 When clustering relational data, a similarity of relational objects is an ambiguous concept.
 Two relational objects might be similar according to their attributes, relationships, or a combination of both.
 The notion of similarity interpretation precisely states the exact source of similarity used.

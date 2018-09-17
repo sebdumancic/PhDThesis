@@ -2,6 +2,12 @@
 
 
 
+This chapter briefly introduces the concepts of relational learning.
+It starts with a short introduction to logic, starting from a propositional logic and gradually climbs the ladder of complexity all the way to the logic programming.
+It continues with a brief introduction to Inductive logic programming.
+Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory in order to quantify uncertainty of the reasoning.
+
+
 
 
 \section{Representing data with logic}
@@ -9,12 +15,11 @@
 
 
 
-% TODO: cover the examples in logical format (focus on the strengths of logic)
 
 \subsection{Propositional logic}
 
 Propositional logic is a formalism for reasoning about the truth assignments of \textit{propositions}.
-Propositions are statements about the world being modelled, and can be \texttt{true} or \texttt{false}.
+Propositions are statements about the world being modelled, and can be \textit{true} or \textit{false}.
 
 
 The propositions are constructed from propositional \textit{variables} and \textit{connectivity operators}.
@@ -26,13 +31,15 @@ Such operators in \textit{conjunction} (AND operator), \textit{disjunction} (OR 
 
 A \textit{logical theory} is a collection of propositions, more precisely, a conjunction of propositions.
 An \textit{interpretation} is a truth assignment for each of the propositional variables.
-An interpretation satisfies a given proposition if it evaluates to \texttt{true} for the given truth assignments to the variables.
-An interpretation that satisfies the proposition is the \textit{model} of that proposition.
+An interpretation satisfies a given proposition if it evaluates to \textit{true} for the given truth assignments to the variables.
+An interpretation that satisfies the proposition is a \textit{model} of that proposition.
 
 
 
-\paragraph{Example} The proposition \texttt{playful} $\wedge$ \texttt{fluffy} $\Rightarrow$ \texttt{ideal\_pet} encodes that when something is playful (variable \texttt{playful} is true) and fluffy (variable \texttt{fluffy} is true )then it is an ideal pet (variable \texttt{ideal\_pet} is true).
-Every interpretation in which \texttt{ideal\_pet} is true is a model of this proposition.
+\paragraph{Example} The proposition 
+$$\text{\textit{playful}} \wedge \text{\textit{fluffy}} \Rightarrow \text{\textit{ideal\_pet}} $$
+encodes that when something is playful (variable \textit{playful} is true) and fluffy (variable \textit{fluffy} is true )then it is an ideal pet (variable \textit{ideal\_pet} is true).
+Every interpretation in which \textit{ideal\_pet} is true is a model of this proposition.
 
 
 
@@ -54,7 +61,7 @@ The task of \textit{model counting}, a generalisation of both aforementioned tas
 
 
 Propositional logic is suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations between objects is extremely tedious.
-For instance, to indicate that two animals are of the same species would require introducing new boolean variables for each pair of animals, such as \texttt{same\_species\_dog\_cat}, and specifying their truth assignments.
+For instance, to indicate that two animals are of the same species would require introducing new boolean variables for each pair of animals, such as \textit{same\_species\_dog\_cat}, and specifying their truth assignments.
 
 
 
@@ -70,6 +77,7 @@ The core building blocks of predicate logic formulas are \textit{four} types of 
 The statements in predicate logic, the formulas, are composed of \textit{terms}, \textit{atoms} and \textit{connectivity operators}.
 A \textit{term} is defined as:
 \begin{itemize}
+	\item a constant is a term
 	\item a variable is a term
 	\item if $f / n$ is a function symbol and $t_1,t_2,...,t_n$ are terms, then function $f(t_1,...,t_n)$ is a term.
 \end{itemize}
@@ -104,10 +112,14 @@ Once groundings are obtained, each grounding of a predicate is associated with \
 
 
 
-\paragraph{Example} Mapping the previous example in propositional logic to predicate logic results in the following formula: $\forall X$ \texttt{is\_playful(X)} $\wedge$ \texttt{is\_fluffy(X)} $\Rightarrow$ \texttt{ideal\_pet(X)}.
+\paragraph{Example} Mapping the previous example in propositional logic to predicate logic results in the following formula: 
+
+$$\forall X \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy(X)}} \Rightarrow \text{\textit{ideal\_pet(X)}}. $$
+
  Predicate logic allows us to easily express more complex knowledge relating different objects.
- For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend: $\forall X, \exists Y$ \texttt{is\_playful(X)} $\wedge$ \texttt{is\_fluffy(X)} $\wedge$ \texttt{friends(X,Y)} $\Rightarrow$ \texttt{ideal\_pet(X)}.
- Assuming the domain being $\{$\texttt{cat,hamster,alpaca}$\}$, the grounding of the predicate \texttt{is\_playful(X)} are: \texttt{is\_playful(cat)}, \texttt{is\_playful(hamster)} and \texttt{is\_playful(alpaca)}.
+ For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend: 
+ $$\forall X, \exists Y \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy(X)}} \wedge \text{\textit{friends(X,Y)}} \Rightarrow \text{\textit{ideal\_pet(X)}}. $$
+ Assuming the domain being $\{$\textit{cat,hamster,alpaca}$\}$, the grounding of the predicate \textit{is\_playful(X)} are: \textit{is\_playful(cat)}, \textit{is\_playful(hamster)} and \textit{is\_playful(alpaca)}.
  
  
  
@@ -128,7 +140,7 @@ Once groundings are obtained, each grounding of a predicate is associated with \
 
 \textit{Logic programming} uses language of predicate logic for computer programming.
 It uses a subset of predicate logic in which the domains are restricted to \textit{Herbrand base} -- the set of all ground atoms that can be constructed from the constant and function symbols in the alphabet.
-Furthermore, it restricts the formulas to be in the for of \textit{Horn clauses}.
+Furthermore, it restricts the formulas to be in the form of \textit{Horn clauses}.
 
 
 A \textit{clause} is a disjunction of literals:
@@ -152,14 +164,44 @@ A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$
 
 A very attractive property of clausal logic is that it forms a very general framework for representing knowledge.
 For example, a clausal statement with $n > 0$ and $m = 0$ indicates a fact.
-If $n, m>0$, then such a statement is a rule.
+If $n, m > 0$, then such a statement is a rule.
 A statement wit $n=0$ and $m > 0$ represents a \textit{Prolog query}.
 Moreover, even the learning algorithm itself can be represented as a set of clauses.
 
 
 
 The main difference between predicate logic and logic programming is in the interpretation of the implication operator.
-Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic programming takes a procedural interpretation of implication (\texttt{:-}). 
+Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic programming takes a procedural interpretation of implication (\textit{:-}). 
+
+
+
+\paragraph{Example}
+Some pet owners are more picky than others and require a certain pedigree from their current and future pets.
+Let us assume that royal ancestry exists among the animal species as well, and that some pet owners want royal pets.
+How do we express this requirement in logic?
+Let us define royal ancestry as follows: \textit{some is of royal ancestry if at least on of her ancestors was a king or queen}.
+Starting simple, some is royal if he or she is a king or queen:
+$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{is\_king(X)}}.$$
+$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{is\_queen(X)}}.$$
+
+Next, we can extend the rules to the children of kings and queens:
+$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{parent(X,Y),is\_king(X,Y)}}.$$
+$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{parent(X,Y),is\_queen(X,Y)}}.$$
+
+Specifying these rules so that we could identify royal ancestry in general case is obviously tedious.
+However, \textit{recursion} allows us to compactly compute all ancestors through the procedural interpretation of implication:
+
+$$ \text{\textit{ancestor(X,Y)}} \text{ :- } \textit{parent(X,Y)}.$$
+$$ \text{\textit{ancestor(X,Y)}} \text{ :- } \textit{parent(X,Z),ancestor(Z,Y)}.$$
+
+The first clause state that $X$ is an ancestor of $Y$ if $X$ is a parent of $Y$.
+The second clause states that $X$ is an ancestor of $Y$ is $X$ is a parent of $Y$ who is an ancestor of $Y$.
+We can now define the rule for royal ancestry in a simple way:
+
+$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_king(Y)}}.$$
+$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_queen(Y)}}.$$
+
+
 
 
 
@@ -172,9 +214,8 @@ Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic 
 
 \subsection{Hierarchy of representation languages}
 
-% TODO: simplify chapter from Luc's book
+% TODO: hierarchy of representations, simplify chapter from Luc's book
 
-% TODO: example (poker from Guy?)
 
 
 
@@ -188,7 +229,7 @@ What has not been discussed so far is their connection with machine learning.
 \textit{Inductive logic programming} \cite{LucRLbook,Lavrac:1993:ILP:562956} is the field of \gls{ai} combining machine learning with logic programming representation language.
 Intuitively, \gls{ilp} considers the problem of learning a logic theory, a set of clauses, predicting the target predicate.
 
-More specifically, \gls{ilp} is defined as follows
+More specifically, \gls{ilp} is defined as follows.
 
 \begin{definition}{(\gls{ilp} learning task)}
 	
@@ -301,6 +342,10 @@ The choice for a quality is a more difficult one, and it typically involves spec
 
 
 
+\paragraph{\textbf{Example}}
+
+
+
 
 
 
@@ -314,14 +359,27 @@ The choice for a quality is a more difficult one, and it typically involves spec
 
 Though clausal logic is a powerful representation framework, it still has a drawback when it comes to reasoning: it can only represent things being \textit{true} or \textit{false}, but cannot reason about uncertainty of conclusion.
 Therefore, significant work has been devoted towards combining logic reasoning with probability theory, under the name of Statistical relational learning (\gls{srl}) and Probabilistic inductive logic programming.
-In the remainder of the chapter, we describe two prominent approaches within \gls{srl} and \gls{pilp}: \textit{Problog} and \textit{Markov logic networks}.
 
+
+
+
+Halpern introduces to formalisms to give the semantic to systems combining logic an probability \cite{Halpern90ananalysis}.
+The first formalism assigns probabilities on the domain, i.e., the facts, and is suitable for probabilistic logic involving the uncertain facts.
+The second formalism assigns probabilities on the possible worlds, and is suitable for giving semantics to formulas describing degrees of belief.
+In the remainder of the chapter, we describe two prominent approaches within \gls{srl} and \gls{pilp}: \textit{Problog} and \textit{Markov logic networks}.
 
 
 \subsection{Problog}
 
+Problog is an probabilistic extension of Prolog where some facts can be annotated with the probabilities.
+It is therefore a representation of the first formalism of the Halpern's systematization.
 
+The central concept in Problog is a \textit{probabilistic facts}: ground fact $f$ annotated with a probability $p$ (\textit{p::f.}).
+Each probabilistic fact corresponds to a Boolean random variable which is \textit{true} with probability $p$ and \textit{false} with probability $1-p$.
+Next to the probabilistic facts, Problog consists of deterministic rules equal to Prolog clauses.
+Such probabilistic facts together with rules define the following distribution $P_{F}$ over the truth assignments to the variables corresponding to probabilistic facts:
 
+$$ $$
 
 \subsection{Markov logic networks}
 

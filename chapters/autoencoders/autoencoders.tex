@@ -1,41 +1,51 @@
 \chapter{Auto-encoding Logic Programs}\label{ch:alps}
 
 
+This chapter discussed the third contribution of the thesis in the form of \textit{auto-encoding logic programs}.
+Auto-encoding logic programs lift the auto-encoding principle from vector representation to logical data formats.
+More precisely, it uses clauses logic for data representation and  as a computational framework for encoder and decoder functions.
+
+
+The chapter is based on the following publications.
+
+\begin{quote}
+	\bibentry{Dumancic2018a}
+\end{quote}
+
+\begin{quote}
+	\bibentry{AlpsSubmitted}
+\end{quote}
+
+
 
 \section{Introduction}
 
 
-Deep representation learning (DL)~\cite{Goodfellow2016} has achieved tremendous progress over the last decade by leveraging one idea: \textit{how can we automatically learn useful features (so called latent representations) that make learning easier?}
-This removes the typically intensive, manual labour of constructing useful features.
-However, most works largely focus on flat data often from signal-like sources (such as images, speech and text), while ubiquitous relational data (such as biological and social networks) has only recently started to receive attention.
-Exceptions to that are \textit{knowledge graph embeddings} \cite{Nickel0TG16}, \textit{differentiable interpreters} \cite{DTP2017,bosnjak17,Reed:2016} and \textit{graph neural networks} \cite{Scarselli:2009:GNN:1657477.1657482,DBLP:conf/icml/NiepertAK1,ae482107de73461787258f805cf8f4ed}.
-These focus on developing ways to represent relational data in Euclidean spaces, in which reasoning can be performed efficiently.
+%Deep representation learning (DL)~\cite{Goodfellow2016} has achieved tremendous progress over the last decade by leveraging one idea: \textit{how can we automatically learn useful features (so called latent representations) that make learning easier?}
+%This removes the typically intensive, manual labour of constructing useful features.
+%However, most works largely focus on flat data often from signal-like sources (such as images, speech and text), while ubiquitous relational data (such as biological and social networks) has only recently started to receive attention.
+%Exceptions to that are \textit{knowledge graph embeddings} \cite{Nickel0TG16}, \textit{differentiable interpreters} \cite{DTP2017,bosnjak17,Reed:2016} and \textit{graph neural networks} \cite{Scarselli:2009:GNN:1657477.1657482,DBLP:conf/icml/NiepertAK16,ae482107de73461787258f805cf8f4ed}.
+%These focus on developing ways to represent relational data in Euclidean spaces, in which reasoning can be performed efficiently.
 
 
 
-
-However, as such approaches re-represent relational data in Euclidean space, they can only \textit{approximate} the given relational data, but not capture it in entirety.
+Embedding-based approaches, including \gls{kge}s, \textit{differentiable interpreters} \cite{DTP2017,bosnjak17,Reed:2016} and \textit{graph neural networks} \cite{Scarselli:2009:GNN:1657477.1657482,DBLP:conf/icml/NiepertAK16,ae482107de73461787258f805cf8f4ed},  can only \textit{approximate} the given relational data, but not capture it in entirety.
 We currently lack a framework to evaluate the quality of the approximation.
 Another common criticism is that such methods are \textit{black-box} and lead to uninterpretable representations.
 Moreover, the vast majority of mentioned approaches are inherently \textit{transductive} (cannot be applied to unseen data), especially knowledge graph embeddings, and cannot be applied in the inductive setup.
 
 
-In this work we ask the following question: \textit{how can we learn latent representations of relational data in a principled framework that can keep data and reasoning at relational level?}
-%\tias{is the exactly here not a it weird, as we also learn approximate, but still at the relation level? 'can keep data at relational level'?}
-Learning and reasoning with rich relational data has typically been in the domain of logic-based approaches to artificial intelligence such as \textit{Statistical relational learning} (SRL) \cite{GetoorSRL,Raedt:2016:SRA:3027718}.
-These models combine the expressive knowledge representation capabilities of first-order logic with probability theory and thus can reason about both uncertainty and complex relational structure.
-This results in a very powerful reasoning system that can reason about everything that can be expressed in a programming language.
-The benefits of using such a general knowledge representation format are countered by a high computational cost of inference and learning (which, in contrast to DL, cannot be overcome by GPUs).
-%\seb{this is maybe downplaying the benefits of SRL}
+
+In this chapter we ask the following question: \textit{how can we learn latent representations of relational data in a principled framework that can keep data and reasoning at relational level?}.
+By that, we are interested in whether we can learn relational latent representation by means of learning and inference methods from \gls{srl} community.
+\gls{curled}
 
 
-We argue that retaining first-order logic as a data representation language within DL approaches offers several benefits. 
+We argue that fully retaining first-order logic as a data representation language within \gls{dl} approaches offers several benefits. 
 First, predicate logic is a Turing-equivalent programming language and thus provides a language that does not introduce any limitations upfront. 
 Second, it is easily interpretable (while DL is a \textit{black-box}) and modular which might allow for efficient learning strategies.
-%\tias{is DL the black box, or the KGE?}
-%\seb{both!}
-Third, once the domain model is obtained/specified, SRL systems can answer any question w.r.t. the provided domain model, and the user thus does not have to commit to a specific learning task in advance. 
-Fourth, SRL and other logic-based ML methods are very data-efficient and capable of learning from a few examples only, while DL is \textit{data-hungry}.
+Third, once the domain model is obtained/specified, \gls{srl} systems can answer any question w.r.t. the provided domain model, and the user thus does not have to commit to a specific learning task in advance. 
+Fourth, \gls{srl} and other logic-based ML methods are very data-efficient and capable of learning from a few examples only, while \gls{dl} is \textit{data-hungry}.
 Fifth, SRL methods allow for incorporation of \textit{background knowledge} and thus can easily build further on previously gathered knowledge.
 
 
@@ -45,11 +55,13 @@ Fifth, SRL methods allow for incorporation of \textit{background knowledge} and 
 
 This work takes a fresh look at learning relational latent representations by going back to the basics of relational learning and induces relational latent representation in a \textit{symbolic way}, instead of through gradient-based optimisation.
 We introduce \textit{auto-encoding logic programs} (\alp{s}) -- a novel relational DL component which uses logic programs as a computation engine instead of neural networks.
-We focus on auto-encoders as they have proven to be among the most versatile DL primitives and applicable to different learning settings (un-, semi- and supervised learning) using the same learning principle \cite{SSLVAE2014,VincentDaE,Kingma2014,BengioSAE}.
+We focus on auto-encoders as they have proven to be among the most versatile \gls{dl} primitives and applicable to different learning settings (un-, semi- and supervised learning) using the same learning principle \cite{SSLVAE2014,VincentDaE,Kingma2014,BengioSAE}.
 This versatility is important as it makes a single latent representation suitable for many tasks within SRL. 
 There tasks range from learning predictive models to structure learning.
-\alp{s} further relates to the problem of \textit{predicate invention} \cite{Kramer1995,Muggleton2015,Cropper2018,Kok2007} within SRL -- the problem of inventing a new relational vocabulary defined in terms of the provided one. 
-A key difference is that that we create latent representations in an entirely unsupervised manner, whereas predicate invention is defined as a supervised method (with an exception in \cite{Kok:2007:SPI:1273496.1273551}, see Sec. \ref{sec:relatedwork} for details).
+A key difference between the predicate invention approaches and \alp{s} is that that we create latent representations in an entirely unsupervised manner, whereas predicate invention is defined as a supervised method.
+An exception to that is the work related ton \textit{statistical predicate invention}~\cite{Kok2007} which also addresses a generative learning setup within \gls{srl}, but never explicitly creates latent representation.
+Moreover, it is not used to provide novel language constructs to an SRL learner, but only to compress the existing KB by identifying entities \textit{identical} to each other and thus speed up learning~\cite{Kok:2009:LML:1553374.1553440}.
+If one would explicitly construct the latent representation, learning generative models would be extremely difficult due to the very large number of created constructs.
 %\wannes{True for all methods? Eg Kok's SPI (they state ``The invented predicates capture arbitrary regularities over all relations, and are not just used to predict a designated target relation.'' + evaluate AUC)?}.
 %\wannes{show what is now possible that wasn't before}
 
@@ -72,11 +84,11 @@ The contributions of this work are a (i) \textit{a framework for learning auto-e
 
 \section{Auto-encoding Logic Programs}
 
-\begin{figure*}
+\begin{sidewaysfigure}
 	\centering
-    \includegraphics[width=.9\textwidth]{alps}
+    \includegraphics[width=.95\textwidth]{alps}
     \caption{Illustration of the auto-encoding logic program learning the concept of \textit{parent} in the latent representation (underlaid figure of neural auto-encoder for convenience)\label{fig:alp}}
-\end{figure*}
+\end{sidewaysfigure}
 
 
 
@@ -388,22 +400,7 @@ We remove the candidate clauses that have a corruption level $\geq 0.5$.
 
 \section{Experiments and results}
 
-\begin{figure*}
-    \begin{minipage}[thb]{.33\linewidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{webkb_AUCPR_final}
-    \end{minipage}
-    \begin{minipage}[htb]{.33\linewidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{cora_AUCPR_final}
-    \end{minipage}
-    \begin{minipage}[htb]{.33\linewidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{uwcse_AUCPR_final}
-    \end{minipage}
-    \caption{The MLN models learned on the latent representation outperform the baseline MLN (indicated with the vertical red line) in terms of the AUC-PR score, except on the UWCSE dataset where the gain is marginal.}
-    \label{fig:resultsAUCPR}
-\end{figure*}
+
 
 The experiments aim at answering the following question:
 
@@ -474,21 +471,27 @@ We have experimented with other common SRL datasets, but have removed the once o
 \subsection{Results}
 
 
-\begin{figure*}[t!]
+
+\begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.45\linewidth}
-		\centering
-		\includegraphics[width=.6\linewidth]{lossVsAUC}
-		\caption{Relationship between reconstruction loss and AUC-PR scores. \label{fig:lossvsaucpr}}
-	\end{subfigure}
-	\hspace{.5em}
-	\begin{subfigure}[t]{0.45\linewidth}
-		\centering
-		\includegraphics[width=.65\linewidth]{timings}
-		
-		\caption{Relationship between runtimes and the number of variables.\label{fig:timings}}
-	\end{subfigure}
-\end{figure*}
+    \begin{minipage}[thb]{.32\linewidth}
+        \centering
+        \includegraphics[width=.98\linewidth]{webkb_AUCPR_final}
+    \end{minipage}
+    \begin{minipage}[htb]{.32\linewidth}
+        \centering
+        \includegraphics[width=.98\linewidth]{cora_AUCPR_final}
+    \end{minipage}
+    \begin{minipage}[htb]{.32\linewidth}
+        \centering
+        \includegraphics[width=.98\linewidth]{uwcse_AUCPR_final}
+    \end{minipage}
+    \caption{The MLN models learned on the latent representation outperform the baseline MLN (indicated with the vertical red line) in terms of the AUC-PR score, except on the UWCSE dataset where the gain is marginal.}
+    \label{fig:resultsAUCPR}
+\end{figure}
+
+
+
 
 
 Figure \ref{fig:resultsAUCPR} summarises the performance, in terms of AUC-PR scores, of MLNs learned on the original data representation and various representation created by \alp{s} by modifying the clause lengths for both encoder and decoder, and varying the compression level of the latent representations.
@@ -522,6 +525,22 @@ Some results show that certain setups lead to the perfect reconstruction loss (F
 
 
 
+\begin{figure}[t!]
+	\centering
+	\begin{subfigure}[t]{0.48\linewidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{lossVsAUC}
+		\caption{Relationship between reconstruction loss and AUC-PR scores. \label{fig:lossvsaucpr}}
+	\end{subfigure}
+	\hspace{.2em}
+	\begin{subfigure}[t]{0.48\linewidth}
+		\centering
+		\includegraphics[width=.85\linewidth]{timings}
+		
+		\caption{Relationship between runtimes and the number of variables.\label{fig:timings}}
+	\end{subfigure}
+\end{figure}
+
 
 
 It is interesting to see that there is no general trend relating reconstruction loss and performance (Figure \ref{fig:lossvsaucpr}).
@@ -536,29 +555,27 @@ This suggest that the length of clauses serves as a form of regularisation, and 
 
 
 
-\section{Related work}
-\label{sec:relatedwork}
+%\section{Related work}
+%\label{sec:relatedwork}
+%
+%
+%\textit{Knowledge graph embeddings} \cite{Nickel0TG16} (KGE) re-represent the symbolic data in Euclidean spaces and perform relational reasoning through algebraic manipulations of vectors.
+%\alp{s} differ in the way that they retain full semantics of logic and use the programming language for mapping to the latent space, instead of purely algebraic manipulations.
+%Several works \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted} combine aspects of logic with KGEs, but through imposing constraints on KGEs and not retaining the relational representation.
+%
+%
+%
+%Several works bring DL ideas into SRL by introducing symbolic variants of neural networks (NN)~\cite{Sourek:2015:LRN:2996831.2996838,Kazemi2018}; however, they focus on predictive learning, often with specified architecture.
+%Dumancic and Blockeel (\cite{Dumancic2017}) introduce a general relational representation learning pipeline, but the approach cannot be used to generative learning as the number of introduced latent predicates is very large.
+%Rockt\"{a}schel and Riedel (\cite{DTP2017}) integrate theorem proving techniques with the embeddings representations and, in contrast to \alp{s}, learn embeddings representation of relational data.
+%Various \textit{neuro-symbolic integration} methods~\cite{Besold2017NeuralSymbolicLA} concern emulating logical reasoning with NNs, but now learning with logic.
+%%However, these methods focus on predictive learning only.
 
 
-\textit{Knowledge graph embeddings} \cite{Nickel0TG16} (KGE) re-represent the symbolic data in Euclidean spaces and perform relational reasoning through algebraic manipulations of vectors.
-\alp{s} differ in the way that they retain full semantics of logic and use the programming language for mapping to the latent space, instead of purely algebraic manipulations.
-Several works \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted} combine aspects of logic with KGEs, but through imposing constraints on KGEs and not retaining the relational representation.
-
-
-
-Several works bring DL ideas into SRL by introducing symbolic variants of neural networks (NN)~\cite{Sourek:2015:LRN:2996831.2996838,Kazemi2018}; however, they focus on predictive learning, often with specified architecture.
-Dumancic and Blockeel (\cite{Dumancic2017}) introduce a general relational representation learning pipeline, but the approach cannot be used to generative learning as the number of introduced latent predicates is very large.
-Rockt\"{a}schel and Riedel (\cite{DTP2017}) integrate theorem proving techniques with the embeddings representations and, in contrast to \alp{s}, learn embeddings representation of relational data.
-Various \textit{neuro-symbolic integration} methods~\cite{Besold2017NeuralSymbolicLA} concern emulating logical reasoning with NNs, but now learning with logic.
-%However, these methods focus on predictive learning only.
 
 
 
 
-
-A work related to our is that of \textit{statistical predicate invention}~\cite{Kok2007}: it also addresses a generative learning setup within SRL, but never explicitly creates latent representation.
-Moreover, it is not used to provide novel language constructs to an SRL learner, but only to compress the existing KB by identifying entities \textit{identical} to each other and thus speed up learning~\cite{Kok:2009:LML:1553374.1553440}.
-If one would explicitly construct the latent representation, learning generative models would be extremely difficult due to the very large number of created constructs.
 
 
 

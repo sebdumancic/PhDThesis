@@ -4,6 +4,15 @@
 This chapter introduces a novel framework for relational data clustering. 
 The main contribution of this chapter is a new dissimilarity measure for relational objects based on the concept of neighbourhood tree -- a compact summary of the neighbourhood of a relational object.
 The proposed relational clustering framework will serve as a basis for the relational latent representation method introduced in next chapter.
+This chapter is based on the following publications:
+
+\begin{quote}
+	\bibentry{DBLP:conf/ecai/DumancicB16}
+\end{quote}
+
+\begin{quote}
+	\bibentry{Dumancic2017a}
+\end{quote}
 
 
 
@@ -445,7 +454,7 @@ Let $N$ be the number of vertices in a hyper-graph, $L$ be the total number of h
 Let, as well, $A$ be the number of attributes in a data set.
 Additionally, assume that all vertices participate in the same number of hyperedges, which we will refer to as $E$. 
 We will refer to the length of clause in CC and path in RKOH as $l$.
-\vspace{2pt}
+
 
 
 \begin{table}
@@ -483,7 +492,7 @@ The first category contains HS and HSAG; these are substantially less complex th
 The second category contains RIBL and RKOH, which are substantially more complex than the rest.
 Both of these approaches use both attribute and edge information, but in a computationally very expensive way.
 The last category contains ReCeNT, WLST and CC; these lie in between. They utilize both attribute and edge information, but in a way that is much more efficient than RIBL and RKOH.
-\vspace{2pt}
+
 
 
 
@@ -508,7 +517,7 @@ The chosen data sets are commonly used within the (statistical) relational learn
 The characterization of data sets, summarized in Table~\ref{tab:Data}, include the total number of vertices in a hypergraph, the number of vertices of interest, the total number of attributes, the number of attributes associated with vertices of interest, the number of hyperedges as well as the number of different hyperedge types.
 The data sets range from having a small number of vertices, attributes and hyperedges (UW-CSE, IMDB), to a considerably large number of vertices, attributes or hyperedges (Mutagenesis, WebKB, TerroristAttack).
 All the chosen data sets are originally classification data sets, which allows us to evaluate our approach with respect to how well it extracts the classes present in the data set.
-\vspace{2pt}
+
 
 
 
@@ -627,7 +636,7 @@ We compare ReCeNT to a pure attribute based approach (termed Baseline), HS \cite
 The subscript in ReCeNT, HSAG, RIBL and kernel approaches  denotes the depth of the neighbourhood tree (or other supporting structure).
 The subscript in CC denotes the length of the clauses.
 The second subscript in WLST and RKOH indicates their parameters: with WLST it is the \textit{h} parameter indicating the number of iterations, whereas with RKOH it indicates the length of the walk.
-\vspace{2pt}
+
 
 
 \begin{table*}[t]
@@ -708,7 +717,7 @@ In the case of IMDB data set in combination with spectral clustering, the closes
 In the cases of the TerroristAttack data set combined with the spectral clustering, the closest competitors are HSAG$_1$ and HSAG$_2$, while in the case with hierarchical clustering our approach is outperformed by WLST$_{1,*}$ and WLST$_{2,5}$.
 These results show that the proposed similarity measure performs better over wide range of different tasks and biases, compared to the remaining approaches.
 Moreover, when combined with the spectral clustering, ReCeNT$_1$ consistently performs well on all data sets, achieving the second-best result only on the TerroristAttack data set.
-\vspace{2pt}
+
 
 
 Each of the data sets exposes different bias, which influences the performance of the methods.
@@ -724,7 +733,7 @@ Similarly, the IMDB data set consists of a network of people and their roles in 
 Here, directors can be differentiated from actors by a single edge type - actors work under directors which is explicitly encoded in the data set.
 The type of interactions between entities matters the most, as it is not an attribute-rich data set, and is thus more suitable for methods that account for structural measures.
 Accordingly, ReCeNT, RIBL, WLST$_{1,*}$ and VE  kernels achieve the best results.
-\vspace{2pt}
+
 
 
 
@@ -735,7 +744,7 @@ Such bias is implicitly present in HS, and partially assumed by kernel approache
 The results show that ReCeNT$_1$ and WSLT$_{2,*}$ and VE$_2$ kernels achieve almost identical performance on the WebKB data set, while the remaining approaches are outperformed even by the baseline approach.
 On the TerroristAttack data set, WLST$_{1,*}$ kernel achieves the best performance, outperforming ReCeNT$_1$ and HSAG$_1$.
 Similarly to WebKB, other approaches are outperformed by the baseline approach.
-\vspace{2pt}
+
 
 
 
@@ -749,7 +758,7 @@ Finally, ReCeNT and most of the approaches tend to be sensitive to the depth par
 This suggests that increasing depth of a neighbourhood tree consequently introduces more noise.
 Interestingly, while the results suggest that with ReCeNT the depth of 1 performs the best, the performance of kernel methods tend to increase with the depth parameter.
 These results justify the basic assumption of this approach that important information is contained in small local neighbourhoods.
-\vspace{2pt}
+
 
 
 
@@ -812,7 +821,7 @@ In the second experiment, we evaluate how relevant each of the five components i
 Table~\ref{tab:RResultsComponenets} summarizes the results. 
 There are only two cases (Mutagenesis and IMDB) where using a single component (if it is the right one!) suffices to get results comparable to using all components (Table~\ref{tab:RResultsComponenets}).  
 This confirms that clustering relational data is difficult not only because one needs to choose the right source of similarity, but also because the similarity of relational objects may come from multiple sources, and one has to take all these into account in order to discover interesting clusters.
-\vspace{2pt}
+
 
 
 
@@ -826,7 +835,6 @@ These results may explain why ReCeNT almost consistently outperforms all other m
 %Unfortunately, this also means that if most of the components are irrelevant, the noise can dominate the pattern.
 %The latter case is evident in the results of the experiment 1 when the depth of 2 was used for the neighbourhood trees, which are substantially worse than the results with the depth of 1.
 %Not having these two properties also explains why other approaches perform well only on the tasks that suit their biases.
-\vspace{2pt}
 
 
 
@@ -845,7 +853,7 @@ The possibility of tuning offers an additional flexibility to the user.
 If the knowledge about the right bias is available in advance, one can specify it through adjusting the parameters of the similarity measure, potentially achieving even better results than those presented in Table \ref{tab:Results}.
 However, tuning the weights in an automated and systematic way is a difficult task as there is no clear objective function to optimize in a purely unsupervised settings.
 Many clustering evaluation criteria, such as ARI, require a reference clustering which is not available during clustering itself.  Other clustering quality measures do not require a reference clustering, but each of those has its own bias \cite{VanCraenendonck15}.
-\vspace{2pt}
+
 
 \begin{table}
     \centering
@@ -875,7 +883,7 @@ The authors start from the position that similarity of objects often can be meas
 Thus, the authors introduce an approach that learns the weights that would, when clustered into the desired number of clusters, yield the highest intra-cluster similarity.
 That is achieved by iteratively optimizing: (1) the cluster assignment given the fixed weights, and (2) weights given a fixed cluster assignment.
 Thus, by treating each component in Equation \ref{eq:Sim} as a separate affinity matrix, this approach tries to learn their optimal combination.
-\vspace{2pt}
+
 
 
 
@@ -888,7 +896,7 @@ The main exceptions are found for depth 2: here, a substantial improvement is fo
 This seems to indicate that the bad performance on depth 2 is indeed due to an overload of irrelevant information, and that AASC is able to weed out some of that.  
 Still, the obtained results for depth 2 are not comparable to the ones obtained for depth 1.  
 We conclude that tuning the weights in an unsupervised manner will require more sophisticated methods than the current state of the art.
-\vspace{2pt}
+
 
 
 
@@ -907,7 +915,7 @@ The availability of labels offers a clear objective to optimize when learning th
 We have set up an experiment where we use a $k$ nearest neighbours (kNN) classifier with each of the (dis)similarity measures.
 It consists of a 10-fold cross-validation, where within
 each training fold, an internal 10-fold cross-validation is used to tune the parameters of the similarity measure, and kNN with the tuned similarity measure is next used to classify the examples in the corresponding test fold.
-\vspace{2pt}
+
 
 
 \begin{table}
@@ -958,7 +966,7 @@ The remarkable performance of ReCeNT on WebKB is explained by inspecting the tun
 
 These results clearly show that accounting for several views of similarity is beneficial for relational learning.
 Moreover, the availability of labelled information is clearly helpful and ReCeNT is capable of successfully adapting its bias towards the needs of the data set. 
-\vspace{2pt}
+
 
 
 
@@ -974,7 +982,7 @@ This is not surprising, as HS, HSAG and CC  use very limited information.
 It is, however, interesting to see that ReCeNT and WLST,  which use substantially more information, take only slightly more time to compute, while achieving substantially better performance on most data sets.  
 These approaches are also orders of magnitude more efficient than RIBL and RKOH, which did not complete on most data sets with depth set to 2.
 That is particularly the case for RKOH which did not complete in 24 hours even with the depth of 1, when the walk length was set to 4.
-\vspace{2pt}
+
 
 
 \begin{table}
@@ -1044,22 +1052,22 @@ One open challenge is to which extent the parameters of the proposed similarity 
 We conducted experiments with the \textit{affinity aggregation} approaches that demonstrated the difficulty of this problem.
 The proposed similarity measure is  sensitive to the depth of a neighbourhood tree, which poses a problem when large neighbourhoods have to be compared.
 However, the experiments demonstrated that the depth of 1 often suffices.
-\vspace{2pt}
 
 
-\textbf{Future work.}
-This work can be extended in several directions.
-First, there is a number of options concerning the choice of the weights of the proposed similarity measure.
-Learning the weights works well when class labels are available, but is difficult in an unsupervised setting.  
-In semi-supervised classification or constraint-based clustering \citep{WagstaffCKC}, limited information is available that may help tune the weights.  A small number of labels or pairwise constraints (must-link / cannot-link) may suffice to tune the weights in \rcnt.
-%A big advantage of the semi-supervised setting is that the objective criteria can be defined with the use of pairwise constraints by, for example, maximizing the similarity between objects in must-link constraints and minimizing the similarity between the ones in cannot-link constraints.
 
-The second direction comes from the field of  \textit{multiple kernel learning} \citep{Gonen2011MKL}.
-The field of multiple kernel learning is concerned with finding an optimal combination of fixed kernel sets, and might be inspirational in learning the weights directly from data.
-In contrast to many relational clustering techniques, our approach with neighbourhood trees allows us to construct a prototype - a representative example of a cluster, which many of the clustering algorithms require.
-Moreover, constructing a prototype of a cluster might be of great help analysing the properties of objects clustered together.
-Integrating our measure into very scalable clustering methods such as BIRCH \citep{Zhang:1996}, would allow one to cluster very large hypergraphs.
-An interesting extension would be to modify the summations over levels of neighbourhood trees into weighted sums over the same levels, following the intuition that the vertices further from the vertex of interest are less relevant, but at the same time giving them a chance to make a difference.
+%\textbf{Future work.}
+%This work can be extended in several directions.
+%First, there is a number of options concerning the choice of the weights of the proposed similarity measure.
+%Learning the weights works well when class labels are available, but is difficult in an unsupervised setting.  
+%In semi-supervised classification or constraint-based clustering \cite{WagstaffCKC}, limited information is available that may help tune the weights.  A small number of labels or pairwise constraints (must-link / cannot-link) may suffice to tune the weights in ReCeNT.
+%%A big advantage of the semi-supervised setting is that the objective criteria can be defined with the use of pairwise constraints by, for example, maximizing the similarity between objects in must-link constraints and minimizing the similarity between the ones in cannot-link constraints.
+%
+%The second direction comes from the field of  \textit{multiple kernel learning} \cite{Gonen2011MKL}.
+%The field of multiple kernel learning is concerned with finding an optimal combination of fixed kernel sets, and might be inspirational in learning the weights directly from data.
+%In contrast to many relational clustering techniques, our approach with neighbourhood trees allows us to construct a prototype - a representative example of a cluster, which many of the clustering algorithms require.
+%Moreover, constructing a prototype of a cluster might be of great help analysing the properties of objects clustered together.
+%Integrating our measure into very scalable clustering methods such as BIRCH \cite{Zhang:1996}, would allow one to cluster very large hypergraphs.
+%An interesting extension would be to modify the summations over levels of neighbourhood trees into weighted sums over the same levels, following the intuition that the vertices further from the vertex of interest are less relevant, but at the same time giving them a chance to make a difference.
 
 
 
