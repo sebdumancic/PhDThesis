@@ -214,7 +214,101 @@ $$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_queen(Y)
 
 \subsection{Hierarchy of representation languages}
 
-% TODO: hierarchy of representations, simplify chapter from Luc's book
+
+
+Propositional logic and logic programs are two extremes on the spectrum of possible data representations~\cite{LucRLbook}.
+This spectrum of representations explores a tradeoff between the \textit{expressiveness} -- the complexity of what can be represented, and \textit{efficiency} -- how fast can we perform fundamental inference and learning tasks in certain representation. 
+There is an intricate relationship between these properties: expressiveness comes with lower efficiency.
+Therefore, resorting to a too powerful data representation as a default choice comes at a high computational cost; in contrast, choosing a less but sufficiently expressive representation offers better efficiency  without loss of information.
+
+
+At the bottom of the ladder of expressivity are \textit{Boolean representations} (BR) based on propositional logic.
+In Boolean representation, each example is associated with a fixed number of feature taking values from $\{true, false\}$.
+This is similar to our pets data (Table \ref{tab:pets})  if all the values are replaced by $true$ and $false$.
+
+
+One step up the ladder of expressiveness are \textit{multi-valued representations} (MVR).
+These are similar to the Boolean representations, but each feature can have multiple ($> 2$) values.
+This is the exact case as presented in Table \ref{tab:pets}.
+
+
+\begin{table}
+	\centering
+	\caption{An example of the multi-instance representation\label{tab:mi}}
+		\begin{tabular}{@{}lrrrrc@{}}
+		\toprule
+		\textbf{Owner} 	& \multicolumn{4}{c}{\textbf{Features}} 		& \textbf{Target} \\
+			\cmidrule{2-5}
+						& fluffy		& playful	& spits?		& bites?& 	\\
+			\midrule
+		
+		Hannah			& 4			& yes		& yes		& no		& \checkmark \\
+						& 3			& no			& yes		& no		&  \\
+						& 5			& sometimes & yes		& yes	& \\
+		\midrule
+		Steve			& 1			& yes		& yes		& no		& $\mathbf{\times}$  \\
+						& 4			& yes		& no			& no		& 	\\
+		\midrule
+		\multicolumn{6}{c}{$\ldots$} \\
+		\bottomrule
+		
+		\end{tabular}	
+\end{table}
+
+
+
+One step further are \textit{multi-instance representations} (MIR)~\cite{Dietterich:1997:SMI:249678.249682}.
+This representation class associates labels with \textit{sets of examples}.
+Going back to out pet example, let us redefine the \gls{ml} model to do a different kind of predictions: \textit{do I like the taste in pets of a certain person?}
+As one person can have multiple pets, multi-instance representation is well suited for this task.
+An example is given in Table \ref{tab:mi}: an entity \textit{Hannah} owns three pets with different features, and the target information tell us that we like \textit{Hannah}'s taste in pets.
+The target information is provided on the set of pets, not individual pets.
+This is obviously a more difficult learning task the decision function being learned is also required to identify whether a \textit{relevant} information comes from all elements of the set or just a subset.
+
+
+
+
+
+
+
+At the top of the ladder of expressiveness reside \textit{relational representation} (RR) and \textit{logic programs} (LP), with logic programs sitting on the very top.
+A slight difference between the relational representation and logic programs, which makes their expressiveness differ, is that relational representations require that no functors are used and that the domains are finite.
+
+
+
+It is interesting to study this representation classes from the perspective of \textit{reductions}:
+
+\begin{quote}
+	We say that the representation $X$ is \textit{reducible} to a representation $Y$, denoted as $X \sqsubseteq Y$, there exist two functions $f_e: \mathcal{L}_{eX} \rightarrow \mathcal{L}_{eY}$ mapping the examples $e$ from the representation $X$ to representation $Y$, and $f_h: \mathcal{L}_{hX} \rightarrow \mathcal{L}_{hY}$ mapping the decision function $h$ from the representation $X$ to representation $Y$.
+\end{quote}
+
+
+An important consequence of this reduction is the following.
+
+\begin{quote}
+	If a problem $E$ is representable by $X$, and $X$ is reducible to $Y$, then $f_e(E)$ is representable by $Y$, where $f_e(E) = \{ f_e(e) | e \in E\}$. The the learning problem $E$ in $X$ is solvable using a learning algorithm in $Y$.
+\end{quote}
+
+
+
+A very interesting theoretical result relating these representations is the following~\cite{10.1007/BFb0027304}:
+
+\begin{quote}
+	BR $\sqsubseteq$ MVR $\sqsubseteq$ MIR $\sqsubseteq$ RR $\sqsubseteq$ LP.
+\end{quote}
+
+
+Moreover, these reductions are \textit{proper}, meaning that of $X$ reduced to $Y$ then also $Y$ reduces to $X$.
+If relational problems can be solved by boolean representations,  why bother with more expressive representation at all?
+
+
+The reason lies in the expense that comes with reducing a more expressive representation to a less expressive one.
+Take, for instance, reduction of MVR to BR.
+To reduce a problem in MVR, say the data in Table \ref{tab:pets}, to the BR, we have to introduce a new variable for each \textit{attribute-value} pair, e.g., \textit{fluffiness = 4}.
+Though the information in the data will be preserved by this reduction, the size of the data representation will increase exponentially.
+One can also show that every reduction from the higher to lower step of the ladder yields an exponential increase in the data representation size~\cite{LucRLbook}.
+This clearly demonstrates the strength of relational representation -- they can represent complex data \textit{compactly}, and it is worth keeping the relational representation if the task requires it.
+Otherwise, reduction to the Boolean or Multi-valued representation could yield such a huge data representations making learning very difficult.
 
 
 
@@ -235,7 +329,7 @@ More specifically, \gls{ilp} is defined as follows.
 	
 	
 \textbf{Given}
- a set of positive $\mathcal{E}^+$ and negative $\mathcal{E}^-$ examples, $\mathcal{E} = \mathcal{E}^+ \cup \mathcal{E}^-$ ,
+ a set of positive $\mathcal{E}^+$ and negative $\mathcal{E}^-$ examples, $\mathcal{E} = \mathcal{E}^+ \cup \mathcal{E}^-$,
  a language bias $\mathcal{L}$ -- a language of clauses,
  a covers relation $c$,
  a background knowledge or theory $\mathcal{B}$,
