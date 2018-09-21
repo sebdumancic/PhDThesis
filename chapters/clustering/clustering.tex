@@ -209,6 +209,9 @@ An example of a neighbourhood tree is given in Figure \ref{fig:clustering:ng}.
 \label{sec:SimMes}
 
 
+
+
+
 The main idea behind the proposed dissimilarity measure is to express a wide range of similarity biases that can emerge in relational data, as discussed and exemplified in Section \ref{sec:Intro}.
 The proposed dissimilarity measure compares two vertices by comparing their neighbourhood trees. 
 It does this by comparing, for each level of the tree, the distribution of vertices, attribute values, and outgoing edge labels observed on that level.  Earlier work in relational learning has shown that distributions are a good way of summarizing neighbourhoods \cite{Perlich:2006}.
@@ -253,8 +256,15 @@ E.g., for the neighbourhood tree in Figure~\ref{fig:clustering:ng}, we have
     \item[\textbullet] $E^1(g) = $\{({\tt F,1}), ({\tt R,1}), ({\tt R,1})\}
     \item[\textbullet] $B^1_{object,Attr1}(g) = $\{{\tt Y}\} 
 \end{itemize}
-\vspace{2pt}
 
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\linewidth]{ntSemantics}
+	\caption{A semantic decomposition of neighbourhood tree\label{fig:ntsemantics}}
+\end{figure}
 
 Let $\mathcal{N}$ be the set of all neighbourhood trees corresponding to the vertices of interest in a hypergraph.
 Let $norm(\cdot)$ be a \textit{normalisation operator}, defined as $$norm(f(g_1,g_2)) = \frac{f(g_1,g_2)}{\underset{g,g' \in \mathcal{N}}{\max} f(g,g')},$$ i.e., the normalisation operator divides the value of the function $f(g_1,g_2)$ of two neighbourhood trees $g_1$ and $g_2$ by the highest value of the function $f$ obtained amongst all pairs of neighbourhood trees.
@@ -275,7 +285,7 @@ s(g,g’) = & w_1 \cdot \mathsf{ad}(g,g’) + w_2 \cdot \mathsf{nad}(g,g’) + w
 
 where $\sum_i w_i=1$ and
 	\begin{itemize}
-		\item \textit{attribute-wise dissimilarity}
+		\item \textit{attribute-wise dissimilarity} (Figure \ref{fig:ntsemantics}, red)
 			{
 			\begin{equation}
 				\mathsf{ad}(g,g') = norm\left( \sum_{a \in A(\tau(v))} d(B^0_{t,a}(g), B^0_{t,a}(g')) \right)
@@ -284,7 +294,7 @@ where $\sum_i w_i=1$ and
 			
 			measures the dissimilarity of the root elements $v$ and $v'$ according to their attribute-value pairs.
 			
-		\item \textit{neighbourhood attribute dissimilarity}
+		\item \textit{neighbourhood attribute dissimilarity} (Figure \ref{fig:ntsemantics}, blue)
 
 			{
 			\begin{equation}
@@ -303,7 +313,7 @@ where $\sum_i w_i=1$ and
 			
 			reflects the number of edges of different type that exist between the two root elements.
 			
-		\item \textit{neighbourhood dissimilarity}
+		\item \textit{neighbourhood dissimilarity} (Figure \ref{fig:ntsemantics}, green)
 			{
 			\begin{equation}
 				\mathsf{nd}(g,g') = norm \left(\sum_{l=1}^{\#levels} \sum_{t \in T_{v}} d( V^l_{t}(g), V^l_{t}(g')) \right)
@@ -312,7 +322,7 @@ where $\sum_i w_i=1$ and
 			
 			measures the dissimilarity of two root elements according to the vertex identities in their neighbourhoods, per level and vertex type.
 			
-		\item \textit{edge distribution dissimilarity}:
+		\item \textit{edge distribution dissimilarity} (Figure \ref{fig:ntsemantics}, purple):
 			\begin{equation}
 				\mathsf{ed}(g,g’) = norm \left(\sum_{l=1}^{\#levels} d(E^l(g), E^l(g’)) \right)\,
 			\end{equation}

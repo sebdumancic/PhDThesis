@@ -19,11 +19,18 @@ As we have seen in Section \ref{sec:intro_ml} of Chapter \ref{ch:introduction}, 
 \end{equation}
 
 
-This also illustrates why we care so much about the representation of data: if the information in $X$ is insufficient in capturing the information relevant to the mapping itself, whatever \textit{f} we learn  is doomed to be a bad one.
+This also illustrates why we care so much about the representation of data: if the relevant information in $X$ is insufficiently captured or represented, whatever \textit{f} we learn  is doomed to be a bad one.
 As one relies on \gls{ml} in scenarios when one has little or no knowledge of \textit{f}, it is very difficult, if not impossible, to know in advance which information is relevant for the mapping.
 Deploying \gls{ml} solution in practice, thus, requires a lot of manual work just to identify the relevant information for the task.
+Insufficiently captured information does not imply that the relevant information is not present, but instead is not represented explicitly enough.
+A typical examples is illustrated in Figure \ref{fig:transform} in which blue dots are difficult to separated from red ones in the original data representation, but transforming the data into a new latent representation makes them easy to separete.
 
 
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\linewidth]{insufficientrepresentation}
+	\caption{Problem representation matters - having a good and informative feature can simplify learning\label{fig:transform}}
+\end{figure}
 
 A pleasing property of introducing a representation learning component in a \gls{ml} pipeline is that is \textit{surpasses the limitation of fixed data representation}.
 It thus generalises the machine learning equation (Equation \ref{eq:ml}) to:
@@ -32,7 +39,7 @@ It thus generalises the machine learning equation (Equation \ref{eq:ml}) to:
 	f(m(X)) = y
 \end{equation}
 
-\todo{but f o m is also a function of f, so: also doomed? How does this help?}
+
 where, in addition to the decision function \textit{f}, we include the representation mapping function \textit{m}.
 Moreover, several mapping function can be \textit{stacked} together to perform multiple representation learning steps.
 
@@ -340,7 +347,7 @@ The two most prominent examples are \textit{Lifted relational neural networks} (
 
 
 \gls{lrnn}s provide a template language that maps  fuzzy logical rules and data to big neural networks, in very much the same way how Markov logic networks provide a language to map complex \gls{srl} models to Markov networks.
-The structure of the model, i.e.,  the logical rules, therefore define the structure of a neural network.
+The structure of the model, i.e.,  the logical rules, therefore define the structure of a neural network (Figure~\ref{fig:lrnn}, left).
 The mapping between logical and neural constructs is dictated via different type of neurons:
 \begin{itemize}
 	\item each ground fact is associated with a \textit{fact neuron} taking no inputs and with value $w_k$ (corresponding to a weight in a \gls{ann}) as output
@@ -348,7 +355,8 @@ The mapping between logical and neural constructs is dictated via different type
 	\item each ground rule is associated with a \textit{rule neuron}
 	\item different instantiations of the same rule are handled through \textit{aggregation neurons}.
 \end{itemize}
-Additionally, parameter learning is inherited from the neural networks.
+The final structure of the \gls{lrnn} is dictated by the data (Figure~\ref{fig:relnn}, right).
+Additionally, parameter learning is inherited from the neural networks, as well as the inference.
 
 
 \begin{figure}
@@ -360,14 +368,17 @@ Additionally, parameter learning is inherited from the neural networks.
 \end{figure}
 
 
-RelNN takes a different approach and constructs relational neural networks out of relational logistic regression models as a basic primitive.
-Consequently, 
-% TODO: finish RelNN
-\todo{finish RelNN}
+RelNN takes a different approach and constructs relational neural networks out of relational logistic regression models as a basic primitive (Figure~\ref{fig:relnn}).
+This is very similar to the functioning of \gls{ann}s in which an activation of each hidden neuron can be seen as a prediction made through the logistic regression, but with a difference that the features are relational.
+For instance, $S1(u)$, $S2(u)$ and $S3(u)$ predicates in Figure~\ref{fig:relnn} are relational logistic regression models jointly defining the relational neural network.
 
 
-% TODO: add NTPs
-\todo{add NTPs}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\linewidth]{rlr}
+	\caption{Illustration of RelNN\label{fig:relnn}}
+\end{figure}
 
 
 
@@ -380,7 +391,7 @@ The invented predicates can also be \textit{statistical} if the uncertainty in t
 
 
 The existing body of work explores several different ideas, but with limited progress.
-Within the \gls{ilp} community focuses on inventing predicates thorugh syntactic manipulation.
+Within the \gls{ilp} community focuses on inventing predicates through syntactic manipulation.
 One such idea invents predicate by analysing clauses discovered so far and forms a predicate to represent either their commonalities \cite{Wogulis1989} or their differences \cite{MuggletonBu88}.
 A weakness of such approaches is that they are prone to over-generating predicates, many not useful ones.
 Predicates can also be invented by instantiating second-order templates \cite{Silverstein91}, or to represent exceptions to learned rules \cite{Srinivasan92}.
@@ -392,14 +403,44 @@ MIL has proven to be a very effective approach for relational representation cha
 
 
 
-Within the \gls{srl} community,  Popescul and Unger \cite{Popescul2004} apply k-means clustering to the objects of each type in a domain, create predicates to represent clusters, and learn relations among them.
-Perlich and Provost \cite{Perlich2003} present a number of approaches for aggregating multi-relational data.
-Craven and Slattery \cite{Craven2001} propose a learning mechanism for hypertext domains in which class predictions produced by naive Bayes are added to an ILP system (FOIL) as invented predicates.
-Davis et al. \cite{DavisOSBPC07} learn Horn clauses with an off-the-shelf ILP system, create a predicate for each clause learned, and add it as a feature to the database.
-Kok and Domingos \cite{Kok2007} cluster both predicate and constant symbols to create new predicates.
-Wang et al. \cite{WangMC15} capture differences between similar formulas and represent it with a new predicate.
+Within the \gls{srl} community,  Popescul and Unger~\cite{Popescul2004} apply k-means clustering to the objects of each type in a domain, create predicates to represent clusters, and learn relations among them.
+Perlich and Provost~\cite{Perlich2003} present a number of approaches for aggregating multi-relational data.
+Craven and Slattery~\cite{Craven2001} propose a learning mechanism for hypertext domains in which class predictions produced by naive Bayes are added to an ILP system (FOIL) as invented predicates.
+Davis et al.~\cite{DavisOSBPC07} learn Horn clauses with an off-the-shelf ILP system, create a predicate for each clause learned, and add it as a feature to the database.
+Kok and Domingos~\cite{Kok2007} cluster both predicate and constant symbols to create new predicates.
+Wang et al.~\cite{WangMC15} capture differences between similar formulas and represent it with a new predicate.
+
 
  
+\subsection{Hybrid approaches}
+
+
+Previously discussed approaches proposed distinct ideas for relational representation learning, each with its strengths and weaknesses.
+This has inspired research combining the the ideas from the above-outlined directions.
+
+
+Most of the research in this direction focuses on imposing certain logical properties into embedded spaces.
+Such properties include inversion and equivalence axioms~\cite{DBLP:conf/pkdd/MinerviniCMNV17} and logical rules~\cite{demeester2016lifted,N15-1118,W14-2409}.
+Another line of research~\cite{DBLP:conf/uai/MinerviniDRR17} uses the adversarial learning principle in order to impose the regularisation on the embedding spaces.
+This approach requires a domain knowledge that specifies Horn clauses that are known to hold for the specific domain, and it introduces an \textit{inconsistency loss} that measures to which extent the clauses are satisfied by the embedding model.
+
+
+
+An interesting approach towards combining logical and embedding approaches for relational representation learning comes from the \textit{differentiable theorem proving}~\cite{DTP2017}.
+This approaches starts from an observation that the standard theorem proving procedures (e.g., Prolog) are too brittle for usage with real-world knowledge bases which are not perfect and contain lots of noise.
+As standard theorem proving techniques operate purely on the syntactic level, such techniques cannot detect semantic similarity between predicates \textit{grandfatherOf} and \textit{grandpa}.
+This is the scenario that differentiable theorem proving addresses: \textit{how can we enable such semantic interpretation of the symbols in the knowledge base?}
+In order to enable that, it introduces \textit{soft unification} in which symbols can be matched if they are not identical (\textit{grandfatherOf} and \textit{grandpa}) but similar in meaning (Figure \ref{fig:dtp}).
+Whether symbols (both constants and relations) are similar comes from the embeddings in the Euclidean space, which can either be pre-trained or learned from scratch.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.9\linewidth]{dtp}
+	\caption{Illustration of the differentiable theorem proving\label{fig:dtp}}
+\end{figure}
+
+
 
 
 

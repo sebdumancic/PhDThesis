@@ -304,7 +304,7 @@ If relational problems can be solved by boolean representations,  why bother wit
 
 The reason lies in the expense that comes with reducing a more expressive representation to a less expressive one.
 Take, for instance, reduction of MVR to BR.
-To reduce a problem in MVR, say the data in Table \ref{tab:pets}, to the BR, we have to introduce a new variable for each \textit{attribute-value} pair, e.g., \textit{fluffiness = 4}.
+To reduce a problem in MVR, say the data in Table \ref{tab:pets}, to the BR, we have to introduce a new variable for each \textit{attribute-value} pair, e.g., \textit{'fluffiness = 4'} becomes a feature.
 Though the information in the data will be preserved by this reduction, the size of the data representation will increase exponentially.
 One can also show that every reduction from the higher to lower step of the ladder yields an exponential increase in the data representation size~\cite{LucRLbook}.
 This clearly demonstrates the strength of relational representation -- they can represent complex data \textit{compactly}, and it is worth keeping the relational representation if the task requires it.
@@ -341,7 +341,7 @@ More specifically, \gls{ilp} is defined as follows.
 
 
 
-Several components form an ILP problem.
+Several components form an \gls{ilp} problem.
 First, there are positive and negative examples; going back to our \textit{pet} example, positive examples would be pets we previously liked, while the negative examples would be pets we would not like to purchase again.
 Second, a typical \gls{ilp} learner requires a specification how to construct candidate clauses.
 This is known as \textit{language bias}, and it is usually specified in a form of syntactic constraints on candidate formulas.
@@ -437,9 +437,30 @@ The choice for a quality is a more difficult one, and it typically involves spec
 
 
 \paragraph{\textbf{Example}}
+Going back to the example in Table \ref{tab:pets}, assume we are given the following vocabulary: \{ \textit{legs/2}, \textit{fluffiness/2}, \textit{diary/2}, \textit{playful/2}, \textit{bites/1}, \textit{spits/1} \}.
+We will assume that the predicates with two arguments, such as \textit{legs} and \textit{playful}, take an entity of a pet as the first argument and the second argument states the value of the attribute.
+The predicate taking only one argument, for instance \textit{bites}, simply state that a pet bites.
+Searching for a predictive \gls{ilp} model in a top-down manner will start with exploring all clauses with a single predicate in the body:
+
+\begin{center}
+	\textit{perfect\_pet(X) :- legs(X,2).} \quad \textit{perfect\_pet(X) :- legs(X,4).} 
+	
+	$\ldots$ 
+	
+	\textit{perfect\_pet(X) :- spits(X).} \quad \textit{perfect\_pet(X) :- bites(X).}
+\end{center}
 
 
+Clauses that were found useful, let us say that is \textit{perfect\_pet(X) :- legs(X,4).}, will be extended further:
 
+
+\begin{center}
+	\textit{perfect\_pet(X) :- legs(X,4),spits(X).} \quad \textit{perfect\_pet(X) :- legs(X,4),bites(X).} 
+	
+	$\ldots$ 
+\end{center}
+
+until a satisfactory model is found.
 
 
 
@@ -457,7 +478,7 @@ Therefore, significant work has been devoted towards combining logic reasoning w
 
 
 
-Halpern introduces to formalisms to give the semantic to systems combining logic an probability \cite{Halpern90ananalysis}.
+Halpern introduces two formalisms to give the semantics to systems combining logic an probability \cite{Halpern90ananalysis}.
 The first formalism assigns probabilities on the domain, i.e., the facts, and is suitable for probabilistic logic involving the uncertain facts.
 The second formalism assigns probabilities on the possible worlds, and is suitable for giving semantics to formulas describing degrees of belief.
 In the remainder of the chapter, we describe two prominent approaches within \gls{srl} and \gls{pilp}: \textit{Problog} and \textit{Markov logic networks}.
@@ -466,14 +487,56 @@ In the remainder of the chapter, we describe two prominent approaches within \gl
 \subsection{Problog}
 
 Problog is an probabilistic extension of Prolog where some facts can be annotated with the probabilities.
-It is therefore a representation of the first formalism of the Halpern's systematization.
+It is therefore a representation of the first formalism of the Halpern's systematisation.
 
-The central concept in Problog is a \textit{probabilistic facts}: ground fact $f$ annotated with a probability $p$ (\textit{p::f.}).
+An example of a Problog program is given in Figure~\ref{fig:problog}.
+The central concept in Problog is a \textit{probabilistic fact}: ground fact $f$ annotated with a probability $p$ (\textit{p::f.}).
 Each probabilistic fact corresponds to a Boolean random variable which is \textit{true} with probability $p$ and \textit{false} with probability $1-p$.
-Next to the probabilistic facts, Problog consists of deterministic rules equal to Prolog clauses.
+Next to the probabilistic facts, Problog consists of deterministic rules equivalent to Prolog clauses.
 Such probabilistic facts together with rules define the following distribution $P_{F}$ over the truth assignments to the variables corresponding to probabilistic facts:
 
-$$ $$
+\begin{equation}
+	P_F(F^{\prime}) = \prod_{f_i \in F^{\prime}}p_i \cdot \prod_{f_i\in F\setminus F^{\prime}}(1 - p_i).
+\end{equation}
+
+
+\begin{figure}
+	$$\begin{aligned} 
+		0.1{:: }{\mathtt {burglary}}. ~~~~&0.7{:: }{\mathtt {hears\_alarm(mary)}}. \nonumber \\ 
+		\underbrace{0.2{:: }{\mathtt {earthquake}}.}_{probabilistic fact} ~~~~&0.4{:: }{\mathtt {hears\_alarm(john)}}.\nonumber \\ 
+		\mathtt {alarm}&\text{ :- }{\mathtt {earthquake}}.\nonumber \\ 
+		\mathtt {alarm}& \text{ :- } {\mathtt {burglary}}.\nonumber \\ 
+		{{\mathtt {calls(X)}}}& \text{ :- } {\mathtt {alarm, hears\_alarm(X)}}.\nonumber \\ 
+		{\mathtt{call}}& \text{ :- } {{\mathtt {calls(X)}}}. 	
+	\end{aligned}$$
+	\caption{Problog program of the alarm problem\label{fig:problog}}
+\end{figure}
+
+
+The distribution $P_F$ can be then used to defined the \textit{success probability} of a query $q$ -- the probability that $q$ (a ground atom) is \textit{true} is a randomly chosen program, as the sum over all programs that entail $q$:
+
+$$
+\begin{aligned} 
+	P(q)&{:}{=}\sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} P_F(F')
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+&= \sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} \prod _{f_i\in F'}p_i\cdot \prod _{f_i\in F\setminus F'}(1-p_i)\;. 
+\end{aligned}
+$$
+
+
+\gls{srl} systems, such as Problog, are very flexible and can perform various inference tasks, not just the prediction task:
+\begin{itemize}
+	\item \textit{success probability:} a query $q$ is given, and the task is to compute $p(q)$
+	\item \textit{marginal probability:} a set of queries $Q$ and evidence $E$ is given, and the task is to compute the marginal probability distribution of each $q \in Q$
+	\item \textit{maximum aposteriori:} given a set of qeries $Q$ and evidence $E$, the task is to find the most likely truth-assignment $v$ to the atoms in $Q$
+	\item \textit{most probable explanation:} the task is to find the most likely world where the given evidence query $e$ holds.
+\end{itemize}
+
+
 
 \subsection{Markov logic networks}
 
