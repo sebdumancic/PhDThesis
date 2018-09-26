@@ -30,32 +30,28 @@ This chapter is based on the following publications:
 
 
 \newglossaryentry{url}{name={URL},description={Unsupervised Representation Learning}}
-The prominent paradigm within representation learning this works focuses on is unsupervised representation learning (\gls{url}) \cite{Hinton504,Bengio07greedylayer-wise,RanzatoBL07}.
-These approaches take a \textit{generative stance} on learning a feature hierarchy, meaning that they do not require any supervision.
-As supervision is ignored, the obtained representation are not tailored for one specific task but can rather be shared among multiple tasks.
+Precisely defining the properties of good data representation is very difficult, if not impossible.
+We have seen some of the intuitive notions in Section \ref{ch3:sec:properties}, but many of them are difficult to define precisely.
+Considering the case of supervised representation learning, defining a \textit{fitness} of a latent feature is somewhat possible as there is a clearly defined goal, and latent features can be assessed based on how much they help in achieving the goal. 
+In the case of unsupervised representation learning (URL)~\cite{Hinton504,Bengio07greedylayer-wise,RanzatoBL07}, in which the obtained representation is not tailored for one specific task but can rather be shared among multiple tasks, there is no such guidance.
+
+
+
+
+
+
+To overcome this issue, \gls{url} has to resort to different means of evaluation latent features.
+An interesting view on many of the \gls{url} methods is that of \textit{producing latent representation by clustering}.
 Intuitively, these methods find useful features by compressing the original data by means of a  multiple-clustering procedure, in which an instance can belong to more than one cluster.
 The obtained features indicate cluster assignments of instances and, thus, a classifier learns from cluster memberships instead of the original data.
-
-
-%One major limitation of the existing approaches is that they focus on vectorized data representations.
-%Hence, the ubiquitous and abundant structured and relational data, which additionally describes relationships between instances, are not well supported. 
-%This data is often viewed as a hypergraph\footnote{A hypergraph is a graph in which edges can connect more than two vertices.}, in which instances form vertices and their relationships form hyperedges.
-%Such data emerges in many real-life problems.
-%For instance, chemical and biological data describing molecules or protein interaction networks are naturally expressed in graph-structured formats.
-%In social networks, many instances interact with each other.
-%Relational data is commonly expressed in \textit{predicate logic}, a powerful language unifying the representation of vectors, graphs and sequences.
-%This, consequently, subsumes any data stored in a relational database.
-
-
-An interesting view on many of the \gls{url} methods is that of \textit{producing latent representation by clustering}.
 For instance, auto-encoders and Restricted Boltzmann machines typically produce a sparse latent representation where each example has a small number of \textit{activated} latent features.
 This can be seen as assigning examples to multiple clusterings. 
 
 
-A particularly interesting approach is a general pipeline for learning a feature hierarchy by means of clustering \cite{coates2011analysis} (Figure \ref{fig:kmeansh}).
-Assuming a spatial order of features (i.e., pixels), the introduced framework (i) extracts image patches, i.e., subsets of pixel from the original images candidating as a potential high-level feature, (ii) pre-processes each patch (e.g. normalisation), and (iii) learns a feature-mapping by clustering image patches.
+A very influential work in this direction is the work of Coates and Ng \cite{coates2011analysis} that constructs a hierarchy of latent features by repeatedly clustering the data  (Figure \ref{fig:kmeansh}).
+Assuming a spatial order of features (i.e., pixels), the introduced framework (i) extracts image patches, i.e., subsets of pixels from the original images candidating as a potential high-level feature, (ii) pre-processes each patch (e.g. normalisation), and (iii) learns a feature-mapping by clustering image patches.
 The authors show that such general procedure with a simple k-means algorithm can perform as well as the specialised algorithms, such as auto-encoders and  Restricted Boltzmann machines.
-An interesting part about this approach is that it does not require any new algorithm, but a simple adaptation of a method present in machine learning since '60s \cite{kmeans}.
+An interesting part about this approach is that it does not require any new algorithm, but a simple adaptation of the method present in machine learning since '60s \cite{kmeans}.
 
 
 
@@ -80,7 +76,7 @@ They are approximately symmetric as they are similar, but not identical.
 
 
 
-Though \gls{curled} is not the first approach to rely on clustering procedure to enhance the predictive performance, it posses' two three distinctive features.
+Though \gls{curled} is not the first approach to rely on clustering procedure to enhance the predictive performance, it posses' three distinctive features.
 First, it learns a new representation by clustering both instances and their relationships.
 Second, the relational structure is  preserved throughout the hierarchy, contrasted to the \gls{kge} approaches that replace relational structures with vectors.
 Third, it relies on the notion of \textit{similarity interpretation}.
@@ -115,7 +111,7 @@ The contributions of this work include
 The complexity of relational data causes several issues in devising a general relational feature hierarchy: \textit{(1) what should be clustered, (2) how to estimate a similarity in relational data, and (3) how to choose the structure of a feature hierarchy? }
 
 
-\textbf{(1)} 
+\textbf{(1) What should be clustered?} 
 In the i.i.d. case (drawn independently from the same population), the dataset contains only instances and their features, thus, one clusters the instances.
 However, relational data additionally describes relationships among instances and  varies from a single large network of many interconnected entities (a \textit{mega-example}) to a set of many disconnected networks where each network is an example.
 Ideally, one would address both cases.
@@ -126,16 +122,10 @@ Considering that vertices have associated types, \gls{curled} does not allow mix
 The same holds for hyperedges which connect vertices of different types. 
 
 
-\begin{sidewaysfigure}
-  \centering
-  \medskip
-  \includegraphics[width=.99\textwidth]{curled}
-  \caption{An illustration of \gls{curled} procedure. The left-most figure represents a given hypergraph, where colour of a vertex indicates its feature value. The graph (i.e., vertices and edges) is then clustered according to different similarity interpretations. The upper clustering is based on vertex attributes: the vertices are clustered into \textit{red} and \textit{black} ones, while the edges are clustered according to the colour of the vertices they connect. The bottom clustering is based on the structure of the neighbourhoods. The vertices are clustered into a group that have only \textit{black} neighbours (\{{\tt1}\}), only \textit{red} neighbours (\{{\tt 6,7}\}), and neighbours of both colours (\{{\tt 2,3,4,5}\}). The edges are clustered into a group of edges connecting \textit{black} vertices with only \textit{black} neighbours and \textit{black} vertices with \textit{red} neighbours (\{{\tt1-2,1-3}\}), a group of edges connecting \textit{red} vertices with only \textit{red} neighbours to \textit{red} vertices with neighbours of both colour (\{{\tt6-7}\}), and so on. The final step transforms the obtained clusterings into a relational representation. The procedure can further be repeated to create more layers of features. }
-  \label{fig:curled}
-\end{sidewaysfigure}
 
 
-\textbf{(2)}
+
+\textbf{(2) How to estimate the similarity?}
 The features are the only source of similarity between instances in the i.i.d. data.
 In the relational context, a similarity is an ambiguous notion that can originate in the  features of relational objects, structures of their neighbourhoods (both feature- and relationship-wise), interconnectivity or graph proximity, just to name a few.
 Furthermore, which interpretation is needed for a particular task is not known in advance, making \gls{url} inherently more difficult.
@@ -144,7 +134,7 @@ How exactly that is achieved is discussed in the next section, together with a s
 
 
 
-\textbf{(3)}
+\textbf{(3) How to choose the structure?}
 Defining a feature hierarchy requires the specification of the number of layers and the number of hidden features (i.e., clusters) within each layer.
 How to automatically construct such hierarchies is currently under-explored.
 Consequently, the performance of these methods is sensitive to the parameter setting, requiring substantial expertise in order to choose the optimal number of features.
@@ -184,6 +174,15 @@ For each cluster of vertices we create a unary predicate in the form of \texttt{
 Similarly, for each cluster of hyperedges we create a $n$-ary predicate in the form of \texttt{cluster$ID$(vertex$_1$,\ldots,vertex$_n$)}, which takes an ordered set of $n$ vertices as arguments.
 Truth instantiations of defined predicates reflect cluster memberships.
 We refer to the cluster-induced representation as a $\mathcal{C}$-representation.
+
+
+\begin{sidewaysfigure}
+  \centering
+  \medskip
+  \includegraphics[width=.99\textwidth]{curled}
+  \caption{An illustration of \gls{curled} procedure. The left-most figure represents a given hypergraph, where colour of a vertex indicates its feature value. The graph (i.e., vertices and edges) is then clustered according to different similarity interpretations. The upper clustering is based on vertex attributes: the vertices are clustered into \textit{red} and \textit{black} ones, while the edges are clustered according to the colour of the vertices they connect. The bottom clustering is based on the structure of the neighbourhoods. The vertices are clustered into a group that have only \textit{black} neighbours (\{{\tt1}\}), only \textit{red} neighbours (\{{\tt 6,7}\}), and neighbours of both colours (\{{\tt 2,3,4,5}\}). The edges are clustered into a group of edges connecting \textit{black} vertices with only \textit{black} neighbours and \textit{black} vertices with \textit{red} neighbours (\{{\tt1-2,1-3}\}), a group of edges connecting \textit{red} vertices with only \textit{red} neighbours to \textit{red} vertices with neighbours of both colour (\{{\tt6-7}\}), and so on. The final step transforms the obtained clusterings into a relational representation. The procedure can further be repeated to create more layers of features. }
+  \label{fig:curled}
+\end{sidewaysfigure}
 
  
 The introduced pipeline is illustrated in Figure~\ref{fig:curled}.
@@ -328,6 +327,51 @@ Rather than inventing an Euclidean space of relational instances, \gls{curled} r
 \section{Experiments and Results}
 \label{sec:Results}
 
+
+
+
+\textbf{Datasets.}
+We have used the following 6 datasets to evaluate the potential of this approach.
+The IMDB dataset describes a set of movies with people acting in or directing them.
+The UW-CSE dataset describes the interactions of employees at the University of Washington and their roles, publications and the courses they teach.
+The Mutagenesis dataset describes chemical compounds and atoms they consist of. 
+The WebKB dataset consists of pages and links collected from the Cornell University's web page.
+The Terrorists dataset describes terrorist attacks each assigned one of 6 labels indicating the type of the attack.
+The Hepatitis dataset describes a set of patients with hepatitis types B and C.
+\vspace{1pt}
+
+\textbf{Evaluation procedure.}
+In principle, a latent representation should make learning easier by capturing complex dependencies in data more explicitly.
+Though that is difficult to formalise, a consequence should be that a model learned on the latent representation is (i) \textit{less complex}, and (ii) possibly \textit{performs better}.
+To verify whether that is the case with the representation created by CURLED, we answer the following questions:
+\begin{itemize}
+	\setlength\itemsep{0.06em}
+    \item[\textbf{(Q1)}] \textit{do representations learned by CURLED induce models of lower complexity compared to the ones induced on the original representation?}
+    \item[\textbf{(Q2)}] \textit{if the original data representation is sufficient to solve a task efficiently, does $\mathcal{C}$-representation preserves the relevant information?}
+    \item[\textbf{(Q3)}] \textit{if the original data representation is not sufficient to solve the task, does a $\mathcal{C}$-representation improve the performance of a relational classifier?}
+    \item[\textbf{(Q4)}] \textit{can the appropriate parameters for a specific dataset be found by the model selection?}
+    \item[\textbf{(Q5)}] \textit{how does CURLED compare to MRC, which is the closest related work?}
+\end{itemize}
+
+
+In order to do so, we use TILDE \cite{Blockeel1998285}, a relational decision tree learner, and perform 5-fold cross validation. 
+$\mathcal{C}$-representations and TILDE were learned on training folds, and the objects from the test fold were mapped to the $\mathcal{C}$-representation and used to test TILDE.
+The following similarity interpretation were used for each dataset: (0.5,0.5,0.0,0.0,0.0), (0.0,0.0,0.33,0.33,0.34), (0.2,0.2,0.2,0.2,0.2).
+The first set of weights uses only the attribute information, the second one only the link information, while the last one combines every component.
+
+
+
+As a complexity measure of a model we use the number of nodes a trained TILDE model has.
+We use the following values for the $\alpha$ parameter in Equation~\ref{eq:Sat}: $\{ 0.1,0.05, 0.01 \}$.
+In the case of MRC, we used the following values for the $\lambda$ parameter: $\{-1,-5,-10\}$.
+The $\lambda$ parameter has the same role as $\alpha$ in the proposed approach, affecting the number of clusters chosen for each type\footnote{Note that it is difficult to exactly match the values of $\alpha$ and $\lambda$ as both methods operate on different scales, and the authors do not provide a way how to choose an appropriate value}. 
+
+
+
+
+\subsection*{Results}
+
+
 \begin{table*}
 \captionsetup{justification=centerlast}
     \begin{center}
@@ -390,51 +434,10 @@ Rather than inventing an Euclidean space of relational instances, \gls{curled} r
 \end{table*}
 
 
-\textbf{Datasets.}
-We have used the following 6 datasets to evaluate the potential of this approach.
-The IMDB dataset describes a set of movies with people acting in or directing them.
-The UW-CSE dataset describes the interactions of employees at the University of Washington and their roles, publications and the courses they teach.
-The Mutagenesis dataset describes chemical compounds and atoms they consist of. 
-The WebKB dataset consists of pages and links collected from the Cornell University's web page.
-The Terrorists dataset describes terrorist attacks each assigned one of 6 labels indicating the type of the attack.
-The Hepatitis dataset describes a set of patients with hepatitis types B and C.
-\vspace{1pt}
-
-\textbf{Evaluation procedure.}
-In principle, a latent representation should make learning easier by capturing complex dependencies in data more explicitly.
-Though that is difficult to formalize, a consequence should be that a model learned on the latent representation is (i) \textit{less complex}, and (ii) possibly \textit{performs better}.
-To verify whether that is the case with the representation created by CURLED, we answer the following questions:
-\begin{itemize}
-	\setlength\itemsep{0.06em}
-    \item[\textbf{(Q1)}] \textit{do representations learned by CURLED induce models of lower complexity compared to the ones induced on the original representation?}
-    \item[\textbf{(Q2)}] \textit{if the original data representation is sufficient to solve a task efficiently, does $\mathcal{C}$-representation preserves the relevant information?}
-    \item[\textbf{(Q3)}] \textit{if the original data representation is not sufficient to solve the task, does a $\mathcal{C}$-representation improve the performance of a relational classifier?}
-    \item[\textbf{(Q4)}] \textit{can the appropriate parameters for a specific dataset be found by the model selection?}
-    \item[\textbf{(Q5)}] \textit{how does CURLED compare to MRC, which is the closest related work?}
-\end{itemize}
-
-
-In order to do so, we use TILDE \cite{Blockeel1998285}, a relational decision tree learner, and perform 5-fold cross validation. 
-$\mathcal{C}$-representations and TILDE were learned on training folds, and the objects from the test fold were mapped to the $\mathcal{C}$-representation and used to test TILDE.
-The following similarity interpretation were used for each dataset: (0.5,0.5,0.0,0.0,0.0), (0.0,0.0,0.33,0.33,0.34), (0.2,0.2,0.2,0.2,0.2).
-The first set of weights uses only the attribute information, the second one only the link information, while the last one combines every component.
-
-
-
-As a complexity measure of a model we use the number of nodes a trained TILDE model has.
-We use the following values for the $\alpha$ parameter in Equation~\ref{eq:Sat}: $\{ 0.1,0.05, 0.01 \}$.
-In the case of MRC, we used the following values for the $\lambda$ parameter: $\{-1,-5,-10\}$.
-The $\lambda$ parameter has the same role as $\alpha$ in the proposed approach, affecting the number of clusters chosen for each type\footnote{Note that it is difficult to exactly match the values of $\alpha$ and $\lambda$ as both methods operate on different scales, and the authors do not provide a way how to choose an appropriate value}. 
-
-
-
-
-\subsection*{Results}
-
 To answer the above mentioned questions, we perform two types of experiments.
-Table~\ref{tab:Results} summarizes the results of cross validation.
+Table~\ref{tab:Results} summarises the results of cross validation.
 The accuracies on test set and the complexities of TILDE models are stated for both original and $\mathcal{C}$-representations.
-Table~\ref{tab:MS} summarizes the results of the model selection where we dedicate one fold as a \textit{validation set}, and perform the cross validation on the remaining folds to identify the best parameter values (i.e., the choice of a clustering algorithm, a clustering selection procedure and the appropriate hyperedge similarity) for each dataset.
+Table~\ref{tab:MS} summarises the results of the model selection where we dedicate one fold as a \textit{validation set}, and perform the cross validation on the remaining folds to identify the best parameter values (i.e., the choice of a clustering algorithm, a clustering selection procedure and the appropriate hyperedge similarity) for each dataset.
 
 \textbf{Q1.}
 Table~\ref{tab:Results} shows that the models learned on $\mathfrak{C}$-representation consistently have lower complexity than the ones learned on the original data.
@@ -458,7 +461,7 @@ The results in Table~\ref{tab:Results} do suggest so, as TILDE achieves identica
 The remaining datasets are more difficult than the previously discussed ones.
 On the Mutagenesis, Hepatitis and WebKB datasets, $\mathcal{C}$-representation improves the performance.
 On the Terrorists dataset, however, no improvement in performance is observed.
-What distinguishes this dataset from the others is that it contains only two edge types (indicating co-located attack, or ones organized by the same organization), an abundant number of features, while other datasets are substantially more interconnected.
+What distinguishes this dataset from the others is that it contains only two edge types (indicating co-located attack, or ones organized by the same organisation), an abundant number of features, while other datasets are substantially more interconnected.
 Thus, focusing on the relational information is not as beneficial as the features themselves. 
 
 These results suggest that $\mathcal{C}$-representations indeed improve performance of the classifier, compared to the one learned on the original data representation.
@@ -474,7 +477,7 @@ Consequently, the obtained models have lower complexities and  their performance
 
 \textbf{Q4.} To ensure that the previously discussed results do not over-fit the data, we additionally perform model selection.
 We dedicate one fold as the \textit{validation set}, and use the remaining folds to find the best parameter values of both \gls{curled} and TILDE.
-Table \ref{tab:MS} summarizes the results and reports the selected choice of parameter, together with the performance on the validation set.
+Table \ref{tab:MS} summarises the results and reports the selected choice of parameter, together with the performance on the validation set.
 These results are consistent with the ones in Table~\ref{tab:Results}: $\mathcal{C}$-representation improves the performance in the majority of cases, and the selected parameters correspond to the best performing ones in Table~\ref{tab:Results}.
 
 \begin{table}
@@ -720,13 +723,13 @@ Because these examples require an extensive knowledge to interpret them, we leav
 \label{sec:Conc}
 
 
-This work introduces \gls{curled} - a clustering-based framework for unsupervised representation learning with relational data, which describes both instances and relationships between them.
+This chapter has introduces \gls{curled} - a clustering-based framework for unsupervised representation learning with relational data, which describes both instances and relationships between them.
 Viewing relational data as hypergraph, \gls{curled} learns new features by clustering both instances and their relationships. i.e., vertices and hyperedges in the corresponding hypergraph.
 To support such procedure, we introduce a general hyperedges clustering framework based on similarity of vertices participating in the hyperedge.
-A distinct feature of \gls{curled} is the way it uses the ambiguity of similarity within relational data, i.e., whether two relational objects are similar due to their features of relationships, to generate distributed representation of data.
+A distinct feature of \gls{curled} is the way it uses different interpretations of similarity for relational data, i.e., whether two relational objects are similar due to their features of relationships, to generate a new data representation.
 We design several experiments to verify the usefulness of latent representation generated by \gls{curled}.
 The results show that the latent representations created by \gls{curled} provide a better representation of data that results in models of lower complexity and better performance. 
-In future work, we will extend \gls{curled} towards semi-supervised settings, and investigate alternative ways for learning a distributed representations directly from data.
+
 
 
 

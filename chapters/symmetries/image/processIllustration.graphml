@@ -517,9 +517,9 @@ teaches: 1/3<y:LabelModel>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="American Typewriter" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="87.08799743652344" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="213.89801025390625" x="-35.699005126953125" y="-8.543998718261719">advisedBy -&gt; mean: 0.55
-             std: 0.15
+                         std: 0.15
 teaches -&gt; mean: 0.33
-           std: 0.0<y:LabelModel>
+                    std: 0.0<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -639,7 +639,7 @@ teaches -&gt; mean: 0.33
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="American Typewriter" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.54399871826172" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#FF0000" verticalTextPosition="bottom" visible="true" width="195.52001953125" x="-75.09334309895826" y="18.746188999641163">member -&gt; mean: 0.11
-          std: 0.15<y:LabelModel>
+                 std: 0.15<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>

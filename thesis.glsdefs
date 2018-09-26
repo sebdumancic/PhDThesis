@@ -1,0 +1,480 @@
+\ifglsentryexists{ai}{}%
+{%
+\gls@defglossaryentry{ai}%
+{%
+name={AI},%
+sort={AI},%
+type={main},%
+first={AI},%
+firstplural={AIs},%
+text={AI},%
+plural={AIs},%
+description={Artificial intelligence},%
+descriptionplural={Artificial intelligence},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ml}{}%
+{%
+\gls@defglossaryentry{ml}%
+{%
+name={ML},%
+sort={ML},%
+type={main},%
+first={ML},%
+firstplural={MLs},%
+text={ML},%
+plural={MLs},%
+description={Machine Learning},%
+descriptionplural={Machine Learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{srl}{}%
+{%
+\gls@defglossaryentry{srl}%
+{%
+name={SRL},%
+sort={SRL},%
+type={main},%
+first={SRL},%
+firstplural={SRLs},%
+text={SRL},%
+plural={SRLs},%
+description={Statistical relational learning},%
+descriptionplural={Statistical relational learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ilp}{}%
+{%
+\gls@defglossaryentry{ilp}%
+{%
+name={ILP},%
+sort={ILP},%
+type={main},%
+first={ILP},%
+firstplural={ILPs},%
+text={ILP},%
+plural={ILPs},%
+description={Inductive logic programming},%
+descriptionplural={Inductive logic programming},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{dl}{}%
+{%
+\gls@defglossaryentry{dl}%
+{%
+name={DL},%
+sort={DL},%
+type={main},%
+first={DL},%
+firstplural={DLs},%
+text={DL},%
+plural={DLs},%
+description={Deep Learning},%
+descriptionplural={Deep Learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ann}{}%
+{%
+\gls@defglossaryentry{ann}%
+{%
+name={ANN},%
+sort={ANN},%
+type={main},%
+first={ANN},%
+firstplural={ANNs},%
+text={ANN},%
+plural={ANNs},%
+description={Artificial neural network},%
+descriptionplural={Artificial neural network},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{pilp}{}%
+{%
+\gls@defglossaryentry{pilp}%
+{%
+name={PILP},%
+sort={PILP},%
+type={main},%
+first={PILP},%
+firstplural={PILPs},%
+text={PILP},%
+plural={PILPs},%
+description={Probabilistic inductive logic programming},%
+descriptionplural={Probabilistic inductive logic programming},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ann}{}%
+{%
+\gls@defglossaryentry{ann}%
+{%
+name={ANN},%
+sort={ANN},%
+type={main},%
+first={ANN},%
+firstplural={ANNs},%
+text={ANN},%
+plural={ANNs},%
+description={Artificial neural network},%
+descriptionplural={Artificial neural network},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{kge}{}%
+{%
+\gls@defglossaryentry{kge}%
+{%
+name={KGE},%
+sort={KGE},%
+type={main},%
+first={KGE},%
+firstplural={KGEs},%
+text={KGE},%
+plural={KGEs},%
+description={Knowledge Graph Embeddings},%
+descriptionplural={Knowledge Graph Embeddings},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{lrnn}{}%
+{%
+\gls@defglossaryentry{lrnn}%
+{%
+name={LRNN},%
+sort={LRNN},%
+type={main},%
+first={LRNN},%
+firstplural={LRNNs},%
+text={LRNN},%
+plural={LRNNs},%
+description={Lifted Relational Neural Networks},%
+descriptionplural={Lifted Relational Neural Networks},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{hsag}{}%
+{%
+\gls@defglossaryentry{hsag}%
+{%
+name={HSAG},%
+sort={HSAG},%
+type={main},%
+first={HSAG},%
+firstplural={HSAGs},%
+text={HSAG},%
+plural={HSAGs},%
+description={Hybrid similarity on Annotated graphs},%
+descriptionplural={Hybrid similarity on Annotated graphs},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{hs}{}%
+{%
+\gls@defglossaryentry{hs}%
+{%
+name={HS},%
+sort={HS},%
+type={main},%
+first={HS},%
+firstplural={HSs},%
+text={HS},%
+plural={HSs},%
+description={Hybrid similarity},%
+descriptionplural={Hybrid similarity},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{cc}{}%
+{%
+\gls@defglossaryentry{cc}%
+{%
+name={CC},%
+sort={CC},%
+type={main},%
+first={CC},%
+firstplural={CCs},%
+text={CC},%
+plural={CCs},%
+description={Conceptual Clustering},%
+descriptionplural={Conceptual Clustering},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{url}{}%
+{%
+\gls@defglossaryentry{url}%
+{%
+name={URL},%
+sort={URL},%
+type={main},%
+first={URL},%
+firstplural={URLs},%
+text={URL},%
+plural={URLs},%
+description={Unsupervised Representation Learning},%
+descriptionplural={Unsupervised Representation Learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{curled}{}%
+{%
+\gls@defglossaryentry{curled}%
+{%
+name={CUR$^2$LED},%
+sort={CUR$^2$LED},%
+type={main},%
+first={CUR$^2$LED},%
+firstplural={CUR$^2$LEDs},%
+text={CUR$^2$LED},%
+plural={CUR$^2$LEDs},%
+description={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation},%
+descriptionplural={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{kfoil}{}%
+{%
+\gls@defglossaryentry{kfoil}%
+{%
+name={kFOIL},%
+sort={kFOIL},%
+type={main},%
+first={kFOIL},%
+firstplural={kFOILs},%
+text={kFOIL},%
+plural={kFOILs},%
+description={kFOIL},%
+descriptionplural={kFOIL},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%

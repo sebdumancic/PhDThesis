@@ -1,12 +1,109 @@
-\chapter{This is conclusion}\label{ch:conclusion}
+\chapter{Conclusion}\label{ch:conclusion}
 
-\ldots
 
-\instructionsconclusions
+We conclude by summarising the presented work, restating its main contributions,and providing an outlook on future research.
+
+
+
+\section{Thesis summary and contributions}
+
+
+The success of any machine learning application depends on the quality of provided data.
+That does not only  reflect the quality of the data collection process, but the quality of data representation as well.
+The quality of data representation is reflected in the quality of features that are used to describe the desired objects, which should not only the informative and relevant, but should also allow to capture interesting patterns easily.
+This usually requires a domain expert knowing which features might be relevant for the task.
+What used to be a time-consuming and labour-intensive task is now transformed into an automatic procedure by \textit{representation} or \textit{deep learning}.
+The field of representation learning concerns the development of techniques that automatically extract effective representation of the provided data and has revolutionised the field of machine learning over the last decade.
+
+
+Unfortunately,  the majority of the existing representation learning methods focuses on \textit{flat data}, which represents data with vectors containing features values.
+This is in contrast with the real world which contains objects and their mutual relationships, i. e., the real world is \textit{inherently relational}.
+The existing representation learning approaches addressing the relational data typically resort to \textit{flattening} the relational data into vectors.
+This mapping can only \textit{approximate} the relational data, and we currently lack a quantitative measure to assess the quality of the approximation.
+Moreover, these approaches do not leverage the tools developed within \textit{statistical relational learning} which concerns learning from relational data.
+Statistical relational learning leverages the expressive power of first-order logic to represent such complex data which makes it amongst the most powerful machine learning frameworks.
+
+
+
+This thesis serves as an exploration of ideas that combine representation learning with statistical relational learning that, instead of resorting to data flattening, rely on first-order logic as a representation language for both data representation and latent feature representation.
+This thesis contributes several algorithms, techniques and analyses towards achieving this goal.
+We now summarise the main contributions of the thesis.
+
+
+\textbf{Expressive relational clustering framework}
+The first contribution is a novel relational clustering framework.
+The main novelty of the proposed framework is a versatile dissimilarity measure that does not impose a fixed view on what makes relational objects similar, but is a \textit{composition} of several \textit{primitive} similarities.
+These primitive similarities include attribute-based similarity, proximity and various similarities of neighbourhoods.
+The experiments show that accounting for a diverse set of primitive similarities is beneficial for both relational clustering and classification, outperforming the  approaches that  consider only one (or a few) of the primitive similarities.
+
+
+\textbf{Exploiting symmetries to define relational latent features}
+The second contribution is the technique for inventing relational latent representations by capturing approximate symmetries in data.
+The proposed technique relies on the previously introduced relational clustering framework to identify such symmetries by means of clustering.
+The main novelty this technique introduces is that it clusters objects and relationships in a data using different \textit{similarity interpretations}, instead of composing several of them into one joint complex similarity measure.
+Compared to the existing work that uses clustering to enhance relational representations, the proposed technique clustering the instances of relationships, not just their types.
+It can thus discover various \textit{sub-types} of relationships that might carry useful information.
+We show that learning from the latent representations created by clustering is beneficial for relational learning as it often improves the performance of the relational classifier while at the same time reduces the complexity of the induced model.
+Moreover, we introduce a relatively simple methods for explaining the invented latent features which allow us to overcome the typical issue of a black-box feature invention machines.
+
+
+
+These two contributions motive us to pose the following claim:
+
+\begin{quote}
+	\textbf{Claim.} To successfully address relational learning tasks, one has to account for several sources of relevant information.
+
+\end{quote}
+
+
+The results related to the first two contributions show that the reason why relational learning is difficult is that relevant information comes from different sources, being it the attributes or surrounding structure, and that separating those sources helps to improve the performance.
+
+
+
+
+\textbf{Auto-encoding logic programs}
+The third contribution of this thesis are auto-encoding logic programs.
+They stand for a generalisation of the flat auto-encoder towards logic programs as a representation language.
+that includes both data and the computational framework for defining relational features.
+In contrast to \gls{curled} which introduces relational concepts into relational representation learning but still relies on statistical summaries for inventing the latent features, Auto-encoding logic program rely on clausal logic for every step of the pipeline.
+Therefore, they fully leverage the representation power of logic.
+We introduce a constraint optimisation framework for learning auto-encoding logic programs that proved to be reasonable efficient.
+The experiments show that latent representations created by \alp{} aid learning generative \gls{srl} models, resulting in a better performance of the \gls{srl} models learnt in the latent space.
+
+
+
+
+
+
+
+\textbf{Analysis of relational representation learning paradigms}
+The fourth contribution of this thesis is an analysis of relational representation learning techniques.
+We start by analysing the relational latent representations created by \gls{curled} and show that such representations are effective because the identify groupings in data that correspond well with the available labels.
+We then focus on comparing the symbolic and embedding \gls{srl} approaches on a set of standard benchmarks for relational classification and knowledge base completion.
+The results of the comparison show that embedding approach are suitable for scenarios when the data is \textit{curated} and most of the available information is found relevant for the task at hand, while symbolic \gls{srl} approaches are more suitable for the case when data cannot be curated and reduced to only the relevant information.
+When compared on the standard knowledge base completion tasks, symbolic \gls{srl} methods outperform embeddings approaches by a large margin.
+Finally, embeddings \gls{srl} approaches seem to be a good alternative for assessing the similarity in relational data.
+
+
+
+In summary, we contribute novel methods for representation learning with relational data.
+The methods introduced in this thesis are \textit{symbolic} in their nature, which is in stark contrast with the existing methods which rely on gradient-based optimisation.
+This allows them to leverage a powerful representation language of clausal logic to learn more expressive latent features.
+Our second main contribution is a better understanding of the strengths and weaknesses of symbolic and embeddings representation learning approaches.
+
+
+
+
+
+
+
+
+\section{Future work}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Keep the following \cleardoublepage at the end of this file, 
+% Keep the following \cleardoublepage at the end of this file,
 % otherwise \includeonly includes empty pages.
 \cleardoublepage
 
