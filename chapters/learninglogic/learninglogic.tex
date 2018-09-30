@@ -2,8 +2,8 @@
 
 
 
-This chapter briefly introduces the concepts of relational learning.
-It starts with a short introduction to logic, starting from a propositional logic and gradually climbs the ladder of complexity all the way to the logic programming.
+This chapter briefly introduces the concepts of statistical relational learning.
+It starts with a short introduction to logic, starting from the propositional logic and gradually climbs the ladder of complexity all the way to the logic programming.
 It continues with a brief introduction to Inductive logic programming.
 Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory in order to quantify uncertainty of the reasoning.
 
@@ -23,7 +23,7 @@ Propositions are statements about the world being modelled, and can be \textit{t
 
 
 The propositions are constructed from propositional \textit{variables} and \textit{connectivity operators}.
-Propositional variables denote \textit{aspects} of the world considered by the model, for instance, \texttt{sun}, \texttt{rainbow} and \texttt{bob\_runs}.
+Propositional variables denote \textit{aspects} of the world considered by the model, for instance, \textit{sun}, \textit{rainbow} and \textit{bob\_runs}.
 Variables are used in propositions as \textit{literals} -- a propositional variable or its negation.
 The connectivity operators compose literals into more complicated statements.
 Such operators in \textit{conjunction} (AND operator), \textit{disjunction} (OR operator), \textit{implication} (IF-THEN operator) and \textit{equivalence} (IF-AND-ONLY-IF	operator).
@@ -36,7 +36,7 @@ An interpretation that satisfies the proposition is a \textit{model} of that pro
 
 
 
-\paragraph{Example} The proposition 
+\paragraph{Example} The proposition
 $$\text{\textit{playful}} \wedge \text{\textit{fluffy}} \Rightarrow \text{\textit{ideal\_pet}} $$
 encodes that when something is playful (variable \textit{playful} is true) and fluffy (variable \textit{fluffy} is true )then it is an ideal pet (variable \textit{ideal\_pet} is true).
 Every interpretation in which \textit{ideal\_pet} is true is a model of this proposition.
@@ -65,7 +65,7 @@ For instance, to indicate that two animals are of the same species would require
 
 
 
-To over come this issue, \textit{predicate logic} extends the propositional logic with \textit{objects} and \textit{relations} between them, resulting in a powerful language for representing mathematical formalism.
+To over come this issue, \textit{predicate logic} extends the propositional logic with \textit{objects} and \textit{relations} between them, resulting in a powerful language for representing mathematical formalisms.
 An especially attractive feature of predicate logic is its universal \textit{inference algorithm} -- one can state a set of axioms, or facts, and theorems in predicate logic and rely on \textit{resolution} \cite{Robinson:1965:Resolution} inference algorithm to derive new axioms and theorems from the old ones.
 
 
@@ -90,8 +90,8 @@ A \textit{literal} is an atom or its negation.
 Finally, a \textit{formula} in predicate logic is defined as:
 \begin{itemize}
 	\item An atom is a formula
-	\item \texttt{true} and \texttt{false} are formulas
-	\item If $\phi$ and $\psi$ are formulas, so are $\phi \wedge \psi$, $\phi \vee \psi$, $\phi \rightarrow \psi$, $\phi \leftrightarrow \psi$ and $\not \phi$
+	\item \textit{true} and \textit{false} are formulas
+	\item If $\phi$ and $\psi$ are formulas, so are $\phi \wedge \psi$, $\phi \vee \psi$, $\phi \Rightarrow \psi$, $\phi \Leftrightarrow \psi$ and $\not \phi$
 	\item If $\phi$ is a formula and $X$ is a variable, so are $\forall X \phi$ and $\exists X \phi$.
 \end{itemize}
 
@@ -100,9 +100,9 @@ A \textit{literal} in predicate logic is an atom or its negation.
 Formula is \textit{ground} if it does not contain logical variables, meaning that the variables are \textit{bind} to the exact objects or individuals.
 
 
- 
- 
- 
+
+
+
 
 
 Evaluating formulas in predicate logic is not as simple as in the propositional logic.
@@ -112,26 +112,26 @@ Once groundings are obtained, each grounding of a predicate is associated with \
 
 
 
-\paragraph{Example} Mapping the previous example in propositional logic to predicate logic results in the following formula: 
+\paragraph{Example} Mapping the previous example in propositional logic to predicate logic results in the following formula:
 
 $$\forall X \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy(X)}} \Rightarrow \text{\textit{ideal\_pet(X)}}. $$
 
  Predicate logic allows us to easily express more complex knowledge relating different objects.
- For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend: 
+ For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend:
  $$\forall X, \exists Y \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy(X)}} \wedge \text{\textit{friends(X,Y)}} \Rightarrow \text{\textit{ideal\_pet(X)}}. $$
- Assuming the domain being $\{$\textit{cat,hamster,alpaca}$\}$, the grounding of the predicate \textit{is\_playful(X)} are: \textit{is\_playful(cat)}, \textit{is\_playful(hamster)} and \textit{is\_playful(alpaca)}.
- 
- 
- 
- 
+ Assuming the domain being $\{$\textit{cat,hamster,alpaca}$\}$, the groundings of the predicate \textit{is\_playful(X)} are: \textit{is\_playful(cat)}, \textit{is\_playful(hamster)} and \textit{is\_playful(alpaca)}.
+
+
+
+
  Predicate logic allows us to represent knowledge about the world in a very compact manner: grounded atoms specify facts about the world, while logical formulas general properties and relationships that would otherwise be too cumbersome to write as facts.
- 
- 
- 
- 
 
 
- 
+
+
+
+
+
 
 
 
@@ -146,16 +146,16 @@ Furthermore, it restricts the formulas to be in the form of \textit{Horn clauses
 A \textit{clause} is a disjunction of literals:
 
 \begin{center}
-	\texttt{A}$_1$  $\vee$ \ldots $\vee$ \texttt{A}$_n$.
+	\textit{A}$_1$  $\vee$ \ldots $\vee$ \textit{A}$_n$.
 \end{center}
 
 More generally, if some of the literals in a clause are \textit{negated}
 
-$$ \text{\texttt{A}}_1 \vee \text{\ldots} \vee \text{\texttt{A}}_n \vee \neg \text{\texttt{B}}_1 \vee \text{\texttt{\ldots}} \vee \neg \text{\texttt{B}}_m$$
+$$ \text{\textit{A}}_1 \vee \text{\ldots} \vee \text{\textit{A}}_n \vee \neg \text{\textit{B}}_1 \vee \text{\textit{\ldots}} \vee \neg \text{\textit{B}}_m$$
 
 then the clause can be written as an \textit{if-then} rule, for instance in the logic programming language \textit{Prolog}:
 
-$$ \underbrace{\text{\texttt{A}}_1, \text{\ldots}, \text{\texttt{A}}_n}_{\text{\textit{head}}} \text{\texttt{:-}} \underbrace{\text{\texttt{B}}_1, \text{\texttt{\ldots}}, \text{\texttt{B}}_m}_{\text{\textit{body}}}.$$
+$$ \underbrace{\text{\textit{A}}_1, \text{\ldots}, \text{\textit{A}}_n}_{\text{\textit{head}}} \text{\textit{:-}} \underbrace{\text{\textit{B}}_1, \text{\textit{\ldots}}, \text{\textit{B}}_m}_{\text{\textit{body}}}.$$
 
 Comma in the \textit{head} of the rule stands for a disjunction, while in the \textit{body} it indicates the conjunction of literals.
 A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$.
@@ -165,13 +165,13 @@ A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$
 A very attractive property of clausal logic is that it forms a very general framework for representing knowledge.
 For example, a clausal statement with $n > 0$ and $m = 0$ indicates a fact.
 If $n, m > 0$, then such a statement is a rule.
-A statement wit $n=0$ and $m > 0$ represents a \textit{Prolog query}.
+A statement wit $n=0$ and $m > 0$ represents a \textit{Prolog query} -- a statement whose truth assignment we want to check.
 Moreover, even the learning algorithm itself can be represented as a set of clauses.
 
 
 
 The main difference between predicate logic and logic programming is in the interpretation of the implication operator.
-Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic programming takes a procedural interpretation of implication (\textit{:-}). 
+Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic programming takes a procedural interpretation of implication (\textit{:-}) -- meaning that the head of the clause is \textit{true} every time the body is \textit{true}.
 
 
 
@@ -217,13 +217,13 @@ $$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_queen(Y)
 
 
 Propositional logic and logic programs are two extremes on the spectrum of possible data representations~\cite{LucRLbook}.
-This spectrum of representations explores a tradeoff between the \textit{expressiveness} -- the complexity of what can be represented, and \textit{efficiency} -- how fast can we perform fundamental inference and learning tasks in certain representation. 
+This spectrum of representations explores a tradeoff between the \textit{expressiveness} -- the complexity of what can be represented, and \textit{efficiency} -- how fast can we perform fundamental inference and learning tasks in a certain representation class.
 There is an intricate relationship between these properties: expressiveness comes with lower efficiency.
 Therefore, resorting to a too powerful data representation as a default choice comes at a high computational cost; in contrast, choosing a less but sufficiently expressive representation offers better efficiency  without loss of information.
 
 
 At the bottom of the ladder of expressivity are \textit{Boolean representations} (BR) based on propositional logic.
-In Boolean representation, each example is associated with a fixed number of feature taking values from $\{true, false\}$.
+In Boolean representation, each example is associated with a fixed number of features taking values from $\{true, false\}$.
 This is similar to our pets data (Table \ref{tab:pets})  if all the values are replaced by $true$ and $false$.
 
 
@@ -241,7 +241,7 @@ This is the exact case as presented in Table \ref{tab:pets}.
 			\cmidrule{2-5}
 						& fluffy		& playful	& spits?		& bites?& 	\\
 			\midrule
-		
+
 		Hannah			& 4			& yes		& yes		& no		& \checkmark \\
 						& 3			& no			& yes		& no		&  \\
 						& 5			& sometimes & yes		& yes	& \\
@@ -251,8 +251,8 @@ This is the exact case as presented in Table \ref{tab:pets}.
 		\midrule
 		\multicolumn{6}{c}{$\ldots$} \\
 		\bottomrule
-		
-		\end{tabular}	
+
+		\end{tabular}
 \end{table}
 
 
@@ -320,24 +320,35 @@ So far, we have seen why predicate and clausal logic are a desirable framework f
 What has not been discussed so far is their connection with machine learning.
 
 
-\textit{Inductive logic programming} \cite{LucRLbook,Lavrac:1993:ILP:562956} is the field of \gls{ai} combining machine learning with logic programming representation language.
+\textit{Inductive logic programming} \cite{LucRLbook,Lavrac:1993:ILP:562956} is the field of \gls{ai} combining machine learning with logic programming as the representation language.
 Intuitively, \gls{ilp} considers the problem of learning a logic theory, a set of clauses, predicting the target predicate.
 
-More specifically, \gls{ilp} is defined as follows.
+More specifically, \gls{ilp} is defined as follows:
 
-\begin{definition}{(\gls{ilp} learning task)}
-	
-	
-\textbf{Given}
- a set of positive $\mathcal{E}^+$ and negative $\mathcal{E}^-$ examples, $\mathcal{E} = \mathcal{E}^+ \cup \mathcal{E}^-$,
- a language bias $\mathcal{L}$ -- a language of clauses,
- a covers relation $c$,
- a background knowledge or theory $\mathcal{B}$,
+\begin{quote}
+	\textbf{Given}
+	 a set of positive $\mathcal{E}^+$ and negative $\mathcal{E}^-$ examples, $\mathcal{E} = \mathcal{E}^+ \cup \mathcal{E}^-$,
+	 a language bias $\mathcal{L}$ -- a language of clauses,
+	 a covers relation $c$,
+	 a background knowledge or theory $\mathcal{B}$,
 
 
-\textbf{Find} a set of clauses $\mathcal{T} \subset \mathcal{L}$ such that $\mathcal{T}$ (together with $\mathcal{B}$) covers all positive and no negative examples
+	\textbf{Find} a set of clauses $\mathcal{T} \subset \mathcal{L}$ such that $\mathcal{T}$ (together with $\mathcal{B}$) covers all positive and no negative examples
+\end{quote}
 
-\end{definition}
+% \begin{definition}{(\gls{ilp} learning task)}
+%
+%
+% \textbf{Given}
+%  a set of positive $\mathcal{E}^+$ and negative $\mathcal{E}^-$ examples, $\mathcal{E} = \mathcal{E}^+ \cup \mathcal{E}^-$,
+%  a language bias $\mathcal{L}$ -- a language of clauses,
+%  a covers relation $c$,
+%  a background knowledge or theory $\mathcal{B}$,
+%
+%
+% \textbf{Find} a set of clauses $\mathcal{T} \subset \mathcal{L}$ such that $\mathcal{T}$ (together with $\mathcal{B}$) covers all positive and no negative examples
+%
+% \end{definition}
 
 
 
@@ -350,10 +361,16 @@ Third, one has to provide a \textit{covers} relation.
 Intuitively, \textit{covers} relation specifies how do we use a theory to make predictions about the examples.
 Typical choice in \gls{ilp} is to use \textit{entailment} as \textit{covers} relation:
 
-\begin{definition}{(Entailment)}
-	Let $\mathcal{C}$ be a set of clauses and $c$ be a clause (a fact in our case). $\mathcal{C}$ \textit{logically entails} $c$, $\mathcal{C} \models c$, if and only if all models of $\mathcal{C}$ are also models of $c$. 
-\end{definition}
-Fourth, \textit{background knowledge} or \textit{theory} represent either any additional knowledge one might have about the examples.
+% \begin{definition}{(Entailment)}
+% 	Let $\mathcal{C}$ be a set of clauses and $c$ be a clause (a fact in our case). $\mathcal{C}$ \textit{logically entails} $c$, $\mathcal{C} \models c$, if and only if all models of $\mathcal{C}$ are also models of $c$.
+% \end{definition}
+
+\begin{quote}
+	Let $\mathcal{C}$ be a set of clauses and $c$ be a clause (a fact in our case). $\mathcal{C}$ \textit{logically entails} $c$, $\mathcal{C} \models c$, if and only if all models of $\mathcal{C}$ are also models of $c$.
+\end{quote}
+
+
+Fourth, \textit{background knowledge} or \textit{theory} represent any additional knowledge one might have about the provided domain.
 In our pet example, the background knowledge consists of the information about diet, playfulness and biting habits of potential pets.
 Additionally, background knowledge can contain additional \textit{rules} encoding experts knowledge, for instance: \textit{an animal that bites is potentially aggressive}.
 
@@ -372,28 +389,28 @@ Many different \gls{ilp} algorithms have been proposed so far, but the vast majo
 To understand these two learning frameworks, we need to understand two notions -- \textit{generality} and \textit{specialization}.
 
 \begin{definition}{(Generality)}
-Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$. 
-Clause $c_1$ is \textit{more general} than clause $c_2$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$. 
+Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$.
+Clause $c_1$ is \textit{more general} than clause $c_2$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$.
 \end{definition}
 
 
 
 \begin{definition}{(Specialization)}
-Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$. 
-Clause $c_2$ is \textit{specialization} of clause $c_1$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$. 
+Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$.
+Clause $c_2$ is \textit{specialization} of clause $c_1$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$.
 \end{definition}
 
 
 
 
 \begin{algorithm}
-	
-	\caption{\gls{ilp} learning loop}
+
+	\caption{The \gls{ilp} learning loop}
 	\begin{algorithmic}
 		\STATE $\text{Queue} \leftarrow \text{\textit{initialize}}$
 		\STATE $\text{Examples} \leftarrow \{\text{\ldots}\}$
 		\STATE $\text{Theory} \leftarrow \emptyset$
-		
+
 		\WHILE{not \textit{stop}}
 			\STATE \textit{candidate} $\leftarrow$ take from Queue
 			\IF{\textit{candidate} satisfies quality criteria}
@@ -402,19 +419,19 @@ Clause $c_2$ is \textit{specialization} of clause $c_1$, $c_1 \preceq c_2$, if a
 			\ELSE
 				\STATE $\text{Queue} \leftarrow \text{Queue} \cup \rho(\text{\textit{candidate}})$
 			\ENDIF
-			
+
 			\STATE $\text{Queue} \leftarrow \text{prune(Queue)}$
-				
+
 		\ENDWHILE
 		\RETURN Theory
-		
+
 	\end{algorithmic}
 	\label{alg:ilploop}
 \end{algorithm}
 
 
 Both framework follow the same steps, illustrated in Algorithm \ref{alg:ilploop}, and differ only in small details.
-The maintain a \textit{queue} of candidates, and iteratively test candidates from the \textit{queue}.
+They maintain a \textit{queue} of candidates, and iteratively test candidates from the \textit{queue}.
 If a candidate clause satisfies a certain quality criteria, it is added to the final theory and all examples it \textit{entails} are removed from the example pool.
 If a candidate does not satisfy the quality criteria, the refinements of the candidate (obtained through the $\rho$ function) are added to the candidate queue.
 Afterwards, the queue of candidates is pruned by removing unnecessary candidates.
@@ -443,10 +460,10 @@ The predicate taking only one argument, for instance \textit{bites}, simply stat
 Searching for a predictive \gls{ilp} model in a top-down manner will start with exploring all clauses with a single predicate in the body:
 
 \begin{center}
-	\textit{perfect\_pet(X) :- legs(X,2).} \quad \textit{perfect\_pet(X) :- legs(X,4).} 
-	
-	$\ldots$ 
-	
+	\textit{perfect\_pet(X) :- legs(X,2).} \quad \textit{perfect\_pet(X) :- legs(X,4).}
+
+	$\ldots$
+
 	\textit{perfect\_pet(X) :- spits(X).} \quad \textit{perfect\_pet(X) :- bites(X).}
 \end{center}
 
@@ -455,12 +472,73 @@ Clauses that were found useful, let us say that is \textit{perfect\_pet(X) :- le
 
 
 \begin{center}
-	\textit{perfect\_pet(X) :- legs(X,4),spits(X).} \quad \textit{perfect\_pet(X) :- legs(X,4),bites(X).} 
-	
-	$\ldots$ 
+	\textit{perfect\_pet(X) :- legs(X,4),spits(X).} \quad \textit{perfect\_pet(X) :- legs(X,4),bites(X).}
+
+	$\ldots$
 \end{center}
 
 until a satisfactory model is found.
+
+
+
+
+
+
+
+\subsection{Language bias}
+\label{ch2:languagebias}
+
+Blindly search over the space of possible clauses usually generates huge search spaces.
+To tackle this issue, many \gls{ilp} system rely on \textit{language bias}~\cite{DBLP:reference/ml/Blockeel17} to focus the search.
+
+
+Language bias provide a specification how the provided predicates can \textit{interact} with each other.
+This typically includes specifying the following information
+
+
+\paragraph{Argument types.} Given na predicate \texttt{b/2} (where \texttt{/2} defines the number of arguments the predicate takes), each argument has an associated \textit{type}. For instance, the predicate \textit{friends/2} operates only between entities of type \texttt{person}: both arguments are of the type \texttt{person}.
+
+
+\paragraph{Argument roles.} Each argument of a predicate has an associated \textit{role}, which specifies how the predicate can be introduced in a clause.
+Arguments can be of the following types:
+\begin{itemize}
+	\item \textbf{Input (+):} an input argument needs to be \textit{bounded} to already existing variable in a clause, or any of the variables from the head of the clause
+	\item \textbf{Output (-):} an output argument introduces a new variable in the clause
+	\item \textbf{Constant (\#):} a constant must be introduced in the place of the argument.
+\end{itemize}
+
+For instance, assume you want to extend the clause \texttt{h(X,Y) :- b$_1$(X).} with a predicate \texttt{b$_2$/2} having the roles specified as \texttt{b$_2$(+,\#)}.
+Then the first argument of \texttt{b$_2$/2} has to be bounded to one of the existing variables \texttt{\{X,Y\}}, where the constant has to be introduced instead of the second argument (assume \texttt{c$_1$}).
+The possible extensions are then:
+\begin{center}
+	\texttt{h(X,Y) :- b$_1$(X),b$_2$(X,c$_1$).}
+
+
+	\texttt{h(X,Y) :- b$_1$(X),b$_2$(Y,c$_1$).}
+\end{center}
+
+It the predicate \texttt{b$_2$/2} would be specified as \texttt{b$_2$(+,-)}, the second argument has to introduce a new variable, e.g.,
+\begin{center}
+	\texttt{h(X,Y) :- b$_1$(X),b$_2$(X,Z).}
+\end{center}
+
+
+\paragraph{Syntactic restrictions.}
+We use the following restrictions on the form of clauses:
+\begin{itemize}
+	\item \textbf{Connectivity} specifies which connectivity operators can be used in the bodies of the clauses: conjunction, disjunction and negation. We currently use only the conjunctions and disjunctions.
+	\item \textbf{Length bound} limits the lengths of the body of a clause.
+	\item \textbf{Term bound} introduces the upper bound on the \textit{maximal} number of terms in a clause.
+\end{itemize}
+
+Given these constrains, we can reduce the search space substantially which can further be pruned through generalisation and specialisation.
+% Given these constraints, we simply enumerate all formulas of bounded length that satisfy them; formulas enumerated in this way form the language bias.
+% The same principle is used for generating the language bias of both encoder and decoder clauses.
+
+
+
+
+
 
 
 
@@ -470,15 +548,13 @@ until a satisfactory model is found.
 
 
 \newglossaryentry{pilp}{name={PILP},description={Probabilistic inductive logic programming}}
-
-
 Though clausal logic is a powerful representation framework, it still has a drawback when it comes to reasoning: it can only represent things being \textit{true} or \textit{false}, but cannot reason about uncertainty of conclusion.
 Therefore, significant work has been devoted towards combining logic reasoning with probability theory, under the name of Statistical relational learning (\gls{srl}) and Probabilistic inductive logic programming.
 
 
 
 
-Halpern introduces two formalisms to give the semantics to systems combining logic an probability \cite{Halpern90ananalysis}.
+Halpern introduces two formalisms for giving the semantics to systems combining logic an probability \cite{Halpern90ananalysis}.
 The first formalism assigns probabilities on the domain, i.e., the facts, and is suitable for probabilistic logic involving the uncertain facts.
 The second formalism assigns probabilities on the possible worlds, and is suitable for giving semantics to formulas describing degrees of belief.
 In the remainder of the chapter, we describe two prominent approaches within \gls{srl} and \gls{pilp}: \textit{Problog} and \textit{Markov logic networks}.
@@ -501,29 +577,29 @@ Such probabilistic facts together with rules define the following distribution $
 
 
 \begin{figure}
-	$$\begin{aligned} 
-		0.1{:: }{\mathtt {burglary}}. ~~~~&0.7{:: }{\mathtt {hears\_alarm(mary)}}. \nonumber \\ 
-		\underbrace{0.2{:: }{\mathtt {earthquake}}.}_{probabilistic fact} ~~~~&0.4{:: }{\mathtt {hears\_alarm(john)}}.\nonumber \\ 
-		\mathtt {alarm}&\text{ :- }{\mathtt {earthquake}}.\nonumber \\ 
-		\mathtt {alarm}& \text{ :- } {\mathtt {burglary}}.\nonumber \\ 
-		{{\mathtt {calls(X)}}}& \text{ :- } {\mathtt {alarm, hears\_alarm(X)}}.\nonumber \\ 
-		{\mathtt{call}}& \text{ :- } {{\mathtt {calls(X)}}}. 	
+	$$\begin{aligned}
+		0.1{:: }{\mathtt {burglary}}. ~~~~&0.7{:: }{\mathtt {hears\_alarm(mary)}}. \nonumber \\
+		\underbrace{0.2{:: }{\mathtt {earthquake}}.}_{probabilistic fact} ~~~~&0.4{:: }{\mathtt {hears\_alarm(john)}}.\nonumber \\
+		\mathtt {alarm}&\text{ :- }{\mathtt {earthquake}}.\nonumber \\
+		\mathtt {alarm}& \text{ :- } {\mathtt {burglary}}.\nonumber \\
+		{{\mathtt {calls(X)}}}& \text{ :- } {\mathtt {alarm, hears\_alarm(X)}}.\nonumber \\
+		{\mathtt{call}}& \text{ :- } {{\mathtt {calls(X)}}}.
 	\end{aligned}$$
-	\caption{Problog program of the alarm problem\label{fig:problog}}
+	\caption{Problog program for the alarm problem\label{fig:problog}}
 \end{figure}
 
 
 The distribution $P_F$ can be then used to defined the \textit{success probability} of a query $q$ -- the probability that $q$ (a ground atom) is \textit{true} is a randomly chosen program, as the sum over all programs that entail $q$:
 
 $$
-\begin{aligned} 
+\begin{aligned}
 	P(q)&{:}{=}\sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} P_F(F')
 \end{aligned}
 $$
 
 $$
 \begin{aligned}
-&= \sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} \prod _{f_i\in F'}p_i\cdot \prod _{f_i\in F\setminus F'}(1-p_i)\;. 
+&= \sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} \prod _{f_i\in F'}p_i\cdot \prod _{f_i\in F\setminus F'}(1-p_i)\;.
 \end{aligned}
 $$
 
@@ -552,7 +628,7 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Keep the following \cleardoublepage at the end of this file, 
+% Keep the following \cleardoublepage at the end of this file,
 % otherwise \includeonly includes empty pages.
 \cleardoublepage
 

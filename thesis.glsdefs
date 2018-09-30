@@ -279,8 +279,68 @@ first={LRNN},%
 firstplural={LRNNs},%
 text={LRNN},%
 plural={LRNNs},%
-description={Lifted Relational Neural Networks},%
-descriptionplural={Lifted Relational Neural Networks},%
+description={Lifted Relational Neural Network},%
+descriptionplural={Lifted Relational Neural Network},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{relnn}{}%
+{%
+\gls@defglossaryentry{relnn}%
+{%
+name={RelNN},%
+sort={RelNN},%
+type={main},%
+first={RelNN},%
+firstplural={RelNNs},%
+text={RelNN},%
+plural={RelNNs},%
+description={Relational Neural Network},%
+descriptionplural={Relational Neural Network},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{recent}{}%
+{%
+\gls@defglossaryentry{recent}%
+{%
+name={ReCeNT},%
+sort={ReCeNT},%
+type={main},%
+first={ReCeNT},%
+firstplural={ReCeNTs},%
+text={ReCeNT},%
+plural={ReCeNTs},%
+description={Relational Clustering over Neighbourhood Trees},%
+descriptionplural={Relational Clustering over Neighbourhood Trees},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%
@@ -369,8 +429,98 @@ first={CC},%
 firstplural={CCs},%
 text={CC},%
 plural={CCs},%
-description={Conceptual Clustering},%
-descriptionplural={Conceptual Clustering},%
+description={Relational Conceptual Clustering},%
+descriptionplural={Relational Conceptual Clustering},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ribl}{}%
+{%
+\gls@defglossaryentry{ribl}%
+{%
+name={RIBL},%
+sort={RIBL},%
+type={main},%
+first={RIBL},%
+firstplural={RIBLs},%
+text={RIBL},%
+plural={RIBLs},%
+description={Relational Instance-Based Learning},%
+descriptionplural={Relational Instance-Based Learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{wlst}{}%
+{%
+\gls@defglossaryentry{wlst}%
+{%
+name={WLST},%
+sort={WLST},%
+type={main},%
+first={WLST},%
+firstplural={WLSTs},%
+text={WLST},%
+plural={WLSTs},%
+description={Weisfeiler-Lehman subtree kernel},%
+descriptionplural={Weisfeiler-Lehman subtree kernel},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rkoh}{}%
+{%
+\gls@defglossaryentry{rkoh}%
+{%
+name={RKOH},%
+sort={RKOH},%
+type={main},%
+first={RKOH},%
+firstplural={RKOHs},%
+text={RKOH},%
+plural={RKOHs},%
+description={A rooted kernel for ordered hyper-graphs},%
+descriptionplural={A rooted kernel for ordered hyper-graphs},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%
@@ -431,6 +581,66 @@ text={CUR$^2$LED},%
 plural={CUR$^2$LEDs},%
 description={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation},%
 descriptionplural={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{nt}{}%
+{%
+\gls@defglossaryentry{nt}%
+{%
+name={NT},%
+sort={NT},%
+type={main},%
+first={NT},%
+firstplural={NTs},%
+text={NT},%
+plural={NTs},%
+description={Neighbourhood tree},%
+descriptionplural={Neighbourhood tree},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{tilde}{}%
+{%
+\gls@defglossaryentry{tilde}%
+{%
+name={TILDE},%
+sort={TILDE},%
+type={main},%
+first={TILDE},%
+firstplural={TILDEs},%
+text={TILDE},%
+plural={TILDEs},%
+description={Top-Down Induction of Logical Decision Trees},%
+descriptionplural={Top-Down Induction of Logical Decision Trees},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%

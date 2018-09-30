@@ -120,7 +120,7 @@ As for the parameters of latent representation, we take the best parameters on i
 When analysing the interpretability, we set $\theta$ to $0.3$.
 
 When evaluating the redundancy, we create latent representations by setting the $\alpha$ to the following values: $\{0.9, 0.8, 0.7, 0.6, 0.5\}$.
-We then learn a relational decision tree TILDE \cite{Blockeel1998285} on the obtained representation and compare accuracies, the number of created features and the number of facts.
+We then learn a relational decision tree \gls{tilde} on the obtained representation and compare accuracies, the number of created features and the number of facts.
 
 
 When analysing the entropy and sparsity of representations, predicates indicating labels (such as \texttt{Professor} or \texttt{Student}) and entity definitions (such as \texttt{Person} or \texttt{Course}) are not considered in the analysis.
@@ -133,13 +133,13 @@ When analysing the entropy and sparsity of representations, predicates indicatin
 	\centering
 	\medskip
     \includegraphics[width=1\textwidth]{entropy}
-    \caption{Latent representations for IMDB, UWCSE and Hepatitis datasets contain substantially larger number of predicates (and the corresponding facts) with low label entropy, compared to the original representation of data. On the TerroristAttack dataset, for which the latent representation has not been useful, that is not the case - both original and latent representation demonstrate similar trends in label entropy of the predicates and the corresponding facts.}
+    \caption[Label entropy of latent representation created by \gls{curled}]{Latent representations for IMDB, UWCSE and Hepatitis datasets contain substantially larger number of predicates (and the corresponding facts) with low label entropy, compared to the original representation of data. On the TerroristAttack dataset, for which the latent representation has not been useful, that is not the case - both original and latent representation demonstrate similar trends in label entropy of the predicates and the corresponding facts.}
     \label{fig:Entropy}
 \end{figure}
 
 
 \textbf{Label entropy.}
-Figure~\ref{fig:Entropy} summarizes the label entropy for each dataset.
+Figure~\ref{fig:Entropy} summarises the label entropy for each dataset.
 In all cases where representation learning proved helpful (i.e., IMDB, UWCSE, Hepatitis), latent representations have a substantially larger number of predicates with low label entropy compared to the original data representation.
 The latent representation for the TerroristAttack datasets, however, shows a different behaviour in which latent features with high entropy dominate the representation.
 These results agree with the expectation that a high number of low entropy features makes learning easier.
@@ -154,13 +154,13 @@ It also does not pose a problem -- these latent features are less consistent wit
 	\centering
 	\medskip
     \includegraphics[width=1\textwidth]{sparsity}
-    \caption{Latent representation tends to be sparser than the original representation on the datasets where it is beneficial (IMDB, UWCSE and Hepatitis). On the TerroristAttack dataset, where the latent representation is not beneficial, both original and latent representation follow the same trend. }
+    \caption[Sparsity of latent representation created by \gls{curled}]{Latent representation tends to be sparser than the original representation on the datasets where it is beneficial (IMDB, UWCSE and Hepatitis). On the TerroristAttack dataset, where the latent representation is not beneficial, both original and latent representation follow the same trend. }
     \label{fig:Sparsity}
 \end{figure}
 
 
 \textbf{Sparsity.}
-Figure~\ref{fig:Sparsity} summarizes the sparsity results in terms of the number of true instantiations of predicates.
+Figure~\ref{fig:Sparsity} summarises the sparsity results in terms of the number of true instantiations of predicates.
 The distribution of the number of true groundings in the latent representations (where latent features are beneficial) is heavily skewed towards a small number of groundings, in contrast with the original representation.
 That is especially the case with the Hepatitis dataset, which profits the most from the latent features.
 The exception to this behaviour is again the TerroristAttack dataset in which the original representation already is very sparse.
@@ -174,7 +174,7 @@ These results indicates that latent features indeed describe smaller groups of i
 	\centering
 	\medskip
     \includegraphics[width=1\textwidth]{combined}
-    \caption{Contrasting the label entropy of predicates and the number of true groundings reveals that the many latent predicates with the low label entropy have similar number of groundings as the predicates of the original data representation. This means that the trivial case, in which a large number of low-entropy predicates is obtained due to many predicates that have just a few true groundings, is not explanation for the experimental results. Instead, the latent representation, when beneficial, successfully identifies local regions in the instance space that match well with the provided labels. The exception to this is again the TerroristAttack dataset.}
+    \caption[Contrasting the label entropy and sparsity in latent representation created by \gls{curled}]{Contrasting the label entropy of predicates and the number of true groundings reveals that the many latent predicates with the low label entropy have similar number of groundings as the predicates of the original data representation. This means that the trivial case, in which a large number of low-entropy predicates is obtained due to many predicates that have just a few true groundings, is not explanation for the experimental results. Instead, the latent representation, when beneficial, successfully identifies local regions in the instance space that match well with the provided labels. The exception to this is again the TerroristAttack dataset.}
     \label{fig:EntropyVsSparsity}
 \end{figure}
 
@@ -201,7 +201,7 @@ As a consequence, these local regions are easier to capture and represent.
 
 
 \textbf{Redundancy.}
-Figure~\ref{fig:Redundancy} summarizes the influence of $\alpha$ on the accuracy and the number of latent features.
+Figure~\ref{fig:Redundancy} summarises the influence of $\alpha$ on the accuracy and the number of latent features.
 The figure shows relative reduction in the number of features (equal to the number of predicates), the number of facts and the accuracy with  respect to the latent representation obtained without rejecting the overlapping clusterings.
 These results show that the performance of the classifier is not affected by removing features based on the overlap of clusterings they define.
 The performance of TILDE remains approximately the same, whereas the number of latent features is reduced by 20 to 30 \%.
@@ -218,7 +218,7 @@ As the number of features is directly related to the size of the search space of
 	\centering
 	\medskip
     \includegraphics[width=1\textwidth]{redundancy_combined}
-    \caption{The performance in terms of the accuracy is barely effected by removing overlapping clusterings, while the number of predicates and facts can be reduced up to 30\%. The only noticeable reduction in performance happen on the Hepatitis dataset, but only for approximately 5\%.   }
+    \caption[Redundancy in latent representations created by \gls{curled}]{The performance in terms of the accuracy is barely effected by removing overlapping clusterings, while the number of predicates and facts can be reduced up to 30\%. The only noticeable reduction in performance happen on the Hepatitis dataset, but only for approximately 5\%.   }
     \label{fig:Redundancy}
 \end{figure}
 
@@ -338,7 +338,7 @@ Toutanova and Chen compare \gls{kge}s with a simple method that takes the types 
 However, they offer no greater insight in possible reasons.
 Vig et al.  compare symbolic \gls{srl} methods with embeddings obtained by the Siamese neural network~\cite{Bromley:1993:SVU:2987189.2987282}, and focus on analysing the impact of the available \textit{background knowledge} on the performance.
 Their results indicate that \gls{kge}s might be beneficial when the background knowledge about the task at hand is limited, but is such knowledge is available then the symbolic methods are preferable.
-Out work presented in this paper differs in a way that it goes beyond quantitative analysis and includes substantial qualitative analysis with respect to the complexity of reasoning needed to address the task.
+Our work presented in this paper differs in a way that it goes beyond quantitative analysis and includes substantial qualitative analysis with respect to the complexity of reasoning needed to address the task.
 
 
 
@@ -420,7 +420,7 @@ Additionally, if the provided data does not contain useful features, KGE methods
 \begin{table}[t]
 	\centering
 
-	\caption{Dataset properties summarise the number of target and all instances, the number of attributes, and the number of relation types.}
+	\caption[Properties of the relational classification datasets]{Dataset properties summarise the number of target and all instances, the number of attributes, and the number of relation types.}
 		\begin{tabular}{@{}lcccccc@{}}
 			\toprule
 			\textbf{Dataset} 	& \multicolumn{2}{c}{\textbf{Instances}} 		& \multicolumn{2}{c}{\textbf{Attributes}}	& \multicolumn{2}{c}{\textbf{Relations}} \\
@@ -510,7 +510,7 @@ As Hits@1 directly correspond to the accuracy, and we use this as a primary mean
 \subsubsection{Relational classification}
 
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.98\linewidth}
 		\centering
@@ -532,7 +532,7 @@ As Hits@1 directly correspond to the accuracy, and we use this as a primary mean
 		\caption{Performance with kNNs\label{fig:knns}}
 	\end{subfigure}
 
-	\caption{Performances with difference classifiers}
+	\caption{Performance with different classifiers on the relational classification problems}
 \end{figure}
 
 
@@ -559,7 +559,7 @@ Table~\ref{tab:ruleproperties} summarises the rules extracted by TILDE w.r.t. th
 \begin{table}[h!]
 	\centering
 
-	\caption{Properties of extracted rules are summarised as a proportion of relation and attribute predicates they contain. \textit{Rule properties} section describes the proportion of rules that contain  \textit{relation} predicates only, \textit{attribute} predicates only and the mix of both, for each dataset. \textit{Dataset properties} section shows the proportion of possible attribute and relation predicates that are used in the extracted rules. For example, the rules on the Hepatitis dataset use 100 \% of the possible attribute predicates, and 66 \% of relation predicates. \textit{Neighbourhood} refers to the proportion of attribute and relation predicates of the non-target instances for which a direct link with target instances exists. }
+	\caption[Properties of the extracted rules]{Properties of extracted rules are summarised as a proportion of relation and attribute predicates they contain. \textit{Rule properties} section describes the proportion of rules that contain  \textit{relation} predicates only, \textit{attribute} predicates only and the mix of both, for each dataset. \textit{Dataset properties} section shows the proportion of possible attribute and relation predicates that are used in the extracted rules. For example, the rules on the Hepatitis dataset use 100 \% of the possible attribute predicates, and 66 \% of relation predicates. \textit{Neighbourhood} refers to the proportion of attribute and relation predicates of the non-target instances for which a direct link with target instances exists. }
 	\resizebox{.95\linewidth}{!}{
 		\begin{tabular}{@{}lccccccc@{}}
 			\toprule
@@ -653,7 +653,7 @@ The likely reason for that is that the filtered information matches the bias of 
 		\includegraphics[width=.85\linewidth]{knn_difference}
 		\caption{kNN \label{fig:knn_difference}}
 	\end{subfigure}
-	\caption{Results on the filtered version of the WebKB dataset show the improvement in the performance of KGE-based methods in combination with decision trees and SVMs, but not when kNN is used.}
+	\caption[Control experiment - results on the filtered version of the WebKB dataset]{Results on the filtered version of the WebKB dataset show the improvement in the performance of \gls{kge}-based methods in combination with decision trees and SVMs, but not when kNN is used.}
 	\label{fig:filter_results}
 \end{figure}
 
@@ -669,7 +669,7 @@ The likely reason for that is that the filtered information matches the bias of 
 
 \begin{table*}[h]
 	\centering
-	\caption{Knowledge base completion results}
+	\caption{Performance on the knowledge base completion tasks}
 	\label{tab:kbcres}
 	\resizebox{\linewidth}{!}{%
 		\begin{tabular}{@{}lrrrrrr@{}}
@@ -1203,7 +1203,14 @@ We hope this work inspires new research directions focused on combining the stre
 \section{Conclusion}
 
 
-This chapter dwells deeper into the properties of relational latent representations.
+This chapter digs deeper into the properties of relational latent representations.
+It first inspects latent representations created by \gls{curled} showing that such latent representations improve the performance of relational learners by capturing small local regions in data that match well with the labels.
+It demonstrates that by showing that predicate in the latent representation are sparse but with the reduced label entropy.
+The analysis also shows that the \gls{curled}-created latent features tend to be redundant and shows that the number of latent features can be reduced without sacrificing the performance.
+The chapter then focuses on comparing the \gls{kge} and \gls{ilp} approaches to relational learning on various benchmarks.
+This second analysis shows that \gls{kge}s outperform \gls{ilp} methods on relational classification tasks when the data is curated -- the data contains only the relevant information.
+In the scenarios when that is not the case, \gls{ilp} have an edge over the \gls{kge} methods.
+The analysis also shows that \gls{ilp} methods outperform \gls{kge}s on the standard knowledge base completion tasks, while embeddings seem to be an interesting approach for assessing the similarity of relational objects. 
 
 
 

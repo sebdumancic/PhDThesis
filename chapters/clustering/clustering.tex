@@ -42,7 +42,7 @@ Such strong implicit biases make use of a clustering algorithm difficult for a p
   \centering
   \medskip
   \includegraphics[width=.9\textwidth]{bigpeople_new}
-  \caption{An illustration of a relational data set containing people and organisations, and different clusters one might find in it. Instances - people and organisations, are represented by vertices, while relationships among them are represented with edges. The rectangles list an associated set of attributes for the corresponding vertex.}
+  \caption[Example relational dataset]{An illustration of a relational dataset containing people and organisations, and different clusters one might find in it. Instances - people and organisations, are represented by vertices, while relationships among them are represented with edges. The rectangles list an associated set of attributes for the corresponding vertex.}
   \label{fig:clustering:intro}
 \end{figure}
 
@@ -57,12 +57,12 @@ It can take into account attribute dissimilarity, dissimilarity of the relations
 
 Consider for example Figure \ref{fig:clustering:intro}.
 This relational dataset describes people and organisations, and relationships between them (friendship, a persons’s role in the organisation, \ldots).
-Persons and organisations are vertices in the graph shown there (shown as white/gray ellipses), the relationships between them are shown as edges, and their attributes are shown in dashed boxes.
+Persons and organisations are vertices in the graph shown there (shown as white/grey ellipses), the relationships between them are shown as edges, and their attributes are shown in dashed boxes.
 Vertices can be clustered in very different ways:
 \begin{enumerate}
-    \item {\tt Google} and {\tt Microsoft} are similar because of their attributes, and could be clustered together for that reason
-    \item {\tt John}, {\tt Rose} and {\tt Han} form a densely interconnected cluster
-    \item {\tt Bob}, {\tt Joe} and {\tt Rose} share the property that they fulfill the role of supervisor
+    \item \texttt{Google} and \texttt{Microsoft} are similar because of their attributes, and could be clustered together for that reason
+    \item \texttt{John}, \texttt{Rose} and \texttt{Han} form a densely interconnected cluster
+    \item \texttt{Bob}, \texttt{Joe} and \texttt{Rose} share the property that they fulfil the role of supervisor
 \end{enumerate}
 Non-relational clustering systems will yield clusters such as the first one; they only look at the attributes of individuals.
 Graph partitioning systems yield clusters of the second type.
@@ -82,13 +82,13 @@ The new clustering approach we propose is able to find all types of clusters, an
 
 
 
-\subsection{Hypergraph Representation}
+\subsection{Hyper-graph Representation}
 
 \begin{figure}
   \centering
   \medskip
   \includegraphics[width=.9\textwidth]{people}
-  \caption{Representation paradigms of relational data. Section \textit{a)} represents the relational data set as a set of logical facts; the upper part represents the definition of each predicate, while the bottom part lists all facts. Section \textit{b)} illustrates a \textit{database view} of the relational data set, where each logical predicate is associated with a single database table.  Section \textit{c)}  illustrates a \textit{graph view} of the relational data set. Each circle represents an instance, each rectangle represents attributes associated with the corresponding instance, while relations are represented by the edges.}
+  \caption[Representation paradigms of relational data]{\textbf{Representation paradigms of relational data.} \textit{Logical view} (Section \textit{a)}) represents the relational data set as a set of logical facts; the upper part represents the definition of each predicate, while the bottom part lists all facts. \textit{Database view} (section \textit{b)}) associates a single database table with each of the predicates in the logical view. In the \textit{graph view} (section \textit{c)}) each node (circle) represents an instance and an associated set of attributes (represented with a rectangle), while relations are represented by the edges.}
   \label{fig:clustering:people}
 \end{figure}
 
@@ -96,13 +96,13 @@ Within relational learning, at least three different paradigms exist: inductive 
 We illustrate the different types of representation in Figure \ref{fig:clustering:people}.
 This example represents a set of people and organisations, and relationships between them.
 The relational database format \textit{(b)} is perhaps the most familiar to most people.
-It has a table for each entity type ({\tt Person, Organisation}) and for each relationship type between entities ({\tt Works\_for, Friends}).
-Each table contains multiple attributes, each of which can be an identifier for a particular entity (a \textit{key attribute}, e.g., {\tt PName}), or a property of that entity ({\tt Age,Gender,\ldots}).
+It has a table for each entity type (\texttt{Person, Organisation}) and for each relationship type between entities (\texttt{Works\_for, Friends}).
+Each table contains multiple attributes, each of which can be an identifier for a particular entity (a \textit{key attribute}, e.g., \texttt{PName}), or a property of that entity (\texttt{Age,Gender,\ldots}).
 The logic-based format \textit{(a)} is very similar; it consists of logical facts, where the predicate name corresponds to the table’s name and the arguments to the attribute values.
 There is a one-to-one mapping between rows in a table and logical facts.
 The logic based view allows for easy integration of background knowledge (in the form of first-order logic rules) with the data.
 Finally, there is the attributed graph representation \textit{(c)}, where entities are nodes in the graph, binary relationships between them are edges, and nods and edges can have attributes.
-This representation has the advantage that it makes the entities and their connectivity more explicit, and it naturally separates identifiers from real attributes (e.g., the {\tt PName} attribute from the {\tt Person} table is not listed as an attribute of {\tt Person} nodes, because it only serves to uniquely identify a person, and in the graph representation the node itself performs that function).
+This representation has the advantage that it makes the entities and their connectivity more explicit, and it naturally separates identifiers from real attributes (e.g., the \texttt{PName} attribute from the \texttt{Person} table is not listed as an attribute of \texttt{Person} nodes, because it only serves to uniquely identify a person, and in the graph representation the node itself performs that function).
 A disadvantage is that edges in a graph can represent only binary relationships.
 
 
@@ -111,21 +111,21 @@ For instance, a notion such as shortest path distance is much more natural in th
 The distinction between entities and attribute values is explicit in the graph, but more implicit in the database view (key vs. non-key attributes) and absent in the logic view.
 
 
-In this chapter, we will use a hypergraph view that combines elements of all the above.
-An oriented hypergraph is a structure $H=(V,E)$ where $V$ is a set of vertices and $E$ a set of hyperedges; a hyperedge is an ordered multiset whose elements are in $V$.
-Directed graphs are a special case of oriented hypergraphs where all hyperedges have cardinality two.
+In this chapter, we will use a hyper-graph view that combines elements of all the above.
+An oriented hyper-graph is a structure $H=(V,E)$ where $V$ is a set of vertices and $E$ a set of hyper-edges; a hyper-edge is an ordered multi-set whose elements are in $V$.
+Directed graphs are a special case of oriented hyper-graphs where all hyper-edges have cardinality two.
 
 
-A set of relational data is represented by a typed, labeled, oriented hypergraph $(V,E,\tau,\lambda)$ with $V$ a set of vertices, $E$ a set of hyperedges, and $\tau: (V \cup E) \rightarrow T_V \cup T_E$  a type function that assigns a type to each vertex and hyperedge ($T_V$ is the set of vertex types, $T_E$ the set of hyperedge types).
+A set of relational data is represented by a typed, labeled, oriented hyper-graph $(V,E,\tau,\lambda)$ with $V$ a set of vertices, $E$ a set of hyper-edges, and $\tau: (V \cup E) \rightarrow T_V \cup T_E$  a type function that assigns a type to each vertex and hyper-edge ($T_V$ is the set of vertex types, $T_E$ the set of hyper-edge types).
 With each type $t \in T_V$ a set of attributes $A(t)$ is associated, and $\lambda$ maps each vertex $v$ to a vector of values, one value for each attribute in $A(\tau(v))$.
 If $a \in A(\tau(v))$, we write $a(v)$ for the value of $a$ in $v$.
 
 
-A relational database can be converted into the hypergraph representation as follows.\footnote{For the logic-based representation, the conversion is analogous.}
+A relational database can be converted into the hyper-graph representation as follows.\footnote{For the logic-based representation, the conversion is analogous.}
 For each table with only one key attribute (describing the entities identified by that key), a vertex type is introduced, whose attributes are the non-key attributes of the table.
 Each row becomes one vertex, whose identifier is the key value and whose attribute values are the non-key attribute values in the row.
-For each table with more than one key attribute (describing non-unary relationships among entities), a hyperedge is introduced that contains the vertices corresponding to these entities in the order they occur in the table.
-Our hypergraph representation does not associate attributes with hyperedges, only with vertices; hence, for non-unary relationships contain non-key attributes, a new vertex type corresponding to that hyperedge type is introduced.
+For each table with more than one key attribute (describing non-unary relationships among entities), a hyper-edge is introduced that contains the vertices corresponding to these entities in the order they occur in the table.
+Our hyper-graph representation does not associate attributes with hyper-edges, only with vertices; hence, for non-unary relationships contain non-key attributes, a new vertex type corresponding to that hyper-edge type is introduced.
 
 
 The clustering task we consider is the following: given a vertex type $t \in T_V$, partition the vertices of this type into clusters such that vertices in the same cluster tend to be similar, and vertices in different clusters dissimilar, for some subjective notion of similarity.
@@ -145,7 +145,7 @@ The following section introduces \textit{neighbourhood trees}, a structure we us
 \begin{algorithm}[t]
 \SetAlgoLined
 \SetKwData{NT}{NT}\SetKwData{Tovisit}{toVisit}\SetKwData{D}{$d'$}
-\KwData{a hypergraph $H = (V,E, \tau, \lambda)$ \\ \quad \quad \ \ a vertex of interest $v$ \\ \quad \quad \ \ a depth $d$}
+\KwData{a hyper-graph $H = (V,E, \tau, \lambda)$ \\ \quad \quad \ \ a vertex of interest $v$ \\ \quad \quad \ \ a depth $d$}
 \KwResult{a neighbourhood tree \NT}
 \tcc{initialize neighbourhood tree}
  \NT = new neighbourhood tree\;
@@ -161,7 +161,7 @@ The following section introduces \textit{neighbourhood trees}, a structure we us
     \ForEach{v' $\in$ \texttt{toVisit} } {
 
         \ForEach{outgoing edge $e$ of vertex v' } {
-            \ForEach{vertex $v''$ in hyperedge $e$} {
+            \ForEach{vertex $v''$ in hyper-edge $e$} {
                 \NT.\texttt{addVertex}($v''$)\;
                 \NT.\texttt{addEdge}($v'$,$v''$)\;
                 \NT.\texttt{labelVertex}($v''$) \tcc*{add type and attributes}
@@ -180,14 +180,14 @@ The following section introduces \textit{neighbourhood trees}, a structure we us
 
 
 A neighbourhood tree is a directed graph rooted in a vertex of interest, i.e. the vertex whose neighbourhood one wants to describe.
-It is constructed simply by following the hyperedges from the root vertex, as outlined in Algorithm \ref{algo:NT}.
-The construction of the neighbourhood tree is parametrised with the pre-specified depth, a vertex of interest and the original hypergraph.
+It is constructed simply by following the hyper-edges from the root vertex, as outlined in Algorithm \ref{algo:NT}.
+The construction of the neighbourhood tree is parametrised with the pre-specified depth, a vertex of interest and the original hyper-graph.
 Consider a vertex $v$.
-For every hyperedge $E$ in which $v$ participates (lines 7-13), add a directed edge from $v$ to each vertex $v' \in E$ (line 9).
+For every hyper-edge $E$ in which $v$ participates (lines 7-13), add a directed edge from $v$ to each vertex $v' \in E$ (line 9).
 Label each vertex with its type, and attach to it the corresponding attribute vector (line 10).
-Label the edge with the hyperedge type and the position of $v$ in the hyperedge (recall that hyperedges are ordered sets; line 11).
+Label the edge with the hyper-edge type and the position of $v$ in the hyper-edge (recall that hyper-edges are ordered sets; line 11).
 The vertices thus added are said to be at depth 1.
-If there are multiple hyperedges connecting vertices $v$ and $v'$, $v'$ is added each time it is encountered.
+If there are multiple hyper-edges connecting vertices $v$ and $v'$, $v'$ is added each time it is encountered.
 Repeat this procedure for each $v'$ on depth 1 (stored in variable \texttt{toVisit}).
 The vertices thus added are at depth 2.
 Continue this procedure up to some predefined depth $d$.
@@ -199,7 +199,7 @@ An example of a neighbourhood tree is given in Figure \ref{fig:clustering:ng}.
   \centering
   \medskip
   \includegraphics[width=.9\textwidth]{ntnew}
-  \caption{An illustration of the neighbourhood tree. The domain contains two types of vertices - \textit{objects} ({\tt A} and {\tt B}) and \textit{elements} ({\tt C, D} and {\tt E}), and two fictitious relations: {\tt R} and {\tt F}. The vertices of type \textit{object} have an associated set of attributes. Section \textit{a)} contains the database view of the domain. Section \textit{b)} contains the corresponding hypergraph view. Here, edges are represented with full lines, while hyperegdges are represented with dashed lines. Finally, section \textit{c)} contains the corresponding \textit{neighbourhood tree} for the vertex {\tt A}.}
+  \caption[An illustration of the neighbourhood tree]{\textbf{An illustration of the neighbourhood tree.} The domain contains two types of vertices - \textit{objects} (\texttt{A} and \texttt{B}) and \textit{elements} (\texttt{C, D} and \texttt{E}), and two fictitious relations: \texttt{R} and \texttt{F}. The vertices of type \textit{object} have an associated set of attributes. Section \textit{a)} contains the database view of the domain. Section \textit{b)} contains the corresponding hyper-graph view. Here, edges are represented with full lines, while hyper-edges are represented with dashed lines. Finally, section \textit{c)} contains the corresponding \textit{neighbourhood tree} for the vertex \texttt{A}.}
   \label{fig:clustering:ng}
 \end{figure}
 
@@ -215,26 +215,26 @@ An example of a neighbourhood tree is given in Figure \ref{fig:clustering:ng}.
 
 The main idea behind the proposed dissimilarity measure is to express a wide range of similarity biases that can emerge in relational data, as discussed and exemplified in Section \ref{sec:Intro}.
 The proposed dissimilarity measure compares two vertices by comparing their neighbourhood trees.
-It does this by comparing, for each level of the tree, the distribution of vertices, attribute values, and outgoing edge labels observed on that level.  Earlier work in relational learning has shown that distributions are a good way of summarizing neighbourhoods \cite{Perlich:2006}.
+It does this by comparing, for each level of the tree, the distribution of vertices, attribute values, and outgoing edge labels observed on that level.  Earlier work in relational learning has shown that distributions are a good way of summarising neighbourhoods \cite{Perlich:2006}.
 
 
 The method for comparing distributions distinguishes between discrete and continuous domains.
-For discrete domains (vertices, edge types, and discrete attributes), the distribution simply maps each value to its relative frequency in the observed multiset of values, and the $\chi^2$-measure for comparing distributions \cite{ZhaoChiSquared} is used.
-That is, given two multisets $A$ and $B$, their dissimilarity is defined as
+For discrete domains (vertices, edge types, and discrete attributes), the distribution simply maps each value to its relative frequency in the observed multi-set of values, and the $\chi^2$-measure for comparing distributions \cite{ZhaoChiSquared} is used.
+That is, given two multi-sets $A$ and $B$, their dissimilarity is defined as
 
 \begin{equation}
 d(A,B) = \sum_{x \in A \cup B} { (f_A(x)-f_B(x))^2  \over f_A(x) + f_B(x) }
 \end{equation}
 
-\noindent where $f_S(x)$ is the relative frequency of element $x$ in multiset $S$ (e.g., for $A=\{a,b,b,c\}$, $f_A(a)=0.25$ and $f_A(b)=0.5$).
+\noindent where $f_S(x)$ is the relative frequency of element $x$ in multi-set $S$ (e.g., for $A=\{a,b,b,c\}$, $f_A(a)=0.25$ and $f_A(b)=0.5$).
 
 
-In the continuous case, we compare distributions by applying aggregate functions to the multiset of values, and comparing these aggregates.
+In the continuous case, we compare distributions by applying aggregate functions to the multi-set of values, and comparing these aggregates.
 Given a set $\mathcal{A}$ of aggregate functions, the dissimilarity is defined as
 \begin{equation}
     d(A,B) = \sum_{f \in \mathcal{A}} {f(A)-f(B) \over r }
 \end{equation}
-with $r$ a normalisation constant ($r = \max_M f(M) - \min_M f(M)$, with $M$ ranging over all multisets for this attribute observed in the entire set of neighbourhood trees).
+with $r$ a normalisation constant ($r = \max_M f(M) - \min_M f(M)$, with $M$ ranging over all multi-sets for this attribute observed in the entire set of neighbourhood trees).
 In our implementation, we use the mean and standard deviation as aggregate functions.
 
 
@@ -244,37 +244,33 @@ The main point of this section, however, is {\em which} distributions are compar
 
 We use the following notation.  For any neighbourhood tree $g$,
 \begin{itemize}
-\item[\textbullet] $V^l(g)$ is the multiset of vertices at depth $l$ (the root having depth 0)
-\item[\textbullet] $V^l_t(g)$ is the multiset of vertices of type $t$ at depth $l$
-\item[\textbullet] $B^l_{t,a}(g)$ is the multiset of values of attribute $a$ observed among the nodes of type $t$ at depth $l$
-\item[\textbullet] $E^l(g)$ is the multiset of edge types between depth $l$ and $l+1$
+\item[\textbullet] $V^l(g)$ is the multi-set of vertices at depth $l$ (the root having depth 0)
+\item[\textbullet] $V^l_t(g)$ is the multi-set of vertices of type $t$ at depth $l$
+\item[\textbullet] $B^l_{t,a}(g)$ is the multi-set of values of attribute $a$ observed among the nodes of type $t$ at depth $l$
+\item[\textbullet] $E^l(g)$ is the multi-set of edge types between depth $l$ and $l+1$
 \end{itemize}
 
 E.g., for the neighbourhood tree in Figure~\ref{fig:clustering:ng}, we have
 \begin{itemize}
-    \item[\textbullet] $V^1(g) = $\{{\tt B, C, D}\}
-    \item[\textbullet] $V^1_{object}(g) = $\{{\tt B}\}
-    \item[\textbullet] $E^1(g) = $\{({\tt F,1}), ({\tt R,1}), ({\tt R,1})\}
-    \item[\textbullet] $B^1_{object,Attr1}(g) = $\{{\tt Y}\}
+    \item[\textbullet] $V^1(g) = $\{\texttt{B, C, D}\}
+    \item[\textbullet] $V^1_{object}(g) = $\{\texttt{B}\}
+    \item[\textbullet] $E^1(g) = $\{(\texttt{F,1}), (\texttt{R,1}), (\texttt{R,1})\}
+    \item[\textbullet] $B^1_{object,Attr1}(g) = $\{\texttt{Y}\}
 \end{itemize}
 
 
 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=.8\linewidth]{ntSemantics}
-	\caption{A semantic decomposition of neighbourhood tree\label{fig:ntsemantics}}
-\end{figure}
 
-Let $\mathcal{N}$ be the set of all neighbourhood trees corresponding to the vertices of interest in a hypergraph.
+
+Let $\mathcal{N}$ be the set of all neighbourhood trees corresponding to the vertices of interest in a hyper-graph.
 Let $norm(\cdot)$ be a \textit{normalisation operator}, defined as $$norm(f(g_1,g_2)) = \frac{f(g_1,g_2)}{\underset{g,g' \in \mathcal{N}}{\max} f(g,g')},$$ i.e., the normalisation operator divides the value of the function $f(g_1,g_2)$ of two neighbourhood trees $g_1$ and $g_2$ by the highest value of the function $f$ obtained amongst all pairs of neighbourhood trees.
 
 
 
 Intuitively, the proposed method starts by comparing two vertices according to their attributes.
 It then proceeds by comparing the properties of their neighbourhoods: which vertices are in there, which attributes they have and how are they interacting.
-Finally, it looks at the proximity of vertices in a given hypergraph.
+Finally, it looks at the proximity of vertices in a given hyper-graph.
 Formally, the dissimilarity of two vertices $v$ and $v'$ is defined as the dissimilarity of their neighbourhood trees $g$ and $g'$, which is:
 \begin{equation}
 \label{eq:Sim}
@@ -330,10 +326,16 @@ where $\sum_i w_i=1$ and
 			measures the dissimilarity over edge types present in the neighbourhood trees, per  level.
 	\end{itemize}
 
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{ntSemantics}
+		\caption{Semantic decomposition of neighbourhood tree\label{fig:ntsemantics}}
+	\end{figure}
 
+\newglossaryentry{recent}{name={ReCeNT},description={Relational Clustering over Neighbourhood Trees}}
 Each component is normalised to the scale of 0-1 by the highest value obtained amongst all pair of vertices, ensuring that the influence of each factor is proportional to its weight.
 The weights $w_{1-5}$ in Equation \ref{eq:Sim} allow one to formulate a bias through the similarity measure.
-For the remainder of the text, we will term our approach as ReCeNT (for Relational Clustering using Neighbourhood Trees).
+For the remainder of the text, we will term our approach as \gls{recent} (for Relational Clustering using Neighbourhood Trees).
 The benefits and downsides of this formulation are discussed and contrasted to the existing approaches in Sections \ref{sec:RelClust} and \ref{sec:ResultsSub}.
 
 
@@ -344,19 +346,19 @@ However, there is one important fundamental difference: multi-view clustering me
 \section{Positioning in the literature}
 
 
-\subsection{Hypergraph representation}
+\subsection{Hyper-graph representation}
 
-Two interpretations of the hypergraph view of relational data exist in literature.
-The one we incorporate here, where domain objects form vertices in a hypergraph with associated attributes, and their relationships form hyperedges, was first introduced by \cite{Richards:92AAb}.
+Two interpretations of the hyper-graph view of relational data exist in literature.
+The one we incorporate here, where domain objects form vertices in a hyper-graph with associated attributes, and their relationships form hyper-edges, was first introduced by \cite{Richards:92AAb}.
 An alternative view, where logical facts form vertices, is presented by \cite{Ong2005}.
-Such representations were later utilized to learn the formulas of relational models by \textit{relational path-finding} \cite{kok2010motifs,Richards:92AAb,Ong2005,Lovasz1996}.
+Such representations were later utilised to learn the formulas of relational models by \textit{relational path-finding} \cite{kok2010motifs,Richards:92AAb,Ong2005,Lovasz1996}.
 
 
 
-The neighbourhood tree introduced in Section \ref{sec:NT} can be seen as summary of all paths in a hypergraph originating at a certain vertex.
-Though neighbourhood trees and relational path-finding rely on a hypergraph view, the tasks they solve are conceptually different.
-Whereas the goal of the neighbourhood tree is to compactly represent a neighbourhood of a vertex by summarising all the paths originating at the vertex, the goal of relational path-finding is to identify a small set of important paths that appear often in a hypergraph.
-Additionally, a practical difference is the distinction between hyperedges and attributes - a neighbourhood tree is constructed by following only the hyperedges, while the mentioned work either treats attributes as unary hyperedges or requires a declarative bias from the user.
+The neighbourhood tree introduced in Section \ref{sec:NT} can be seen as summary of all paths in a hyper-graph originating at a certain vertex.
+Though neighbourhood trees and relational path-finding rely on a hyper-graph view, the tasks they solve are conceptually different.
+Whereas the goal of the neighbourhood tree is to compactly represent a neighbourhood of a vertex by summarising all the paths originating at the vertex, the goal of relational path-finding is to identify a small set of important paths that appear often in a hyper-graph.
+Additionally, a practical difference is the distinction between hyper-edges and attributes - a neighbourhood tree is constructed by following only the hyper-edges, while the mentioned work either treats attributes as unary hyper-edges or requires a declarative bias from the user.
 
 
 \subsection{Related tasks}
@@ -369,8 +371,10 @@ Thus, the problem we consider here is strictly more general, and does not put an
 
 
 A number of tree comparison techniques \cite{Bille:2005} exists in the literature.
-These approaches consider only the identity of vertices as a source of similarity, while ignoring the attributes and types of both vertices and hyperedges.
+These approaches consider only the identity of vertices as a source of similarity, while ignoring the attributes and types of both vertices and hyper-edges.
 Thus, they are not well suited for the comparison of neighbourhood trees.
+
+
 
 \subsection{Relational clustering}
 \label{sec:RelClust}
@@ -382,78 +386,80 @@ Existing similarity measures within the relational learning community can be coa
 \newglossaryentry{hsag}{name={HSAG},description={Hybrid similarity on Annotated graphs}}
 \newglossaryentry{hs}{name={HS},description={Hybrid similarity}}
 The first group consists of similarity measures defined over an attributed graph model \cite{Pfeiffer2014}, with examples in  \textit{Hybrid similarity (\gls{hs})} \cite{Neville03clusteringrelational} and \textit{Hybrid similarity on Annotated Graphs (\gls{hsag})} \cite{WitsenburgB11a}.
-Both approaches focus on attribute-based similarity of vertices where HS compares the attributes of all connected vertices, and HSAG's similarity measure compares attributes of the vertices themselves and attributes of their neighbouring vertices.
+Both approaches focus on attribute-based similarity of vertices where \gls{hs} compares the attributes of all connected vertices, and \gls{hsag}'s similarity measure compares attributes of the vertices themselves and attributes of their neighbouring vertices.
 The main limitations of these approaches are that they ignore the existence of vertex and edge types, and impose a very strict bias towards attributes of vertices.
 In comparison to the presented approach, HS defines dissimilarity as the $\mathsf{ad}$ component if there is an edge between two vertices, and $\infty$ otherwise.
-HSAG defines the dissimilarity as a linear combination of the $\mathsf{ad}$ and $\mathsf{nad}$ components for each pair of vertices.
+\gls{hsag} defines the dissimilarity as a linear combination of the $\mathsf{ad}$ and $\mathsf{nad}$ components for each pair of vertices.
 
 
 
-\newglossaryentry{cc}{name={CC},description={Conceptual Clustering}}
+\newglossaryentry{cc}{name={CC},description={Relational Conceptual Clustering}}
+\newglossaryentry{ribl}{name={RIBL},description={Relational Instance-Based Learning}}
 In contrast to the first group which employs a graph view, the second group of methods employs a predicate logic view,
-The two most prominent approaches are \textit{Conceptual clustering of Multi-relational Data (\gls{cc})} \cite{Fonseca2012} and \textit{Relational instance-based learning} (RIBL) (\cite{RIBL96}, \cite{Kirsten98relationaldistance-based}).
-CC firstly describes each example (corresponding to a vertex in our problem) with a set of logical clauses that can be generated by a \textit{bottom clause saturation} \cite{CamachoFRC07}.
+The two most prominent approaches are \textit{Conceptual clustering of Multi-relational Data} (\gls{cc}) \cite{Fonseca2012} and \textit{Relational instance-based learning} (\gls{ribl}) (\cite{RIBL96}, \cite{Kirsten98relationaldistance-based}).
+\gls{cc} firstly describes each example (corresponding to a vertex in our problem) with a set of logical clauses that can be generated by a \textit{bottom clause saturation} \cite{CamachoFRC07}.
 The obtained clauses are considered as features, and their similarity is measured by  the \textit{Tanimoto similarity} - a measure of overlap between sets.
 In that sense, it is similar to using the $\mathsf{ad}$ and $\mathsf{ed}$ components for generating clauses.
 Note that this approach does not differentiate between relations (or interactions) and attributes, does not consider distributions of any kind, and does not have a sense of depth of a neighbourhood.
-Finally, RIBL follows an intuition that the similarity  of two objects depends on the similarity of their attributes' values and the similarity of the objects related to them.
+Finally, \gls{ribl} follows an intuition that the similarity  of two objects depends on the similarity of their attributes' values and the similarity of the objects related to them.
 To that extent, it first constructs a \textit{context descriptor} - a set of objects related to the object of interest, similarly to the neighbourhood trees.
 Comparing two object now involves comparing their features and computing the similarity of the set of objects they are linked to.
 That requires matching each object of one set to the most similar object in the other set, which is an expensive operation (proportional to the product of the set sizes).
-In contrast, the $\chi^2$ distance is linear in the size of the multiset.
-Further, the $\chi^2$ distance takes the multiplicity of elements into account (it essentially compares distributions), which the RIBL approach does not.
+In contrast, the $\chi^2$ distance is linear in the size of the multi-set.
+Further, the $\chi^2$ distance takes the multiplicity of elements into account (it essentially compares distributions), which the \gls{ribl} approach does not.
 
 
-
-Within the graph kernel community, two prominent groups exist:  \textit{Weisfeiler-Lehman graph kernels (WL)} \cite{Shervashidze2011,shervashidze09fastsubtree,FrasconiCRG14,haussler99convolution,ICPR-2014-BaiRH}  and \textit{random walk based kernels} \cite{WachmanK07,Lovasz1996}.
+\newglossaryentry{wlst}{name={WLST},description={Weisfeiler-Lehman subtree kernel}}
+Within the graph kernel community, two prominent groups exist:  \textit{Weisfeiler-Lehman graph kernels (WL)} \cite{Shervashidze2011,shervashidze09fastsubtree,FrasconiCRG14,haussler99convolution,ICPR2014BaiRH}  and \textit{random walk based kernels}~\cite{WachmanK07,Lovasz1996}.
 A common feature of these approaches is that they measure a similarity of graph by comparing their structural properties.
 The Weisfeiler-Lehman Graph Kernels is a family of graph kernels developed upon the \textit{Weisfeiler-Lehman isomorphism test}.
 The key idea of the WL isomorphism test is to extend the set of vertex attributes by the attributes of the set of neighbouring vertices, and compress the augmented attribute set into new set of attributes.
 There each new attribute of a vertex corresponds to a subtree rooted from the vertex, similarly to the neighbourhood trees.
-Shervashidze and Borgwardt have introduced a fast WL subtree kernel (WLST) \cite{shervashidze09fastsubtree} for undirected graphs by performing the WL isomorphism test to update the vertex labels, followed by counting the number of matched vertex labels.
+Shervashidze and Borgwardt have introduced a fast WL subtree kernel (\gls{wlst}) \cite{shervashidze09fastsubtree} for undirected graphs by performing the WL isomorphism test to update the vertex labels, followed by counting the number of matched vertex labels.
 The difference between our approach and WL kernel family is subtle but important: WL graph kernels extend the set of attributes by identifying isomorphic subtrees present in (sub)graphs.
 This is reflected in the bias they impose, that is, the similarity comes from the structure of a graph (in our case, a neighbourhood tree).
 
 
-\textit{A Rooted Kernel for Ordered Hypergraph (RKOH)} \cite{WachmanK07} is an instance of random walk kernels successfully applied in relational learning tasks.
-These approaches estimate the similarity of two (hyper)graphs by comparing the walks one can obtain by traversing the hypergraph.
-RKOH defines a similarity measure that compares two hypergraphs by comparing the paths originating at every edge of both hypergraphs, instead of the paths originating at the root of the hypergraph.
-RKOH does not differentiate between attributes and hyperedges, but treats everything as an hyperedge instead (an attribute can be seen as an unary edge).
+\newglossaryentry{rkoh}{name={RKOH},description={A rooted kernel for ordered hyper-graphs}}
+\textit{A Rooted Kernel for Ordered hyper-graph (RKOH)} \cite{WachmanK07} is an instance of random walk kernels successfully applied in relational learning tasks.
+These approaches estimate the similarity of two (hyper)graphs by comparing the walks one can obtain by traversing the hyper-graph.
+\gls{rkoh} defines a similarity measure that compares two hyper-graphs by comparing the paths originating at every edge of both hyper-graphs, instead of the paths originating at the root of the hyper-graph.
+\gls{rkoh} does not differentiate between attributes and hyper-edges, but treats everything as an hyper-edge instead (an attribute can be seen as an unary edge).
 
 
 \begin{table}
     \centering
 
-    \caption{Aspects of similarity considered by different approaches. $\checkmark$ denotes full consideration, $\backsimeq$ partial and $\times$ no consideration at all.  }
+    \caption[Aspects of similarity considered by various relational clustering approaches]{\textbf{Aspects of similarity considered by various relational clustering approaches.} $\checkmark$ denotes full consideration, $\backsimeq$ partial and $\times$ no consideration at all.  }
     \label{tab:Props}
-    \begin{tabular}{@{}llllll@{}}
+    \begin{tabular}{@{}lrrrrr@{}}
         \toprule
         \textbf{Similarity}  & {\footnotesize\textbf{Attributes}} & \makecell{\footnotesize\textbf{Neighbour.} \\ \footnotesize\textbf{attributes}} & \makecell{\footnotesize\textbf{Neighbour.} \\ \footnotesize\textbf{identities}}  & {\footnotesize\textbf{Proximity}} & \makecell{\footnotesize\textbf{Structural} \\ \footnotesize\textbf{properties}}    \\
         \midrule
-         ReCeNT                & $\checkmark$        & $\checkmark$                      & $\checkmark$                        & $\checkmark$       & $\checkmark$ \\
+         \gls{recent}                & $\checkmark$        & $\checkmark$                      & $\checkmark$                        & $\checkmark$       & $\checkmark$ \\
 
-         HS                  & $\checkmark$        & $\times$                          & $\times$                            & $\times$           & $\times$   \\
+         \gls{hs}                  & $\checkmark$        & $\times$                          & $\times$                            & $\times$           & $\times$   \\
 
-         HSAG                & $\checkmark$        & $\checkmark$                      & $\times$                            & $\times$           & $\times$   \\
+         \gls{hsag}               & $\checkmark$        & $\checkmark$                      & $\times$                            & $\times$           & $\times$   \\
 
-         RIBL                & $\checkmark$        & $\checkmark$                      & $\checkmark$                        & $\times$           & $\times$  \\
+         \gls{ribl}               & $\checkmark$        & $\checkmark$                      & $\checkmark$                        & $\times$           & $\times$  \\
 
-         CC                  & $\backsimeq$        & $\backsimeq$                      & $\times$                            & $\times$           & $\backsimeq$   \\
+         \gls{cc}                  & $\backsimeq$        & $\backsimeq$                      & $\times$                            & $\times$           & $\backsimeq$   \\
 
-         RKOH                & $\times$            & $\backsimeq$                      & $\times$                            & $\times$           & $\checkmark$ \\
+         \gls{rkoh}                & $\times$            & $\backsimeq$                      & $\times$                            & $\times$           & $\checkmark$ \\
 
-         WLST                & $\times$            & $\backsimeq$                      & $\times$                            & $\times$           & $\checkmark$ \\
+         \gls{wlst}                & $\times$            & $\backsimeq$                      & $\times$                            & $\times$           & $\checkmark$ \\
          \bottomrule
     \end{tabular}
 
 \end{table}
 
 
-Table \ref{tab:Props} summarizes different aspects of similarity considered by the above mentioned approaches.
+Table \ref{tab:Props} summarises different aspects of similarity considered by the above mentioned approaches.
 The interpretations of similarity are divided into five sources of similarity.
 The first two categories concern attributes: attributes of the vertices themselves and their neighbouring vertices.
 The following two categories concern identities of vertices in the neighbourhood of a vertex of interest.
-They concern subgraphs (identity of vertices in the neighbourhood) centered at a vertex, and proximity of two vertices.
+They concern subgraphs (identity of vertices in the neighbourhood) centred at a vertex, and proximity of two vertices.
 The final category concerns the structural properties of subgraphs in the neighbourhood of a vertex defined by the neighbourhood tree.
 
 
@@ -461,34 +467,34 @@ The final category concerns the structural properties of subgraphs in the neighb
 
 Though scalability is not the focus of this work, here we show that the proposed approach is as scalable as the state-of-the-art kernel approaches, and substantially less complex than the majority of the above-mentioned approaches that use both attribute and link structure.
 For the sake of clarity of comparison, assume a homogeneous graph with only one vertex type and one edge type.
-Let $N$ be the number of vertices in a hyper-graph, $L$ be the total number of hyperedges, and $d$ be the depth of a neighbourhood representation structure, where applicable.
+Let $N$ be the number of vertices in a hyper-graph, $L$ be the total number of hyper-edges, and $d$ be the depth of a neighbourhood representation structure, where applicable.
 Let, as well, $A$ be the number of attributes in a data set.
-Additionally, assume that all vertices participate in the same number of hyperedges, which we will refer to as $E$.
+Additionally, assume that all vertices participate in the same number of hyper-edges, which we will refer to as $E$.
 We will refer to the length of clause in CC and path in RKOH as $l$.
 
 
 
 \begin{table}
     \centering
-    \caption{Complexities of different approaches}
+    \caption{Complexities of the various methods for relational clustering}
     \label{tab:complexities}
-    \begin{tabular}{@{}ll@{}}
+    \begin{tabular}{@{}lr@{}}
         \toprule
         \textbf{Approach} & \textbf{Complexity} \\
         \midrule
-        HS    & $O\left (  LA \right )$       \\
+        \gls{hs}    & $O\left (  LA \right )$       \\
 
-         HSAG  & $O \left ( N^2EA \right)$     \\
+         \gls{hsag}  & $O \left ( N^2EA \right)$     \\
 
         \textbf{ReCeNT}  & $O \left ( N^2  E^d  \right )$ \\
 
-         WLST  & $O \left( N^2 E^d \right ) $  \\
+         \gls{wlst}  & $O \left( N^2 E^d \right ) $  \\
 
-        CC    & $O \left( N^2   {{E + A}\choose{l}} \right)$  \\
+        \gls{cc}    & $O \left( N^2   {{E + A}\choose{l}} \right)$  \\
 
-        RIBL  & $O \left(  N^2 \prod_{k=1}^{d}(E + A)^{2k} \right) $  \\
+        \gls{ribl}  & $O \left(  N^2 \prod_{k=1}^{d}(E + A)^{2k} \right) $  \\
 
-         RKOH  & $O \left(  N^2 \left( E + A \right)^{2d + 2l} \right)$ \\
+         \gls{rkoh}  & $O \left(  N^2 \left( E + A \right)^{2d + 2l} \right)$ \\
         \bottomrule
     \end{tabular}
 
@@ -496,22 +502,22 @@ We will refer to the length of clause in CC and path in RKOH as $l$.
 
 
 
-To compare any two vertices, ReCeNT requires one to compute the dissimilarity of the multisets representing the vertices, proportional to $O(d\times A + \sum_{k=1}^d E^k) = O\left (N^2 E^d \right )$.
-Table \ref{tab:complexities} summarizes the complexities of the discussed approaches.
+To compare any two vertices, \gls{recent} requires one to compute the dissimilarity of the multi-sets representing the vertices, proportional to $O(d\times A + \sum_{k=1}^d E^k) = O\left (N^2 E^d \right )$.
+Table \ref{tab:complexities} summarises the complexities of the discussed approaches.
 In summary, the approaches can be grouped into three categories.
-The first category contains HS and HSAG; these are substantially less complex than the rest, but focus only on the attribute similarities.
-The second category contains RIBL and RKOH, which are substantially more complex than the rest.
+The first category contains \gls{hs} and \gls{hsag}; these are substantially less complex than the rest, but focus only on the attribute similarities.
+The second category contains \gls{ribl} and \gls{rkoh}, which are substantially more complex than the rest.
 Both of these approaches use both attribute and edge information, but in a computationally very expensive way.
-The last category contains ReCeNT, WLST and CC; these lie in between. They utilize both attribute and edge information, but in a way that is much more efficient than RIBL and RKOH.
+The last category contains \gls{recent}, \gls{wlst} and \gls{cc}; these lie in between. They utilise both attribute and edge information, but in a way that is much more efficient than \gls{ribl} and \gls{rkoh}.
 
 
 
 
-The complexity of ReCeNT benefits mostly from two design choices: \textit{differentiation of attributes and hyperedges}, and \textit{decomposition of neighbourhood elements into multisets}.
-By distinguishing hyperedges from attributes, ReCeNT focuses on identifying sparse neighbourhoods.
-Decomposition of neighbourhoods into multisets allows ReCeNT to compute the similarity linearly in the size of a multiset.
-The parameter that ReCeNT is the most sensitive to is the depth of the neighbourhood tree, which is the case with the state-of-the-art kernel approaches as well.
-However, the main underlying assumption behind ReCeNT is that important information is contained in small local neighbourhoods, and ReCeNT is designed to utilize such information.
+The complexity of \gls{recent} benefits mostly from two design choices: \textit{differentiation of attributes and hyper-edges}, and \textit{decomposition of neighbourhood elements into multi-sets}.
+By distinguishing hyper-edges from attributes, \gls{recent} focuses on identifying sparse neighbourhoods.
+Decomposition of neighbourhoods into multi-sets allows \gls{recent} to compute the similarity linearly in the size of a multi-set.
+The parameter that \gls{recent} is the most sensitive to is the depth of the neighbourhood tree, which is the case with the state-of-the-art kernel approaches as well.
+However, the main underlying assumption behind \gls{recent} is that important information is contained in small local neighbourhoods, and \gls{recent} is designed to utilise such information.
 
 
 \section{Evaluation}
@@ -525,8 +531,8 @@ However, the main underlying assumption behind ReCeNT is that important informat
 
 We evaluate our approach on five data sets for relational clustering with different characteristics and domains.
 The chosen data sets are commonly used within the (statistical) relational learning community, and they expose different biases.
-The characterization of data sets, summarized in Table~\ref{tab:Data}, include the total number of vertices in a hypergraph, the number of vertices of interest, the total number of attributes, the number of attributes associated with vertices of interest, the number of hyperedges as well as the number of different hyperedge types.
-The data sets range from having a small number of vertices, attributes and hyperedges (UW-CSE, IMDB), to a considerably large number of vertices, attributes or hyperedges (Mutagenesis, WebKB, TerroristAttack).
+The characterisation of data sets, summarised in Table~\ref{tab:Data}, include the total number of vertices in a hyper-graph, the number of vertices of interest, the total number of attributes, the number of attributes associated with vertices of interest, the number of hyper-edges as well as the number of different hyper-edge types.
+The data sets range from having a small number of vertices, attributes and hyper-edges (UW-CSE, IMDB), to a considerably large number of vertices, attributes or hyper-edges (Mutagenesis, WebKB, TerroristAttack).
 All the chosen data sets are originally classification data sets, which allows us to evaluate our approach with respect to how well it extracts the classes present in the data set.
 
 
@@ -535,9 +541,9 @@ All the chosen data sets are originally classification data sets, which allows u
 \begin{table}
 \captionsetup{justification=justified}
 \begin{center}
-\caption{Characteristics of the data sets used in experiments. The characteristics include the total number of vertices, the number of vertices of interest, the total number of attributes, the number of attributes associated with vertices of interest, the number of hyperedges as well as the number of different hyperedge types.}
+\caption[Characteristics of the datasets used in the relational clustering experiments]{Characteristics of the data sets used in experiments. The characteristics include the total number of vertices, the number of vertices of interest, the total number of attributes, the number of attributes associated with vertices of interest, the number of hyper-edges as well as the number of different hyper-edge types.}
 \label{tab:Data}
-\begin{tabular}[t]{@{}cccccc@{}}
+\begin{tabular}[t]{@{}lrrrrr@{}}
 
 
 		\toprule
@@ -545,19 +551,19 @@ All the chosen data sets are originally classification data sets, which allows u
 						  \cmidrule{2-6}
 		\textbf{Property} & IMDB   & UW-CSE & Muta & WebKB & Terror \\
 		\midrule
-		\#vertices & 298  & 734 & 6124 & 3880  & 1293\\
+		vertices & 298  & 734 & 6124 & 3880  & 1293\\
 
-		\#target vertices & 268 & 272  & 230 & 920  & 1293 \\
+		target vertices & 268 & 272  & 230 & 920  & 1293 \\
 
-		\#vertex types & 3  & 4 & 2  & 2  & 1 \\
+		vertex types & 3  & 4 & 2  & 2  & 1 \\
 
-		\#attributes & 3   & 7 & 7 & 1207  & 106 \\
+		attributes & 3   & 7 & 7 & 1207  & 106 \\
 
-		\#target attributes & 3  & 3 & 4 & 763  & 106\\
+		target attributes & 3  & 3 & 4 & 763  & 106\\
 
-		\#hyperedges & 715  & 1834 & 30804 & 5779  & 3743\\
+		hyper-edges & 715  & 1834 & 30804 & 5779  & 3743\\
 
-		\#hyperedge types  & 3   & 6 & 7 & 4 & 2 \\
+		hyper-edge types  & 3   & 6 & 7 & 4 & 2 \\
 		\bottomrule
 
 
@@ -579,7 +585,7 @@ The WebKB\footnote{Available at http://alchemy.cs.washington.edu/data/webkb/} da
 Both pages and links are associated with a set of words appearing on a page or in the anchor text of a link.
 The pages are classified into seven groups according to their role, such as \textit{personal}, \textit{departmental} or \textit{project} page.
 The final data set, termed Terrorists\footnote{Available at http://linqs.umiacs.umd.edu/projects//projects/lbc/} \cite{sen:aimag08}, describes terrorist attacks each assigned one of 6 labels indicating the type of the attack.
-Each attack is described by a total of 106 distinct features, and two relations indicating whether two attacks were performed by the same organization or at the same location.
+Each attack is described by a total of 106 distinct features, and two relations indicating whether two attacks were performed by the same organisation or at the same location.
 
 
 
@@ -589,15 +595,15 @@ In the remainder of this section, we evaluate our approach.
 We focus on answering the following questions:
 
 \begin{itemize}
-    \item[\textbf{(Q1)}]\textit{How well does ReCeNT perform on the relational clustering tasks compared to existing similarity measures?}
+    \item[\textbf{(Q1)}]\textit{How well does \gls{recent} perform on the relational clustering tasks compared to existing similarity measures?}
 
     \item[\textbf{(Q2)}] \textit{How relevant is each of the components?}  We perform clustering using our similarity measure and setting the parameters as $w_i = 1, w_{j, j \not=i}=0$.
 
     \item[\textbf{(Q3)}] \textit{To which extent can the parameters of the proposed similarity measure  be learnt from data in an unsupervised manner?}
 
-    \item[\textbf{(Q4)}] \textit{How well does ReCeNT perform compared to existing similarity measures in a supervised setting?}
+    \item[\textbf{(Q4)}] \textit{How well does \gls{recent} perform compared to existing similarity measures in a supervised setting?}
 
-    \item[\textbf{(Q5)}] \textit{How do the runtimes for ReCeNT compare to the competitors?}
+    \item[\textbf{(Q5)}] \textit{How do the runtimes for \gls{recent} compare to the competitors?}
 \end{itemize}
 
 
@@ -625,7 +631,7 @@ Additionally, we have set a timeout to 24 hours and do not report results for an
 
 
 
-To achieve a fair time comparison, we implemented all similarity measures (HS, HSAG, RIBL, CC, as well as RKOH) in \texttt{Scala} and optimised them in the same way, by caching all the intermediate results that can be re-used.
+To achieve a fair time comparison, we implemented all similarity measures (\gls{hs}, \gls{hsag}, \gls{ribl}, \gls{cc}, as well as \gls{rkoh}) in \texttt{Scala} and optimised them in the same way, by caching all the intermediate results that can be re-used.
 We have used the clustering algorithms implemented in Python's \texttt{scikit-learn} package \cite{scikit-learn}.
 The hierarchy obtained by hierarchical clustering was cut when it has reached the pre-specified number of clusters.
 In the first experiment, the weights $w_{1-5}$ were not tuned, and were set to 0.2.
@@ -643,80 +649,79 @@ We have used mean and standard deviation as aggregates for continuous attributes
 
 \subsubsection{\textbf{(Q1) Comparison to the existing methods}}
 
-We compare ReCeNT to a pure attribute based approach (termed Baseline), HS \cite{Neville03clusteringrelational}, HSAG \cite{WitsenburgB11a}, CC \cite{Fonseca2012}, RIBL \cite{RIBL96}, as well as Weisfeiler-Lehman subtree kernel (WLST) \cite{shervashidze09fastsubtree}, Linear kernel between vertex histograms (V), Linear kernel between vertex-edge histograms (VE) provided with \cite{NIPS2015_5688}, and RKOH \cite{WachmanK07}.
-The subscript in ReCeNT, HSAG, RIBL and kernel approaches  denotes the depth of the neighbourhood tree (or other supporting structure).
-The subscript in CC denotes the length of the clauses.
-The second subscript in WLST and RKOH indicates their parameters: with WLST it is the \textit{h} parameter indicating the number of iterations, whereas with RKOH it indicates the length of the walk.
+We compare \gls{recent} to a pure attribute based approach (termed Baseline), \gls{hs} \cite{Neville03clusteringrelational}, \gls{hsag} \cite{WitsenburgB11a}, \gls{cc} \cite{Fonseca2012}, \gls{ribl} \cite{RIBL96}, as well as \gls{wlst}~\cite{shervashidze09fastsubtree}, Linear kernel between vertex histograms (V), Linear kernel between vertex-edge histograms (VE) provided with \cite{NIPS2015_5688}, and \gls{rkoh}~\cite{WachmanK07}.
+The subscript in \gls{recent}, \gls{hsag}, \gls{ribl} and kernel approaches  denotes the depth of the neighbourhood tree (or other supporting structure).
+The subscript in \gls{cc} denotes the length of the clauses.
+The second subscript in \gls{wlst} and \gls{rkoh} indicates their parameters: with \gls{wlst} it is the $h$ parameter indicating the number of iterations, whereas with \gls{rkoh} it indicates the length of the walk.
 
 
 
-\begin{table*}[t]
+
+\begin{table}[t]
 %\captionsetup{justification=centerlast}
-\begin{center}
+\centering
 \footnotesize
-\caption{Performance of all approaches on three data sets. For each similarity measure, the ARI achieved when the true number of clusters was used. The results are shown for both hierarchical and spectral clustering,while the depth of the approaches is indicated by the subscript. The last column counts the number of wins per algorithm, where ''win'' means achieving the highest ARI on a data set.\label{tab:Results}}
-
-\begin{tabular}[t]{|p{1.3cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|c|}
-	\hline
-	\multirow{2}{*}{\textbf{Similarity}} & \multicolumn{2}{|c|}{\textbf{Muta}} & \multicolumn{2}{|c|}{\textbf{UWCSE}} & \multicolumn{2}{|c|}{\textbf{WebKB}} & \multicolumn{2}{|c|}{\textbf{Terror}}  & \multicolumn{2}{|c|}{\textbf{IMDB}} & \multirow{2}{*}{\textbf{W}}\\
+\caption[Performance of relational clustering approaches]{Performance of all approaches. For each similarity measure, the ARI achieved when the true number of clusters was used. The results are shown for both hierarchical and spectral clustering, while the depth of the approaches is indicated by the subscript. The last column counts the number of wins per algorithm, where ''win'' means achieving the highest ARI on a data set.}
+\label{tab:ClustResults}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}[t]{@{}lrrrrrrrrrrr@{}}
+	\toprule
+	\textbf{Similarity} & \multicolumn{2}{r}{\textbf{Muta}} & \multicolumn{2}{r}{\textbf{UWCSE}} & \multicolumn{2}{r}{\textbf{WebKB}} & \multicolumn{2}{r}{\textbf{Terror}}  & \multicolumn{2}{r}{\textbf{IMDB}} & \textbf{W} \\
+	\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
 	                     &  H       & S              & H      & S                 & H      & S         & H    & S           & H   & S &  \\
-	\hline
+	\midrule
 	\textbf{Baseline}     &  -0.02 & -0.03		     &   0.25 	&  0.2         	  &  0.00  &  0.25     & 0.00 & 0.17 		& 0.05 & 0.05 & 0  \\
-	\hline
-	\textbf{HS}          &  N/A	 & N/A		     	 &   0.01 	&  0.06           &  0.0 &  0.10      	& 0.01 & -0.01		& 0.00 & 0.00 & 0 \\
-	\hline
+
+	\textbf{HS}          &  -	 & -		     	 &   0.01 	&  0.06           &  0.0 &  0.10      	& 0.01 & -0.01		& 0.00 & 0.00 & 0 \\
+
 	\textbf{CC$_2$}      &  0.00 &  0.01	     	 &  0.1	 &  0.82       	  	   & 0.00 & 0.04       & 0.01 & 0.01 		& 0.1 & 0.1  & 0\\
-	\hline
+
 	\textbf{CC$_4$}      &  0.00 &  0.01	     	 &  0.00 & 0.92 	   & 0.00 & 0.04       			& 0.01 & 0.01  		& 0.1 & 0.1 & 0 \\
-	\hline
-	\hline
+	\midrule
 	\textbf{ReCeNT$_1$}    &  \textbf{0.32} & \textbf{0.35}     &\textbf{0.97} 	&  \textbf{0.98}   &  \textbf{0.04  } &  \textbf{0.57} & 0.00 & \textbf{0.26} & 0.62 & \textbf{1.0}  & \textbf{8}\\
-	\hline
-	\textbf{RIBL$_1$}    &  0.22 & 0.26 		     &   0.89       	& 0.68      &  0.0           	 &  0.1   & N/A & N/A  & 0.35 &  0.38 & 0   \\
-	\hline
+
+	\textbf{RIBL$_1$}    &  0.22 & 0.26 		     &   0.89       	& 0.68      &  0.0           	 &  0.1   & - & -  & 0.35 &  0.38 & 0   \\
+
 	\textbf{HSAG$_1$}    &  -0.01 & 0.06           &   0.1        	&  0.0               &  0.01       	 &  0.05    & 0.00 & 0.24 & 0.04 &  -0.05 & 0    \\
-	\hline
+
 	\textbf{WLST$_{1,5}$}    & 0.00 & 0.02        &    -0.01    	&   0.33     &    0.00 	 & 0.33 & \textbf{0.27} & 0.07  & -0.01 & 0.66 & 1      \\
-	\hline
+
 	\textbf{WLST$_{1,10}$}    & 0.00 & 0.02      &   -0.01    & 0.33        &   0.00  & 0.32  & \textbf{0.27} & 0.11 & -0.01 & 0.31 & 1       \\
-	\hline
+
 	\textbf{V$_1$}    & 0.00  & 0.03         &   -0.01       	&   0.19      &   0.00    	 &  0.00   & 0.00 & 0.00  & 0.00 & 0.00 & 0     \\
-	\hline
+
 	\textbf{VE$_1$}    & 0.00 & 0.03         &     0.01   	& 0.36         &  0.00 	 & 0.00   &0.00  & 0.00 & \textbf{1.0}  &  \textbf{1.0} & 2     \\
-	\hline
-	\textbf{RKOH$_{1,2}$}    & 0.1 & 0.1         &  0.2      	&   0.2       &  N/A 	 & N/A   & N/A  & N/A 			& 0.83  &  0.83 & 0    \\
-	\hline
-	\textbf{RKOH$_{1,4}$}    & N/A & N/A         &     N/A   	& N/A         &  N/A 	 & N/A   & N/A  & N/A 			&  N/A  & N/A & 0     \\
-	\hline
-	\hline
+
+	\textbf{RKOH$_{1,2}$}    & 0.1 & 0.1         &  0.2      	&   0.2       &  - 	 & -   & -  & - 			& 0.83  &  0.83 & 0    \\
+
+	\textbf{RKOH$_{1,4}$}    & - & -         &     -   	& -         &  - 	 & -   & -  & - 			&  -  & - & 0     \\
+	\midrule
 	\textbf{ReCeNT$_2$}    &  0.08  & 0.3    & 0.1	 	&  0.16  	    	  &  0.02   &  0.4 & 0.01 & 0.16 & 0.13 & \textbf{1.0} & 1 \\
-	\hline
-	\textbf{RIBL$_2$}    &  N/A            &   N/A		     &   0.0			&  0.68    &  N/A              &  N/A      & N/A & N/A   & 0.63 & 0.78 & 0   \\
-	\hline
+
+	\textbf{RIBL$_2$}    &  -            &   -		     &   0.0			&  0.68    &  -              &  -     & - & -   & 0.63 & 0.78 & 0   \\
+
 	\textbf{HSAG$_2$}    &  -0.01          &   0.06	         &   0.1     	 	&  0.0          	  &  0.0       	  	  &  0.04      & 0.00 & 0.23  & 0.04 & 0.09 & 0  \\
-	\hline
+
 	\textbf{WLST$_{2,5}$}    &     0.00    &   0.01      &   0.02	 	&  0.02        	  &     0.00 &  0.52  & \textbf{0.27} & 0.11   & -0.04 & 0.31 & 1  \\
-	\hline
+
 	\textbf{WLST$_{2,10}$}    &      0.00      &  0.01       &   	 0.02	&  0.02        	  &     0.00  &  0.52  & 0.05 & 0.12  & -0.04 & 0.36 & 0   \\
-	\hline
+
 	\textbf{V$_2$}    &    0.00     &   0.07     &     0.01 	 	&   0.00      	  &       0.00	  & 0.00 & 0.00 & 0.00  & 0.00 & 0.00 & 0  \\
-	\hline
+
 	\textbf{VE$_2$}    & 0.00   &  0.00          &   0.01 	 	&  0.38   	  &   0.00  	  & \textbf{0.56}    & 0.00 & 0.00  & 0.00 & 0.53 & 1   \\
-	\hline
-	\textbf{RKOH$_{2,2}$}    & N/A  & N/A         &  N/A      	& N/A         &  N/A 	 & N/A   & N/A  & N/A 			& N/A  & N/A & 0     \\
-	\hline
-	\textbf{RKOH$_{2,4}$}    & N/A & N/A         &     N/A   	& N/A         &  N/A 	 & N/A   & N/A  & N/A 			&  N/A  & N/A & 0   \\
-	\hline
+
+	\textbf{RKOH$_{2,2}$}    & -  & -         &  -      	& -         &  - 	 & -   & -  & - 			& -  & - & 0     \\
+
+	\textbf{RKOH$_{2,4}$}    & - & -         &     -   	& -         &  - 	 & -   & -  & - 			&  -  & - & 0   \\
+	\bottomrule
 \end{tabular}
+}
+
+\end{table}
 
 
 
-\end{center}
-\end{table*}
-
-
-
-The results of the first experiment are summarized in Table~\ref{tab:Results}.
+The results of the first experiment are summarised in Table~\ref{tab:ClustResults}.
 The table contains ARI values obtained by the similarity measures for each data set and clustering algorithm used.
 The last column of the table states the number of wins per approach.
 The number of wins is calculated by simply counting the number of cases where the approach obtained the highest ARI value, a ''case'' being a combination of a data set and a clustering algorithm.
@@ -734,16 +739,16 @@ Moreover, when combined with the spectral clustering, ReCeNT$_1$ consistently pe
 Each of the data sets exposes different bias, which influences the performance of the methods.
 In order to successfully identify mutagenic compounds, one has to consider both attribute and link information, including the attributes of the neighbours.
 Chemical compounds that have similar structure tend to have similar properties.
-This data set is more suitable for RIBL, ReCeNT and kernel approaches.
-ReCeNT$_1$ and RIBL$_1$ achieve the best results here\footnote{We were not able to make HS work on this data set as it assumes edges between compound vertices which are non-existing in this data set}, while kernels approaches surprisingly do not perform better than the chance level.
+This data set is more suitable for \gls{ribl}, \gls{recent} and kernel approaches.
+\gls{recent}$_1$ and \gls{ribl}$_1$ achieve the best results here\footnote{We were not able to make \gls{hs} work on this data set as it assumes edges between compound vertices which are non-existing in this data set}, while kernels approaches surprisingly do not perform better than the chance level.
 The UW-CSE is a social-network-like data set where the task is to find two interacting  communities with different attribute-values - students and professors.
-The distinction between two classes is made on a single attribute - professors have positions, while students do not, and the relation stating that professors advide students.
-This task is suitable for HS and HSAG.
-However, both approaches are substantially outperformed by ReCeNT$_1$ and CC$_*$.
+The distinction between two classes is made on a single attribute - professors have positions, while students do not, and the relation stating that professors advise students.
+This task is suitable for \gls{hs} and \gls{hsag}.
+However, both approaches are substantially outperformed by \gls{recent}$_1$ and \gls{cc}$_*$.
 Similarly, the IMDB data set consists of a network of people and their roles in movies, which can be seen as a social network.
 Here, directors can be differentiated from actors by a single edge type - actors work under directors which is explicitly encoded in the data set.
 The type of interactions between entities matters the most, as it is not an attribute-rich data set, and is thus more suitable for methods that account for structural measures.
-Accordingly, ReCeNT, RIBL, WLST$_{1,*}$ and VE  kernels achieve the best results.
+Accordingly, \gls{recent}, \gls{ribl}, \gls{wlst}$_{1,*}$ and VE  kernels achieve the best results.
 
 
 
@@ -752,8 +757,8 @@ Accordingly, ReCeNT, RIBL, WLST$_{1,*}$ and VE  kernels achieve the best results
 The remaining data sets, WebKB and TerroristAttack, are entirely different in nature from the aforementioned ones.
 These data set have a substantially larger number of attributes, but those are not sufficient to identify relevant clusters supported by labels, that is,  interactions contain important information.
 Such bias is implicitly present in HS, and partially assumed by kernel approaches.
-The results show that ReCeNT$_1$ and WSLT$_{2,*}$ and VE$_2$ kernels achieve almost identical performance on the WebKB data set, while the remaining approaches are outperformed even by the baseline approach.
-On the TerroristAttack data set, WLST$_{1,*}$ kernel achieves the best performance, outperforming ReCeNT$_1$ and HSAG$_1$.
+The results show that \gls{recent}$_1$ and \gls{wlst}$_{2,*}$ and VE$_2$ kernels achieve almost identical performance on the WebKB data set, while the remaining approaches are outperformed even by the baseline approach.
+On the TerroristAttack data set, \gls{wlst}$_{1,*}$ kernel achieves the best performance, outperforming \gls{recent}$_1$ and HSAG$_1$.
 Similarly to WebKB, other approaches are outperformed by the baseline approach.
 
 
@@ -761,13 +766,13 @@ Similarly to WebKB, other approaches are outperformed by the baseline approach.
 
 
 
-The results summarized in Table \ref{tab:Results} point to several conclusions.
+The results summarised in Table \ref{tab:ClustResults} point to several conclusions.
 Firstly, given that the proposed approach achieves the best results in 8 out of 10 test cases, the results suggest that it is indeed versatile enough to capture relevant information, regardless of whether  that comes from the attributes of vertices, their proximity, or connectedness  of vertices, even without parameter tuning.
 Moreover, when combined with the spectral clustering, our approach consistently obtains good results on all data sets, while the competitor approaches achieve good results if the problem fits their bias.
 Secondly, the results show that one has to consider not only the bias of the similarity measure, but the bias of the clustering algorithm as well, which is evident on most data sets where spectral clustering achieves substantially better performance than hierarchical clustering.
-Finally, ReCeNT and most of the approaches tend to be sensitive to the depth parameter, which is evident in the drastic difference in performance when different depths are used.
+Finally, \gls{recent} and most of the approaches tend to be sensitive to the depth parameter, which is evident in the drastic difference in performance when different depths are used.
 This suggests that increasing depth of a neighbourhood tree consequently introduces more noise.
-Interestingly, while the results suggest that with ReCeNT the depth of 1 performs the best, the performance of kernel methods tend to increase with the depth parameter.
+Interestingly, while the results suggest that with \gls{recent} the depth of 1 performs the best, the performance of kernel methods tend to increase with the depth parameter.
 These results justify the basic assumption of this approach that important information is contained in small local neighbourhoods.
 
 
@@ -787,56 +792,54 @@ These results justify the basic assumption of this approach that important infor
 \begin{center}
 \footnotesize
 
-\caption{Performance of ReCeNT with different parameter settings. The upper part of the table presents results with the neighbourhood trees with depth of 1, whereas the bottom part contains the results with depth set to 2. The parameters in italic indicate the best performance achieved.}
+\caption[Clustering performance of individual similarity components]{Performance of \gls{recent} with different parameter settings. The upper part of the table presents results with the neighbourhood trees with depth of 1, whereas the bottom part contains the results with depth set to 2. The parameters in italic indicate the best performance achieved.}
 
-\begin{tabular}[t]{|p{2cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.6cm}|p{0.5cm}|p{0.6cm}|}
-	\hline
-	\multirow{2}{*}{\textbf{Parameters}} & \multicolumn{2}{|c|}{\textbf{Muta}} & \multicolumn{2}{|c|}{\textbf{UWCSE}} & \multicolumn{2}{|c|}{\textbf{WebKB}} & \multicolumn{2}{|c|}{\textbf{Terror}}  & \multicolumn{2}{|c|}{\textbf{IMDB}} \\
+\begin{tabular}[t]{@{}lrrrrrrrrrr@{}}
+	\toprule
+	\textbf{Parameters} & \multicolumn{2}{r}{\textbf{Muta}} & \multicolumn{2}{r}{\textbf{UWCSE}} & \multicolumn{2}{r}{\textbf{WebKB}} & \multicolumn{2}{r}{\textbf{Terror}}  & \multicolumn{2}{r}{\textbf{IMDB}} \\
+	\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
 	                     &  Hier. & Spec    & Hier. & Spec & Hier.  & Spec  & Hier.  & Spec   & Hier.  & Spec   \\
-	\hline
+	\midrule
 	1,0,0,0,0   &  0.00	   &   0.00		 		& 0.25 & 0.2     		& 0.00  & 0.25       & 0.01 & 0.17 		& 0.05 & 0.05   \\
-	\hline
+
 	0,1,0,0,0 &  	0.00  &  0.00     	 		& 0.52 & 0.12   		& 0.00  & 0.00     	  & 0.00 & -0.01		& 0.0 & 0.00  \\
-	\hline
+
 	0,0,1,0,0  &  	0.00  &  0.00	      		& 0.05 & 0.1  	  		& 0.00 & 0.1         & 0.00 & 0.00  		& 0.14 & 0.13  \\
-	\hline
+
 	0,0,0,1,0  & 0.30  &  0.30    				& 0.02 & -0.03 	   		& 0.00 & 0.2         & 0.00 & -0.01 		& 0.17 & 0.17  \\
-	\hline
+
 	0,0,0,0,1  &    0.24  & 0.25				& 0.17 &  0.07     		& 0.00 & 0.02  		  & -0.01 & 0.00  		& 1.0 &   1.0   \\
-	\hline
+
 	\textit{0.2,0.2,0.2,0.2,0.2} & 0.32 & 0.35 &0.96 &  0.86   		& 0.04 & 0.56 		  & 0.00 & 0.26 		& 0.62 & 1.0  \\
-	\hline
-	\hline
+	\midrule
 	1,0,0,0,0  &  	0.00   & 0.00	 			& 0.00 & 0.2   			& 0.00 & 0.27 		  & 0.00 & 0.17  		& 0.05 & -0.05   \\
-	\hline
+
 	0,1,0,0,0 &  	0.00  & 0.00	 			& 0.03 & 0.16 			& 0.00	& 0.00 		  & 0.00 & -0.01 		& 0.0 & 0.00  \\
-	\hline
+
 	0,0,1,0,0  &  	0.00 &  0.00  				& 0.00 & 0.08  	  		& 0.00 & 0.01      	  & 0.01 & 0.00 		& 0.15 & 0.13  \\
-	\hline
+
 	0,0,0,1,0  &  	0.29 &  0.29   				& 0.01 & -0.03			& 0.02  & 0.2 	  	  & -0.01 & -0.01		& 0.00 & 0.00  \\
-	\hline
+
 	0,0,0,0,1  &   0.00 & 0.27     			    & 0.03 	& -0.04			& 0.00 & 0.02  		  & 0.00 &  0.00		& 1.0 &  1.0    \\
-	\hline
+
 	\textit{0.2,0.2,0.2,0.2,0.2} & 0.08 & 0.3  & 0.1	&  0.07  	    &  0.02&  0.4 		  & 0.01 & 0.16 		& 0.13 & 1.0 \\
-	\hline
+	\bottomrule
 
 \end{tabular}
-
-
 \label{tab:RResultsComponenets}
 
 \end{center}
 \end{table*}
 
 In the second experiment, we evaluate how relevant each of the five components in Equation~\ref{eq:Sim} is.
-Table~\ref{tab:RResultsComponenets} summarizes the results.
+Table~\ref{tab:RResultsComponenets} summarises the results.
 There are only two cases (Mutagenesis and IMDB) where using a single component (if it is the right one!) suffices to get results comparable to using all components (Table~\ref{tab:RResultsComponenets}).
 This confirms that clustering relational data is difficult not only because one needs to choose the right source of similarity, but also because the similarity of relational objects may come from multiple sources, and one has to take all these into account in order to discover interesting clusters.
 
 
 
 
-These results may explain why ReCeNT almost consistently outperforms all other methods in the first experiment.  First, ReCeNT considers different sources of relational similarity; and second, it ensures that each source has a comparable impact (by normalizing the impact of each source and giving each an equal weight in the linear combination).  This guarantees that if a component contains useful information, it is taken into account.  If a component has no useful information, it adds some noise to the similarity measure, but the clustering process seems quite resilient to this. If {\em most} of the components are irrelevant, the noise can dominate the pattern.  This is likely what happens in experiment 1 when depth 2 neighbourhood trees are used: too much irrelevant information is introduced at level two, dominating the signal at level one.
+These results may explain why ReCeNT almost consistently outperforms all other methods in the first experiment.  First, ReCeNT considers different sources of relational similarity; and second, it ensures that each source has a comparable impact (by normalising the impact of each source and giving each an equal weight in the linear combination).  This guarantees that if a component contains useful information, it is taken into account.  If a component has no useful information, it adds some noise to the similarity measure, but the clustering process seems quite resilient to this. If {\em most} of the components are irrelevant, the noise can dominate the pattern.  This is likely what happens in experiment 1 when depth 2 neighbourhood trees are used: too much irrelevant information is introduced at level two, dominating the signal at level one.
 %Not having these two properties also explains why other approaches perform well only on the tasks that suit their biases.
 
 %These results suggest that the main benefit of ReCeNT comes from (1) consideration of several sources of relational similarity, and (2) decoupling those individual sources in to a linear combination.
@@ -861,14 +864,14 @@ The first experiment shows that ReCeNT outperforms the competitor methods even w
 The second experiment shows that one typically has to consider multiple interpretations of similarity in order to obtain a useful clustering.
 A natural question to ask is whether the  parameters could be learned from data in an unsupervised way.
 The possibility of tuning offers an additional flexibility to the user.
-If the knowledge about the right bias is available in advance, one can specify it through adjusting the parameters of the similarity measure, potentially achieving even better results than those presented in Table \ref{tab:Results}.
-However, tuning the weights in an automated and systematic way is a difficult task as there is no clear objective function to optimize in a purely unsupervised settings.
+If the knowledge about the right bias is available in advance, one can specify it through adjusting the parameters of the similarity measure, potentially achieving even better results than those presented in Table \ref{tab:ClustResults}.
+However, tuning the weights in an automated and systematic way is a difficult task as there is no clear objective function to optimise in a purely unsupervised settings.
 Many clustering evaluation criteria, such as ARI, require a reference clustering which is not available during clustering itself.  Other clustering quality measures do not require a reference clustering, but each of those has its own bias \cite{VanCraenendonck15}.
 
 
 \begin{table}
     \centering
-    \caption{Results obtained by AASC. The subscript indicates the depth of the neighbourhood tree.}
+    \caption[Affinity aggregation results]{\textbf{Affinity aggregation results.} The subscript indicates the depth of the neighbourhood tree.}
     \begin{tabular}{@{}cccccc@{}}
         \toprule
         \textbf{Approach} & \textbf{IMDB} & \textbf{UWCSE} & \textbf{Mutagenesis} & \textbf{WebKB} & \textbf{Terror} \\
@@ -892,14 +895,14 @@ An approach that might help in this direction is the \textit{Affinity Aggregatio
 This work extends spectral clustering to a multiple affinity case.
 The authors start from the position that similarity of objects often can be measured in multiple ways, and it is often difficult  to know in advance how different similarities should be combined in order to achieve the best results.
 Thus, the authors introduce an approach that learns the weights that would, when clustered into the desired number of clusters, yield the highest intra-cluster similarity.
-That is achieved by iteratively optimizing: (1) the cluster assignment given the fixed weights, and (2) weights given a fixed cluster assignment.
+That is achieved by iteratively optimising: (1) the cluster assignment given the fixed weights, and (2) weights given a fixed cluster assignment.
 Thus, by treating each component in Equation \ref{eq:Sim} as a separate affinity matrix, this approach tries to learn their optimal combination.
 
 
 
 
 
-We have tried AASC in ReCeNT, and the results  are summarized in Table~ \ref{tab:withWeights}.
+We have tried AASC in ReCeNT, and the results  are summarised in Table~ \ref{tab:withWeights}.
 These results lead to several conclusions.
 Firstly, in most cases AASC yields no substantial benefit or even hurts performance.
 This confirms that learning the appropriate bias (and the corresponding parameters) in an entirely unsupervised way is a difficult problem.
@@ -921,7 +924,7 @@ We conclude that tuning the weights in an unsupervised manner will require more 
 
 The previous experiments point out that the proposed dissimilarity measure performs well compared to the existing approaches, but finding the appropriate weights is difficult.
 Though our focus is on clustering tasks, we can use our dissimilarity measure for classification tasks as well.
-The availability of labels offers a clear objective to optimize when learning the weights, and thus allows us to evaluate the appropriateness of ReCeNT for classification.
+The availability of labels offers a clear objective to optimise when learning the weights, and thus allows us to evaluate the appropriateness of ReCeNT for classification.
 
 We have set up an experiment where we use a $k$ nearest neighbours (kNN) classifier with each of the (dis)similarity measures.
 It consists of a 10-fold cross-validation, where within
@@ -933,7 +936,7 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 %\captionsetup{justification=centerlast}
 	\begin{center}
 		\small
-		\caption{Performance of the kNN classifier with different (dis)similarity measure and weight learning. The performance is expressed in terms of accuracy over the 10-fold cross validation. }
+		\caption[Performance of the kNN classifier with different (dis)similarity measures.]{Performance of the kNN classifier with different (dis)similarity measures and weight learning. The performance is expressed in terms of accuracy over the 10-fold cross validation. }
 			\label{tab:SupervisedRes}
 		\begin{tabular}[htb]{@{}cccccc@{}}
 		\toprule
@@ -947,7 +950,7 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 
 		ReCeNT     	  &	\textbf{100}	&\textbf{100}	&  \textbf{85.54 }      &	\textbf{100}    &   	\textbf{85.60}	\\
 
-		RIBL	    	  &	\textbf{100}	&	77.22       &  76.37                &		84.11       &   	N/A		\\
+		RIBL	    	  &	\textbf{100}	&	77.22       &  76.37                &		84.11       &   	-		\\
 
 		WLST      	      &	93.60	        &	44.94       &  76.37	            &		47.35       &   	45.56		\\
 
@@ -955,7 +958,7 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 
 	    V 			      &	93.80	        &	43.61       &  70.42                &		47.35       &   	44.39		\\
 
-		RKOH	          &	95.07	        &	67.26       &  60.78                &       N/A	        &       N/A 		\\
+		RKOH	          &	95.07	        &	67.26       &  60.78                &       -	        &       - 		\\
 		\bottomrule
 		\end{tabular}
 
@@ -965,7 +968,7 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 
 
 
-The results of this experiment are summarized in Table \ref{tab:SupervisedRes}.
+The results of this experiment are summarised in Table \ref{tab:SupervisedRes}.
 ReCeNT achieves the best performance on all data sets.
 On the IMDB data set, ReCeNT achieves perfect performance, as do RIBL and VE.  On UWCSE, ReCeNT is 100\% accurate; its closest competitor, CC, achieves 99.85\%.
 From the classification viewpoint, these two data sets are easy: the classes are differentiable by one particular attribute or relation.
@@ -984,29 +987,17 @@ Moreover, the availability of labelled information is clearly helpful and ReCeNT
 
 \subsubsection{\textbf{(Q5) Runtime comparison}}
 
-Table \ref{tab:Runtimes} presents a comparison of runtimes for each approach.
-All the experiments were run on a computer with 3.20 GHz of CPU power and 32 GB RAM.
-The runtimes include the construction of supporting structures (neighbourhood trees and context descriptors), calculation of similarity between all pairs of vertices, and clustering.
-The measured runtimes are consistent with the previously discussed complexities of the approaches.
-HS, HSAG, CC, ReCeNT and kernel approaches (excluding RKOH) are substantially more efficient than the remaining approaches.
-This is not surprising, as HS, HSAG and CC  use very limited information.
-It is, however, interesting to see that ReCeNT and WLST,  which use substantially more information, take only slightly more time to compute, while achieving substantially better performance on most data sets.
-These approaches are also orders of magnitude more efficient than RIBL and RKOH, which did not complete on most data sets with depth set to 2.
-That is particularly the case for RKOH which did not complete in 24 hours even with the depth of 1, when the walk length was set to 4.
-
-
-
 \begin{table}
 %\captionsetup{justification=centerlast}
 	\begin{center}
 		\small
-		\caption{Runtime comparison in minutes (rounded up to the closest integer). The runtimes include the construction of supporting structures and time needed to calculate a similarity between each pair of vertices in a given hypergraph. Note that graph kernel measures (in italic) are obtained using the external software provided with \cite{NIPS2015_5688}. N/A indicates that the calculation took more than 24 hours. }
+		\caption[Runtime comparison of various relational clustering approaches]{Runtime comparison in minutes (rounded up to the closest integer). The runtimes include the construction of supporting structures and time needed to calculate a similarity between each pair of vertices in a given hyper-graph. Note that graph kernel measures (in italic) are obtained using the external software provided with \cite{NIPS2015_5688}. - indicates that the calculation took more than 24 hours. }
 			\label{tab:Runtimes}
 		\begin{tabular}[htb]{@{}cccccc@{}}
 		\toprule
 		\textbf{Approach } & \textbf{IMDB}     & \textbf{UWCSE} &   \textbf{Mutagenesis}   &   \textbf{WebKB}   &  \textbf{Terror} \\
 		\midrule
-		HS 		 		&	1		&	1	   &  	N/A	  &		1	   &   	1		\\
+		HS 		 		&	1		&	1	   &  	-	  &		1	   &   	1		\\
 
 		CC$_2$ 			&	1		&	1      &  	1	  &		5	   &   	1		\\
 
@@ -1020,9 +1011,9 @@ That is particularly the case for RKOH which did not complete in 24 hours even w
 
 		ReCeNT$_2$		&	1		&	1	   &  	3	  &		10	   &   	5		\\
 
-		RIBL$_1$		&	1		&	2	   &  	540	  &		1320   &   	N/A		\\
+		RIBL$_1$		&	1		&	2	   &  	540	  &		1320   &   	-		\\
 
-		RIBL$_2$		&	2		&	5	   &  N/A	  &		N/A	   &   	N/A		\\
+		RIBL$_2$		&	2		&	5	   &  -	  &		-	   &   	-		\\
 
 		$WLST_{1,5}$	&	1		&	1	   &  	1	  &		1	   &   	1		\\
 
@@ -1034,13 +1025,13 @@ That is particularly the case for RKOH which did not complete in 24 hours even w
 
 		$VE_1$			&	1		&	1	   &  	1	  &		1	   &   	2		\\
 
-		RKOH$_{1,2}$	&	1		&	2	   &  	10	  &	N/A		   &   N/A			\\
+		RKOH$_{1,2}$	&	1		&	2	   &  	10	  &	-		   &   -			\\
 
-		RKOH$_{1,4}$	&	N/A		&	N/A	   &  N/A 	  &  N/A	   &  N/A 		\\
+		RKOH$_{1,4}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
 
-		RKOH$_{2,2}$	&	N/A		&	N/A	   &  N/A 	  &  N/A	   &  N/A 		\\
+		RKOH$_{2,2}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
 
-		RKOH$_{2,4}$	&	N/A		&	N/A	   &  N/A 	  &  N/A	   &  N/A 		\\
+		RKOH$_{2,4}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
 		\bottomrule
 		\end{tabular}
 
@@ -1048,14 +1039,28 @@ That is particularly the case for RKOH which did not complete in 24 hours even w
 
 \end{table}
 
+Table \ref{tab:Runtimes} presents a comparison of runtimes for each approach.
+All the experiments were run on a computer with 3.20 GHz of CPU power and 32 GB RAM.
+The runtimes include the construction of supporting structures (neighbourhood trees and context descriptors), calculation of similarity between all pairs of vertices, and clustering.
+The measured runtimes are consistent with the previously discussed complexities of the approaches.
+HS, HSAG, CC, ReCeNT and kernel approaches (excluding RKOH) are substantially more efficient than the remaining approaches.
+This is not surprising, as HS, HSAG and CC  use very limited information.
+It is, however, interesting to see that ReCeNT and WLST,  which use substantially more information, take only slightly more time to compute, while achieving substantially better performance on most data sets.
+These approaches are also orders of magnitude more efficient than RIBL and RKOH, which did not complete on most data sets with depth set to 2.
+That is particularly the case for RKOH which did not complete in 24 hours even with the depth of 1, when the walk length was set to 4.
+
+
+
+
+
 
 
 \section{Conclusion}
 
-We have introduced a novel dissimilarity measure for clustering relational objects, based on a hypergraph interpretation of a relational data set.
+We have introduced a novel dissimilarity measure for clustering relational objects, based on a hyper-graph interpretation of a relational data set.
 In contrast with the previous approaches, our approach takes multiple aspects of relational similarity into account, and  allows one to focus on a specific vertex type of interest, while at the same time leveraging the information contained in other vertices.
 We develop the dissimilarity measure to be versatile enough to capture relevant information, regardless whether it comes from attributes, proximity or connectedness in a hyper-graph.
-To make our approach efficient, we introduce neighbourhood trees, a structure to compactly represent the distribution of attributes and hyperedges in the neighbourhood of a vertex.
+To make our approach efficient, we introduce neighbourhood trees, a structure to compactly represent the distribution of attributes and hyper-edges in the neighbourhood of a vertex.
 
 
 We experimentally evaluate our approach on several data sets on both clustering and classification tasks.
@@ -1077,7 +1082,7 @@ One open challenge is to which extent the parameters of the proposed similarity 
 %The field of multiple kernel learning is concerned with finding an optimal combination of fixed kernel sets, and might be inspirational in learning the weights directly from data.
 %In contrast to many relational clustering techniques, our approach with neighbourhood trees allows us to construct a prototype - a representative example of a cluster, which many of the clustering algorithms require.
 %Moreover, constructing a prototype of a cluster might be of great help analysing the properties of objects clustered together.
-%Integrating our measure into very scalable clustering methods such as BIRCH \cite{Zhang:1996}, would allow one to cluster very large hypergraphs.
+%Integrating our measure into very scalable clustering methods such as BIRCH \cite{Zhang:1996}, would allow one to cluster very large hyper-graphs.
 %An interesting extension would be to modify the summations over levels of neighbourhood trees into weighted sums over the same levels, following the intuition that the vertices further from the vertex of interest are less relevant, but at the same time giving them a chance to make a difference.
 
 
