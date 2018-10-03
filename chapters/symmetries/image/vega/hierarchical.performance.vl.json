@@ -1,0 +1,1137 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "values": [
+      {
+        "algorithm": "-",
+        "setup": "combination",
+        "params": "original",
+        "acc": 1.0,
+        "complexity": 2.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "-",
+        "setup": "combination",
+        "params": "original",
+        "acc": 0.99,
+        "complexity": 3.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "-",
+        "setup": "combination",
+        "params": "original",
+        "acc": 0.76,
+        "complexity": 27.2,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "-",
+        "setup": "combination",
+        "params": "original",
+        "acc": 0.72,
+        "complexity": 84.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "-",
+        "setup": "combination",
+        "params": "original",
+        "acc": 0.81,
+        "complexity": 22.4,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "-",
+        "setup": "combination",
+        "params": "original",
+        "acc": 0.81,
+        "complexity": 18.2,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "-",
+        "setup": "merging",
+        "params": "original",
+        "acc": 1.0,
+        "complexity": 2.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "-",
+        "setup": "merging",
+        "params": "original",
+        "acc": 0.99,
+        "complexity": 3.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "-",
+        "setup": "merging",
+        "params": "original",
+        "acc": 0.76,
+        "complexity": 27.2,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "-",
+        "setup": "merging",
+        "params": "original",
+        "acc": 0.72,
+        "complexity": 84.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "-",
+        "setup": "merging",
+        "params": "original",
+        "acc": 0.81,
+        "complexity": 22.4,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "-",
+        "setup": "merging",
+        "params": "original",
+        "acc": 0.81,
+        "complexity": 18.2,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.99,
+        "complexity": 1.2,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.99,
+        "complexity": 1.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.99,
+        "complexity": 1.2,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.99,
+        "complexity": 1.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 1.0,
+        "complexity": 4.4,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 1.0,
+        "complexity": 4.2,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 1.0,
+        "complexity": 4.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.79,
+        "complexity": 6.6,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.78,
+        "complexity": 2.4,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.78,
+        "complexity": 1.8,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.78,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.83,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.83,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.79,
+        "complexity": 5.2,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.80,
+        "complexity": 3.4,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.71,
+        "complexity": 34.4,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.65,
+        "complexity": 21.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.66,
+        "complexity": 32.4,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.60,
+        "complexity": 23.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.48,
+        "complexity": 9.4,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.48,
+        "complexity": 11.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.47,
+        "complexity": 8.8,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.47,
+        "complexity": 13.0,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.86,
+        "complexity": 19.6,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.90,
+        "complexity": 7.6,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.90,
+        "complexity": 6.5,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.93,
+        "complexity": 5.33,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.86,
+        "complexity": 12.0,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.82,
+        "complexity": 16.0,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.82,
+        "complexity": 13.4,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.93,
+        "complexity": 8.66,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.89,
+        "complexity": 13.6,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.85,
+        "complexity": 15.6,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.87,
+        "complexity": 17.8,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.87,
+        "complexity": 14.8,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.01",
+        "acc": 0.83,
+        "complexity": 12.6,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.05",
+        "acc": 0.69,
+        "complexity": 27.2,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "a = 0.1",
+        "acc": 0.61,
+        "complexity": 32.2,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "merging",
+        "params": "silhuette",
+        "acc": 0.68,
+        "complexity": 18.0,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.99,
+        "complexity": 1.2,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.99,
+        "complexity": 1.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.99,
+        "complexity": 1.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.99,
+        "complexity": 2.8,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.99,
+        "complexity": 2.8,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.99,
+        "complexity": 2.8,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.99,
+        "complexity": 2.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.79,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.79,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.76,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.77,
+        "complexity": 2.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.79,
+        "complexity": 4.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.78,
+        "complexity": 2.8,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.78,
+        "complexity": 11.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.80,
+        "complexity": 4.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.72,
+        "complexity": 24.0,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.69,
+        "complexity": 22.8,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.66,
+        "complexity": 16.8,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.6,
+        "complexity": 24.2,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.51,
+        "complexity": 30.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.51,
+        "complexity": 30.6,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.5,
+        "complexity": 27.3,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.5,
+        "complexity": 30.0,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.9,
+        "complexity": 7.6,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.88,
+        "complexity": 12.2,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.9,
+        "complexity": 12.6,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.93,
+        "complexity": 16.4,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.80,
+        "complexity": 29.33,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.82,
+        "complexity": 16.33,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.78,
+        "complexity": 14.0,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.83,
+        "complexity": 11.6,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.90,
+        "complexity": 11.8,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.86,
+        "complexity": 10.0,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.87,
+        "complexity": 17.0,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Spectral",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.88,
+        "complexity": 13.8,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.01",
+        "acc": 0.83,
+        "complexity": 12.6,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.05",
+        "acc": 0.69,
+        "complexity": 27.2,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "a = 0.1",
+        "acc": 0.61,
+        "complexity": 32.2,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "Hierarchical",
+        "setup": "combination",
+        "params": "silhuette",
+        "acc": 0.68,
+        "complexity": 18.0,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -1",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -5",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -10",
+        "acc": 1.0,
+        "complexity": 1.0,
+        "dataset": "01_IMDB"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -1",
+        "acc": 0.93,
+        "complexity": 21.0,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -5",
+        "acc": 0.95,
+        "complexity": 25.9,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -10",
+        "acc": 0.96,
+        "complexity": 13.7,
+        "dataset": "02_UWCSE"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -1",
+        "acc": 0.6,
+        "complexity": 0.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -5",
+        "acc": 0.63,
+        "complexity": 23.5,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -10",
+        "acc": 0.72,
+        "complexity": 35.0,
+        "dataset": "03_Mutagenesis"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -1",
+        "acc": 0.64,
+        "complexity": 138.7,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -5",
+        "acc": 0.5,
+        "complexity": 126.5,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -10",
+        "acc": 0.51,
+        "complexity": 102.1,
+        "dataset": "05_Terrorists"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -1",
+        "acc": 0.61,
+        "complexity": 99.4,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -5",
+        "acc": 0.84,
+        "complexity": 64.8,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -10",
+        "acc": 0.57,
+        "complexity": 5.7,
+        "dataset": "04_Hepatitis"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -1",
+        "acc": 0.64,
+        "complexity": 44.4,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -5",
+        "acc": 0.68,
+        "complexity": 40.0,
+        "dataset": "06_WebKB"
+      },
+      {
+        "algorithm": "MRC",
+        "setup": "MRC",
+        "params": "l = -10",
+        "acc": 0.66,
+        "complexity": 40.8,
+        "dataset": "06_WebKB"
+      }
+    ]
+  },
+  "transform": [
+    {
+      "filter": {
+        "field": "setup",
+        "oneOf": [
+          "combination",
+          "merging"
+        ]
+      }
+    },
+    {
+      "filter": {
+        "field": "algorithm",
+        "oneOf": [
+          "Hierarchical",
+          "-"
+        ]
+      }
+    },
+    {
+      "calculate": "1.0 - datum.acc",
+      "as": "error"
+    }
+  ],
+  "facet": {
+    "column": {
+      "field": "dataset",
+      "type": "ordinal"
+    },
+    "row": {
+      "field": "setup",
+      "type": "nominal"
+    }
+  },
+  "spec": {
+    "layer": [
+      {
+        "mark": {
+          "type": "bar"
+        },
+        "transform": [
+          {
+            "filter": {
+              "field": "algorithm",
+              "equal": "Hierarchical"
+            }
+          }
+        ],
+        "encoding": {
+          "x": {
+            "field": "params",
+            "type": "ordinal",
+            "axis": {
+              "title": "Parameters"
+            }
+          },
+          "y": {
+            "field": "error",
+            "type": "quantitative",
+            "axis": {
+              "title": "Error %"
+            },
+            "scale": {
+              "domain": [0.0, 0.6]
+            }
+          },
+          "opacity": {
+            "value": 0.8
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "red",
+          "size": 2
+        },
+        "transform": [
+          {
+            "filter": {
+              "field": "algorithm",
+              "equal": "-"
+            }
+          }
+        ],
+        "encoding": {
+          "y": {
+            "field": "error",
+            "type": "quantitative"
+          }
+        }
+      }
+    ]
+  },
+  "resolve": {
+    "scale": {
+      "x": "shared"
+    }
+  },
+  "config": {
+    "axis": {
+      "grid": false,
+      "labelFontSize": 12,
+      "labelFont": "Helvetica Neue",
+      "labelColor": "grey",
+      "labelOpacity": 0.8,
+      "titleColor": "grey",
+      "titleFont": "Helvetica Neue",
+      "titleFontSize": 14,
+      "titleFontWeight": "normal"
+    },
+    "axisX": {
+      "labelAngle": -80,
+      "titleX": 47,
+      "titleY": 60
+    },
+    "axisY": {
+      "titleAngle": 0,
+      "titleY": -5,
+      "titleX": -23
+    }
+  }
+}

@@ -208,6 +208,36 @@ parent={},%
 %
 }%
 }%
+\ifglsentryexists{mln}{}%
+{%
+\gls@defglossaryentry{mln}%
+{%
+name={MLN},%
+sort={MLN},%
+type={main},%
+first={MLN},%
+firstplural={MLNs},%
+text={MLN},%
+plural={MLNs},%
+description={Markov Logic Network},%
+descriptionplural={Markov Logic Network},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
 \ifglsentryexists{ann}{}%
 {%
 \gls@defglossaryentry{ann}%

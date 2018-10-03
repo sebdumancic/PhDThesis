@@ -109,7 +109,7 @@ Here we discuss directions for future research, grouping them in the theoretical
 \subsection{Theoretical aspects}
 
 
-\textbf{Properties of good relational data representations}
+\paragraph{Properties of good relational data representations}
 \textit{What constitutes a good data representation} is one of the pressing open  questions in this line of research.
 Answering this question is the critical step that will shape the development of novel relational representation techniques.
 As we have outlined in Chapter \ref{ch:learningrepresentations}, we do have a good intuition what we consider to be an effective \textit{propositional} representation (Section \ref{ch3:sec:properties} in Chapter \ref{ch:learningrepresentations}): hierarchically organised, smooth, sparse and so on.
@@ -123,27 +123,40 @@ This is especially important for \alp{s} as it can inform us how to impose the l
 
 
 
-\textbf{Different representation learning techniques}
+\paragraph{Different representation learning techniques}
 This thesis as explored two representation learning approaches -- \textit{learning by clustering} and the \textit{auto-encoding principle}.
 The literature on representation learning consists of many different, and effective, ideas.
 It is well worth exploring various ideas, and one particularly interesting are \textit{Generative adversarial networks}~\cite{Goodfellow:2014:GAN:2969033.2969125}, which learns a generative latent model through a competition with a \textit{discriminator} network trying to distinguish between the real data and the samples of the generative model.
 One of the main challenges here is how to propagate the feedback from the discriminator to the generator network, and the bi-directionality of Prolog predicates might be an elegant way to tackle this.
 
 
+\paragraph{Do we need probabilistic latent representations?}
+In this thesis, we have treated relational representation learning as a deterministic mapping from the original data space to the latent one.
+Thus,  we have ignored the probabilistic aspect of \gls{srl} methods.
+An interesting question for the future research is whether it is necessary to include the probabilistic reasoning in the mapping from the original to the latent representation.
+It is certain that including the probabilistic component would impact the efficiency of learning, but we cannot state for sure that it would allow us to construct substantially better representations because the relational data is still deterministic.
+However, such probabilistic relational representation might be beneficial, and necessary, for the case of probabilistic data, e.g., often used in Problog~\cite{DeRaedt:2007:PPP:1625275.1625673}.
 
-\textbf{Integrating symbolic and sub-symbolic representation learning methods}
+
+
+
+\paragraph{Integrating symbolic and sub-symbolic representation learning methods}
 This thesis considers learning relational latent representations from the perspective of logical approaches to \gls{srl}, and is focus on learning latent representation of symbolic data.
 Many existing approaches for representation learning considers numerical and signal-like data and effectively treat the symbolic data in the same way by re-representing it in the Euclidean space.
 This sacrifices many aspects and expressivity of logic.
 We believe the middle ground, which exploits the best parts of both logic and neural networks, is the direction that could show the most advancement.
-A good step in that direction is \textit{DeepProbLog}~\cite{DBLP:journals/corr/abs-1805-10872}.
+A good step in that direction is \textit{DeepProbLog}~\cite{DBLP:journals/corr/abs-1805-10872}, which elegantly integrates high level reasoning capabilities of logic with the perception achieved with \gls{ann}s.
+We believe another avenue worth exploring is a development of \textit{hybrid} learning that would exploit strengths of both symbolic and distributional approaches for relational learning, similar in direction to differentiable theorem proving~\cite{DTP2017}, but without sacrificing the expressivity of individual components.
+
+
+
 
 
 
 \subsection{Practical aspects}
 
 
-\textbf{Scalable learning of relational representations}
+\paragraph{Scalable learning of relational representations}
 This thesis considers laying down the foundations for a logic-based relational representation learning, and a lot of work still has to be done in that direction.
 But making these methods applicable to real-world scenarios, the scalability is an important issue to address.
 We do not pay special attention to this issue during the thesis.
@@ -152,14 +165,18 @@ Improving the scalability of \gls{curled} involves investigating scalable cluste
 
 
 
-\textbf{Task-specific representations}
+\paragraph{Task-specific representations}
 The goal of learning latent representations of data is currently focused on improving the performance of of a predictive model, either through improving the predictive accuracy of the model or making the learning easier.
 This is the setup we have focused in this thesis.
 However, there is no reason to stop there: having a model of a domain, i.e., facts and clauses that are known to be true, \gls{srl} systems can reason about any aspect of the domain.
-We believe this open many doors for relational representation learning, where one interesting avenue might be to learn representations for faster inference and tackling the challenge of \textit{lifted inference}~\cite{VdBThesis13}.
+We believe this open many doors for relational representation learning, where one interesting avenue might be to learn representations for faster inference and tackling the challenge of \textit{lifted inference}~\cite{VdBThesis13,Poole:2003:FPI:1630659.1630801}.
 
 
-
+\paragraph{Learning how to \textit{see} relational data}
+Perhaps the most important idea from Chapters \ref{ch:clustering} and \ref{ch:symmetries} is that explicitly accounting for multiple sources of information within relational data can substantially improve the performance.
+However, in both chapters we have relied on manually specifying these source; for clustering in Chapter \ref{ch:clustering} we have used all sources in a linear combination, while in Chapter \ref{ch:symmetries} we have decided to use the attribute information, neighbourhood structures and the combination of both.
+An interesting issue to address is whether we could develop methods to identify these sources automatically.
+Our relational representation learning methods \gls{curled} would benefit substantially from this development as it could potentially discover more complex latent features without an intervention of the user.
 
 
 

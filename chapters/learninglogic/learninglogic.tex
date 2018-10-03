@@ -562,13 +562,15 @@ In the remainder of the chapter, we describe two prominent approaches within \gl
 
 \subsection{Problog}
 
-Problog is an probabilistic extension of Prolog where some facts can be annotated with the probabilities.
+\textit{Problog}~\cite{DeRaedt:2007:PPP:1625275.1625673} is an probabilistic extension of Prolog where some facts can be annotated with the probabilities.
 It is therefore a representation of the first formalism of the Halpern's systematisation.
 
 An example of a Problog program is given in Figure~\ref{fig:problog}.
-The central concept in Problog is a \textit{probabilistic fact}: ground fact $f$ annotated with a probability $p$ (\textit{p::f.}).
+The central concept in Problog is a \textit{probabilistic fact}: ground fact $f$ annotated with a probability $p$ (e. g., $0.8{:: }{\mathtt {playful(alpaca)}}$).
+\textit{Deterministic facts} are simply the probabilistic facts wih $p = 1.0$.
 Each probabilistic fact corresponds to a Boolean random variable which is \textit{true} with probability $p$ and \textit{false} with probability $1-p$.
-Next to the probabilistic facts, Problog consists of deterministic rules equivalent to Prolog clauses.
+Next to the probabilistic facts, Problog consists of deterministic rules equivalent to Prolog clauses (e. g., ${\mathtt {cuddly(X)} \text{ :- }{\mathtt {fluffiness(X,Y),Y >= 4}}.}$).
+Probabilistic rules (e. g., $0.3{:: }{\mathtt {bites(X)}} \text{ :- }{\mathtt {diet(X,carnivore)}}.$) are syntactic sugars which simply introduce a new probabilistic fact reflecting the probability of the rule every time the deterministic rule is \texttt{true}.
 Such probabilistic facts together with rules define the following distribution $P_{F}$ over the truth assignments to the variables corresponding to probabilistic facts:
 
 \begin{equation}
@@ -578,14 +580,16 @@ Such probabilistic facts together with rules define the following distribution $
 
 \begin{figure}
 	$$\begin{aligned}
-		0.1{:: }{\mathtt {burglary}}. ~~~~&0.7{:: }{\mathtt {hears\_alarm(mary)}}. \nonumber \\
-		\underbrace{0.2{:: }{\mathtt {earthquake}}.}_{probabilistic fact} ~~~~&0.4{:: }{\mathtt {hears\_alarm(john)}}.\nonumber \\
-		\mathtt {alarm}&\text{ :- }{\mathtt {earthquake}}.\nonumber \\
-		\mathtt {alarm}& \text{ :- } {\mathtt {burglary}}.\nonumber \\
-		{{\mathtt {calls(X)}}}& \text{ :- } {\mathtt {alarm, hears\_alarm(X)}}.\nonumber \\
-		{\mathtt{call}}& \text{ :- } {{\mathtt {calls(X)}}}.
+		{\mathtt {legs(alpaca,4)}}. ~~~~&0.9{:: }{\mathtt {friends(alpaca,otter)}}. \nonumber \\
+		{\mathtt {fluffiness(alpaca,5)}}. ~~~~&0.8{:: }{\mathtt {playful(alpaca)}}. \nonumber \\
+		\underbrace{{\mathtt {diet(alpaca,herbivore)}}.}_{deterministic ~ fact} ~~~~&\underbrace{0.6{:: }{\mathtt {spits(alpaca)}}.}_{probabilistic ~ fact} \nonumber \\
+		\mathtt {cuddly(X)}\text{ :- }{\mathtt {fluffiness(X,Y),Y >= 4}}. ~~~~&  \nonumber \\
+		\mathtt {ideal\_pet(X)} \text{ :- }{\mathtt {cuddly(X)}}. ~~~~& 0.3{:: }{\mathtt {bites(X)}} \text{ :- }{\mathtt {diet(X,carnivore)}}. \nonumber \\
+		\underbrace{\mathtt {ideal\_pet(X)}\text{ :- }{\mathtt {friends(X,otter)}}.}_{deterministic ~ rules} ~~~~& \underbrace{0.2{:: }{\mathtt {cuddly(X)}} \text{ :- }{\mathtt {bites(X)}}.}_{probabilistic ~ rules} \nonumber \\
+		%\mathtt {ideal\_pet(X)}&\text{ :- }{\mathtt {cuddly(X)}}.\nonumber \\
+		%\mathtt {ideal\_pet(X)}&\text{ :- }{\mathtt {friends(X,otter)}}.
 	\end{aligned}$$
-	\caption{Problog program for the alarm problem\label{fig:problog}}
+	\caption[Example Problog program]{Problog program for the pet decision problem. Probabilistic facts  $0.8::$\texttt {playful(alpaca).} states that \texttt{alpaca} us playful with certainty of $80 \%$. Deterministic fact \texttt{legs(alpaca,4).} states the \texttt{alpaca} has four legs with certainty of $100 \%$.  A rule \texttt{cuddly(X)} :- \texttt{fluffiness(X,Y),Y >= 4.} states that a pet is \texttt{cuddly} is its \texttt{fluffiness} level is greater or equal to 4. \label{fig:problog}}
 \end{figure}
 
 
@@ -598,7 +602,7 @@ $$
 $$
 
 $$
-\begin{aligned}
+\begin{aligned}ok
 &= \sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} \prod _{f_i\in F'}p_i\cdot \prod _{f_i\in F\setminus F'}(1-p_i)\;.
 \end{aligned}
 $$
@@ -608,7 +612,7 @@ $$
 \begin{itemize}
 	\item \textit{success probability:} a query $q$ is given, and the task is to compute $p(q)$
 	\item \textit{marginal probability:} a set of queries $Q$ and evidence $E$ is given, and the task is to compute the marginal probability distribution of each $q \in Q$
-	\item \textit{maximum aposteriori:} given a set of qeries $Q$ and evidence $E$, the task is to find the most likely truth-assignment $v$ to the atoms in $Q$
+	\item \textit{maximum aposteriori:} given a set of queries $Q$ and evidence $E$, the task is to find the most likely truth-assignment $v$ to the atoms in $Q$
 	\item \textit{most probable explanation:} the task is to find the most likely world where the given evidence query $e$ holds.
 \end{itemize}
 
@@ -616,7 +620,38 @@ $$
 
 \subsection{Markov logic networks}
 
+\newglossaryentry{mln}{name={MLN},description={Markov Logic Network}}
+\textit{Markov logic networks} (\gls{mln})~\cite{Richardson2006} fall in the second category of Halpern's classification as they associate probabilities with possible worlds.
+\gls{mln}s start from the view that the formulas in first-order logic can be seen as a set of hard constraints on the set of possible worlds: if a world violates one logical formula, its probability is zero.
+\gls{mln}s aim to soften this constraints by making the worlds that violate the formulas less probable, but not impossible.
+Each formula thus has an associated weight that specifies how strong the constraint is.
 
+
+Formally, a Markov logic network is a set of pairs $(F_i,w_i)$, where $F_i$ is a formula written in first-order logic and $w_i$ is a real number reflecting the strength of the constraint.
+An \gls{mln} can be seen as a template for constructing a a Markov network~\cite{koller2009probabilistic}, given the set of constants $C$.
+\gls{mln}s defined the probability distribution over possible worlds as
+
+$$ P(X=x) = \frac{1}{Z} \exp \left(  \sum_{i}w_in_i(x) \right) $$
+
+where $n_(x)$ is the number of true groundings of the formula $F_i$ in $x$ and $x$ represent the truth assignments to atoms appearing in $F_i$.
+Similar to Problog, \gls{mln}s are capable of answering different types of queries.
+
+
+
+
+\begin{figure}
+	$$\begin{aligned}
+		{\mathtt {legs(alpaca,4)}} ~~~~&{\mathtt {friends(alpaca,otter)}} \nonumber \\
+		{\mathtt {fluffiness(alpaca,5)}} ~~~~&{\mathtt {playful(alpaca)}} \nonumber \\
+		{\mathtt {diet(alpaca,herbivore)}} ~~~~&{\mathtt {spits(alpaca)}} \nonumber \\
+		{\mathtt {fluffiness(X,Y),Y >= 4}} &\Rightarrow  \mathtt {cuddly(X)}. \nonumber \\
+		{\mathtt {cuddly(X)}} &\Rightarrow \mathtt {ideal\_pet(X)}. \nonumber \\
+		w_1 ~~ {\mathtt {diet(X,carnivore)}} &\Rightarrow {\mathtt {bites(X)}} \nonumber \\
+		w_2 ~~ {\mathtt {bites(X)}} &\Rightarrow {\mathtt {cuddly(X)}}  \nonumber \\
+		{\mathtt {friends(X,otter)}} &\Rightarrow {\mathtt {ideal\_pet(X)}}. \nonumber \\
+	\end{aligned}$$
+	\caption[The \gls{mln} translation of the Problog program in Figure~\ref{fig:problog}]{\gls{mln} model for the pet decision problem. Probabilistic facts  $0.8::$\texttt {playful(alpaca).} states that \texttt{alpaca} us playful with certainty of $80 \%$. Deterministic fact \texttt{legs(alpaca,4).} states the \texttt{alpaca} has four legs with certainty of $100 \%$.  A rule \texttt{cuddly(X)} :- \texttt{fluffiness(X,Y),Y >= 4.} states that a pet is \texttt{cuddly} is its \texttt{fluffiness} level is greater or equal to 4. \label{fig:mln}}
+\end{figure}
 
 
 
