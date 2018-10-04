@@ -37,9 +37,9 @@ An interpretation that satisfies the proposition is a \textit{model} of that pro
 
 
 \paragraph{Example} The proposition
-$$\text{\textit{playful}} \wedge \text{\textit{fluffy}} \Rightarrow \text{\textit{ideal\_pet}} $$
-encodes that when something is playful (variable \textit{playful} is true) and fluffy (variable \textit{fluffy} is true )then it is an ideal pet (variable \textit{ideal\_pet} is true).
-Every interpretation in which \textit{ideal\_pet} is true is a model of this proposition.
+$$\text{\texttt{playful}} \wedge \text{\texttt{fluffy}} \Rightarrow \text{\texttt{ideal\_pet}} $$
+encodes that when something is playful (variable \texttt{playful} is true) and fluffy (variable \texttt{fluffy} is true )then it is an ideal pet (variable \texttt{ideal\_pet} is true).
+Every interpretation in which \texttt{ideal\_pet} is true is a model of this proposition.
 
 
 
@@ -61,7 +61,7 @@ The task of \textit{model counting}, a generalisation of both aforementioned tas
 
 
 Propositional logic is a suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations among objects is extremely tedious.
-For instance, to indicate that two animals are of the same species would require introducing new Boolean variables for each pair of animals, such as \textit{same\_species\_dog\_cat}, and specifying their truth assignments.
+For instance, to indicate that two animals are of the same species would require introducing new Boolean variables for each pair of animals, such as \texttt{same\_species\_dog\_cat}, and specifying their truth assignments.
 
 
 
@@ -90,7 +90,7 @@ A \textit{literal} is an atom or its negation.
 Finally, a \textit{formula} in predicate logic is defined as:
 \begin{itemize}
 	\item An atom is a formula
-	\item \textit{true} and \textit{false} are formulas
+	\item \texttt{true} and \texttt{false} are formulas
 	\item If $\phi$ and $\psi$ are formulas, so are $\phi \wedge \psi$, $\phi \vee \psi$, $\phi \Rightarrow \psi$, $\phi \Leftrightarrow \psi$ and $\not \phi$
 	\item If $\phi$ is a formula and $X$ is a variable, so are $\forall X \phi$ and $\exists X \phi$.
 \end{itemize}
@@ -108,18 +108,18 @@ A Formula is \textit{ground} if it does not contain logical variables, meaning t
 Evaluating formulas in predicate logic is not as simple as in the propositional logic.
 The main complication comes from the usage of variables.
 Thus, in order to specify the interpretation one first has to, for each predicate,  map logical variables to a set of domain elements, i.e., each predicate has to be \textit{grounded}.
-Once groundings are obtained, each grounding of a predicate is associated with \textit{true} or \textit{false}.
+Once groundings are obtained, each grounding of a predicate is associated with \texttt{true} or \texttt{false}.
 
 
 
 \paragraph{Example} Mapping the previous example in propositional logic to predicate logic results in the following formula:
 
-$$\forall X \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy(X)}} \Rightarrow \text{\textit{ideal\_pet(X)}}. $$
+$$\forall X \quad \text{\texttt{is\_playful(X)}} \wedge \text{\texttt{is\_fluffy(X)}} \Rightarrow \text{\texttt{ideal\_pet(X)}}. $$
 
  Predicate logic allows us to easily express more complex knowledge relating different objects.
  For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend:
- $$\forall X, \exists Y \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy(X)}} \wedge \text{\textit{friends(X,Y)}} \Rightarrow \text{\textit{ideal\_pet(X)}}. $$
- Assuming the domain being $\{$\textit{cat,hamster,alpaca}$\}$, the groundings of the predicate \textit{is\_playful(X)} are: \textit{is\_playful(cat)}, \textit{is\_playful(hamster)} and \textit{is\_playful(alpaca)}.
+ $$\forall X, \exists Y \quad \text{\texttt{is\_playful(X)}} \wedge \text{\texttt{is\_fluffy(X)}} \wedge \text{\texttt{friends(X,Y)}} \Rightarrow \text{\texttt{ideal\_pet(X)}}. $$
+ Assuming the domain being $\{$\texttt{cat,hamster,alpaca}$\}$, the groundings of the predicate \texttt{is\_playful(X)} are: \texttt{is\_playful(cat)}, \texttt{is\_playful(hamster)} and \texttt{is\_playful(alpaca)}.
 
 
 
@@ -146,16 +146,16 @@ Furthermore, it restricts the formulas to be in the form of \textit{Horn clauses
 A \textit{clause} is a disjunction of literals:
 
 \begin{center}
-	\textit{A}$_1$  $\vee$ \ldots $\vee$ \textit{A}$_n$.
+	\texttt{A}$_1$  $\vee$ \ldots $\vee$ \texttt{A}$_n$.
 \end{center}
 
 More generally, if some of the literals in a clause are \textit{negated}
 
-$$ \text{\textit{A}}_1 \vee \text{\ldots} \vee \text{\textit{A}}_n \vee \neg \text{\textit{B}}_1 \vee \text{\textit{\ldots}} \vee \neg \text{\textit{B}}_m$$
+$$ \text{\texttt{A}}_1 \vee \text{\ldots} \vee \text{\texttt{A}}_n \vee \neg \text{\texttt{B}}_1 \vee \text{\texttt{\ldots}} \vee \neg \text{\texttt{B}}_m$$
 
 then the clause can be written as an \textit{if-then} rule, for instance in the logic programming language \textit{Prolog}:
 
-$$ \underbrace{\text{\textit{A}}_1, \text{\ldots}, \text{\textit{A}}_n}_{\text{\textit{head}}} \text{\textit{:-}} \underbrace{\text{\textit{B}}_1, \text{\textit{\ldots}}, \text{\textit{B}}_m}_{\text{\textit{body}}}.$$
+$$ \underbrace{\text{\texttt{A}}_1, \text{\ldots}, \text{\texttt{A}}_n}_{\text{\textit{head}}} \text{\texttt{:-}} \underbrace{\text{\texttt{B}}_1, \text{\texttt{\ldots}}, \text{\texttt{B}}_m}_{\text{\textit{body}}}.$$
 
 Comma in the \textit{head} of the rule stands for a disjunction, while in the \textit{body} it indicates the conjunction of literals.
 A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$.
@@ -181,25 +181,25 @@ Let us assume that royal ancestry exists among the animal species as well and th
 How do we express this requirement in logic?
 Let us define royal ancestry as follows: \textit{some is of royal ancestry if at least one of her ancestors was a king or queen}.
 Starting simple, some is royal if he or she is a king or queen:
-$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{is\_king(X)}}.$$
-$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{is\_queen(X)}}.$$
+$$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{is\_king(X)}}.$$
+$$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{is\_queen(X)}}.$$
 
 Next, we can extend the rules to the children of kings and queens:
-$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{parent(X,Y),is\_king(X,Y)}}.$$
-$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{parent(X,Y),is\_queen(X,Y)}}.$$
+$$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{parent(X,Y),is\_king(X,Y)}}.$$
+$$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{parent(X,Y),is\_queen(X,Y)}}.$$
 
 Specifying these rules so that we could identify royal ancestry in general case is obviously tedious.
-However, \textit{recursion} allows us to compactly compute all ancestors through the procedural interpretation of implication:
+However, \texttt{recursion} allows us to compactly compute all ancestors through the procedural interpretation of implication:
 
-$$ \text{\textit{ancestor(X,Y)}} \text{ :- } \textit{parent(X,Y)}.$$
-$$ \text{\textit{ancestor(X,Y)}} \text{ :- } \textit{parent(X,Z),ancestor(Z,Y)}.$$
+$$ \text{\texttt{ancestor(X,Y)}} \text{ :- } \texttt{parent(X,Y)}.$$
+$$ \text{\texttt{ancestor(X,Y)}} \text{ :- } \texttt{parent(X,Z),ancestor(Z,Y)}.$$
 
 The first clause state that $X$ is an ancestor of $Y$ if $X$ is a parent of $Y$.
 The second clause states that $X$ is an ancestor of $Y$ is $X$ is a parent of $Y$ who is an ancestor of $Y$.
 We can now define the rule for royal ancestry in a simple way:
 
-$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_king(Y)}}.$$
-$$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_queen(Y)}}.$$
+$$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{ancestor(Y,X),is\_king(Y)}}.$$
+$$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{ancestor(Y,X),is\_queen(Y)}}.$$
 
 
 
@@ -454,25 +454,25 @@ The choice for a quality is a more difficult one, and it typically involves spec
 
 
 \paragraph{\textbf{Example}}
-Going back to the example in Table \ref{tab:pets}, assume we are given the following vocabulary: \{ \textit{legs/2}, \textit{fluffiness/2}, \textit{diary/2}, \textit{playful/2}, \textit{bites/1}, \textit{spits/1} \}.
-We will assume that the predicates with two arguments, such as \textit{legs} and \textit{playful}, take an entity of a pet as the first argument and the second argument states the value of the attribute.
-The predicate taking only one argument, for instance \textit{bites}, simply state that a pet bites.
+Going back to the example in Table \ref{tab:pets}, assume we are given the following vocabulary: \{ \texttt{legs/2}, \texttt{fluffiness/2}, \texttt{diary/2}, \texttt{playful/2}, \texttt{bites/1}, \texttt{spits/1} \}.
+We will assume that the predicates with two arguments, such as \texttt{legs} and \texttt{playful}, take an entity of a pet as the first argument and the second argument states the value of the attribute.
+The predicate taking only one argument, for instance \texttt{bites}, simply state that a pet bites.
 Searching for a predictive \gls{ilp} model in a top-down manner will start by exploring all clauses with a single predicate in the body:
 
 \begin{center}
-	\textit{perfect\_pet(X) :- legs(X,2).} \quad \textit{perfect\_pet(X) :- legs(X,4).}
+	\texttt{perfect\_pet(X) :- legs(X,2).} \quad \texttt{perfect\_pet(X) :- legs(X,4).}
 
 	$\ldots$
 
-	\textit{perfect\_pet(X) :- spits(X).} \quad \textit{perfect\_pet(X) :- bites(X).}
+	\texttt{perfect\_pet(X) :- spits(X).} \quad \texttt{perfect\_pet(X) :- bites(X).}
 \end{center}
 
 
-Clauses that were found useful, let us say that is \textit{perfect\_pet(X) :- legs(X,4).}, will be extended further:
+Clauses that were found useful, let us say that is \texttt{perfect\_pet(X) :- legs(X,4).}, will be extended further:
 
 
 \begin{center}
-	\textit{perfect\_pet(X) :- legs(X,4),spits(X).} \quad \textit{perfect\_pet(X) :- legs(X,4),bites(X).}
+	\texttt{perfect\_pet(X) :- legs(X,4),spits(X).} \quad \texttt{perfect\_pet(X) :- legs(X,4),bites(X).}
 
 	$\ldots$
 \end{center}
@@ -524,7 +524,7 @@ It the predicate \texttt{b$_2$/2} would be specified as \texttt{b$_2$(+,-)}, the
 
 
 \paragraph{Syntactic restrictions.}
-We use the following restrictions on the form of clauses:
+Constraints might be imposed on the syntax of the clauses, for instance
 \begin{itemize}
 	\item \textbf{Connectivity} specifies which connectivity operators can be used in the bodies of the clauses: conjunction, disjunction and negation. We currently use only the conjunctions and disjunctions.
 	\item \textbf{Length bound} limits the lengths of the body of a clause.

@@ -1,4 +1,4 @@
-\documentclass[showinstructions,faculty=firw,department=cws,phddegree=cws]{adsphd}
+\documentclass[print,faculty=firw,department=cws,phddegree=cws]{adsphd}
 %\documentclass[showinstructions,showlabels,coverfontpercent=100,faculty=firw,department=cws,phddegree=cws]{adsphd}
 %\documentclass[croppedpdf,showinstructions,faculty=firw,department=cws,phddegree=cws]{adsphd}
 %\documentclass[online,faculty=firw,department=cws,phddegree=cws]{adsphd}
@@ -15,16 +15,16 @@
 % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 %%% COVER: Settings %%%
-\title{The Title of Your PhD Dissertation}
+\title{Learning Symbolic and Relational Latent Representations}
 %\subtitle{Multiscale computing for Dummies}
 
 \author{Sebastijan}{Dumančić}
 
-\supervisor{Prof.~dr.~ir.~H.~Blockeel}{}
+\supervisor{Prof.~dr.~ir.~ Hendrik~Blockeel}{}
 
 \president{Prof.~dr.~ir.~The~Chairman}
-\jury{Prof.~dr.~ir.~J.~Davis\\
-      Prof.~dr.~ir.~J.~Suykens
+\jury{Prof.~dr.~ir.~Jesse~Davis\\
+      Prof.~dr.~ir.~Johan~Suykens
 }
 \externaljurymember{Prof.~dr.~David~Poole}{University of British Columbia, Canada}
 \externaljurymember{Dr.~Mathias~Niepert}{NEC Labs Europe, Germany}
@@ -63,15 +63,15 @@
 %%% COVER: End settings %%%
 
 % for the nomenclature (comment out if you do not use the nomencl package
-\usepackage{nomencl}   % For nomenclature
-\renewcommand{\nomname}{List of Symbols}
-\newcommand{\myprintnomenclature}{%
-  \cleardoublepage%
-  \printnomenclature%
-  \chaptermark{\nomname}
-  \addcontentsline{toc}{chapter}{\nomname} %% comment to exclude from TOC
-}
-\makenomenclature%
+%\usepackage{nomencl}   % For nomenclature
+%\renewcommand{\nomname}{List of Symbols}
+%\newcommand{\myprintnomenclature}{%
+%  \cleardoublepage%
+%  \printnomenclature%
+%  \chaptermark{\nomname}
+%  \addcontentsline{toc}{chapter}{\nomname} %% comment to exclude from TOC
+%}
+%\makenomenclature%
 
 % for the list of abbreviations (comment out if you do not use the glossaries package
 \usepackage{glossaries} % For list of abbreviations
@@ -159,7 +159,7 @@
 
 \frontmatter % to get \pagenumbering{roman}
 
-\includepreface{preface}
+%\includepreface{preface}
 \includeabstract{abstract}
 %\includeabstractnl{abstractnl}
 
@@ -175,7 +175,7 @@
 %    \includenomenclature{nomenclaturechapter}
 % 2. automatic generation via the nomencl package
 %    \nomenclature[cB]{$c_B(\vec{x})$}{Characteristic function of $B$}
-\myprintnomenclature
+%\myprintnomenclature
 
 \tableofcontents
 \listoffigures
@@ -222,7 +222,7 @@
 %\printbibliography[title=\bibname]
 %\instructionsbibliography
 
-\includecv{curriculum}
+%\includecv{curriculum}
 
 \includepublications{publications}
 
