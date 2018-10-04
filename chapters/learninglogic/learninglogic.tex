@@ -5,7 +5,7 @@
 This chapter briefly introduces the concepts of statistical relational learning.
 It starts with a short introduction to logic, starting from the propositional logic and gradually climbs the ladder of complexity all the way to the logic programming.
 It continues with a brief introduction to Inductive logic programming.
-Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory to quantify uncertainty of the reasoning.
+Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory to quantify the uncertainty of the reasoning.
 
 
 
@@ -60,7 +60,7 @@ The task of \textit{model counting}, a generalisation of both aforementioned tas
 \subsection{Predicate logic}
 
 
-Propositional logic is suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations among objects is extremely tedious.
+Propositional logic is a suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations among objects is extremely tedious.
 For instance, to indicate that two animals are of the same species would require introducing new Boolean variables for each pair of animals, such as \textit{same\_species\_dog\_cat}, and specifying their truth assignments.
 
 
@@ -97,7 +97,7 @@ Finally, a \textit{formula} in predicate logic is defined as:
 
 
 A \textit{literal} in predicate logic is an atom or its negation.
-Formula is \textit{ground} if it does not contain logical variables, meaning that the variables are \textit{bind} to the exact objects or individuals.
+A Formula is \textit{ground} if it does not contain logical variables, meaning that the variables are \textit{bind} to the exact objects or individuals.
 
 
 
@@ -138,7 +138,7 @@ $$\forall X \quad \text{\textit{is\_playful(X)}} \wedge \text{\textit{is\_fluffy
 \subsection{Logic programming}
 
 
-\textit{Logic programming} uses language of predicate logic for computer programming.
+\textit{Logic programming} uses the language of predicate logic for computer programming.
 It uses a subset of predicate logic in which the domains are restricted to \textit{Herbrand base} -- the set of all ground atoms that can be constructed from the constant and function symbols in the alphabet.
 Furthermore, it restricts the formulas to be in the form of \textit{Horn clauses}.
 
@@ -176,10 +176,10 @@ Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic 
 
 
 \paragraph{Example}
-Some pet owners are more picky than others and require a certain pedigree from their current and future pets.
-Let us assume that royal ancestry exists among the animal species as well, and that some pet owners want royal pets.
+Some pet owners are pickier than others and require a certain pedigree from their current and future pets.
+Let us assume that royal ancestry exists among the animal species as well and that some pet owners want royal pets.
 How do we express this requirement in logic?
-Let us define royal ancestry as follows: \textit{some is of royal ancestry if at least on of her ancestors was a king or queen}.
+Let us define royal ancestry as follows: \textit{some is of royal ancestry if at least one of her ancestors was a king or queen}.
 Starting simple, some is royal if he or she is a king or queen:
 $$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{is\_king(X)}}.$$
 $$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{is\_queen(X)}}.$$
@@ -261,7 +261,7 @@ One step further are \textit{multi-instance representations} (MIR)~\cite{Dietter
 This representation class associates labels with \textit{sets of examples}.
 Going back to out pet example, let us redefine the \gls{ml} model to do a different kind of predictions: \textit{do I like the taste in pets of a certain person?}
 As one person can have multiple pets, multi-instance representation is well suited for this task.
-An example is given in Table \ref{tab:mi}: an entity \textit{Hannah} owns three pets with different features, and the target information tell us that we like \textit{Hannah}'s taste in pets.
+An example is given in Table \ref{tab:mi}: an entity \textit{Hannah} owns three pets with different features, and the target information tells us that we like \textit{Hannah}'s taste in pets.
 The target information is provided on the set of pets, not individual pets.
 This is obviously a more difficult learning task the decision function being learned is also required to identify whether a \textit{relevant} information comes from all elements of the set or just a subset.
 
@@ -354,7 +354,7 @@ More specifically, \gls{ilp} is defined as follows:
 
 Several components form an \gls{ilp} problem.
 First, there are positive and negative examples; going back to our \textit{pet} example, positive examples would be pets we previously liked, while the negative examples would be pets we would not like to purchase again.
-Second, a typical \gls{ilp} learner requires a specification how to construct candidate clauses.
+Second, a typical \gls{ilp} learner requires a specification of how to construct candidate clauses.
 This is known as \textit{language bias}, and it is usually specified in a form of syntactic constraints on candidate formulas.
 For instance, one can use only clauses with at most 3 literals in a body and at most 3 distinct logical variables.
 Third, one has to provide a \textit{covers} relation.
@@ -430,12 +430,12 @@ Clause $c_2$ is \textit{specialisation} of clause $c_1$, $c_1 \preceq c_2$, if a
 \end{algorithm}
 
 
-Both framework follow the same steps, illustrated in Algorithm \ref{alg:ilploop}, and differ only in small details.
+Both frameworks follow the same steps, illustrated in Algorithm \ref{alg:ilploop}, and differ only in small details.
 They maintain a \textit{queue} of candidates, and iteratively test candidates from the \textit{queue}.
-If a candidate clause satisfies a certain quality criteria, it is added to the final theory and all examples it \textit{entails} are removed from the example pool.
+If a candidate clause satisfies a certain quality criterion, it is added to the final theory and all examples it \textit{entails} are removed from the example pool.
 If a candidate does not satisfy the quality criteria, the refinements of the candidate (obtained through the $\rho$ function) are added to the candidate queue.
 Afterwards, the queue of candidates is pruned by removing unnecessary candidates.
-This procedure repeats until a certain stop criteria is met.
+This procedure repeats until a certain stop criterion is met.
 
 
 
@@ -446,9 +446,9 @@ The \textit{specific-to-general} approaches state from very specific clauses, an
 
 
 
-A wide landscape of \gls{ilp} algorithms comes from modifying these few choices choices: queue initialisation, $\rho$ function, stopping and quality criteria.
+A wide landscape of \gls{ilp} algorithms comes from modifying these few choices: queue initialisation, $\rho$ function, stopping and quality criteria.
 A common choice for the stopping criteria is to stop when no more examples can be covered.
-The choice for a quality is a more difficult one, and it typically involves specifying the minimal accuracy for a clause to be acceptable, minimal number of examples to cover and so on.
+The choice for a quality is a more difficult one, and it typically involves specifying the minimal accuracy for a clause to be acceptable, the minimal number of examples to cover and so on.
 
 
 
@@ -457,7 +457,7 @@ The choice for a quality is a more difficult one, and it typically involves spec
 Going back to the example in Table \ref{tab:pets}, assume we are given the following vocabulary: \{ \textit{legs/2}, \textit{fluffiness/2}, \textit{diary/2}, \textit{playful/2}, \textit{bites/1}, \textit{spits/1} \}.
 We will assume that the predicates with two arguments, such as \textit{legs} and \textit{playful}, take an entity of a pet as the first argument and the second argument states the value of the attribute.
 The predicate taking only one argument, for instance \textit{bites}, simply state that a pet bites.
-Searching for a predictive \gls{ilp} model in a top-down manner will start with exploring all clauses with a single predicate in the body:
+Searching for a predictive \gls{ilp} model in a top-down manner will start by exploring all clauses with a single predicate in the body:
 
 \begin{center}
 	\textit{perfect\_pet(X) :- legs(X,2).} \quad \textit{perfect\_pet(X) :- legs(X,4).}
@@ -488,11 +488,11 @@ until a satisfactory model is found.
 \subsection{Language bias}
 \label{ch2:languagebias}
 
-Blindly search over the space of possible clauses usually generates huge search spaces.
+Blindly searching over the space of possible clauses usually generates huge search spaces.
 To tackle this issue, many \gls{ilp} system rely on \textit{language bias}~\cite{DBLP:reference/ml/Blockeel17} to focus the search.
 
 
-Language bias provide a specification how the provided predicates can \textit{interact} with each other.
+Language bias provides a specification of how the provided predicates can \textit{interact} with each other.
 This typically includes specifying the following information
 
 
@@ -531,7 +531,7 @@ We use the following restrictions on the form of clauses:
 	\item \textbf{Term bound} introduces the upper bound on the \textit{maximal} number of terms in a clause.
 \end{itemize}
 
-Given these constrains, we can reduce the search space substantially which can further be pruned through generalisation and specialisation.
+Given these constraints, we can reduce the search space substantially which can further be pruned through generalisation and specialisation.
 % Given these constraints, we simply enumerate all formulas of bounded length that satisfy them; formulas enumerated in this way form the language bias.
 % The same principle is used for generating the language bias of both encoder and decoder clauses.
 
@@ -548,7 +548,7 @@ Given these constrains, we can reduce the search space substantially which can f
 
 
 \newglossaryentry{pilp}{name={PILP},description={Probabilistic inductive logic programming}}
-Though clausal logic is a powerful representation framework, it still has a drawback when it comes to reasoning: it can only represent things being \textit{true} or \textit{false}, but cannot reason about uncertainty of conclusion.
+Though clausal logic is a powerful representation framework, it still has a drawback when it comes to reasoning: it can only represent things being \textit{true} or \textit{false}, but cannot reason about the uncertainty of conclusion.
 Therefore, significant work has been devoted towards combining logic reasoning with probability theory, under the name of Statistical relational learning (\gls{srl}) and Probabilistic inductive logic programming.
 
 
@@ -562,8 +562,8 @@ In the remainder of the chapter, we describe two prominent approaches within \gl
 
 \subsection{Problog}
 
-\textit{Problog}~\cite{DeRaedt:2007:PPP:1625275.1625673} is an probabilistic extension of Prolog where some facts can be annotated with the probabilities.
-It is therefore a representation of the first formalism of the Halpern's systematisation.
+\textit{Problog}~\cite{DeRaedt:2007:PPP:1625275.1625673} is a probabilistic extension of Prolog where some facts can be annotated with the probabilities.
+It is, therefore, a representative of the first formalism of the Halpern's systematisation.
 
 An example of a Problog program is given in Figure~\ref{fig:problog}.
 The central concept in Problog is a \textit{probabilistic fact}: ground fact $f$ annotated with a probability $p$ (e. g., $0.8{:: }{\mathtt {playful(alpaca)}}$).
@@ -618,12 +618,14 @@ $$
 
 
 
+
+
 \subsection{Markov logic networks}
 
 \newglossaryentry{mln}{name={MLN},description={Markov Logic Network}}
 \textit{Markov logic networks} (\gls{mln})~\cite{Richardson2006} fall in the second category of Halpern's classification as they associate probabilities with possible worlds.
 \gls{mln}s start from the view that the formulas in first-order logic can be seen as a set of hard constraints on the set of possible worlds: if a world violates one logical formula, its probability is zero.
-\gls{mln}s aim to soften this constraints by making the worlds that violate the formulas less probable, but not impossible.
+\gls{mln}s aim to soften these constraints by making the worlds that violate the formulas less probable, but not impossible.
 Each formula thus has an associated weight that specifies how strong the constraint is.
 
 
@@ -638,7 +640,7 @@ Similar to Problog, \gls{mln}s are capable of answering different types of queri
 
 
 Figure \ref{fig:mln} shows the \gls{mln} translation of the pet decision problem introduced before.
-In contrast to the Problog model, \gls{mln}s cannot represent uncertain facts and therefore all fact are deterministic.
+In contrast to the Problog model, \gls{mln}s cannot represent uncertain facts and therefore all facts are deterministic.
 Uncertainty in \gls{mln}s can be handled only through the formulas which can be stochastic (e. g., $w_1 ~~ {\mathtt {diet(X,carnivore)}} \Rightarrow {\mathtt {bites(X)}} $) with $w_1$ reflecting the strength of the constraint, and deterministic (e. g., ${\mathtt {cuddly(X)}} \Rightarrow \mathtt {ideal\_pet(X)}.$) with the associated weight being \texttt{infinity} (meaning that no possible world can break it).
 
 

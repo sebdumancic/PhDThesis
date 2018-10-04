@@ -8,12 +8,12 @@ We conclude by summarising the presented work, restating its main contributions,
 \section{Thesis summary and contributions}
 
 
-The success of any machine learning application depends on the quality of provided data.
-That does not only  reflect the quality of the data collection process, but the quality of data representation as well.
-The quality of data representation is reflected in the quality of features that are used to describe the desired objects, which should not only the informative and relevant, but should also allow to capture interesting patterns easily.
+The success of any machine learning application depends on the quality of the provided data.
+That does not only  reflect the quality of the data collection process but the quality of data representation as well.
+The quality of data representation is reflected in the quality of features that are used to describe the desired objects, which should not only the informative and relevant but should also allow capturing interesting patterns easily.
 This usually requires a domain expert knowing which features might be relevant for the task.
 What used to be a time-consuming and labour-intensive task is now transformed into an automatic procedure by \textit{representation} or \textit{deep learning}.
-The field of representation learning concerns the development of techniques that automatically extract effective representation of the provided data and has revolutionised the field of machine learning over the last decade.
+The field of representation learning concerns the development of techniques that automatically extract an effective representation of the provided data and has revolutionised the field of machine learning over the last decade.
 
 
 Unfortunately,  the majority of the existing representation learning methods focuses on \textit{flat data}, which represents data with vectors containing features values.
@@ -44,7 +44,7 @@ The main novelty this technique introduces is that it clusters objects and relat
 Compared to the existing work that uses clustering to enhance relational representations, the proposed technique clustering the instances of relationships, not just their types.
 It can thus discover various \textit{sub-types} of relationships that might carry useful information.
 We show that learning from the latent representations created by clustering is beneficial for relational learning as it often improves the performance of the relational classifier while at the same time reduces the complexity of the induced model.
-Moreover, we introduce a relatively simple methods for explaining the invented latent features which allow us to overcome the typical issue of a black-box feature invention machines.
+Moreover, we introduce a relatively simple method for explaining the invented latent features which allow us to overcome the typical issue of a black-box feature invention machines.
 
 
 
@@ -56,8 +56,8 @@ These two contributions motive us to pose the following claim:
 \end{quote}
 
 
-The results related to the first two contributions show that the reason why relational learning is difficult is that relevant information comes from different sources, being it the attributes or surrounding structure, and that separating those sources helps to improve the performance.
-This is related to the concept of \textit{disentangling the factors of variation} many deep leaning approaches aspire to achieve.
+The results related to the first two contributions show that the reason why relational learning is difficult is that relevant information comes from different sources, being it the attributes or surrounding structure and that separating those sources helps to improve the performance.
+This is related to the concept of \textit{disentangling the factors of variation} many deep learning approaches aspire to achieve.
 
 
 
@@ -68,7 +68,7 @@ They stand for a generalisation of the flat auto-encoder towards logic programs 
 that includes both data and the computational framework for defining relational features.
 In contrast to \gls{curled} which introduces relational concepts into relational representation learning but still relies on statistical summaries for inventing the latent features, Auto-encoding logic program rely on clausal logic for every step of the pipeline.
 Therefore, they fully leverage the representation power of logic.
-We introduce a constraint optimisation framework for learning auto-encoding logic programs that proved to be reasonable efficient.
+We introduce a constraint optimisation framework for learning auto-encoding logic programs that proved to be reasonably efficient.
 The experiments show that latent representations created by \alp{} aid learning generative \gls{srl} models, resulting in a better performance of the \gls{srl} models learnt in the latent space.
 
 
@@ -81,7 +81,7 @@ The experiments show that latent representations created by \alp{} aid learning 
 The fourth contribution of this thesis is an analysis of relational representation learning techniques.
 We start by analysing the relational latent representations created by \gls{curled} and show that such representations are effective because the identify groupings in data that correspond well with the available labels.
 We then focus on comparing the symbolic and embedding \gls{srl} approaches on a set of standard benchmarks for relational classification and knowledge base completion.
-The results of the comparison show that embedding approach are suitable for scenarios when the data is \textit{curated} and most of the available information is found relevant for the task at hand, while symbolic \gls{srl} approaches are more suitable for the case when data cannot be curated and reduced to only the relevant information.
+The results of the comparison show that embedding approaches are suitable for scenarios when the data is \textit{curated} and most of the available information is found relevant for the task at hand, while symbolic \gls{srl} approaches are more suitable for the case when data cannot be curated and reduced to only the relevant information.
 When compared on the standard knowledge base completion tasks, symbolic \gls{srl} methods outperform embeddings approaches by a large margin.
 Finally, embeddings \gls{srl} approaches seem to be a good alternative for assessing the similarity in relational data.
 
@@ -117,7 +117,7 @@ As we have outlined in Chapter \ref{ch:learningrepresentations}, we do have a go
 Most of these properties are intuitions that come from empirical observation, not strong theoretical results.
 Moreover, this thesis has proven that mapping those concepts to relational data representations is not a straightforward task.
 Part of the reason is the semantic difference between Euclidean spaces and first-order logic.
-Understanding which data properties help relational learning will help use tune the latent representation created by \gls{curled} and \alp{s}.
+Understanding which data properties help relational learning will help us tune the latent representation created by \gls{curled} and \alp{s}.
 This is especially important for \alp{s} as it can inform us how to impose the language bias in order to discover the latent features.
 
 
@@ -142,7 +142,7 @@ However, such probabilistic relational representation might be beneficial, and n
 
 
 \paragraph{Integrating symbolic and sub-symbolic representation learning methods}
-This thesis considers learning relational latent representations from the perspective of logical approaches to \gls{srl}, and is focus on learning latent representation of symbolic data.
+This thesis considers learning relational latent representations from the perspective of logical approaches to \gls{srl}, and is focused on learning latent representation of symbolic data.
 Many existing approaches for representation learning considers numerical and signal-like data and effectively treat the symbolic data in the same way by re-representing it in the Euclidean space.
 This sacrifices many aspects and expressivity of logic.
 We believe the middle ground, which exploits the best parts of both logic and neural networks, is the direction that could show the most advancement.
@@ -161,13 +161,13 @@ We believe another avenue worth exploring is a development of \textit{hybrid} le
 This thesis considers laying down the foundations for a logic-based relational representation learning, and a lot of work still has to be done in that direction.
 But making these methods applicable to real-world scenarios, the scalability is an important issue to address.
 We do not pay special attention to this issue during the thesis.
-Improving the scalability of \gls{curled} involves investigating scalable clustering methods, as calculation of the similarity measure is not the most computationally expensive step in the pipeline.
+Improving the scalability of \gls{curled} involves investigating scalable clustering methods, as the calculation of the similarity measure is not the most computationally expensive step in the pipeline.
 \alp{s}, on the other hand, can benefit from improving the constraint optimisation procedure by exploring novel problem encodings, decomposition techniques~\cite{decompositions,Friesen:2015:RDN:2832249.2832284}  and new semantic constraints.
 
 
 
 \paragraph{Task-specific representations}
-The goal of learning latent representations of data is currently focused on improving the performance of of a predictive model, either through improving the predictive accuracy of the model or making the learning easier.
+The goal of learning latent representations of data is currently focused on improving the performance of a predictive model, either through improving the predictive accuracy of the model or making the learning easier.
 This is the setup we have focused in this thesis.
 However, there is no reason to stop there: having a model of a domain, i.e., facts and clauses that are known to be true, \gls{srl} systems can reason about any aspect of the domain.
 We believe this open many doors for relational representation learning, where one interesting avenue might be to learn representations for faster inference and tackling the challenge of \textit{lifted inference}~\cite{VdBThesis13,Poole:2003:FPI:1630659.1630801}.

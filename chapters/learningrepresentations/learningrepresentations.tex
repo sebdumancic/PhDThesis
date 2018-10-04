@@ -23,7 +23,7 @@ This also illustrates why we care so much about the representation of data: if t
 As one relies on \gls{ml} in scenarios when one has little or no knowledge of \textit{f}, it is very difficult, if not impossible, to know in advance which information is relevant for the mapping.
 Deploying \gls{ml} solution in practice, thus, requires a lot of manual work just to identify the relevant information for the task.
 Insufficiently captured information does not imply that the relevant information is not present, but instead is not represented explicitly enough.
-A typical examples is illustrated in Figure \ref{fig:transform} in which blue dots are difficult to separated from red ones in the original data representation, but transforming the data into a new latent representation makes them easy to separate.
+A typical example is illustrated in Figure \ref{fig:transform} in which blue dots are difficult to separate from red ones in the original data representation, but transforming the data into a new latent representation makes them easy to separate.
 
 
 \begin{figure}
@@ -40,7 +40,7 @@ It thus generalises the machine learning equation (Equation \ref{eq:ml}) to:
 \end{equation}
 
 
-where, in addition to the decision function \textit{f}, we include the representation mapping function \textit{m}.
+where, in addition to the decision functions \textit{f}, we include the representation mapping function \textit{m}.
 Moreover, several mapping function can be \textit{stacked} together to perform multiple representation learning steps.
 
 
@@ -54,7 +54,7 @@ Moreover, several mapping function can be \textit{stacked} together to perform m
 
 The core focus of representation learning is on \textit{learning} the function(s) \textit{m}$_{(i)}$.
 By the time of writing of this thesis, several thousands of different representation learning methods exist in the literature \cite{Goodfellow2016}.
-In this section we illustrate the principles of representation learning on a few prototypical approaches.
+In this section, we illustrate the principles of representation learning on a few prototypical approaches.
 
 
 \subsection{Artificial neural networks}
@@ -82,7 +82,7 @@ The interactions between neurons are dictated by their connections (edges connec
 
 An \gls{ann} in Figure \ref{fig:ann} consists of three \textit{layers}: an \textit{input layer} which takes the data $X$, an \textit{output layer} capturing the target concept $y$ and a \textit{hidden layer} performing the representation transformation.
 \gls{ann} operates by activating neurons in different amounts depending on the input data -- similar to the human brain.
-Each neuron in the hidden layer is connected to all of the input neurons, but with different \textit{strengths} of connections.
+Each neuron in the hidden layer is connected to all of the input neurons but with different \textit{strengths} of connections.
 In formal terms, the amount of activation of any individual neuron equals
 
 \begin{equation}
@@ -95,7 +95,7 @@ The function \textit{n} is any non-linear function determining the activation ba
 
 
 
-The task of learning \gls{ann}s is the one of learning the strengths of connections given fixed structure of an \gls{ann}s.
+The task of learning \gls{ann}s is the one of learning the strengths of connections given a fixed structure of an \gls{ann}s.
 Once learned, the activation's of the neurons in the hidden layer represents the new representation of data.
 
 
@@ -109,7 +109,7 @@ This flavour of representation learning belongs to the \textbf{supervised} branc
 
 A very different approach to learning representations are \textit{auto-encoders} \cite{Hinton504}.
 Auto-encoders belong to the \textbf{unsupervised} branch of representation learning methods which do not consider a particular supervised or target information when learning representations.
-A benefit of unsupervised representation learning is that the new representations can be used for many tasks as they are not tailored for a certain task.
+A benefit of unsupervised representation learning is that the new representations can be used for many tasks as they are not tailored to a certain task.
 
 
 Learning new representations in an unsupervised way is substantially more difficult than the supervised case.
@@ -161,7 +161,7 @@ Some of the general-purpose representation priors are the following.
 
 \paragraph{\textbf{Smoothness and locality}}
 The most basic representation prior is \textit{smoothness}: learning a function $f$ is locally consistent, i.e., if $ x \approx y$ then $f(x) \approx f(y)$.
-This property simply states that predictions should be \textit{robust} and generalise to local regions of feature space, reflected in a requirement that similar examples should have similar prediction.
+This property simply states that predictions should be \textit{robust} and generalise to local regions of feature space, reflected in a requirement that similar examples should have a similar prediction.
 %This can be also interpreted as \textit{robustness}: small alteration of instance's features should not change the prediction of an \gls{ml} system.
 
 
@@ -169,8 +169,8 @@ This property simply states that predictions should be \textit{robust} and gener
 
 \paragraph{\textbf{Multiple explanatory factors}}
 The generative data distribution typically comprises several \textit{underlying factors}, and learning something about one of the factors generalises to many configurations of the other factors.
-This prior gave rise to one of the pillar of representation learning -- a  \textit{distributed representation}.
-The concept of distributed representation directly relates the quality of representation to its expressivity: good representation are \textit{expressive}, meaning that a reasonably-sized representation can capture a huge number of possible input configurations.
+This prior gave rise to one of the pillars of representation learning -- a  \textit{distributed representation}.
+The concept of distributed representation directly relates the quality of representation to its expressivity: good representations are \textit{expressive}, meaning that a reasonably-sized representation can capture a huge number of possible input configurations.
 An intuitive way to think about the capacity of the representation is comparing the number of parameters a representation requires to the number of regions it can represent.
 On the lower end, \textit{one-hot} representations common among many \gls{ml} methods can represent $N$ regions with $N$ parameters.
 On the upper end, distributed representations can represent up to $2^N$ regions with $N$ parameters.
@@ -179,7 +179,7 @@ Representation learning advertises learning of representation with the latter pr
 
 
 \paragraph{\textbf{Hierarchical organisation of explanatory factors}}
-The knowledge we poses about the world around us is not simply a collection of facts, but a hierarchically organised system.
+The knowledge we pose about the world around us is not simply a collection of facts, but a hierarchically organised system.
 Many concepts are defined in terms of other concepts, structured in a hierarchy so that \textit{low-level concepts} which can be directly observed in the real world constitute the foundations of the hierarchy while the more abstract concepts appear in the higher levels of the hierarchy.
 The advantage of such hierarchically structured knowledge is that they promote \textit{concept re-use} between the levels of hierarchy, which even further increases the expressivity of the representation.
 Moreover, concept re-use allows one to express complex concepts \textit{compactly}.
@@ -193,8 +193,8 @@ As the number of paths between concepts of different levels of abstractions (i.e
 \paragraph{\textbf{Shared factors across tasks}}
 Given many learning tasks of interest, a good data representation contains factors that are shared among many tasks.
 More precisely, each factor in a representation helps to explain many several different tasks.
-This does not necessarily works for supervised tasks: given a data $X$ and a target task $Y$, a representation useful for explaining the data generating distribution $P(X)$ tend to be useful when learning a predictive tasks $Y$ given $X$, $P(Y|X)$.
-If this property if fulfilled, it allows to have a single data representation for different tasks which can have many practical benefits for big data, e.g., storage.
+This does not necessarily work for supervised tasks: given a data $X$ and a target task $Y$, a representation useful for explaining the data generating distribution $P(X)$ tend to be useful when learning a predictive task $Y$ given $X$, $P(Y|X)$.
+If this property if fulfilled, it allows having a single data representation for different tasks which can have many practical benefits for big data, e.g., storage.
 Moreover, it also allows for sharing statistical strength across tasks.
 
 
@@ -202,9 +202,9 @@ Moreover, it also allows for sharing statistical strength across tasks.
 
 \paragraph{\textbf{Sparsity}}
 Sparsity refers to the notion that for each individual data point only a small subset of factors is relevant.
-In practical terms, this means that latent representation of each example contain only a small number of \textit{non-zero features}.
+In practical terms, this means that latent representation of each example contains only a small number of \textit{non-zero features}.
 Sparsity enforces latent representation to partition the instance space in local regions for which only a small number of factors are relevant.
-This also makes the representation more robust to noise; as only a small number of factors matters, noise is more likely to effect the irrelevant factors.
+This also makes the representation more robust to noise; as only a small number of factors matters, noise is more likely to affect the irrelevant factors.
 
 
 
@@ -239,7 +239,7 @@ From an \gls{ml} perspective, a final data representation should allow a user to
 
 
 The few examples discussed in the previous section consider learning representation from tabular data only.
-In this section we provide a brief overview of the main ideas present in transferring these ideas towards relational data.
+In this section, we provide a brief overview of the main ideas present in transferring these ideas towards relational data.
 
 
 \subsection{Knowledge graph embeddings}
@@ -304,7 +304,7 @@ In contrast to \gls{srl} models such as Problog and Markov logic networks which 
 An alternative approach is to use parts of the relational information directly as features.
 
 
-One such approach is \textit{DeepWalk} \cite{Perozzi:2014:DOL:2623330.2623732}, which combines the ideas of random walks in graph with the language modelling methodologies.
+One such approach is \textit{DeepWalk} \cite{Perozzi:2014:DOL:2623330.2623732}, which combines the ideas of random walks in a graph with the language modelling methodologies.
 In order to learn the vector representations of objects in a graph, \textit{DeepWalk} first performs random walks collecting the sequences of nodes.
 The obtained node sequences are treated as \textit{sentences} in a document and popular word embedding method of  \textit{SkipGram} \cite{NIPS2013_Skipgram} which learns word embeddings based on the co-occurrences of words.
 
@@ -317,21 +317,21 @@ Therefore, these methods can be easily applied in the inductive settings.
 
 
 \textit{Path-ranking Algorithm} is a model oriented towards the knowledge base completion tasks and it considers the task of ranking target nodes $y$ with respect to a query node $x$.
-It starts by enumerating a large collection of length-bounded paths, followed by estimation of the condition probability distribution for each rule.
+It starts by enumerating a large collection of length-bounded paths, followed by estimation of the conditional probability distribution for each rule.
 The discovered rules are considered to be the \textit{ranking experts}, which are combined by means of logistic regression.
 
 
 
 
-\textit{Discriminative Gaifman models} introduces a novelty of learning \textit{ego-centric} representations of relational data by first extracting small bounded neighbourhoods (so called the \textit{Gaifman graph}~\cite{GAIFMAN1982105}) around each object in the data followed by extraction of relational features from the bounded neighbourhoods.
-The discovered relational features are associated with the elements in a vector, and are encoding the existence of the features or the count of the relational features within the bounded neighbourhood.
+\textit{Discriminative Gaifman models} introduces a novelty of learning \textit{ego-centric} representations of relational data by first extracting small bounded neighbourhoods (so-called the \textit{Gaifman graph}~\cite{GAIFMAN1982105}) around each object in the data followed by extraction of relational features from the bounded neighbourhoods.
+The discovered relational features are associated with the elements in a vector and are encoding the existence of the features or the count of the relational features within the bounded neighbourhood.
 This offers a trade-off between efficiency (how \textit{fast} we can do the learning) and expressiveness (how much we can \textit{express} with the given language).
 
 
 
 \textit{Relational Restricted Boltzmann machines} follow the idea very similar to the Gaifman models.
-The main difference is that they do not consider the relational features only within the Gaifman graph, but within the entire data.
-Moreover, Relational Boltzmann machines use path finding as a relational features extraction method, while the Gaifman models can in principle use any \gls{ilp} learning method.
+The main difference is that they do not consider the relational features only within the Gaifman graph but within the entire data.
+Moreover, Relational Boltzmann machines use pathfinding as a relational features extraction method, while the Gaifman models can in principle use any \gls{ilp} learning method.
 
 
 
@@ -343,7 +343,7 @@ Moreover, Relational Boltzmann machines use path finding as a relational feature
 
 \newglossaryentry{lrnn}{name={LRNN},description={Lifted Relational Neural Network}}
 \newglossaryentry{relnn}{name={RelNN},description={Relational Neural Network}}
-Previously discussed embeddings approaches are by far the predominant paradigm when learning latent representation of relational data.
+Previously discussed embeddings approaches are by far the predominant paradigm when learning latent representations of relational data.
 Developing logic-based methods for relational representation learning attracted significantly less attention, but offers many benefits as discussed in Chapter~\ref{ch:introduction}.
 Two examples are \textit{Lifted relational neural networks} (\gls{lrnn}) \cite{LRNN} and \gls{relnn} \cite{Kazemi2018}.
 
@@ -358,7 +358,7 @@ Two examples are \textit{Lifted relational neural networks} (\gls{lrnn}) \cite{L
 
 \gls{lrnn}s provide a template language that maps  fuzzy logical rules and data to big neural networks, in very much the same way how Markov logic networks provide a language to map complex \gls{srl} models to Markov networks.
 The structure of the model, i.e.,  the logical rules, therefore define the structure of a neural network (Figure~\ref{fig:lrnn}, left).
-The mapping between logical and neural constructs is dictated via different type of neurons:
+The mapping between logical and neural constructs is dictated via different types of neurons:
 \begin{itemize}
 	\item each ground fact is associated with a \textit{fact neuron} taking no inputs and with value $w_k$ (corresponding to a weight in a \gls{ann}) as output
 	\item each ground atom is associated with an \textit{atom neuron}
@@ -389,7 +389,7 @@ For instance, $S1(u)$, $S2(u)$ and $S3(u)$ predicates in Figure~\ref{fig:relnn} 
 \subsubsection{Predicate invention}
 
 The \gls{ilp} community has long recognised the importance of representation change under the problem known as \textit{predicate invention} \cite{Kramer1995}.
-It concerns the problem of extending the initial vocabulary that is given to a relational learner by discovering novel concepts and relations from data, which should be explained in terms of the observable, given, predicates.
+It concerns the problem of extending the initial vocabulary that is given to a relational learner by discovering novel concepts and relations from data, which should be explained in terms of the observable, given predicates.
 The invented predicates can also be \textit{statistical} if the uncertainty in the discovered predicates is represented explicitly.
 
 
@@ -419,7 +419,7 @@ Wang et al.~\cite{WangMC15} capture differences between similar formulas and rep
 
 
 Previously discussed approaches proposed distinct ideas for relational representation learning, each with its strengths and weaknesses.
-This has inspired research combining the the ideas from the above-outlined directions.
+This has inspired research combining the ideas from the above-outlined directions.
 
 
 Most of the research in this direction focuses on imposing certain logical properties into embedded spaces.
@@ -430,7 +430,7 @@ This approach requires a domain knowledge that specifies Horn clauses that are k
 
 
 An interesting approach towards combining logical and embedding approaches for relational representation learning comes from the \textit{differentiable theorem proving}~\cite{DTP2017}.
-This approaches starts from an observation that the standard theorem proving procedures (e.g., Prolog) are often too brittle for usage with real-world knowledge bases which are not perfect and contain lots of noise.
+This approach starts from an observation that the standard theorem proving procedures (e.g., Prolog) are often too brittle for usage with real-world knowledge bases which are not perfect and contain lots of noise.
 As standard theorem proving techniques operate purely on the syntactic level, such techniques cannot detect semantic similarity between predicates such as \textit{grandfatherOf} and \textit{grandpa}.
 This is the scenario that differentiable theorem proving addresses: \textit{how can we enable such semantic interpretation of the symbols in the knowledge base?}
 

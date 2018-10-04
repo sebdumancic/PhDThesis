@@ -21,28 +21,19 @@ The chapter is based on the following publications.
 \section{Introduction}
 
 
-%Deep representation learning (DL)~\cite{Goodfellow2016} has achieved tremendous progress over the last decade by leveraging one idea: \textit{how can we automatically learn useful features (so called latent representations) that make learning easier?}
-%This removes the typically intensive, manual labour of constructing useful features.
-%However, most works largely focus on flat data often from signal-like sources (such as images, speech and text), while ubiquitous relational data (such as biological and social networks) has only recently started to receive attention.
-%Exceptions to that are \textit{knowledge graph embeddings} \cite{Nickel0TG16}, \textit{differentiable interpreters} \cite{DTP2017,bosnjak17,Reed:2016} and \textit{graph neural networks} \cite{Scarselli:2009:GNN:1657477.1657482,DBLP:conf/icml/NiepertAK16,ae482107de73461787258f805cf8f4ed}.
-%These focus on developing ways to represent relational data in Euclidean spaces, in which reasoning can be performed efficiently.
 
 
 The previous chapter introduces \gls{curled} -- a method for relational representation learning that creates latent representation by exploiting symmetries in data.
 Even though \gls{curled} brings concepts from the \gls{srl} into relational representation learning, it relies on the external clustering procedure to \textit{invent} new predicates.
 Thus, the constructed representation hierarchy  is not truly relational as latent features are not defined through logical formulas, even though we managed to find a way to explain the meaning of the constructed features.
 Additionally, latent representations created by \gls{curled} are prone to generating a rather large number of latent features, of which only a small portion  is actually used in the subsequent predictive model.
-Though the discovered features are likely to be useful for many different tasks, they make generative learning of \gls{srl} models difficult as a large number of predicates results in a large search space.
-
-
-%Embedding-based approaches, including \gls{kge}s, \textit{differentiable interpreters} \cite{DTP2017,bosnjak17,Reed:2016} and \textit{graph neural networks} \cite{Scarselli:2009:GNN:1657477.1657482,DBLP:conf/icml/NiepertAK16,ae482107de73461787258f805cf8f4ed},  can only \textit{approximate} the given relational data, but not capture it in entirety.
-%We currently lack a framework to evaluate the quality of the approximation.
-%Another common criticism is that such methods are \textit{black-box} and lead to uninterpretable representations.
-%Moreover, the vast majority of mentioned approaches are inherently \textit{transductive} (cannot be applied to unseen data), especially knowledge graph embeddings, and cannot be applied in the inductive setup.
+Though the discovered features are likely to be useful for many different tasks, they make the generative learning of \gls{srl} models difficult as a large number of predicates results in a large search space.
 
 
 
-In this chapter we ask the following question: \textit{how can we learn latent representations of relational data in a principled framework that can keep data and reasoning at relational level?}
+
+
+In this chapter we ask the following question: \textit{how can we learn latent representations of relational data in a principled framework that can keep data and reasoning at the relational level?}
 We are interested in learning relational latent representation by means of learning and inference methods from \gls{srl} community.
 
 
@@ -50,7 +41,7 @@ We are interested in learning relational latent representation by means of learn
 We argue that fully retaining first-order logic as a data representation language within \gls{dl} approaches offers several benefits.
 First, predicate logic is a Turing-equivalent programming language and thus provides a language that does not introduce any limitations upfront.
 Second, it is easily interpretable (whereas \gls{dl} is a \textit{black-box}) and modular which might allow for efficient learning strategies.
-Third, once the domain model is obtained/specified, \gls{srl} systems can answer any question w.r.t. the provided domain model, and the user thus does not have to commit to a specific learning task in advance.
+Third, once the domain model is obtained, \gls{srl} systems can answer any question w.r.t. the provided domain model and the user thus does not have to commit to a specific learning task in advance.
 Fourth, \gls{srl} and other logic-based ML methods are very data-efficient and capable of learning from a few examples only, whereas \gls{dl} is \textit{data-hungry}.
 Fifth, SRL methods allow for incorporation of \textit{background knowledge} and thus can easily build further on previously gathered knowledge.
 
@@ -60,9 +51,9 @@ Fifth, SRL methods allow for incorporation of \textit{background knowledge} and 
 
 
 This work takes a fresh look at the representation learning problem and induces relational latent representations in a \textit{symbolic way}, instead of the gradient-based optimisation.
-We introduce \textit{auto-encoding logic programs} (\alp{s}) -- a novel relational DL component which uses logic programs as a computation engine instead of neural networks.
+We introduce \textit{auto-encoding logic programs} (\alp{s}) -- a novel relational\gls{dl}L component which uses logic programs as a computation engine instead of neural networks.
 We focus on auto-encoders as they have proven to be among the most versatile \gls{dl} primitives and applicable to different learning settings (un-, semi- and supervised learning) using the same learning principle \cite{SSLVAE2014,VincentDaE,Kingma2014,BengioSAE}.
-This versatility is important as it makes a single latent representation suitable for many tasks within SRL.
+This versatility is important as it makes a single latent representation suitable for many tasks within \gls{srl}.
 There tasks range from learning predictive models to structure learning.
 A key difference between the predicate invention approaches and \alp{s} is that that we create latent representations in an entirely unsupervised manner, whereas predicate invention is defined as a supervised method.
 An exception to that is the work related ton \textit{statistical predicate invention}~\cite{Kok2007} which also addresses a generative learning setup within \gls{srl}, but never explicitly creates latent representation.
@@ -82,7 +73,7 @@ Therefore, incorporating \gls{dl} ideas into \gls{srl} might reduce the complexi
 %\tias{this paragraph brutally switches to the learning task, can use smoother transition. E.g: 'First learning a latent representation can be beneficial for the main learning task of SRL, namely structure learning. ...'}
 
 
-The contributions of this work are a (i) \textit{a framework for learning auto-encoding logic programs} which is both data-driven and data-efficient, interpretable, and unsupervised, which means that the resulting latent representation is suitable for many SRL learning tasks; (ii) \textit{a generic procedure to cast learning the auto-encoders as a constraint optimisation problem, for which existing efficient solvers can be used}; and (iii) \textit{an experimental evaluation of the proposed framework that shows the benefits for generative learning}.
+The contributions of this work are a (i) \textit{a framework for learning auto-encoding logic programs} which is both data-driven and data-efficient, interpretable, and unsupervised, which means that the resulting latent representation is suitable for many \gls{srl} learning tasks; (ii) \textit{a generic procedure to cast learning the auto-encoders as a constraint optimisation problem, for which existing efficient solvers can be used}; and (iii) \textit{an experimental evaluation of the proposed framework that shows the benefits for generative learning}.
 
 
 

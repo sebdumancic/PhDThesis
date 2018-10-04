@@ -2,7 +2,7 @@
 
 
 This chapter focuses on analysing the properties of relational latent representations.
-It focuses on explaining the effectiveness of such representation transformations and establishing the relative advantages of \gls{kge}s compared wih the methods within the \gls{srl} methods and vice versa.
+It focuses on explaining the effectiveness of such representation transformations and establishing the relative advantages of \gls{kge}s compared with the methods within the \gls{srl} methods and vice versa.
 This chapter is based on the following publications:
 
 \begin{quote}
@@ -32,7 +32,7 @@ We currently lack any measure to assess the quality of such approximation, nor d
 
 
 
-This chapter introduces two sets of experiments that offer more insight into effectiveness of relational latent representations.
+This chapter introduces two sets of experiments that offer more insight into the effectiveness of relational latent representations.
 The first set of experiments investigates why representations created by \gls{curled} are effective and identify two properties that correlated well with the increase in the performance of the \gls{srl} methods.
 The second set of experiments compares several state of the art \gls{kge} and \gls{ilp} methods on several benchmark datasets, including both relational classification and knowledge base completion.
 The experiments are designed to gain insights into relative strengths and weaknesses of the respective methods.
@@ -76,7 +76,7 @@ Quantifying sparsity in relational data is a challenging task which can be appro
 We adopt a simple definition: the number of true groundings of a predicate.
 
 
-Label entropy and sparsity jointly describe a compelling property of data representation --  instances space is divided in many local regions that match labels well  and consequently make learning substantially easier.
+Label entropy and sparsity jointly describe a compelling property of data representation --  instances space is divided into many local regions that match labels well  and consequently make learning substantially easier.
 
 
 
@@ -228,60 +228,16 @@ As the number of features is directly related to the size of the search space of
 
 
 
-%\subsection{Looking forward}
-%
-%
-%The proposed experimental framework is only the first step towards understanding how latent representations can benefit relational learning methods.
-%The interaction between label entropy and sparsity seems to play an important role, indicative of the benefit of a latent representation.
-%On the other hand, the method for extracting the meaning of the latent features and analysis of their redundancy are developed especially for CUR$^2$LED and might have a limited benefit for future approaches.
-%
-%
-%
-%Understanding when learning latent representation is (not) beneficial is an important question for further research.
-%Majority of tasks benefits from learning latent representations, but some, like the TerroristAttack dataset, do not.
-%Though we cannot definitely explain why that is the case, we suspect that the reason might be that the features of instances contain the most relevant information while the structure is uninformative.
-%In contrast, CUR$^2$LED is developed to exploit the rich structure in relational dataset and is thus not suited for the scenario where only the features are relevant.
-%
-%
-%
-%
-%Another important question is how this kind of insights connects to the embeddings to vector spaces.
-%The analysis done in this work focuses on contrasting the properties of predicates and associated data of original and latent representation obtained by CUR$^2$LED.
-%The embeddings to vector spaces replace the logical representation of data with points in the Euclidean space and are thus not amenable to this kind of analysis.
-%However, similar kind of analysis for embedding spaces is currently missing in the literature.
-%Further research towards combining relational and deep learning methods might greatly benefit from understanding up- and downsides of both directions of research, and developing new ideas that combine advantages of both.
-
-
-
-
-
-
 
 \section{On embeddings as an alternative paradigm for relational learning}
 
-
-%Learning from complex relational domains, where data contains instances and their mutual relationships, has typically been the focus of the symbolic machine learning methods.
-%Symbolic \textit{Statistical relational learning} (SRL)  \cite{GetoorSRL,Raedt:2016:SRA:3027718} uses the representational and reasoning framework of first-order logic to compactly represent such data, and combines it with probabilistic graphical models to facilitate reasoning under uncertainty.
-%As first-order logic is a very general representation language, it serves as a unifying representational framework for many tasks such as classification, clustering, link prediction, and probabilistic modelling.
-%\textit{Graph mining} (GM) approaches  \cite{Chakrabarti:2006:GML:1132952.1132954} approach relational data as graph-structured data.
-
-
-
-%As outlined in Chapter 3, recent years have yielded a novel \textit{distributional} paradigm within the \gls{srl} community, \textit{Knowledge graph embeddings} (KGEs)~\cite{EmbeddingsOverview} inspired by the recent success of deep neural networks and representation learning.
-%These representation learning methods for relational data have shown promising results for specific relational tasks such as knowledge base completion (KBC)~\cite{Nickel0TG16}.
-%KGEs take a radically different approach from the symbolic methods, and aim to \textit{re-represent} instances and their relationships as vectors and/or matrices in the Euclidean space.
-%Intuitively, KGEs introduce a novel view on relational propositionalization \cite{Kramer2001}.
-%The hope is that the geometry of the embedding space would resemble the structure of the data by, for example, keeping the instances participating in the same relationships close in the Euclidean space.
-%This in turn allows one to apply standard propositional machine learning tools and retain their scalability, while at the same time preserving certain properties of structured relational data.
-%These methods have proven to be very effective for the task of knowledge graph completion, where the goal is to identify missing links in the existing knowledge graph.
-%They have also proven to be scalable to very large knowledge graphs.
 
 
 
 
 
 \gls{srl} and \gls{kge} methods have largely been developed in isolation and little understanding is currently available on the relative advantages of the respective approaches.
-The major strength of \gls{kge}s is their scalability -- they easily operate on knowledge graphs with millions of facts and thousands of relations, and the similarity of symbols emerging from the Euclidean space.
+The major strength of \gls{kge}s is their scalability -- they easily operate on knowledge graphs with millions of facts and thousands of relations and the similarity of symbols emerging from the Euclidean space.
 As they essentially \textit{vectorize} the data, the scalability of gls{kge}s benefits from very fast computational frameworks leveraging the strengths on GPUs.
 Symbolic \gls{srl} methods, on the other hand, are capable of capturing very complex relational patterns, are interpretable and flexible reasoning systems -- once the model of the domain is obtained, a user can pose any query w.r.t. the model and does not have to commit to a predefined target.
 
@@ -289,7 +245,7 @@ Symbolic \gls{srl} methods, on the other hand, are capable of capturing very com
 
 The major weakness of \gls{kge}s is that vectorisation of complex relational data is necessarily an \textit{approximation} of it, not the exact re-representation.
 We currently lack any measure of the quality of such mapping.
-Furthermore, \gls{kge}s are black-box and uninterpretable, limited reasoning capabilities focused on local information, and have difficult time handling unseen instances.
+Furthermore, \gls{kge}s are black-box and uninterpretable, limited reasoning capabilities focused on local information, and have a difficult time handling unseen instances.
 The weakness of the symbolic \gls{srl} methods is that both inference and learning with such methods is highly complex, limiting its applicability, as well as lack of ways to represent similarity between symbols.
 
 
@@ -301,18 +257,11 @@ Symbolic \gls{srl} methods typically focus on learning from small relational dat
 
 
 
-%The SRL community has recognised the strengths of both research directions, resulting in several works combining the symbolic and distributional ideas.
-%Several works~\cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted} impose various logical properties as constraints on the embeddings spaces.
-%Sourek et al (\cite{Sourek:2015:LRN:2996831.2996838})  introduce a relational extensions of neural networks by developing a template language for constructing neural networks from logical rules and data.
-%Kazemi and Poole (\cite{Kazemi2018}) take a different view on relational NNs by means of the relational logistic regression \cite{KazemiLR2014}.
-%Dumancic and Blockeel (\cite{Dumancic2017}) introduced a task-agnostic relational latent feature learning pipeline based on clustering that can be combined with any relational learner.
-%Rockt\"{a}schel and Riedel (\cite{DTP2017}) introduce a differentiable version of the Prolog backward chaining reasoning algorithm.
 
 
-
-This work contributes towards better understanding of the relative strengths and weaknesses of the aforementioned paradigms.
+This work contributes towards a better understanding of the relative strengths and weaknesses of the aforementioned paradigms.
 We perform a systematic comparison of \gls{kge}s and symbolic \gls{srl} approaches on various standard relational classification, as well as the knowledge base completion tasks.
-Standard relational classification datasets offer variety of tasks requiring various level of reasoning complexity, while standard KBC datasets offer insights on real-life large knowledge graphs.
+Standard relational classification datasets offer a variety of tasks requiring various levels of reasoning complexity, while standard KBC datasets offer insights on real-life large knowledge graphs.
 We include both quantitative, in terms of performance, and qualitative analysis, in terms of extracted patterns of reasoning, in order to gain more insights into the suitability of these different methods.
 
 
@@ -326,7 +275,7 @@ We include both quantitative, in terms of performance, and qualitative analysis,
 \subsection{Comparing symbolic and distributional methods}
 
 
-AS stated before, the current understanding of the relative strengths and weaknesses of \gls{kge}s and symbolic \gls{srl} methods in very limited.
+As stated before, the current understanding of the relative strengths and weaknesses of \gls{kge}s and symbolic \gls{srl} methods in very limited.
 Several works, however, do offer interesting insights.
 Nickel et al. (\cite{NickleNIPS2014}) and Toutanova and Chen (\cite{toutanova2015observed}) show that including both latent features from \gls{kge}s and the observable features, in form of random walks over knowledge graphs, in a join model can greatly increase the performance and reduce the learning complexity.
 Pujara et al. (\cite{pujara:emnlp17}) show that \gls{kge}s have difficulties handling data with high degree of sparsity and noise -- which is the case with every automatically created knowledge graph.
@@ -334,10 +283,10 @@ Grefenstette (\cite{GrefenstetteTFDS}) introduces a formula framework for simula
 
 
 The work most related to ours is that of Toutanova and Chen (\cite{toutanova2015observed}) and Vig et al. (\cite{VigILP2017}).
-Toutanova and Chen compare \gls{kge}s with a simple method that takes the types of incoming edges in a knowledge graph as features (termed observable patterns), and show that such simple observable patterns outperform \gls{kge}s on some datasets.
+Toutanova and Chen compare \gls{kge}s with a simple method that takes the types of incoming edges in a knowledge graph as features (termed observable patterns) and show that such simple observable patterns outperform \gls{kge}s on some datasets.
 However, they offer no greater insight in possible reasons.
 Vig et al.  compare symbolic \gls{srl} methods with embeddings obtained by the Siamese neural network~\cite{Bromley:1993:SVU:2987189.2987282}, and focus on analysing the impact of the available \textit{background knowledge} on the performance.
-Their results indicate that \gls{kge}s might be beneficial when the background knowledge about the task at hand is limited, but is such knowledge is available then the symbolic methods are preferable.
+Their results indicate that \gls{kge}s might be beneficial when the background knowledge about the task at hand is limited but is such knowledge is available then the symbolic methods are preferable.
 Our work presented in this paper differs in a way that it goes beyond quantitative analysis and includes substantial qualitative analysis with respect to the complexity of reasoning needed to address the task.
 
 
@@ -363,22 +312,16 @@ Concretely, we focus on the following question:
 \textit{Given a set of \textbf{target instances} (entities in a knowledge base), learn a model that predicts the value of the labels associated with those instances. We consider fully relational models learning the logical theory for predicting the labels, and a feature based models learning from the vector representation of target instances.}
 \end{displayquote}
 
-%\begin{itemize}
-%    \setlength{\itemindent}{1em}
-%    \item[\textbf{T1}] Given a set of \textit{target instances} (entities in a knowledge base), learn a model that predicts the value of the labels associated with those instances. We consider fully relational models learning the logical theory for predicting the labels, and a feature based models learning from the vector representation of target instances.
-%    \item[\textbf{T2}] Given a set of instances of a specific type or domain, group them into a pre-specified number of groups. We consider methods operating on logical representation of data as well as those operating on the vector representation of instances.
-%\end{itemize}
 
 Our focus is exclusively on the classification tasks as they give us a well-defined and clear performance measure, in contrast to the clustering task which is ill-defined ~\cite{Estivill-Castro:2002}.
-Given that \gls{kge}s are sensitive to the hyper-parameters, especially the size of the embeddings, we investigate the magnitude of those effects.
-Sensitivity to the hyper-parameter setup is less of a concern for classification tasks where one can use labels to tune the hyper-parameters, but it does give an insights into the expected effort in order to get a satisfying results.
 
 
 
 
 
-\gls{kge} methods are usually trained to assign high score to all facts in a knowledge base, not to specific \textit{target} facts.
-To make sure this training criteria does not put \gls{kge}s at a disadvantage, once the embeddings are obtained, we use them as the input data for a classifier learning the predictive model for the pre-specified target.
+
+\gls{kge} methods are usually trained to assign a high score to all facts in a knowledge base, not to specific \textit{target} facts.
+To make sure this training criterion does not put \gls{kge}s at a disadvantage, once the embeddings are obtained, we use them as the input data for a classifier learning the predictive model for the pre-specified target.
 
 
 
@@ -395,24 +338,24 @@ It is, however, worth noting that \gls{kge} methods have a certain advantage due
 
 
 \paragraph{Relational classification dataset}
-We take standard relational learning data sets and use the available labels as ground truth for both classification and clustering.
-The IMDB data set is a snapshot of the Internet Movie Database, describing a set of movies with their actors and directors.
+We take standard relational learning datasets and use the available labels as ground truth for both classification and clustering.
+The IMDB dataset is a snapshot of the Internet Movie Database, describing a set of movies with their actors and directors.
 The task is to distinguish between actors and directors.
-The UWCSE data set describes the employees of the University of Washington, their roles, publications, and courses.
+The UWCSE dataset describes the employees of the University of Washington, their roles, publications, and courses.
 The task is to distinguish between students and professors.
-The Mutagenesis data set consists of a set of molecules and their structures, with the goal of predicting whether a compound is mutagenic or not.
+The Mutagenesis dataset consists of a set of molecules and their structures, with the goal of predicting whether a compound is mutagenic or not.
 The Carcinogenesis data is a similar dataset, but focuses on a different compound property.
 The Yeast dataset describes a data about regulatory paths in the genome of yeast, and the target is to predict active paths.
 The WebKB dataset describes web pages of four US universities and their corresponding link structure.
 The pages are classified into seven groups according to their roles such as personal, departmental or project page.
-The Terrorists data set contains a network of terrorist attacks, each assigned to of the 6 types of attacks.
-Finally, the Hepatitis data set describes a set of patients with a diagnosis of Hepatitis B and C.
-We intentionally focus on standard relational learning data sets because they typically expose more variety of reasoning: required reasoning ranges from attribute-only reasoning to multi-hop reasoning.
-Some of the properties are list in Table~\ref{tab:properties}.
+The Terrorists dataset contains a network of terrorist attacks, each assigned to of the 6 types of attacks.
+Finally, the Hepatitis dataset describes a set of patients with a diagnosis of Hepatitis B and C.
+We intentionally focus on standard relational learning datasets because they typically expose a more variety of reasoning: required reasoning ranges from attribute-only reasoning to multi-hop reasoning.
+Some of the properties are listed in Table~\ref{tab:properties}.
 For each property, we differentiate between target instances -- instances which contain labels, and the rest.
 This gives us a better opportunity to detect the conditions under which either of the respective approaches is preferable.
-In contrast, standard KB completion data sets are often very simple and  only simple path-type rules are required to achieve a reasonable performance.
-Therefore, the disadvantage of standard relational methods is that they might very inefficient because of the data set size.
+In contrast, standard KB completion datasets are often very simple and  only simple path-type rules are required to achieve a reasonable performance.
+Therefore, the disadvantage of standard relational methods is that they might very inefficient because of the dataset size.
 Additionally, if the provided data does not contain useful features, KGE methods might still be able to extract certain useful patterns through the latent features.
 
 
@@ -450,7 +393,7 @@ It is an improved version of the WN18 dataset, which had the same problem as FB1
 
 
 \paragraph{Knowledge graph embeddings}
-Due to the shear magnitude of the existing \gls{kge} methods \cite{EmbeddingsOverview}, including a large sample in the comparison would be infeasible.
+Due to the sheer magnitude of the existing \gls{kge} methods \cite{EmbeddingsOverview}, including a large sample in the comparison would be infeasible.
 Moreover, it is not clear whether a big difference in performance is expected~\cite{DBLP:conf/rep4nlp/KadlecBK17}.
 Therefore, we focus on the two prototypical and, arguably, most used approaches -- TransE and DistMult, as well as the state-of-the-art approach of ComplEx \cite{trouillon2016complex}.
 It is important to note that ComplEx produces embeddings in the \textit{complex Euclidean space} and that each entity is associated with two embeddings - \textit{real} and \textit{imaginary} one.
@@ -478,14 +421,14 @@ To better understand how the difference in performance between \gls{kge}s and sy
 
 \paragraph{Relational classification}
 We perform standard nested cross-validation.
-For each split the training data is used to learn the models and tune their parameters (using an inner cross-validation loop) and the unseen fold is used for testing.
-We report the relative performance of KGEs to the relational baseline in terms of differences in accuracies, $acc_{KGE} - acc_{relational~ baseline}$, averaged over individual splits.
+For each split, the training data is used to learn the models and tune their parameters (using an inner cross-validation loop) and the unseen fold is used for testing.
+We report the relative performance of KGEs to the relational baseline in terms of the difference in the accuracies, $acc_{KGE} - acc_{relational~ baseline}$, averaged over individual splits.
 The labels were excluded from the data when learning the \gls{kge}s and considered only during the training of the classifier.
 
 
 The embeddings of each relational data were obtained before learning a classifier.
-The dimensions of the embeddings were varied in $\{10, 20, 30, 50, 80, 100\}$; we include smaller dimension because standard relational dataset tend to have much smaller number of entities than the KBC datasets (see Table \ref{tab:properties}).
-All embeddings were trained to 100 epochs, and saved in steps of 20.
+The dimensions of the embeddings were varied in $\{10, 20, 30, 50, 80, 100\}$; we include smaller dimensions because standard relational datasets tend to have a much smaller number of entities than the KBC datasets (see Table \ref{tab:properties}).
+All embeddings were trained to 100 epochs and saved in steps of 20.
 We do not use the validation set and metrics such as mean reciprocal rank to select the best hyper-parameters for the embeddings, as they may not be perfectly correlated with the predictive accuracy; instead, we treat the dimension and the number of epochs for training as additional parameters while training the classifiers as part of the inner cross-validation loop.
 
 
@@ -496,7 +439,7 @@ Relational decision tree TILDE is used as a relational baseline due to its simpl
 One model is trained for each relation, and the mean and weighted (by the number of examples in the relation) accuracy is reported.
 The training procedure is the same as for the experiments regarding the relational classification datasets, with an exception that only one (pre-defined) test split is used.
 KGEs are usually evaluated by how well they rank the correct answers to a triple in which either the subject or objects are left out (i.e, $<\mathbf{s},\mathbf{r},\mathbf{?}>$ or $<\mathbf{?},\mathbf{r},\mathbf{?}>$), and the metrics used are ranking measure such as \textit{mean reciprocal rank} and \textit{hits @ K} (\textit{is the correct answer among the top K ranked answers}) \cite{Bordes:2013:TEM}.
-Such ranking are difficult to obtain with the ILP methods, which makes the comparison somewhat difficult.
+Such rankings are difficult to obtain with the ILP methods, which makes the comparison somewhat difficult.
 As Hits@1 directly correspond to the accuracy, and we use this as a primary mean of the comparison.
 
 
@@ -551,7 +494,6 @@ What is most interesting in these results is not the difference in the performan
 In order to do so, we analyse the results with respect to the semantics of the predicates used in the extracted rules, which yields further interesting results.
 More precisely, we differentiate between \textit{attribute predicates} that associate a specific value of an attribute with an instance, and \textit{relation predicates} that connect two instances.
 We further distinguish between \textit{target} instances having an associated label, and \textit{neighbourhood} instances that provide additional data.
-%We summarise (Table~\ref{tab:properties}) the properties of the rules induced by TILDE in terms of (i) \textit{the proportion of rules that are composed of relation predicates only, attributes predicates only and the mixture of both}, and (ii) \textit{the proportion of attribute and relation predicates used in the induced rules w.r.t. the available predicates in the dataset}.
 Table~\ref{tab:ruleproperties} summarises the rules extracted by TILDE w.r.t. the above-discussed interpretation.
 
 
@@ -585,15 +527,15 @@ Table~\ref{tab:ruleproperties} summarises the rules extracted by TILDE w.r.t. th
 
 
 The results indicate an interesting connection between the performance and the amount of data information that is found predictive: the properties of TILDE rules extracted for the Hepatitis and Carcinogenesis datasets reveal that the majority of provided information, both attributes and relations, are found predictive.
-For instance, on the Hepatitis dataset  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
+For instance, on the Hepatitis dataset,  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
 Similar numbers hold for the Carcinogenesis data.
 
 
 
 The remaining datasets are different in that regard -- only a fraction of information is found predictive.
-On the Mutagenesis data set\footnote{we use the version of the data set without any rings structures and additional background knowledge which is difficult to incorporate in \gls{kge} methods}, even though all the attributes of molecules are found predictive, none of the relations were found predictive and thus none of the information about atoms they contain.
+On the Mutagenesis dataset\footnote{we use the version of the dataset without any rings structures and additional background knowledge which is difficult to incorporate in \gls{kge} methods}, even though all the attributes of molecules are found predictive, none of the relations were found predictive and thus none of the information about atoms they contain.
 Thus, only a fraction of available information is used.
-On the WebKB data set only 4 \% of the attributes have been found predictive, as well as 50 \% of relations.
+On the WebKB dataset, only 4 \% of the attributes have been found predictive, as well as 50 \% of relations.
 
 
 
@@ -604,17 +546,17 @@ In contrast, the learning principle of KGEs is designed to take all of the infor
 
 
 
-Similar trend is also evident when the (relational) SVM is used as a classifier.
+A similar trend is also evident when the (relational) SVM is used as a classifier.
 However, \gls{kge}-based methods achieve better relative performance on the Hepatitis, Carcinogenesis and UWCSE dataset, while the difference in performance is much less pronounced on the Mutagenesis and Terrorists datasets.
 It is interesting to note that symbolic and \gls{kge}-based methods do not benefit equally by using the more powerful learner.
 We attribute this to the fact that kFOIL essentially creates a \textit{binary embedding} -- it identifies a set of useful relational features (similar to random walks), followed by learning a kernel SVM on such binary data.
-Therefore,  it is closer to the \gls{kge}-based methods than the fully relational once, and it is likely that it looses some of the semantics of relational data by binarising it.
+Therefore,  it is closer to the \gls{kge}-based methods than the fully relational once, and it is likely that it loses some of the semantics of relational data by binarising it.
 
 
 
 The pattern, however, disappears with the kNN classifier.
 Whereas previously \gls{kge}-based methods substantially outperformed symbolic methods on the Hepatitis, Carcinogenesis and UWCSE datasets, relational versions of kNN perform equally well on the Hepatitis dataset and outperform \gls{kge}-based methods on the Carcinogenesis and UWCSE datasets.
-\gls{kge}-based methods seem to gain advantage on the Mutagenesis dataset, but the remaining datasets prefer symbolic approaches.
+\gls{kge}-based methods seem to gain the advantage on the Mutagenesis dataset, but the remaining datasets prefer symbolic approaches.
 However, a general trend is that the differences in performances are much less pronounced compared to the results with decision trees and SVMs, except on the WebKB.
 We suspect that the reason for this is that similarity is difficult to measure with relational data, despite a considerable body of work addressing the problem \cite{Dumancic2017a}, and \gls{kge}s might be a viable alternative.
 
@@ -622,15 +564,15 @@ We suspect that the reason for this is that similarity is difficult to measure w
 
 To validate our conclusion, we design a control experiment focusing on the WebKB dataset where the difference in performance is the largest.
 We created the second version of the dataset that contains only the information, both relations and attributes, deemed useful by the symbolic \gls{srl} methods.
-More precisely, in the case of decision trees we take the information deemed useful by decision trees, while in the case of SVM we take the information found useful by kFOIL.
+More precisely, in the case of decision trees, we take the information deemed useful by decision trees, while in the case of SVM we take the information found useful by kFOIL.
 For the case of kNN, it is not easy to identify the exact information that makes the most influence on the relational similarity measure; therefore, we use the information identified by TILDE and kFOIL.
 If our observation is correct and not the result of randomness, the performance of \gls{kge}s should improve on this filtered version of the dataset.
 The results (Figure \ref{fig:filter_results}) do confirm so: the difference in performance of \gls{kge}s and symbolic \gls{srl} methods reduces in the cases of decision trees (Figure \ref{fig:dt_difference}) and SVMs (Figure \ref{fig:svm_difference}), especially when decision trees are used.
 Interestingly, TransE and DistMult seem to benefit from that more than ComplEx.
-The differences in performance between \gls{kge}s and symbolic \gls{srl} methods do not disappear completely -- we attribute this to the sparsity of the filtered graph, as it is known that the quality of the embeddings rely on the level sparsity of the knowledge graph~\cite{pujara:emnlp17}.
+The differences in performance between \gls{kge}s and symbolic \gls{srl} methods do not disappear completely -- we attribute this to the sparsity of the filtered graph, as it is known that the quality of the embeddings relies on the level sparsity of the knowledge graph~\cite{pujara:emnlp17}.
 Moreover, filtering the data might have filtered out some of the useful information that coincidentally correlates well with information deemed useful by the symbolic learner.
-Thus, inclusion of such information might be beneficial to \gls{kge}s, but we do not have a way to detect it easily.
-Moreover, we have noticed that there is a relatively small overlap between information found predictive by TILDE and kFOIL, indicating that the bias of the learning algorithm plays an important roles in detecting which parts of the available information is predictive.
+Thus, the inclusion of such information might be beneficial to \gls{kge}s, but we do not have a way to detect it easily.
+Moreover, we have noticed that there is a relatively small overlap between information found predictive by TILDE and kFOIL, indicating that the bias of the learning algorithm plays an important role in detecting which parts of the available information is predictive.
 The kNN results again diverge from this trend, and the results suggest that KGE-based methods perform worse than with the unfiltered dataset.
 The likely reason for that is that the filtered information matches the bias of decision trees and SVMs, but not the kNNs similarity measure, and further confirms that measuring the similarity in relational data is a difficult problem.
 
@@ -698,12 +640,12 @@ The likely reason for that is that the filtered information matches the bias of 
 
 The results on the KBC datasets (Table \ref{tab:kbcres}) indicate that the symbolic SRL methods perform rather well on these datasets.
 On the FB15k-237 dataset, TILDE achieves the mean accuracy of 95\% and the weighted mean accuracy of 98\% while inducing relatively simple model having on average 10.15 nodes in the tree.
-The WN18-RR dataset is rather different than the FB15k-237: TILDE achieves the mean accuracy of 90\% but the weighted mean accuracy of 83\% which means that the relations with higher number of test examples are predicate less accurately.
+The WN18-RR dataset is rather different than the FB15k-237: TILDE achieves the mean accuracy of 90\% but the weighted mean accuracy of 83\% which means that the relations with a higher number of test examples are predicate less accurately.
 The results show that this dataset is much more complex than the FB15k-237 as it requires rather long chains of reasoning, indicated by large TILDE trees having on average 231 nodes.
 
 
 The performance of \gls{kge} methods lags behind.
-On the FB15k-237 dataset, the best performing methods in ConvE with Hits@1 of .327 and Hits@10 at .501.
+On the FB15k-237 dataset, the best-performing methods in ConvE with Hits@1 of .327 and Hits@10 at .501.
 On the WN18-RR dataset, ConvE also performs the best with Hits@1 of 0.40 and Hits@10 of 0.52.
 These results are consistent with the conclusion from the experiments on relational classification: the size of TILDE trees indicate the relevant information requires several \textit{hops} in a knowledge graph and it is not in the intermediate neighbourhood of entities.
 
@@ -714,18 +656,18 @@ These results are consistent with the conclusion from the experiments on relatio
 \subsection{Key messages}
 
 
-Many problem nowadays are naturally expressed in form of relational and graph structures data.
+Many problems nowadays are naturally expressed in form of relational and graph structures data.
 This includes social and protein interaction networks, biological data, knowledge graphs and many more.
 Two main machine learning paradigms for analysing such data, knowledge graphs embeddings and  symbolic statistical relational learning, have mostly been studied in isolation so far.
 This work is the first, to the best of our knowledge, that systematically compares these two paradigms on the standard tasks from both domains -- relational classification and knowledge base completion.
 Our results point to the following conclusion:
 \begin{itemize}
-	\item \textbf{\gls{kge}s seems to be suitable for curated data.}  KGEs seem to be at disadvantage when only a small fraction of available information is useful for the given prediction task. Symbolic SRL methods do not have that issue as they can cherry pick useful information during the learning phase. This conclusion was further confirmed by the control experiment in which the uninformative data (as found by the symbolic methods) was removed from the dataset -- the difference in performance between KGEs and symbolic methods has decreased.
-	\item  \textbf{Symbolic methods outperform KGEs on knowledge based completion tasks.} We have noticed a large gap in the performance between symbolic and KGE methods when compared on the standard KBC datasets: whereas symbolic methods achieve accuracy $> 90$\%, KGE methods struggle and achieve the accuracy $\approx 50$\%. This suggest that the KGEs, at least in the current state, are more suitable for the interactive inspections of large knowledge graphs than for the automatic reasoning.
-	\item \textbf{KGEs might be a good way to measure the similarity in relational data.} On most datasets, KGE and symbolic methods had almost identical performance when learning based on similarities was employed. This suggest that KGE-based similarity is competitive with the large body of works on this problem.
+	\item \textbf{\gls{kge}s seems to be suitable for curated data.}  KGEs seem to be at a disadvantage when only a small fraction of available information is useful for the given prediction task. Symbolic SRL methods do not have that issue as they can cherry pick useful information during the learning phase. This conclusion was further confirmed by the control experiment in which the uninformative data (as found by the symbolic methods) was removed from the dataset -- the difference in performance between KGEs and symbolic methods has decreased.
+	\item  \textbf{Symbolic methods outperform KGEs on knowledge base completion tasks.} We have noticed a large gap in the performance between symbolic and KGE methods when compared on the standard KBC datasets: whereas symbolic methods achieve accuracy $> 90$\%, KGE methods struggle and achieve the accuracy $\approx 50$\%. This suggests that the KGEs, at least in the current state, are more suitable for the interactive inspections of large knowledge graphs than for the automatic reasoning.
+	\item \textbf{KGEs might be a good way to measure the similarity in relational data.} On most datasets, KGE and symbolic methods had almost identical performance when learning based on similarities was employed. This suggests that KGE-based similarity is competitive with the large body of works on this problem.
 \end{itemize}
 
-This work is not meant as criticism of any of the considered approaches, but hopes to identify \textit{useful bits} of individual approaches that might be worth integrating.
+This work is not meant as a criticism of any of the considered approaches but hopes to identify \textit{useful bits} of individual approaches that might be worth integrating.
 We hope this work inspires new research directions focused on combining the strengths of both approaches as both communities has already started to explore \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted,Schlichtkrull2017ModelingRD}.
 
 
@@ -738,14 +680,14 @@ title=Intermezzo: DeepProbLog,fonttitle=\bfseries, boxed title style={size=small
 	Symbolic methods for representation learning with relational data are in the focus of this thesis.
 	The experimental analysis presented in this chapter clearly shows that both research directions have strengths and weaknesses.
 	Moreover, a general consensus is that deep learning excels at perception tasks such as object recognition in images, whereas symbolic approaches excel at reasoning.
-	Therefore, investigating closer integration of symbolic and deep approaches deserves attention. \\
+	Therefore, investigating the closer integration of symbolic and deep approaches deserves attention. \\
 
 
 	Manhaeve et al.~\cite{DBLP:journals/corr/abs-1805-10872} introduce \texttt{DeepProbLog} -- an extension of \texttt{Problog} with the support for \textit{neural predicates}.
 	\texttt{DeepProbLog} starts from the perspective that explicitly specifying the probabilities of all probabilistic facts in a domain might be difficult for certain tasks, if not impossible.
-	For instance, various perception tasks require large image datasets for learning a well performing model; manually annotating the the probabilities of certain objects being detected in all images is impossible.
+	For instance, various perception tasks require large image datasets for learning a well-performing model; manually annotating the probabilities of certain objects being detected in all images is impossible.
 	the core idea of \texttt{DeepProbLog} is to introduce a new construct, the \textit{neural predicate}, that allows a user to provide a \textit{neural model} that can estimate the probabilities of grounded atoms being \texttt{true} given the arguments of the atom.
-	The neural model does not have to be trained before hand, but can be learned from scratch given the examples of a target task. \\
+	The neural model does not have to be trained beforehand, but can be learned from scratch given the examples of a target task. \\
 
 
 	Formally, \texttt{DeepProbLog} extends the concept of \textit{annotated disjunction}.
@@ -769,7 +711,7 @@ title=Intermezzo: DeepProbLog,fonttitle=\bfseries, boxed title style={size=small
 
 This chapter digs deeper into the properties of relational latent representations.
 It first inspects latent representations created by \gls{curled} showing that such latent representations improve the performance of relational learners by capturing small local regions in data that match well with the labels.
-It demonstrates that by showing that predicate in the latent representation are sparse but with the reduced label entropy.
+It demonstrates that by showing that the predicates in the latent representation are sparser but with the reduced label entropy.
 The analysis also shows that the \gls{curled}-created latent features tend to be redundant and shows that the number of latent features can be reduced without sacrificing the performance.
 The chapter then focuses on comparing the \gls{kge} and \gls{ilp} approaches to relational learning on various benchmarks.
 This second analysis shows that \gls{kge}s outperform \gls{ilp} methods on relational classification tasks when the data is curated -- the data contains only the relevant information.

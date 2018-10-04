@@ -23,7 +23,7 @@ Despite its importance, it is still difficult to say what \gls{ai} precisely is.
 One of the most common definitions describes \gls{ai} as building \textit{machines that think like humans}.
 However, this definition is not operative as we still do not understand how the humans think.
 A more operative definition is that of \gls{ai} creating \textit{machines that behave intelligently}.
-This  way \gls{ai} machines only have to act intelligently and does not require understanding the human intelligence nor the peculiarities of various problem solving skills humans posses.
+This  way \gls{ai} machines only have to act intelligently and does not require understanding the human intelligence nor the peculiarities of various problem solving skills humans possess.
 Like human intelligence, \gls{ai} is a broad field including many different tasks.
 Examples include problems of planning and scheduling, automated reasoning, theorem proving, robotics, language understanding and many others.
 Many problems within AI often require a combination of different methods.
@@ -45,7 +45,7 @@ Extracting useful information from the massive available data has the potential 
 This is, in a way, similar to the tests designed by psychologists and sociologists interrogating the nature of individuals and society, with a difference that the starting point is not a design of a questionnaire but the available data.
 This way \gls{ai} has changed our perspective in data, which has been transformed from a mere record of an event to a carrier of useful information.
 
-Perhaps the most prominent representative of \gls{ai} nowadays is machine learning (\gls{ml}), which concerns extraction of useful patterns from data.
+Perhaps the most prominent representative of \gls{ai} nowadays is machine learning (\gls{ml}), which concerns the extraction of useful patterns from data.
 Machine learning develops \gls{ai} systems that \textit{improve their performance with experience}.
 This means that systems learn concepts and skills from examples -- the data provided by the expert, or through interaction with the environment.
 These systems are therefore not programmed in advance; rather, their skills are acquired from the examples.
@@ -100,7 +100,7 @@ The first challenge you are faced with  is getting the data.
 You decide to compile a large database of potential pets and identify their \textit{features} -- for example, the number of legs, level of fluffiness of their fur, their diary, whether they are playful of not, and whether they spit or bite.
 These features define the \textit{inputs} for a machine learning algorithm.
 We still have to provide the \textit{experience} to the learning algorithm in form of the desired outputs; the input data (the features) and the desired output which define the learning task.
-The desired output come from the previous pets you owned and whether you liked having them as pets or not -- for example, imagine you have own a dog and a cat which you liked, and a duck which you were not so fond of.
+The desired output comes from the previous pets you owned and whether you liked having them as pets or not -- for example, imagine you have owned a dog and a cat which you liked, and a duck which you were not so fond of.
 These examples constitute our \textit{training data}, and are compiler in a simple Excel sheet (Table \ref{tab:pets}).
 
 
@@ -120,7 +120,7 @@ For example, we could replace \texttt{no} with 0, \texttt{sometimes} with 1 and 
 Many choices are possible, and the right one depends on the task at hand.
 
 
-Once the model has been learned, either by finding the rules or by tuning the weights of the decision function, the model can be applied to make decision about new examples.
+Once the model has been learned, either by finding the rules or by tuning the weights of the decision function, the model can be applied to make decisions about new examples.
 For instance, if we wish to know whether an alpaca would make a good pet, we can ask the model.
 Looking at the first rule, the answer would be \texttt{yes} as alpaca has four legs and the level of fluffiness above 4.
 
@@ -146,14 +146,14 @@ Both data representation aspects have a critical impact on the success of the ma
 Choosing an insufficient data format prevents us from capturing all intricacies of the data.
 Even more crucial is the choice of the features.
 If the features themselves do not contain the information, no \gls{ml} algorithm will be able to successfully solve the task.
-In contrast, insufficient data format might not be able to capture \textit{everything} about the data, but it is possible that it capture \textit{most} of the relevant information.
+In contrast, insufficient data format might not be able to capture \textit{everything} about the data, but it is possible that it captures \textit{most} of the relevant information.
 
 
 
 Identifying the right and informative features for the given problem is no easy task.
 Developing a \gls{ml} model typically proceeds in four steps: 1) collecting the data, 2) designing the features, 3) learning the model, and 4) evaluating the model.
-However, this is rarely a linear procedure; the practitioners typically have to iterate between steps 2 and 4 to find the suitable features, resulting in a labour-intensive task taking the vast majority of the development [citation?].
-The main reason why finding the informative features is difficult is that one typically uses machine learning algorithm to solve the task the one does not know how to solve.
+However, this is rarely a linear procedure; the practitioners typically have to iterate between steps 2 and 4 to find the suitable features, resulting in a labour-intensive task taking the vast majority of the development~\cite{Wirth00crisp-dm:towards}.
+The main reason why finding the informative features is difficult is that one typically uses a machine learning algorithm to solve the task the one does not know how to solve.
 As the solution is unknown, it is even more difficult to know which information has to be a part of the solution.
 
 
@@ -162,14 +162,14 @@ Motivated by the difficulty of manually finding informative features, machine le
 These methods fall under umbrella of \textit{representation} or \textit{deep learning} (\gls{dl}) \cite{Goodfellow2016, Bengio:2009}.
 \textit{Deep} refers to the idea of creating several layers of \textit{latent features} defined in terms of the given features, before solving the given task.
 These methods, typically based on Artificial neural networks, have sparked a revolution within Artificial intelligence over the last decade.
-As a result, many solution in the fields of computer vision, speech recognition and text processing have witnessed impressive improvements.
+As a result, many solutions in the fields of computer vision, speech recognition and text processing have witnessed impressive improvements.
 This problem is the central part of this thesis.
 % TODO: put some of the results
 
 
 
 There is the second part of the puzzle that is important for this thesis - that of data representation format.
-The vast majority of progress on representation learning has focused on tabular data format.
+The vast majority of progress on representation learning has focused on the tabular data format.
 However, the real world data is rarely tabular.
 \textit{Stack overflow} survey, the yearly survey reporting on the usage of  various technologies among the developers all over the world, reports that the most commonly used storage technology are relational databases (Figure \ref{fig:stackoverflow}).
 The progress towards representation learning on structured data, that contain examples and their mutual relationships, has focused on \textit{re-representing} structured data in tabular format.
@@ -184,16 +184,16 @@ This is clearly limiting as tabular representation can rarely capture all of the
 \end{figure}
 
 
-A powerful way to overcome this representational limitations is to use \textit{predicate logic} as a data representation format.
+A powerful way to overcome these representational limitations is to use \textit{predicate logic} as a data representation format.
 The field of AI combining machine learning with logic is known as \textit{Statistical relational learning} (\gls{srl}) \cite{GetoorSRL,Raedt:2016:SRA:3027718} and Inductive logic programming \cite{LucRLbook}.
 These methods combine three pillars of Artificial intelligence: it uses \textit{predicate logic} to represent complex data formats, \textit{probability theory} to capture the uncertainty of reasoning and \textit{machine learning} for learning models that leverage both logic and probability from data.
 This renders \gls{srl} methods amongst the most expressive AI methods, i.e., they can easily represent tabular data, networks and graphs as well as entire computer programs.
 
 
 
-\gls{srl} formalisms have given us powerful tools to represent complex models and use them for drawing conclusion.
+\gls{srl} formalisms have given us powerful tools to represent complex models and use them for drawing conclusions.
 However, learning models from scratch has proven to be a difficult task, mostly because it includes expensive inference as a sub-procedure.
-A lot of progress on learning the rules of the such logical models have been made within the \gls{ilp} community, which ignores the probabilistic aspect and focuses purely on logical aspect.
+A lot of progress on learning the rules of such logical models have been made within the \gls{ilp} community, which ignores the probabilistic aspect and focuses purely on logical aspect.
 The key reason why learning is difficult for \gls{srl} models is that the learning task can be described as searching for the best predictive formulas.
 However, the space of all possible formulas is huge and suffers from \textit{combinatorial explosion}.
 
@@ -208,7 +208,7 @@ However, the space of all possible formulas is huge and suffers from \textit{com
 
 \section{Motivations and Problem statement}
 
-It is well known is psychology that the the ability of solving the task substantially depends on the way the task is represented.
+It is well known in psychology that the ability to solve the task substantially depends on the way the task is represented.
 
 
 \begin{figure}
@@ -220,13 +220,13 @@ It is well known is psychology that the the ability of solving the task substant
 
 \paragraph{Example} Consider the tasks in the Figure \ref{fig:cogease}.
 These are two simple addition tasks: one with Arabic and the second one with roman numbers.
-Both task are surely easy to solve.
+Both tasks are surely easy to solve.
 However, paying attention to the effort it takes to solve each of the tasks, you will notice that solving the task on the right requires more effort.
 Moreover, it will take you more time solve it than the task on left.
-Psychologists call this \textit{cognitive ease}~\cite{kahneman2011thinking}; a measure of how easy it is for out brains to process information.
+Psychologists call this \textit{cognitive ease}~\cite{kahneman2011thinking}; a measure of how easy it is for our brains to process information.
 The state of cognitive ease is activated by confrontation with familiar concepts which do not require a significant effort.
 The Arabic system is the system we are confronted by every day and it, thus, does not require any extensive processing effort.
-In contrast, the roman system is the one we are rarely confronted with after the primary school education and thus requires a switch -- we are likely to solve it by \textit{mapping} the numbers to the Arabic system.
+In contrast, the Roman system is the one we are rarely confronted with after the primary school education and thus requires a switch -- we are likely to solve it by \textit{mapping} the numbers to the Arabic system.
 This task is an example of \textit{cognitive strain}.
 
 
@@ -249,15 +249,15 @@ Many of the objects we interact with on a daily basis are not the \textit{physic
 For instance, a \textit{penguin} is an abstract concept, a language construct, referring to a medium-sized bird that does not fly but swims, has a beak, is of black and white colour and lives in places at the southern hemisphere.
 Moreover, one can say that a bird is the abstraction of a specific group of animals that fly.
 Such \textit{representation changes}, abstractions, help us to communicate effectively.
-Without them, communication about categories as specific as penguin would be tedious as it would  require providing the entire definition of a category, not just a single word.
+Without them, communication about categories as specific as a penguin would be tedious as it would  require providing the entire definition of a category, not just a single word.
 
 
 
 
 All of the examples above point to the same conclusion -- \textit{representation matters} and \textit{change of representation} is an important tool of intelligence.
-The first example illustrates how even the simplest task can be made more difficult by using different representation.
-The second example illustrates how change of representation can make a correct but slow solution much efficient.
-Finally, the third example illustrates how introduction of abstract concepts makes communication more effective.
+The first example illustrates how even the simplest task can be made more difficult by using a different representation.
+The second example illustrates how the change of representation can make a correct but slow solution much efficient.
+Finally, the third example illustrates how the introduction of abstract concepts makes communication more effective.
 Unfortunately, machine learning algorithms were not capable of changing the representation autonomously until very recently.
 Even the recent progress is quite limited in its scope.
 Therefore, incorporating general methods for representation change into machine learning algorithms has a big potential to substantially increase their problem solving abilities.
@@ -277,7 +277,7 @@ Second, \gls{ann}s are by their design uninterpretable.
 Therefore, even though latent representation created by \gls{ann}s often perform quite well, it is often impossible to extract knowledge from the novel representation.
 This undermines the trust in \gls{ml} models, especially in the domains in which interpretability is not an option but a mandatory requirement.
 Third, learning representations with \gls{ann}s is often \textit{magic} --  these methods often have a large number of parameters, and their performance heavily depends on them.
-Unfortunately, most of the time there is no clear guidance how to chose these parameters.
+Unfortunately, most of the time there is no clear guidance on how to chose these parameters.
 
 
 
@@ -285,7 +285,7 @@ Unfortunately, most of the time there is no clear guidance how to chose these pa
 
 
 
-To overcome the issues outlined above, we approach the problem of learning representations of relational data from a different perspective: instead of approximating the more expressive logic framework with less expressive tabular format, we will lift the ideas from representation learning with the tabular data to the logical framework.
+To overcome the issues outlined above, we approach the problem of learning representations of relational data from a different perspective: instead of approximating the more expressive logic framework with the less expressive tabular format, we will lift the ideas from representation learning with the tabular data to the logical framework.
 This view offers several benefits.
 First, it  increases the \textit{expressiveness} -- what can a model represent?,  as it uses a programming language as the representation language.
 Using a programming language as a representation language allows us to tackle many complicated problems which cannot be expressed in single-table format.
@@ -299,7 +299,7 @@ This is not true for representation learning approaches based on \gls{ann}s, in 
 
 
 
-Our long term goal is to develop the tools that allow \gls{ml} methods, in particular the ones within the \gls{srl} and \gls{ilp} literature, to change the representation on demand.
+Our long-term goal is to develop the tools that allow \gls{ml} methods, in particular, the ones within the \gls{srl} and \gls{ilp} literature, to change the representation on demand.
 This will significantly reduce the effort needed from a human expert in order to find informative features for the task.
 Moreover, as the goal of \gls{ai} is to develop autonomous \textit{intelligent agents} \cite{Russell:2009:AIM:1671238} capable of acting independently in the world, the ability to change the representation for the given task is an important part of it.
 To contribute to the goal, this thesis explores different ideas approaching the following research question:
@@ -355,7 +355,7 @@ As knowing which kind of symmetries would be useful for a task is very difficult
 
 The third main contribution of the thesis are \textit{auto-encoding logic programs} \cite{Dumancic2018a,AlpsSubmitted} -- a logical generalisation of auto-encoders.
 Auto-encoders are among the most versatile representation learning components applicable to many different learning settings.
-This versatility makes them very suitable to the variety of SRL learning tasks, such as generative modelling and supervised learning, as the same latent representation can be re-use in many tasks.
+This versatility makes them very suitable for the variety of SRL learning tasks, such as generative modelling and supervised learning, as the same latent representation can be re-used in many tasks.
 We introduce a declarative framework for learning relational auto-encoders which are implemented as logic programs, instead of matrix computation as with more standard auto-encoders.
 
 
@@ -418,12 +418,16 @@ These chapters are based on the following publications:
 \end{quote}
 
 \begin{quote}
+	\bibentry{DBLP:journals/corr/DumancicMB16}
+\end{quote}
+
+\begin{quote}
 	\bibentry{AlpsSubmitted}
 \end{quote}
 
 
 \textbf{Chapter \ref{ch:embeddinganalysis}} summarises the insights found by comparing various relational representation learning methods.
-The analysis focuses on identifying strengths and weaknesses of various methods, as well as conditions under which different methods are applicable.
+The analysis focuses on identifying the strengths and weaknesses of various methods, as well as conditions under which different methods are applicable.
 This chapter is based on the following publications
 
 \begin{quote}
@@ -441,6 +445,24 @@ This chapter is based on the following publications
 
 The final chapter summarises the thesis, discusses its implications and provides a look into directions for \textit{future work}.
 
+Spread throughout the chapters, various intermezzos describe some of the work done during this thesis that does not concern the topic of relational representation learning.
+These intermezzos describe the work on \textit{semi-supervised active clustering} and \textit{integration of symbolic and neural approaches}, which are published as
+
+\begin{quote}
+	\bibentry{DBLP:conf/ijcai/CraenendonckDB17}
+\end{quote}
+
+\begin{quote}
+	\bibentry{DBLP:journals/corr/abs-1803-11060}
+\end{quote}
+
+\begin{quote}
+	\bibentry{DBLP:journals/corr/abs-1805-00779}
+\end{quote}
+
+\begin{quote}
+ \bibentry{DBLP:journals/corr/abs-1805-10872}
+\end{quote}
 
 
 
