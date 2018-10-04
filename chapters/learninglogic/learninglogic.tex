@@ -637,6 +637,13 @@ where $n_(x)$ is the number of true groundings of the formula $F_i$ in $x$ and $
 Similar to Problog, \gls{mln}s are capable of answering different types of queries.
 
 
+Figure \ref{fig:mln} shows the \gls{mln} translation of the pet decision problem introduced before.
+In contrast to the Problog model, \gls{mln}s cannot represent uncertain facts and therefore all fact are deterministic.
+Uncertainty in \gls{mln}s can be handled only through the formulas which can be stochastic (e. g., $w_1 ~~ {\mathtt {diet(X,carnivore)}} \Rightarrow {\mathtt {bites(X)}} $) with $w_1$ reflecting the strength of the constraint, and deterministic (e. g., ${\mathtt {cuddly(X)}} \Rightarrow \mathtt {ideal\_pet(X)}.$) with the associated weight being \texttt{infinity} (meaning that no possible world can break it).
+
+
+
+
 
 
 \begin{figure}
@@ -650,7 +657,7 @@ Similar to Problog, \gls{mln}s are capable of answering different types of queri
 		w_2 ~~ {\mathtt {bites(X)}} &\Rightarrow {\mathtt {cuddly(X)}}  \nonumber \\
 		{\mathtt {friends(X,otter)}} &\Rightarrow {\mathtt {ideal\_pet(X)}}. \nonumber \\
 	\end{aligned}$$
-	\caption[The \gls{mln} translation of the Problog program in Figure~\ref{fig:problog}]{\gls{mln} model for the pet decision problem. Probabilistic facts  $0.8::$\texttt {playful(alpaca).} states that \texttt{alpaca} us playful with certainty of $80 \%$. Deterministic fact \texttt{legs(alpaca,4).} states the \texttt{alpaca} has four legs with certainty of $100 \%$.  A rule \texttt{cuddly(X)} :- \texttt{fluffiness(X,Y),Y >= 4.} states that a pet is \texttt{cuddly} is its \texttt{fluffiness} level is greater or equal to 4. \label{fig:mln}}
+	\caption[The \gls{mln} translation of the Problog program in Figure~\ref{fig:problog}]{\gls{mln} model for the pet decision problem. \label{fig:mln}}
 \end{figure}
 
 
