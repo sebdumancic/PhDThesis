@@ -1055,6 +1055,31 @@ These approaches are also orders of magnitude more efficient than \gls{ribl} and
 That is particularly the case for RKOH which did not complete in 24 hours even with the depth of 1, when the walk length was set to 4.
 
 
+\begin{tcolorbox}[enhanced,attach boxed title to top center={yshift=-3mm,yshifttext=-1mm}, colback=blue!5!white, colframe=blue!75!black, colbacktitle=white, coltitle=red!25!black,
+title=Intermezzo: Semi-supervised clustering with COBRAS,fonttitle=\bfseries, boxed title style={size=small,colframe=blue!75!black} ]
+
+	Clustering is a difficult task due to the lack of a clear criterion for evaluating clusterings.
+	\textit{Semi-supervised clustering} starts from a position that, even though a fully labelled dataset is not available, the user is able to provide a limited amount of feedback that can be further used to guide the clustering procedure.
+	The feedback usually takes the form of the following question: \textit{do instances i and j have the same cluster label in the target clustering?} Answering the question with \texttt{yes} yields a \textit{must-link} constraint and a \textit{cannot-link} constraint otherwise. \\
+
+
+	In a series of works on \texttt{COBRAS}, Van Craenendonck et al.~\cite{DBLP:conf/ijcai/CraenendonckDB17,DBLP:journals/corr/abs-1803-11060,DBLP:journals/corr/abs-1805-00779} introduce a fast, iterative and active clustering method with pairwise constraints.
+	\texttt{COBRAS} is based on the concept of \textit{super-instances}: a local set of instances that are assumed to belong to the same clustering in the final target clustering.
+  The core idea of \texttt{COBRAS} is to ask the pairwise queries among the representatives of super-instances instead of the individual data points.
+	Thus, it is related to the idea of \textit{lifted inference}~\cite{Poole:2003:FPI:1630659.1630801}. \\
+
+
+	\texttt{COBRAS} introduces an incremental procedure that, starting with all data points in a single super-instance, repeatedly intertwines the following steps:
+	\begin{itemize}
+		\item select a super-instance
+		\item repeatedly split the selected super-instance (and its descendants) in two, asking a \textit{pairwise query} between the descendants. Stop when the first \textit{must-link} constraint is obtained
+		\item Ask the \textit{pairwise query} among all available super-instances, starting with the closest ones.
+	\end{itemize}
+	This has proven to be a fast, versatile and well-performing semi-supervised clustering procedure that outperforms many of the existing semi-supervised clustering approaches on a wide range of benchmark tasks, and \textit{merge} super-instances connected by the \textit{must-link} constraint.
+
+
+\end{tcolorbox}
+
 
 
 
@@ -1072,6 +1097,7 @@ We experimentally evaluate our approach on several data sets on both clustering 
 The experiments show that the proposed method often achieves better results than the competitor methods with regards to the quality of clustering and classification, showing that it indeed is versatile enough to adapt to each data set individually.
 Moreover, the proposed approach, though more expressive, is as efficient as the state-of-the-art approaches.
 One open challenge is to which extent the parameters of the proposed similarity measure can be learnt from data in an unsupervised (or a semi-supervised) way.
+
 
 
 
