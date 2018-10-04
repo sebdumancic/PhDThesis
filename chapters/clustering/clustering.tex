@@ -32,7 +32,7 @@ This chapter is based on the following publications:
 %Clustering, however, has received less attention in the relational context.
 
 
-Clustering is an underspecified learning task: there is no universal criterion for what makes a good clustering, it is inherently subjective.
+Clustering is an under-specified learning task: there is no universal criterion for what makes a good clustering, it is inherently subjective.
 This is known for i.i.d. data \cite{Estivill-Castro:2002}, and even more true for relational data in which the data set contains instances with relationships between them.
 Different methods for relational clustering have very different biases, which are often left implicit; for instance, some methods represent the relational information as a graph (which means they assume a single binary relation) and assume that similarity refers to proximity in the graph, whereas other methods that take the relational database stance assume the similarity comes from relationships objects participate in.
 %, assuming typed objects that may participate in multiple, possibly non-binary, relationships.
@@ -52,7 +52,7 @@ It views a relational data set as a graph with typed vertices, typed edges, and 
 This view is very similar to the viewpoint of relational databases or predicate logic.
 The task we consider is clustering the vertices of one particular type.
 What distinguishes our approach from other approaches is that the concept of (dis)similarity used here is very broad.
-It can take into account attribute dissimilarity, dissimilarity of the relations an object participates in (including roles and multiplicity), dissimilarity of the neighbourhoods (in terms of attributes, relationships, or vertex identity), and interconnectivity or graph proximity of the objects being compared.
+It can take into account attribute dissimilarity, dissimilarity of the relations an object participates in (including roles and multiplicity), dissimilarity of the neighbourhoods (in terms of attributes, relationships, or vertex identity), and inter-connectivity or graph proximity of the objects being compared.
 
 
 Consider for example Figure \ref{fig:clustering:intro}.
@@ -116,7 +116,7 @@ An oriented hyper-graph is a structure $H=(V,E)$ where $V$ is a set of vertices 
 Directed graphs are a special case of oriented hyper-graphs where all hyper-edges have cardinality two.
 
 
-A set of relational data is represented by a typed, labeled, oriented hyper-graph $(V,E,\tau,\lambda)$ with $V$ a set of vertices, $E$ a set of hyper-edges, and $\tau: (V \cup E) \rightarrow T_V \cup T_E$  a type function that assigns a type to each vertex and hyper-edge ($T_V$ is the set of vertex types, $T_E$ the set of hyper-edge types).
+A set of relational data is represented by a typed, labelled, oriented hyper-graph $(V,E,\tau,\lambda)$ with $V$ a set of vertices, $E$ a set of hyper-edges, and $\tau: (V \cup E) \rightarrow T_V \cup T_E$  a type function that assigns a type to each vertex and hyper-edge ($T_V$ is the set of vertex types, $T_E$ the set of hyper-edge types).
 With each type $t \in T_V$ a set of attributes $A(t)$ is associated, and $\lambda$ maps each vertex $v$ to a vector of values, one value for each attribute in $A(\tau(v))$.
 If $a \in A(\tau(v))$, we write $a(v)$ for the value of $a$ in $v$.
 
@@ -415,8 +415,8 @@ A common feature of these approaches is that they measure a similarity of graph 
 The Weisfeiler-Lehman Graph Kernels is a family of graph kernels developed upon the \textit{Weisfeiler-Lehman isomorphism test}.
 The key idea of the WL isomorphism test is to extend the set of vertex attributes by the attributes of the set of neighbouring vertices, and compress the augmented attribute set into new set of attributes.
 There each new attribute of a vertex corresponds to a subtree rooted from the vertex, similarly to the neighbourhood trees.
-Shervashidze and Borgwardt have introduced a fast WL subtree kernel (\gls{wlst}) \cite{shervashidze09fastsubtree} for undirected graphs by performing the WL isomorphism test to update the vertex labels, followed by counting the number of matched vertex labels.
-The difference between our approach and WL kernel family is subtle but important: WL graph kernels extend the set of attributes by identifying isomorphic subtrees present in (sub)graphs.
+Shervashidze and Borgwardt have introduced a fast WL subtree kernel (\gls{wlst}) \cite{shervashidze09fastsubtree} for un-directed graphs by performing the WL isomorphism test to update the vertex labels, followed by counting the number of matched vertex labels.
+The difference between our approach and WL kernel family is subtle but important: WL graph kernels extend the set of attributes by identifying isomorphic sub-trees present in (sub)graphs.
 This is reflected in the bias they impose, that is, the similarity comes from the structure of a graph (in our case, a neighbourhood tree).
 
 
@@ -459,8 +459,8 @@ Table \ref{tab:Props} summarises different aspects of similarity considered by t
 The interpretations of similarity are divided into five sources of similarity.
 The first two categories concern attributes: attributes of the vertices themselves and their neighbouring vertices.
 The following two categories concern identities of vertices in the neighbourhood of a vertex of interest.
-They concern subgraphs (identity of vertices in the neighbourhood) centred at a vertex, and proximity of two vertices.
-The final category concerns the structural properties of subgraphs in the neighbourhood of a vertex defined by the neighbourhood tree.
+They concern sub-graphs (identity of vertices in the neighbourhood) centred at a vertex, and proximity of two vertices.
+The final category concerns the structural properties of sub-graphs in the neighbourhood of a vertex defined by the neighbourhood tree.
 
 
 \subsection{Complexity analysis}
@@ -839,7 +839,12 @@ This confirms that clustering relational data is difficult not only because one 
 
 
 
-These results may explain why ReCeNT almost consistently outperforms all other methods in the first experiment.  First, ReCeNT considers different sources of relational similarity; and second, it ensures that each source has a comparable impact (by normalising the impact of each source and giving each an equal weight in the linear combination).  This guarantees that if a component contains useful information, it is taken into account.  If a component has no useful information, it adds some noise to the similarity measure, but the clustering process seems quite resilient to this. If {\em most} of the components are irrelevant, the noise can dominate the pattern.  This is likely what happens in experiment 1 when depth 2 neighbourhood trees are used: too much irrelevant information is introduced at level two, dominating the signal at level one.
+These results may explain why \gls{recent} almost consistently outperforms all other methods in the first experiment.
+First, \gls{recent} considers different sources of relational similarity; and second, it ensures that each source has a comparable impact (by normalising the impact of each source and giving each an equal weight in the linear combination).
+This guarantees that if a component contains useful information, it is taken into account.
+If a component has no useful information, it adds some noise to the similarity measure, but the clustering process seems quite resilient to this.
+If {\em most} of the components are irrelevant, the noise can dominate the pattern.
+This is likely what happens in experiment 1 when depth 2 neighbourhood trees are used: too much irrelevant information is introduced at level two, dominating the signal at level one.
 %Not having these two properties also explains why other approaches perform well only on the tasks that suit their biases.
 
 %These results suggest that the main benefit of ReCeNT comes from (1) consideration of several sources of relational similarity, and (2) decoupling those individual sources in to a linear combination.
@@ -860,7 +865,7 @@ These results may explain why ReCeNT almost consistently outperforms all other m
 
 \subsubsection{\textbf{(Q3) Learning weights in an unsupervised manner}}
 
-The first experiment shows that ReCeNT outperforms the competitor methods even without parameters being tuned.
+The first experiment shows that \gls{recent} outperforms the competitor methods even without parameters being tuned.
 The second experiment shows that one typically has to consider multiple interpretations of similarity in order to obtain a useful clustering.
 A natural question to ask is whether the  parameters could be learned from data in an unsupervised way.
 The possibility of tuning offers an additional flexibility to the user.
@@ -902,7 +907,7 @@ Thus, by treating each component in Equation \ref{eq:Sim} as a separate affinity
 
 
 
-We have tried AASC in ReCeNT, and the results  are summarised in Table~ \ref{tab:withWeights}.
+We have tried AASC in \gls{recent}, and the results  are summarised in Table~ \ref{tab:withWeights}.
 These results lead to several conclusions.
 Firstly, in most cases AASC yields no substantial benefit or even hurts performance.
 This confirms that learning the appropriate bias (and the corresponding parameters) in an entirely unsupervised way is a difficult problem.
@@ -924,7 +929,7 @@ We conclude that tuning the weights in an unsupervised manner will require more 
 
 The previous experiments point out that the proposed dissimilarity measure performs well compared to the existing approaches, but finding the appropriate weights is difficult.
 Though our focus is on clustering tasks, we can use our dissimilarity measure for classification tasks as well.
-The availability of labels offers a clear objective to optimise when learning the weights, and thus allows us to evaluate the appropriateness of ReCeNT for classification.
+The availability of labels offers a clear objective to optimise when learning the weights, and thus allows us to evaluate the appropriateness of \gls{recent} for classification.
 
 We have set up an experiment where we use a $k$ nearest neighbours (kNN) classifier with each of the (dis)similarity measures.
 It consists of a 10-fold cross-validation, where within
@@ -942,23 +947,23 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 		\toprule
 		\textbf{Approach} & \textbf{IMDB}   & \textbf{UWCSE}& \textbf{Mutagenesis}  & \textbf{WebKB}    &  \textbf{Terrorists} \\
 		\midrule
-		HS 		 		  &	88.08	        &	76.66       &  0.00                 &		12.78       &   	27.51		\\
+		\gls{hs} 		 		  &	88.08	        &	76.66       &  0.00                 &		12.78       &   	27.51		\\
 
-		CC		    	  &	88.08	        &\textbf{99.85} &  60.08                &		61.07       &   	38.28	\\
+		\gls{cc}		    	  &	88.08	        &\textbf{99.85} &  60.08                &		61.07       &   	38.28	\\
 
-		HSAG     		  &	88.08	        &	95.88       &  77.40	            &		12.82       &   	75.62		\\
+		\gls{hsag}     		  &	88.08	        &	95.88       &  77.40	            &		12.82       &   	75.62		\\
 
-		ReCeNT     	  &	\textbf{100}	&\textbf{100}	&  \textbf{85.54 }      &	\textbf{100}    &   	\textbf{85.60}	\\
+		\gls{recent}     	  &	\textbf{100}	&\textbf{100}	&  \textbf{85.54 }      &	\textbf{100}    &   	\textbf{85.60}	\\
 
-		RIBL	    	  &	\textbf{100}	&	77.22       &  76.37                &		84.11       &   	-		\\
+		\gls{ribl}	    	  &	\textbf{100}	&	77.22       &  76.37                &		84.11       &   	-		\\
 
-		WLST      	      &	93.60	        &	44.94       &  76.37	            &		47.35       &   	45.56		\\
+		\gls{wlst}      	      &	93.60	        &	44.94       &  76.37	            &		47.35       &   	45.56		\\
 
 		VE			      &	\textbf{100}	&	98.26       &  70.60	            &		49.33       &   	30.00		\\
 
 	    V 			      &	93.80	        &	43.61       &  70.42                &		47.35       &   	44.39		\\
 
-		RKOH	          &	95.07	        &	67.26       &  60.78                &       -	        &       - 		\\
+		\gls{rkoh}	          &	95.07	        &	67.26       &  60.78                &       -	        &       - 		\\
 		\bottomrule
 		\end{tabular}
 
@@ -970,16 +975,16 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 
 The results of this experiment are summarised in Table \ref{tab:SupervisedRes}.
 ReCeNT achieves the best performance on all data sets.
-On the IMDB data set, ReCeNT achieves perfect performance, as do RIBL and VE.  On UWCSE, ReCeNT is 100\% accurate; its closest competitor, CC, achieves 99.85\%.
+On the IMDB data set, \gls{recent} achieves perfect performance, as do RIBL and VE.  On UWCSE, \gls{recent} is 100\% accurate; its closest competitor, \gls{cc}, achieves 99.85\%.
 From the classification viewpoint, these two data sets are easy: the classes are differentiable by one particular attribute or relation.
 %Thus, high performance of most (dis)similarity measure is not surprising, especially in the case of IMDB.
-On Mutagenesis and Terrorists, the difference is more outspoken: ReCeNT achieves around 85\% accuracy, with its closest competitor (HSAG) achieving 76\% or 77\%.
-On WebKB, finally, ReCeNT and RIBL substantially outperform all the other approaches, with ReCeNT achieving 100\% and RIBL 84.11\%.
+On Mutagenesis and Terrorists, the difference is more outspoken: \gls{recent} achieves around 85\% accuracy, with its closest competitor (\gls{hsag}) achieving 76\% or 77\%.
+On WebKB, finally, \gls{recent} and \gls{ribl} substantially outperform all the other approaches, with \gls{recent} achieving 100\% and \gls{ribl} 84.11\%.
 
-The remarkable performance of ReCeNT on WebKB is explained by inspecting the tuned weights.  These reveal that ReCeNT's ability to jointly consider vertex identity, edge type distribution, and vertex attributes (in this case, words on webpages) are the reason why it performs so well.  None of the other approaches take all three components into account, which is why they achieve substantially worse results.
+The remarkable performance of \gls{recent} on WebKB is explained by inspecting the tuned weights.  These reveal that \gls{recent}'s ability to jointly consider vertex identity, edge type distribution, and vertex attributes (in this case, words on webpages) are the reason why it performs so well.  None of the other approaches take all three components into account, which is why they achieve substantially worse results.
 
 These results clearly show that accounting for several views of similarity is beneficial for relational learning.
-Moreover, the availability of labelled information is clearly helpful and ReCeNT is capable of successfully adapting its bias towards the needs of the data set.
+Moreover, the availability of labelled information is clearly helpful and \gls{recent} is capable of successfully adapting its bias towards the needs of the data set.
 
 
 
@@ -997,41 +1002,41 @@ Moreover, the availability of labelled information is clearly helpful and ReCeNT
 		\toprule
 		\textbf{Approach } & \textbf{IMDB}     & \textbf{UWCSE} &   \textbf{Mutagenesis}   &   \textbf{WebKB}   &  \textbf{Terror} \\
 		\midrule
-		HS 		 		&	1		&	1	   &  	-	  &		1	   &   	1		\\
+		\gls{hs} 		 		&	1		&	1	   &  	-	  &		1	   &   	1		\\
 
-		CC$_2$ 			&	1		&	1      &  	1	  &		5	   &   	1		\\
+		\gls{cc}$_2$ 			&	1		&	1      &  	1	  &		5	   &   	1		\\
 
-		CC$_4$ 			&	1		&	1	   &  	1	  &		8	   &   	8		\\
+		\gls{cc}$_4$ 			&	1		&	1	   &  	1	  &		8	   &   	8		\\
 
-		HSAG$_1$ 		&	1		&	1	   &  1		  &		2	   &   	2		\\
+		\gls{hsag}$_1$ 		&	1		&	1	   &  1		  &		2	   &   	2		\\
 
-		HSAG$_2$ 		&	1		&	1	   &  1		  &		5	   &   	2		\\
+		\gls{hsag}$_2$ 		&	1		&	1	   &  1		  &		5	   &   	2		\\
 
-		ReCeNT$_1$		&	1		&	1	   &  	1	  &		2	   &   	2		\\
+		\gls{recent}$_1$		&	1		&	1	   &  	1	  &		2	   &   	2		\\
 
-		ReCeNT$_2$		&	1		&	1	   &  	3	  &		10	   &   	5		\\
+		\gls{recent}$_2$		&	1		&	1	   &  	3	  &		10	   &   	5		\\
 
-		RIBL$_1$		&	1		&	2	   &  	540	  &		1320   &   	-		\\
+		\gls{ribl}$_1$		&	1		&	2	   &  	540	  &		1320   &   	-		\\
 
-		RIBL$_2$		&	2		&	5	   &  -	  &		-	   &   	-		\\
+		\gls{ribl}$_2$		&	2		&	5	   &  -	  &		-	   &   	-		\\
 
-		$WLST_{1,5}$	&	1		&	1	   &  	1	  &		1	   &   	1		\\
+		$\gls{wlst}_{1,5}$	&	1		&	1	   &  	1	  &		1	   &   	1		\\
 
-		$WLST_{1,10}$	&	1		&	1	   &  	1	  &		1	   &   	1		\\
+		$\gls{wlst}_{1,10}$	&	1		&	1	   &  	1	  &		1	   &   	1		\\
 
-		$WLST_{2,5}$	&	1		&	1	   &  	1	  &		4	   &   	5		\\
+		$\gls{wlst}_{2,5}$	&	1		&	1	   &  	1	  &		4	   &   	5		\\
 
-		$WLST_{2,10}$	&	1		&	1	   &  	1	  &		4	   &   	5		\\
+		$\gls{wlst}_{2,10}$	&	1		&	1	   &  	1	  &		4	   &   	5		\\
 
 		$VE_1$			&	1		&	1	   &  	1	  &		1	   &   	2		\\
 
-		RKOH$_{1,2}$	&	1		&	2	   &  	10	  &	-		   &   -			\\
+		\gls{rkoh}$_{1,2}$	&	1		&	2	   &  	10	  &	-		   &   -			\\
 
-		RKOH$_{1,4}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
+		\gls{rkoh}$_{1,4}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
 
-		RKOH$_{2,2}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
+		\gls{rkoh}$_{2,2}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
 
-		RKOH$_{2,4}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
+		\gls{rkoh}$_{2,4}$	&	-		&	-	   &  - 	  &  -	   &  - 		\\
 		\bottomrule
 		\end{tabular}
 
@@ -1043,10 +1048,10 @@ Table \ref{tab:Runtimes} presents a comparison of runtimes for each approach.
 All the experiments were run on a computer with 3.20 GHz of CPU power and 32 GB RAM.
 The runtimes include the construction of supporting structures (neighbourhood trees and context descriptors), calculation of similarity between all pairs of vertices, and clustering.
 The measured runtimes are consistent with the previously discussed complexities of the approaches.
-HS, HSAG, CC, ReCeNT and kernel approaches (excluding RKOH) are substantially more efficient than the remaining approaches.
-This is not surprising, as HS, HSAG and CC  use very limited information.
+\gls{hs}, \gls{hsag}, \gls{cc}, \gls{recent} and kernel approaches (excluding \gls{rkoh}) are substantially more efficient than the remaining approaches.
+This is not surprising, as \gls{hs}, \gls{hsag} and \gls{cc}  use very limited information.
 It is, however, interesting to see that ReCeNT and WLST,  which use substantially more information, take only slightly more time to compute, while achieving substantially better performance on most data sets.
-These approaches are also orders of magnitude more efficient than RIBL and RKOH, which did not complete on most data sets with depth set to 2.
+These approaches are also orders of magnitude more efficient than \gls{ribl} and \gls{rkoh}, which did not complete on most data sets with depth set to 2.
 That is particularly the case for RKOH which did not complete in 24 hours even with the depth of 1, when the walk length was set to 4.
 
 
@@ -1070,20 +1075,6 @@ One open challenge is to which extent the parameters of the proposed similarity 
 
 
 
-
-%\textbf{Future work.}
-%This work can be extended in several directions.
-%First, there is a number of options concerning the choice of the weights of the proposed similarity measure.
-%Learning the weights works well when class labels are available, but is difficult in an unsupervised setting.
-%In semi-supervised classification or constraint-based clustering \cite{WagstaffCKC}, limited information is available that may help tune the weights.  A small number of labels or pairwise constraints (must-link / cannot-link) may suffice to tune the weights in ReCeNT.
-%%A big advantage of the semi-supervised setting is that the objective criteria can be defined with the use of pairwise constraints by, for example, maximizing the similarity between objects in must-link constraints and minimizing the similarity between the ones in cannot-link constraints.
-%
-%The second direction comes from the field of  \textit{multiple kernel learning} \cite{Gonen2011MKL}.
-%The field of multiple kernel learning is concerned with finding an optimal combination of fixed kernel sets, and might be inspirational in learning the weights directly from data.
-%In contrast to many relational clustering techniques, our approach with neighbourhood trees allows us to construct a prototype - a representative example of a cluster, which many of the clustering algorithms require.
-%Moreover, constructing a prototype of a cluster might be of great help analysing the properties of objects clustered together.
-%Integrating our measure into very scalable clustering methods such as BIRCH \cite{Zhang:1996}, would allow one to cluster very large hyper-graphs.
-%An interesting extension would be to modify the summations over levels of neighbourhood trees into weighted sums over the same levels, following the intuition that the vertices further from the vertex of interest are less relevant, but at the same time giving them a chance to make a difference.
 
 
 

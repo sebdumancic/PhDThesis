@@ -5,7 +5,7 @@
 This chapter briefly introduces the concepts of statistical relational learning.
 It starts with a short introduction to logic, starting from the propositional logic and gradually climbs the ladder of complexity all the way to the logic programming.
 It continues with a brief introduction to Inductive logic programming.
-Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory in order to quantify uncertainty of the reasoning.
+Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory to quantify uncertainty of the reasoning.
 
 
 
@@ -45,7 +45,7 @@ Every interpretation in which \textit{ideal\_pet} is true is a model of this pro
 
 
 Once the theory describing the knowledge is available, different \textit{inference} tasks can be considered.
-The most fundamental task is that of \textit{consistency} or \textit{satisfiability} checking, which checks whether the theory has a model.
+One of the fundamental tasks is that of \textit{consistency} or \textit{satisfiability} checking, which checks whether the theory has a model.
 The task of \textit{validity} checking checks whether every interpretation is a model.
 The task of \textit{model counting}, a generalisation of both aforementioned tasks, counts the number of models of the theory.
 
@@ -60,12 +60,12 @@ The task of \textit{model counting}, a generalisation of both aforementioned tas
 \subsection{Predicate logic}
 
 
-Propositional logic is suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations between objects is extremely tedious.
-For instance, to indicate that two animals are of the same species would require introducing new boolean variables for each pair of animals, such as \textit{same\_species\_dog\_cat}, and specifying their truth assignments.
+Propositional logic is suitable framework for drawing inferences about individual objects or examples (where each example is an interpretation), but encoding more complex knowledge in form of relations among objects is extremely tedious.
+For instance, to indicate that two animals are of the same species would require introducing new Boolean variables for each pair of animals, such as \textit{same\_species\_dog\_cat}, and specifying their truth assignments.
 
 
 
-To over come this issue, \textit{predicate logic} extends the propositional logic with \textit{objects} and \textit{relations} between them, resulting in a powerful language for representing mathematical formalisms.
+To overcome this issue, \textit{predicate logic} extends the propositional logic with \textit{objects} and \textit{relations} among them, resulting in a powerful language for representing mathematical formalisms.
 An especially attractive feature of predicate logic is its universal \textit{inference algorithm} -- one can state a set of axioms, or facts, and theorems in predicate logic and rely on \textit{resolution} \cite{Robinson:1965:Resolution} inference algorithm to derive new axioms and theorems from the old ones.
 
 
@@ -217,7 +217,7 @@ $$ \text{\textit{royal(X)}} \text{ :- } \text{\textit{ancestor(Y,X),is\_queen(Y)
 
 
 Propositional logic and logic programs are two extremes on the spectrum of possible data representations~\cite{LucRLbook}.
-This spectrum of representations explores a tradeoff between the \textit{expressiveness} -- the complexity of what can be represented, and \textit{efficiency} -- how fast can we perform fundamental inference and learning tasks in a certain representation class.
+This spectrum of representations explores a trade-off between the \textit{expressiveness} -- the complexity of what can be represented, and \textit{efficiency} -- how fast can we perform fundamental inference and learning tasks in a certain representation class.
 There is an intricate relationship between these properties: expressiveness comes with lower efficiency.
 Therefore, resorting to a too powerful data representation as a default choice comes at a high computational cost; in contrast, choosing a less but sufficiently expressive representation offers better efficiency  without loss of information.
 
@@ -299,7 +299,7 @@ A very interesting theoretical result relating these representations is the foll
 
 
 Moreover, these reductions are \textit{proper}, meaning that of $X$ reduced to $Y$ then also $Y$ reduces to $X$.
-If relational problems can be solved by boolean representations,  why bother with more expressive representation at all?
+If relational problems can be solved by Boolean representations,  why bother with more expressive representation at all?
 
 
 The reason lies in the expense that comes with reducing a more expressive representation to a less expressive one.
@@ -386,7 +386,7 @@ Many different \gls{ilp} algorithms have been proposed so far, but the vast majo
 
 
 
-To understand these two learning frameworks, we need to understand two notions -- \textit{generality} and \textit{specialization}.
+To understand these two learning frameworks, we need to understand two notions -- \textit{generality} and \textit{specialisation}.
 
 \begin{definition}{(Generality)}
 Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$.
@@ -395,9 +395,9 @@ Clause $c_1$ is \textit{more general} than clause $c_2$, $c_1 \preceq c_2$, if a
 
 
 
-\begin{definition}{(Specialization)}
+\begin{definition}{(Specialisation)}
 Let $c_1$ and $c_2$ $\in$ $\mathcal{L}$.
-Clause $c_2$ is \textit{specialization} of clause $c_1$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$.
+Clause $c_2$ is \textit{specialisation} of clause $c_1$, $c_1 \preceq c_2$, if and only if all examples covered by $c_2$ and also covered by $c_1$.
 \end{definition}
 
 
@@ -407,7 +407,7 @@ Clause $c_2$ is \textit{specialization} of clause $c_1$, $c_1 \preceq c_2$, if a
 
 	\caption{The \gls{ilp} learning loop}
 	\begin{algorithmic}
-		\STATE $\text{Queue} \leftarrow \text{\textit{initialize}}$
+		\STATE $\text{Queue} \leftarrow \text{\textit{initialise}}$
 		\STATE $\text{Examples} \leftarrow \{\text{\ldots}\}$
 		\STATE $\text{Theory} \leftarrow \emptyset$
 
@@ -496,7 +496,7 @@ Language bias provide a specification how the provided predicates can \textit{in
 This typically includes specifying the following information
 
 
-\paragraph{Argument types.} Given na predicate \texttt{b/2} (where \texttt{/2} defines the number of arguments the predicate takes), each argument has an associated \textit{type}. For instance, the predicate \textit{friends/2} operates only between entities of type \texttt{person}: both arguments are of the type \texttt{person}.
+\paragraph{Argument types.} Given an predicate \texttt{b/2} (where \texttt{/2} defines the number of arguments the predicate takes), each argument has an associated \textit{type}. For instance, the predicate \textit{friends/2} operates only between entities of type \texttt{person}: both arguments are of the type \texttt{person}.
 
 
 \paragraph{Argument roles.} Each argument of a predicate has an associated \textit{role}, which specifies how the predicate can be introduced in a clause.
@@ -567,7 +567,7 @@ It is therefore a representation of the first formalism of the Halpern's systema
 
 An example of a Problog program is given in Figure~\ref{fig:problog}.
 The central concept in Problog is a \textit{probabilistic fact}: ground fact $f$ annotated with a probability $p$ (e. g., $0.8{:: }{\mathtt {playful(alpaca)}}$).
-\textit{Deterministic facts} are simply the probabilistic facts wih $p = 1.0$.
+\textit{Deterministic facts} are simply the probabilistic facts with $p = 1.0$.
 Each probabilistic fact corresponds to a Boolean random variable which is \textit{true} with probability $p$ and \textit{false} with probability $1-p$.
 Next to the probabilistic facts, Problog consists of deterministic rules equivalent to Prolog clauses (e. g., ${\mathtt {cuddly(X)} \text{ :- }{\mathtt {fluffiness(X,Y),Y >= 4}}.}$).
 Probabilistic rules (e. g., $0.3{:: }{\mathtt {bites(X)}} \text{ :- }{\mathtt {diet(X,carnivore)}}.$) are syntactic sugars which simply introduce a new probabilistic fact reflecting the probability of the rule every time the deterministic rule is \texttt{true}.
@@ -602,7 +602,7 @@ $$
 $$
 
 $$
-\begin{aligned}ok
+\begin{aligned}
 &= \sum \limits _{\begin{array}{c} F'\subseteq F \\ \exists \theta F'\cup R\models q\theta \end{array}} \prod _{f_i\in F'}p_i\cdot \prod _{f_i\in F\setminus F'}(1-p_i)\;.
 \end{aligned}
 $$

@@ -31,8 +31,8 @@ The chapter is based on the following publications.
 The previous chapter introduces \gls{curled} -- a method for relational representation learning that creates latent representation by exploiting symmetries in data.
 Even though \gls{curled} brings concepts from the \gls{srl} into relational representation learning, it relies on the external clustering procedure to \textit{invent} new predicates.
 Thus, the constructed representation hierarchy  is not truly relational as latent features are not defined through logical formulas, even though we managed to find a way to explain the meaning of the constructed features.
-Additionally, latent representations created \gls{curled} prone to generating a very large number of features, of which only a small portion  is actually used in the subsequent predictive model.
-Though the discovered features are likely to be useful for many different tasks, they make generative learning of \gls{srl} models difficult as a large number of predicates results in a very large search space.
+Additionally, latent representations created by \gls{curled} are prone to generating a rather large number of latent features, of which only a small portion  is actually used in the subsequent predictive model.
+Though the discovered features are likely to be useful for many different tasks, they make generative learning of \gls{srl} models difficult as a large number of predicates results in a large search space.
 
 
 %Embedding-based approaches, including \gls{kge}s, \textit{differentiable interpreters} \cite{DTP2017,bosnjak17,Reed:2016} and \textit{graph neural networks} \cite{Scarselli:2009:GNN:1657477.1657482,DBLP:conf/icml/NiepertAK16,ae482107de73461787258f805cf8f4ed},  can only \textit{approximate} the given relational data, but not capture it in entirety.
@@ -43,15 +43,15 @@ Though the discovered features are likely to be useful for many different tasks,
 
 
 In this chapter we ask the following question: \textit{how can we learn latent representations of relational data in a principled framework that can keep data and reasoning at relational level?}
-We are interested in whether we can learn relational latent representation by means of learning and inference methods from \gls{srl} community.
+We are interested in learning relational latent representation by means of learning and inference methods from \gls{srl} community.
 
 
 
 We argue that fully retaining first-order logic as a data representation language within \gls{dl} approaches offers several benefits.
 First, predicate logic is a Turing-equivalent programming language and thus provides a language that does not introduce any limitations upfront.
-Second, it is easily interpretable (while \gls{dl} is a \textit{black-box}) and modular which might allow for efficient learning strategies.
+Second, it is easily interpretable (whereas \gls{dl} is a \textit{black-box}) and modular which might allow for efficient learning strategies.
 Third, once the domain model is obtained/specified, \gls{srl} systems can answer any question w.r.t. the provided domain model, and the user thus does not have to commit to a specific learning task in advance.
-Fourth, \gls{srl} and other logic-based ML methods are very data-efficient and capable of learning from a few examples only, while \gls{dl} is \textit{data-hungry}.
+Fourth, \gls{srl} and other logic-based ML methods are very data-efficient and capable of learning from a few examples only, whereas \gls{dl} is \textit{data-hungry}.
 Fifth, SRL methods allow for incorporation of \textit{background knowledge} and thus can easily build further on previously gathered knowledge.
 
 
@@ -59,7 +59,7 @@ Fifth, SRL methods allow for incorporation of \textit{background knowledge} and 
 
 
 
-This work takes a fresh look at learning relational latent representations by going back to the basics of relational learning and induces relational latent representation in a \textit{symbolic way}, instead of the gradient-based optimisation.
+This work takes a fresh look at the representation learning problem and induces relational latent representations in a \textit{symbolic way}, instead of the gradient-based optimisation.
 We introduce \textit{auto-encoding logic programs} (\alp{s}) -- a novel relational DL component which uses logic programs as a computation engine instead of neural networks.
 We focus on auto-encoders as they have proven to be among the most versatile \gls{dl} primitives and applicable to different learning settings (un-, semi- and supervised learning) using the same learning principle \cite{SSLVAE2014,VincentDaE,Kingma2014,BengioSAE}.
 This versatility is important as it makes a single latent representation suitable for many tasks within SRL.
@@ -93,7 +93,7 @@ The contributions of this work are a (i) \textit{a framework for learning auto-e
 \begin{sidewaysfigure}
 	\centering
     \includegraphics[width=.95\textwidth]{alps}
-    \caption[Illustration of the Auto-encoding logic programs]{Illustration of the auto-encoding logic program learning the concept of \textit{parent} in the latent representation (underlaid figure of neural auto-encoder for convenience).\label{fig:alp}}
+    \caption[Illustration of the Auto-encoding logic programs]{Illustration of the auto-encoding logic program learning the concept of \textit{parent} in the latent representation (underlay figure of neural auto-encoder for convenience).\label{fig:alp}}
 \end{sidewaysfigure}
 
 
@@ -106,18 +106,6 @@ The key ingredient of their success is the limited capacity of the latent repres
 Intuitively, our goal is to lift the framework of auto-encoders to use \textit{first-order logic as a data representation language},  and \textit{logic programs} as mapping functions of encoder and decoder (Figure \ref{fig:alp}).
 It is important to note that by assimilating logic programs, the mapping functions of \alp{s} are realised in a Turing-complete language, giving them the potential to learn arbitrarily complex latent representations.
 
-
-
-
-% \textbf{Preliminaries -- logic.}
-% Formulas in first-order logic are composed of three types of symbols: \textit{constants} representing the objects in the domain (e.g. people \textit{anna,dirk}), \textit{variables} ranging over the objects in the domain, and \textit{predicates} representing the relations among objects (e.g., \textit{mother}).
-% A \textit{term} is any expression representing an object in the domain (e.g. \textit{X} or \textit{dirk}).
-% An \textit{atom} is a predicate symbol applied to terms (e.g., \textit{mother(anna,X)}), and it is \textit{ground} if all terms are constants (e.g. \textit{mother(anna,dirk)}).
-% A \textit{fact} is a ground atom which evaluates to \textit{true}.
-% A \textit{clause} is a logical formula of the form \textit{h :- b$_1$,\ldots,b$_n$} (e.g. \textit{mother(X,Y) :- parent(X,Y),female(X).}), where \textit{h} is called the \textit{head} predicate and \textit{b$_i$} are \textit{body} atoms (comma denotes conjunction, while the disjunction is indicated by semi-colon).
-% %\tias{in the fig, latent 1 uses a semicolon which is an or which is not explained here. Not knowing this makes the example nonunderstandable}).
-% Clauses are read as logical implications: \textit{h} if \textit{b$_1$} and \textit{\ldots} and \textit{b$_n$}.
-% A \textit{logic program} is a set of clauses.
 
 
 
@@ -169,11 +157,6 @@ The knowledge base reconstruction loss (the difference of the leftmost and right
     \label{eq:reconstruction}
 \end{equation}
 
-%\begin{align}
-%    \min & \sum_{e \in \mathcal{KB}} \mathbb{1}[e \not\in \mathcal{D}(\mathcal{E}(\mathcal{KB}))]  \\
-%         & + \sum_{e \in \mathcal{HB(P,C)} \wedge e \not\in \mathcal{KB}}  \mathbb{1}[e \in \mathcal{D}(\mathcal{E}(\mathcal{KB}))]
-%    \label{eq:reconstruction}
-%\end{align}
 
 where $\ominus$ is the symmetric difference between two sets (the given knowledge base $\mathcal{KB}$ and the decoded $\mathcal{D}(\mathcal{E}(\mathcal{KB}))$), which returns (1) all non-reconstructed facts from $\mathcal{KB}$ and (2)  all \textit{false} reconstructions.
 %\tias{changed 'a symmetric diff' to 'the symm diff' assuming there is only one? I prefer $\ominus$ btw as the diff is more explicit}
@@ -217,7 +200,7 @@ A \textit{constraint optimisation problem} consists of three components: \textbf
 
 
 \paragraph{Decision variables.}
-Each candidate encoder and decoder clause is associated with a \textit{boolean decision variable} which indicates whether a clause is selected (having the value 1) or not (having the value 0).
+Each candidate encoder and decoder clause is associated with a \textit{Boolean decision variable} which indicates whether a clause is selected (having the value 1) or not (having the value 0).
 
 
 \paragraph{Objective function.}
@@ -241,7 +224,7 @@ Assuming that the two clauses correspond to the decision variables \texttt{dc}$_
 \texttt{rf}$_i \Leftrightarrow$  \texttt{dc}$_1  \vee $ \texttt{dc}$_2$
 \end{center}
 
-where \texttt{rf}$_i$ is a new boolean variable propagating the information whether fact \texttt{mother(anna,dirk)} is reconstructed or not.
+where \texttt{rf}$_i$ is a new Boolean variable propagating the information whether fact \texttt{mother(anna,dirk)} is reconstructed or not.
 $\Leftrightarrow$ is the reification operator, ensuring that \texttt{rf}$_i$ is assigned to 1 if at least one of the decoder clauses \texttt{dc}$_1$ and \texttt{dc}$_2$ is selected.
 
 %Using these \texttt{rf} variables, we can formulate the objective function by counting how many \textit{true} facts are not reconstructed and how many \textit{false} facts are introduced: %\tias{should probably use 'fact (not) present in KB' rather than true/false.}
@@ -250,7 +233,7 @@ Using these \texttt{rf} variables, we can formulate the objective function by co
 	\min \underbrace{\sum_{i=1}^{N}\text{not}(\text{\texttt{rf}}_i)}_{\text{\textit{true} reconstruction}} +  \underbrace{\sum_{j=1}^{M} \bar{\text{\texttt{rf}}_j}}_{\text{\textit{false} reconstruction}}
 \end{equation}
 where $N$ is the number of facts, and $M$ the number of false reconstructions (indicated with a bar, $\bar{\text{\texttt{rf}}}$). % \tias{hmm, wording can be clarified I think, e.g. 'present not present in kb' or smth. Also, does not need special 'bar' imho... (also note that bar sometimes means negation of the literal}
-The optimisation task then corresponds to finding the assignment to decision variables that minimize the reconstruction loss.
+The optimisation task then corresponds to finding the assignment to decision variables that minimise the reconstruction loss.
 
 %\tias{up to here, will continue later}
 
@@ -262,9 +245,7 @@ Constraints have two primary functions in the proposed framework: (1) imposing t
 \textit{Capacity constraints}, such as sparsity or compression, are the key ingredient of \textit{traditional auto-encoders} preventing them from learning the \textit{identity mapping} as latent representation.
 We impose such a constraint by limiting the \textit{average number of facts per latent predicate} through the following hard constraint
 $$ \frac{\sum_{i=1}^{N}w_i\text{\texttt{ec}}_i}{\sum_{i=1}^N\text{\texttt{ec}}_i} \leq \gamma G$$
-%\tias{Note that because $\gamma G$ is constant you can rewrite this into: $\sum_{i=1}^{N}w_i\text{\texttt{l}}_i - \sum_{i=1}^N\gamma G\text{\texttt{l}}_i \leq 0 \Leftrightarrow \sum_{i=1}^{N}(w_i -\gamma G)\text{\texttt{l}}_i \leq 0$ which is much more efficient to propagate...}
-%seb{did this in the implementation, thought this would be easier to understand in the paper}
-where \texttt{ec}$_i$ are decision variables corresponding to the encoder clauses, $w_i$ indicates the number of latent facts they entail and which can be precomputed, $\gamma$ is the \textit{compression parameter} and $G$ is the average number of facts in the original data representation.
+where \texttt{ec}$_i$ are decision variables corresponding to the encoder clauses, $w_i$ indicates the number of latent facts they entail and which can be pre-computed, $\gamma$ is the \textit{compression parameter} and $G$ is the average number of facts in the original data representation.
 We have also tried a more straightforward constraint of limiting the number of facts in the latent representation which gives worse results, so we do not consider it further.
 
 
@@ -309,18 +290,6 @@ To ensure only one of the syntactic variants is part of the solution, we impose 
 
 
 
-
-
-%\textit{Generality of clauses.} A clause $c_1$ is more general than a clause $c_2$ if all of the examples entailed by $c_2$ are also entailed by $c_1$.
-%As $c_2$ cannot bring new information if $c_1$ is also a part of the solution, we impose the constraint stating the not both of the clauses can be selected at the same time:
-%
-%\begin{center}
-%    !(\texttt{c}$_1$ $\wedge$ \texttt{c}$_2$) == \texttt{true}.
-%\end{center}
-
-
-
-
 \textit{Reconstruct all predicates.}
 %In order to prevent the solver from getting stuck in a local minimum that only reconstructs facts related to a subset of predicates, we introduce a constraint stating that for each predicate in $\mathcal{P}$, at least one decoder clause with that predicate as head has to be selected.\tias{too long sentence}
 Assume that \texttt{dc}$_k$,\texttt{dc}$_l$ and \texttt{dc}$_m$ are decoder clauses all having predicate $p$ as the head predicate.
@@ -334,7 +303,7 @@ We have noticed that this constraint allows the solver to find good solution fas
 
 Given the combinatorial nature of \alp{s}, exact and complete search is impossible in all but the smallest problem instances.
 Therefore, we resort to a standard technique in constraint programming, namely \textit{large neighbourhood search} (LNS) \cite{Ahuja:2002:SVL:772382.772385}. LNS combines complete search with random exploration.
-It imposes a limit on the number of backtracks for individual runs of a complete search; once the limit is reached, it restarts the search in a random neighbourhood around the current best solution. % a random part of the search space and explores its neighbourhood.
+It imposes a limit on the number of backtracks for individual runs of a complete search; once the limit is reached, it restarts the search in a random neighbourhood around the current best solution.
 This is typically done by assigning a small portion of decision variables to their values in the best solution found so far, and searching over the remaining variables.
 
 
@@ -352,11 +321,8 @@ For the individual search runs, we use \textit{last conflict search} \cite{COS} 
 
 \subsection{Pre-processing}
 As the candidate clauses are generated purely syntactically, many of the candidate will be uninformative and introduce many false reconstructions.
-We can further reduce the number of candidates, and hence the search space, through the following preprocessing steps that use specific properties of the problem at hand:
-%It is important to add insightful and non-trivial constraints that can prune the search space and significantly improve the scalability of \alp{s}.
-%Therefore, we can prune the search space by removing all uninformative candidates, which in turn significantly helps the search.
-%To do that, we introduce three novel strategies for reducing the number of candidate clauses.
-%\wannes{You make this look too easy. State that it is important to add insightful/non-trivial constraints that can prune the search space.}
+We can further reduce the number of candidates, and hence the search space, through the following pre-processing steps that use specific properties of the problem at hand:
+
 
 \begin{definition}
 \textbf{Naming variants.}
@@ -368,10 +334,6 @@ with \textit{L1=\{ec$_1$(a),ec$_1$(b),...\}} and \textit{L2=\{ec$_2$(a),ec$_2$(b
 The two clauses are \textit{naming variants} if renaming the predicate names in \textit{L1} and \textit{L2} to a common name yields identical sets \textit{L1} and \textit{L2}.
 \end{definition}
 
-%\wannes{I dropped the bodies. It made it look like an example while it wasn't. And the bodies weren't used in the definition.}
-
-%\wannes{Is this definition identical to saying that two clauses are naming variants if the heads are true for the exact same set of constants?}
-
 
 In order to reduce the search space, we detect all naming variants and keep only one instance as a candidate.
 
@@ -380,12 +342,11 @@ In order to reduce the search space, we detect all naming variants and keep only
 \textbf{Signature variants.}
 Assume two decoder clauses, \texttt{dc}$_m$ and \texttt{dc}$_n$, with the same head predicate.
 Let \texttt{C}$_m$ (\texttt{C}$_n$) be the maximal set of facts decoder clauses \texttt{dc}$_m$ (\texttt{dc}$_n$) entail, and \texttt{B}$_m$ (\texttt{B}$_n$) be the maximal set of predicates used in the body of the two clauses.
-The two clauses are \textit{signature variants} iff \texttt{C}$_m$ $=$ \texttt{C}$_n$ and \texttt{B$_m$} $=$ \texttt{B$_n$}.
+The two clauses are \textit{signature variants} if \texttt{C}$_m$ $=$ \texttt{C}$_n$ and \texttt{B$_m$} $=$ \texttt{B$_n$}.
 \end{definition}
 
 As signature variants are redundant w.r.t. the optimisation problem, we keep only one of the clauses detected to be signature variants and remove the rest.
 
-%\wannes{Except that one talks about encoder and the other about decoders, def 7 is a special case of def 6. What is the intuition why we need a more strict version for the decoder vs the more loose version for the encoder? E.g. def 6 avoids creating interchangeable latent atoms which do not have a specific meaning anyway while def 7 ... (I cannot come up with an intuition)}
 
 \begin{definition}
 \textbf{Corruption level.}
@@ -395,14 +356,6 @@ Given a decoder clause \texttt{dc}$_i$, its true instantiations \texttt{DC} and 
 The notion of the \textit{corruption level} turns out to be particularly important, because if $c(\text{\texttt{dc}}_i) \geq 0.5$ then the decoder clause \texttt{dc}$_i$ cannot improve the objective function as it introduces more \textit{false positives} than \textit{true positives} (under the assumption that the false reconstructions are not shared between the decoder clauses).
 We remove the candidate clauses that have a corruption level $\geq 0.5$.
 
-%\tias{You don't use Fig 1 very much. Perhaps relate to it a few times in this text as well? e.g. encoding, lp, decoding lp, what is the loss here (well, 0, but OK...) Can also help to point out language bias/bg here (if applicable)}
-
-%\seb{Add more detailed example and explanation of language bias $\rightarrow$ put in the supplementary material}
-
-% Intuitively, this can be seen in the following way.
-% The language bias provided by the user specifies all encoder clauses that can be used by specifying all logical formulas that can be used as bodies of encoder clauses.
-% Having the candidate encoder clauses, all decoder clauses are specified accordingly.
-% The problem is now defined as selecting a subsets of decoder clauses that give the best reconstruction.
 
 
 
@@ -413,49 +366,38 @@ We remove the candidate clauses that have a corruption level $\geq 0.5$.
 
 The experiments aim at answering the following question:
 
-%\begin{displayquote}
-%\textit{Does inducing a latent latent representation with \alp{s} help in learning better models?}
-%\end{displayquote}
-%\tias{bit vague because meaning of model not that clear; for solving SRL tasks?}
-
 \begin{displayquote}
 \textit{Does inducing a latent  representation with \alp{s} help with solving SRL tasks?}
 \end{displayquote}
 
-We focus on evaluation in a generative learning settings, and focus on learning generative \textit{Markov Logic Networks} (MLN) \cite{Richardson2006}.
+We focus on evaluation in a generative learning settings, and focus on learning generative \textit{Markov Logic Networks}~\cite{Richardson2006}.
 This means, more precisely, that we are interested in whether learning the structure of a generative model in \textit{latent space}, and decoding it back to the original space, is more effective (in terms of how well it explains the data) than learning the model in the original data space.
 
 
 To answer the question, we apply the following procedure.
-The baseline MLN model is simply learned on the original data representation, and the average \textit{leave-one-out} AUC-PR is reported.
+The baseline \gls{mln} model is simply learned on the original data representation, and the average \textit{leave-one-out} AUC-PR is reported.
 We report AUC-PR instead of AUC-ROC because AUC-PR is less sensitive to the class imbalance problem~\cite{Davis:2006:RPR:1143844.1143874}, which is the case with the datasets we use in the experiments.
-To learn the \textit{latent} MLN model, we first learn the latent representation with \alp{s} varying the length of clauses and the compression level, and learn an MLN on the resulting latent representation.
-To evaluate the learned MLNs, we query each fact regarding one specific predicate given everything else as evidence.
+To learn the \textit{latent} MLN model, we first learn the latent representation with \alp{s} varying the length of clauses and the compression level, and learn an \gls{mln} on the resulting latent representation.
+To evaluate the learned \gls{mln}s, we query each fact regarding one specific predicate given everything else as evidence.
 This is repeated for each predicate in a test interpretation.
-In case of latent MLN, predicate is removed before the rest of the data is encoded to the latent space.
-To allow for comparing the latent MLN with the baseline model, once the structure is learned in the latent space we append the corresponding decoder from ALPs to the latent model (see Supplementary material).
-This ensures that the baseline and latent MLNs operate in the same space.
-The only difference when performing inference with latent MLN is that each latent predicate that could have been effected by removal of the test predicate (i.e., the test predicate is present in the body of the encoder clause defining the specific latent predicate) has to be declared \textit{open world}, otherwise MLNs will assume that all atoms not present in the database are \textit{false}.
+In case of latent \gls{mln}, predicate is removed before the rest of the data is encoded to the latent space.
+To allow for comparing the latent \gls{mln} with the baseline model, once the structure is learned in the latent space we append the corresponding decoder from ALPs to the latent model (see Supplementary material).
+This ensures that the baseline and latent \gls{mln}s operate in the same space.
+The only difference when performing inference with latent \gls{mln} is that each latent predicate that could have been effected by removal of the test predicate (i.e., the test predicate is present in the body of the encoder clause defining the specific latent predicate) has to be declared \textit{open world}, otherwise MLNs will assume that all atoms not present in the database are \textit{false}.
 
 
- We limit the expressivity of MLN models to only formulas of length 3 with at most 3 variables (also known as a liftable class of MLNs).
+ We limit the expressivity of \gls{mln} models to only formulas of length 3 with at most 3 variables (also known as a liftable class of \gls{mln}s).
  %the reasoning being that the benefit of the latent representation is easier to measure if the model being learned is simple and
-This does not sacrifice the performance of MLNs, as shown in \cite{VanHaaren2016} which achieves the state-of-the-art structure learning results while imposing the same restrictions to MLNs.
-We use BUSL \cite{mihalkova:icml07} as a generative MLN learner.
+This does not sacrifice the performance of \gls{mln}s, as shown in \cite{VanHaaren2016} which achieves the state-of-the-art structure learning results while imposing the same restrictions to \gls{mln}s.
+We use BUSL \cite{mihalkova:icml07} as a generative \gls{mln} learner.
 
 
 
-
-%When learning latent representations, we vary the length of encoder and decoder clauses in $\{2,3\}$ and the compression level (the $\alpha$ parameter) in $\{0.3, 0.5, 0.7\}$.
-%Note that this is not as limiting as it seems at the first sight, if more complexity is necessary it can be achieved by \textit{stacking} several layers of \alps.
-%Even if latent representation captures such short relational patterns, it can be very useful in an SRL setting: imagine that in order to successfully model the target domain, formulas of length 6 are necessary.
-%A learner learning from the given data representation would have to search a huge space to find such a formula.
-%However, if latent representation captures only "short" patterns of length 3, only 2 should latent predicates are enough to represent the initial formula requiring 6 predicates. \wannes{This paragraph is confusing, alternative proposal below}
 
 When learning latent representations, we vary the length of encoder and decoder clauses in $\{2,3\}$ and the compression level (the $\alpha$ parameter) in $\{0.3, 0.5, 0.7\}$.
 This choice of parameters expresses a trade-off between long, complex rules and the search space size.
 Also, this does not exclude learning longer rules since several layers of latent predicates/\alp{s} can be \textit{stacked}.
-This is a useful property in an SRL setting.
+This is a useful property in an \gls{srl} setting.
 Suppose a formula of length 6 is ideal.
 Instead of searching in a huge space to find such a formula, the latent representation captures short formulas and stacks those to build the longer formula of size 6.
 
@@ -463,7 +405,7 @@ Instead of searching in a huge space to find such a formula, the latent represen
 
 
 \textbf{Data}
-We use standard SRL benchmark datasets to evaluate ALPs.
+We use standard SRL benchmark datasets to evaluate \alp{s}.
 \textit{WebKB} contains a set of web pages scrapped from four US universities - Cornell and Universities of Texas, Washington and Wisconsin.
 The data contains web pages, their mutual links and more semantic information about relationships between pages, such as whether the page belongs to a student or a faculty member and courses they teach (we omit the word information, as in \cite{mihalkova:icml07}).
 \textit{Cora-ER} contains a set of papers, their authors, title and venues, together entity resolution information (i.e., titles, authors and venues that refer to the same entities but are spelled differently).
@@ -495,7 +437,7 @@ We have experimented with other common SRL datasets, but have removed the once o
         \centering
         \includegraphics[width=.98\linewidth]{uwcse_AUCPR_final}
     \end{minipage}
-    \caption[Performance of the MLN models learned on the original and \alp{s}-induced data representations.]{The MLN models learned on the latent representation outperform the baseline MLN (indicated with the vertical red line) in terms of the AUC-PR score, except on the UWCSE dataset where the gain is marginal.}
+    \caption[Performance of the \gls{mln} models learned on the original and \alp{s}-induced data representations.]{The \gls{mln} models learned on the latent representation outperform the baseline MLN (indicated with the vertical red line) in terms of the AUC-PR score, except on the UWCSE dataset where the gain is marginal.}
     \label{fig:resultsAUCPR}
 \end{figure}
 
@@ -503,7 +445,7 @@ We have experimented with other common SRL datasets, but have removed the once o
 
 
 
-Figure \ref{fig:resultsAUCPR} summarises the performance, in terms of AUC-PR scores, of MLNs learned on the original data representation and various representation created by \alp{s} by modifying the clause lengths for both encoder and decoder, and varying the compression level of the latent representations.
+Figure \ref{fig:resultsAUCPR} summarises the performance, in terms of AUC-PR scores, of \gls{mln}s learned on the original data representation and various representation created by \alp{s} by modifying the clause lengths for both encoder and decoder, and varying the compression level of the latent representations.
 
 
 
@@ -525,7 +467,7 @@ Whereas on WebKB all setups but one ($0.7-3-3$) improve the performance, the Cor
 On Cora-ER, it seems to be important to compress the data heavily as setups with the compression level of $0.3$ perform the best.
 One possible explanation is that Cora-ER contains a lot of word information; to find useful latent information about words, \alp{s} have to be forced to compress a lot, otherwise they are simply extracting patterns that are too general.
 
-The results for the UWCSE dataset show that the performance gain is marginal, improved by only 0.05 points, and most of the latent MLNs perform \textit{worse} than the baseline MLNs.
+The results for the UWCSE dataset show that the performance gain is marginal, improved by only $0.05$ points, and most of the latent \gls{mln}s perform \textit{worse} than the baseline \gls{mln}s.
 Upon further investigation, we discovered that marginal improvement is the result of \alp{s} getting stuck in local optima: this dataset has relatively large number of predicates  and therefore yielding a very large search space (Figure \ref{fig:timings}) which contains many local optima.
 We noticed that these local optima had a particular \textit{cheat}: the encoder was composed of \textit{identity mappings} between the observed and the latent predicates and many specific encoder clauses that entail very small number of latent facts, resulting in having a small \textit{average number of facts per latent predicate} and cheating the capacity constraint.
 We tried to circumvent this problem by imposing the constraint that prevent two decoder clauses, where facts entailed by one clause are a subset of facts entailed by the other clause, being selected together; however, that was computationally infeasible given the large number of candidate clauses.
@@ -562,24 +504,6 @@ Figure \ref{fig:timings} summarises the time needed for learning a  latent repre
 These timings show that, despite being defined as a combinatorial problem, \alp{s} are quite efficient: the majority of latent representations is learned within one hour, and a very few taking more than 10 hours (this excludes the time needed for setting the COP problem, as we did not optimise that step).
 Moreover, the best result on each dataset (Figure \ref{fig:resultsAUCPR}) is rarely achieved with the latent representation with the most expressive \alp{} (with decoder clause length of 3, and any length of encoder clauses), which are the runs that take the longest.
 This suggest that the length of clauses serves as a form of regularisation, and one can safely stick to the shorter clauses (and stacking if the complexity is needed) which are fast to learn.
-
-
-
-%\section{Related work}
-%\label{sec:relatedwork}
-%
-%
-%\textit{Knowledge graph embeddings} \cite{Nickel0TG16} (KGE) re-represent the symbolic data in Euclidean spaces and perform relational reasoning through algebraic manipulations of vectors.
-%\alp{s} differ in the way that they retain full semantics of logic and use the programming language for mapping to the latent space, instead of purely algebraic manipulations.
-%Several works \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted} combine aspects of logic with KGEs, but through imposing constraints on KGEs and not retaining the relational representation.
-%
-%
-%
-%Several works bring DL ideas into SRL by introducing symbolic variants of neural networks (NN)~\cite{Sourek:2015:LRN:2996831.2996838,Kazemi2018}; however, they focus on predictive learning, often with specified architecture.
-%Dumancic and Blockeel (\cite{Dumancic2017}) introduce a general relational representation learning pipeline, but the approach cannot be used to generative learning as the number of introduced latent predicates is very large.
-%Rockt\"{a}schel and Riedel (\cite{DTP2017}) integrate theorem proving techniques with the embeddings representations and, in contrast to \alp{s}, learn embeddings representation of relational data.
-%Various \textit{neuro-symbolic integration} methods~\cite{Besold2017NeuralSymbolicLA} concern emulating logical reasoning with NNs, but now learning with logic.
-%%However, these methods focus on predictive learning only.
 
 
 

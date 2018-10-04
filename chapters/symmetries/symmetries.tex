@@ -30,7 +30,7 @@ This chapter is based on the following publications:
 
 
 \newglossaryentry{url}{name={URL},description={Unsupervised Representation Learning}}
-Precisely defining the properties of good data representation is very difficult, if not impossible.
+Precisely defining the properties of good data representation is difficult, if not impossible.
 We have seen some of the intuitive notions in Section \ref{ch3:sec:properties}, but many of them are difficult to define precisely.
 Considering the case of supervised representation learning, defining a \textit{fitness} of a latent feature is somewhat possible as there is a clearly defined goal, and latent features can be assessed based on how much they help in achieving the goal.
 In the case of unsupervised representation learning (URL)~\cite{Hinton504,Bengio07greedylayer-wise,RanzatoBL07}, in which the obtained representation is not tailored for one specific task but can rather be shared among multiple tasks, there is no such guidance.
@@ -127,7 +127,7 @@ The same holds for hyper-edges which connect vertices of different types.
 
 \paragraph{(2) How to estimate the similarity?}
 The features are the only source of similarity between instances in the i.i.d. data.
-In the relational context, a similarity is an ambiguous notion that can originate in the  features of relational objects, structures of their neighbourhoods (both feature- and relationship-wise), interconnectivity or graph proximity, just to name a few.
+In the relational context, a similarity is an ambiguous notion that can originate in the  features of relational objects, structures of their neighbourhoods (both feature- and relationship-wise), inter-connectivity or graph proximity, just to name a few.
 Furthermore, which interpretation is needed for a particular task is not known in advance, making \gls{url} inherently more difficult.
 To find a representation effective for many tasks, \gls{curled} addresses \textit{multiple interpretations of relational similarity simultaneously.}
 How exactly that is achieved is discussed in the next section.
@@ -474,7 +474,7 @@ These results suggest that $\mathcal{C}$-representations indeed improve performa
 First, the $\mathcal{C}$-representation created with spectral clustering consistently performs better on all datasets, except the Terrorists one.
 Second, if the learning  task does not have a strong relational component, then $\mathcal{C}$-representations are not beneficial and can even hurt the performance (this is the case with the Terrorists dataset).
 Third, the choice of a clustering algorithm matters, and spectral clustering does a better job in our experiments - it always results in improved or at least equally good performance.
-Fourth, the choice of treating hyper-edges as ordered (by \textit{combination}) or unordered (\textit{merging}) sets is data-dependent, and the difference in performance is observed.
+Fourth, the choice of treating hyper-edges as ordered (by \textit{combination}) or un-ordered (\textit{merging}) sets is data-dependent, and the difference in performance is observed.
 
 
 Combining the results from \textbf{Q1}, \textbf{Q2} and \textbf{Q3} shows that \textit{the main benefit} of \gls{curled} is \textit{the transformation of data such that it becomes easier to express complex dependencies}.

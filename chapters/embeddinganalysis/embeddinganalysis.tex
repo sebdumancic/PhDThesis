@@ -2,7 +2,7 @@
 
 
 This chapter focuses on analysing the properties of relational latent representations.
-If focuses on explaining the effectiveness of such representation transformations and establishing the relative advantages of \gls{kge}s compared to the methods within the \gls{srl} methods and vice versa.
+It focuses on explaining the effectiveness of such representation transformations and establishing the relative advantages of \gls{kge}s compared wih the methods within the \gls{srl} methods and vice versa.
 This chapter is based on the following publications:
 
 \begin{quote}
@@ -27,13 +27,13 @@ This chapter is based on the following publications:
 A common criticism of  (relational) representation learning methods concerns their black-box nature.
 Latent features are created through layers of non-linear transformations which are often incomprehensible as the neural architectures implementing the transformation can easily have up to several billions of parameters.
 It is also difficult to know which kind of knowledge latent features capture nor \textit{why} that particular knowledge is useful for the prediction.
-In the case of relational representation learning, both entities and relations are mapped to the points in the Euclidean space and thus approximate the original data.
+As both entities and relations are mapped to the points in the Euclidean space, \gls{kge}s thus approximate the original data.
 We currently lack any measure to assess the quality of such approximation, nor do we know how to associate semantics to relations and entities in the Euclidean space.
 
 
 
 This chapter introduces two sets of experiments that offer more insight into effectiveness of relational latent representations.
-The first set of experiments investigates why representations created by \gls{curled} are so effective and identify two properties that correlated well with the increase in the performance of the \gls{srl} methods.
+The first set of experiments investigates why representations created by \gls{curled} are effective and identify two properties that correlated well with the increase in the performance of the \gls{srl} methods.
 The second set of experiments compares several state of the art \gls{kge} and \gls{ilp} methods on several benchmark datasets, including both relational classification and knowledge base completion.
 The experiments are designed to gain insights into relative strengths and weaknesses of the respective methods.
 The experiments reveal several indicators that might help in choosing one method over another one for a specific  relational dataset.
@@ -183,7 +183,7 @@ These results indicates that latent features indeed describe smaller groups of i
 
 \textbf{Connecting label entropy and sparsity.}
 A potential explanation of the above discussed results might be that many latent features capture a very small number of instances (e.g., 1 or 2) which would lead to a large number of features with low label entropy.
-Such features would largely be useless as they make generalization very difficult.
+Such features would largely be useless as they make generalisation very difficult.
 To verify that this is not the case, Figure~\ref{fig:EntropyVsSparsity} plots the label entropy versus the number of groundings of a predicate.
 If latent features of low label entropy would indeed capture only a small number of instances, many points would be condensed in the bottom left corner of the plot.
 However, that is not the case -- many latent predicates with low label entropy actually have a number of groundings comparable to the predicates in the original representation.
@@ -311,7 +311,7 @@ Symbolic \gls{srl} methods typically focus on learning from small relational dat
 
 
 This work contributes towards better understanding of the relative strengths and weaknesses of the aforementioned paradigms.
-We perform a systematics comparison of \gls{kge}s and symbolic \gls{srl} approaches on various standard relational classification, as well as the knowledge base completion tasks.
+We perform a systematic comparison of \gls{kge}s and symbolic \gls{srl} approaches on various standard relational classification, as well as the knowledge base completion tasks.
 Standard relational classification datasets offer variety of tasks requiring various level of reasoning complexity, while standard KBC datasets offer insights on real-life large knowledge graphs.
 We include both quantitative, in terms of performance, and qualitative analysis, in terms of extracted patterns of reasoning, in order to gain more insights into the suitability of these different methods.
 
@@ -628,7 +628,7 @@ If our observation is correct and not the result of randomness, the performance 
 The results (Figure \ref{fig:filter_results}) do confirm so: the difference in performance of \gls{kge}s and symbolic \gls{srl} methods reduces in the cases of decision trees (Figure \ref{fig:dt_difference}) and SVMs (Figure \ref{fig:svm_difference}), especially when decision trees are used.
 Interestingly, TransE and DistMult seem to benefit from that more than ComplEx.
 The differences in performance between \gls{kge}s and symbolic \gls{srl} methods do not disappear completely -- we attribute this to the sparsity of the filtered graph, as it is known that the quality of the embeddings rely on the level sparsity of the knowledge graph~\cite{pujara:emnlp17}.
-Moreover, filtering the data might have filtered out some of the useful information that coincidently correlates well with information deemed useful by the symbolic learner.
+Moreover, filtering the data might have filtered out some of the useful information that coincidentally correlates well with information deemed useful by the symbolic learner.
 Thus, inclusion of such information might be beneficial to \gls{kge}s, but we do not have a way to detect it easily.
 Moreover, we have noticed that there is a relatively small overlap between information found predictive by TILDE and kFOIL, indicating that the bias of the learning algorithm plays an important roles in detecting which parts of the available information is predictive.
 The kNN results again diverge from this trend, and the results suggest that KGE-based methods perform worse than with the unfiltered dataset.
@@ -697,7 +697,7 @@ The likely reason for that is that the filtered information matches the bias of 
 
 
 The results on the KBC datasets (Table \ref{tab:kbcres}) indicate that the symbolic SRL methods perform rather well on these datasets.
-On the FB15k-237 dataset, TILDE achieves the mean accuracy of 95\% and the wighted mean accuracy of 98\% while inducing relatively simple model having on average 10.15 nodes in the tree.
+On the FB15k-237 dataset, TILDE achieves the mean accuracy of 95\% and the weighted mean accuracy of 98\% while inducing relatively simple model having on average 10.15 nodes in the tree.
 The WN18-RR dataset is rather different than the FB15k-237: TILDE achieves the mean accuracy of 90\% but the weighted mean accuracy of 83\% which means that the relations with higher number of test examples are predicate less accurately.
 The results show that this dataset is much more complex than the FB15k-237 as it requires rather long chains of reasoning, indicated by large TILDE trees having on average 231 nodes.
 
@@ -1210,7 +1210,7 @@ The analysis also shows that the \gls{curled}-created latent features tend to be
 The chapter then focuses on comparing the \gls{kge} and \gls{ilp} approaches to relational learning on various benchmarks.
 This second analysis shows that \gls{kge}s outperform \gls{ilp} methods on relational classification tasks when the data is curated -- the data contains only the relevant information.
 In the scenarios when that is not the case, \gls{ilp} have an edge over the \gls{kge} methods.
-The analysis also shows that \gls{ilp} methods outperform \gls{kge}s on the standard knowledge base completion tasks, while embeddings seem to be an interesting approach for assessing the similarity of relational objects. 
+The analysis also shows that \gls{ilp} methods outperform \gls{kge}s on the standard knowledge base completion tasks, while embeddings seem to be an interesting approach for assessing the similarity of relational objects.
 
 
 
