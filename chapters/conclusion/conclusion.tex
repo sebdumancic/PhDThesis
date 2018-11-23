@@ -9,7 +9,7 @@ We conclude by summarising the presented work, restating its main contributions,
 
 
 The success of any machine learning application depends on the quality of the provided data.
-That does not only  reflect the quality of the data collection process but the quality of data representation as well.
+It reflects the quality of the data collection process and data representation.
 The quality of data representation is reflected in the quality of features that are used to describe the desired objects, which should not only the informative and relevant but should also allow capturing interesting patterns easily.
 This usually requires a domain expert knowing which features might be relevant for the task.
 What used to be a time-consuming and labour-intensive task is now transformed into an automatic procedure by \textit{representation} or \textit{deep learning}.
@@ -17,7 +17,7 @@ The field of representation learning concerns the development of techniques that
 
 
 Unfortunately,  the majority of the existing representation learning methods focuses on \textit{flat data}, which represents data with vectors containing features values.
-This is in contrast with the real world which contains objects and their mutual relationships, i. e., the real world is \textit{inherently relational}.
+This is in contrast with the real world which contains objects and their mutual relationships, i.e., the real world is \textit{inherently relational}.
 The existing representation learning approaches addressing the relational data typically resort to \textit{flattening} the relational data into vectors.
 This mapping can only \textit{approximate} the relational data, and we currently lack a quantitative measure to assess the quality of the approximation.
 Moreover, these approaches do not leverage the tools developed within \textit{statistical relational learning} which concerns learning from relational data.
@@ -41,9 +41,9 @@ The experiments show that accounting for a diverse set of primitive similarities
 The second contribution is the technique for inventing relational latent representations by capturing approximate symmetries in data.
 The proposed technique relies on the previously introduced relational clustering framework to identify such symmetries by means of clustering.
 The main novelty this technique introduces is that it clusters objects and relationships in a data using different \textit{similarity interpretations}, instead of composing several of them into one joint complex similarity measure.
-Compared to the existing work that uses clustering to enhance relational representations, the proposed technique clustering the instances of relationships, not just their types.
+Compared to the existing work that uses clustering to enhance relational representations, the proposed technique clusters the instances of relationships, not just their types.
 It can thus discover various \textit{sub-types} of relationships that might carry useful information.
-We show that learning from the latent representations created by clustering is beneficial for relational learning as it often improves the performance of the relational classifier while at the same time reduces the complexity of the induced model.
+We show that learning from the latent representations created by clustering is beneficial for relational learning as it often improves the performance of the relational classifier while at the same time reducing the complexity of the induced model.
 Moreover, we introduce a relatively simple method for explaining the invented latent features which allow us to overcome the typical issue of a black-box feature invention machines.
 
 
@@ -65,9 +65,9 @@ This is related to the concept of \textit{disentangling the factors of variation
 \textbf{Auto-encoding logic programs}
 The third contribution of this thesis are auto-encoding logic programs.
 They stand for a generalisation of the flat auto-encoder towards logic programs as a representation language.
-that includes both data and the computational framework for defining relational features.
+That includes both data and the computational framework for defining relational features.
 In contrast to \gls{curled} which introduces relational concepts into relational representation learning but still relies on statistical summaries for inventing the latent features, Auto-encoding logic program rely on clausal logic for every step of the pipeline.
-Therefore, they fully leverage the representation power of logic.
+Therefore, they fully leverage the expressiveness of logic.
 We introduce a constraint optimisation framework for learning auto-encoding logic programs that proved to be reasonably efficient.
 The experiments show that latent representations created by \alp{} aid learning generative \gls{srl} models, resulting in a better performance of the \gls{srl} models learnt in the latent space.
 
@@ -81,7 +81,8 @@ The experiments show that latent representations created by \alp{} aid learning 
 The fourth contribution of this thesis is an analysis of relational representation learning techniques.
 We start by analysing the relational latent representations created by \gls{curled} and show that such representations are effective because the identify groupings in data that correspond well with the available labels.
 We then focus on comparing the symbolic and embedding \gls{srl} approaches on a set of standard benchmarks for relational classification and knowledge base completion.
-The results of the comparison show that embedding approaches are suitable for scenarios when the data is \textit{curated} and most of the available information is found relevant for the task at hand, while symbolic \gls{srl} approaches are more suitable for the case when data cannot be curated and reduced to only the relevant information.
+The results of the comparison show that embedding approaches are suitable for scenarios when the data is \textit{curated} and most of the available information is found predictive for the task at hand.
+Symbolic approach like \gls{srl} are more suitable for the case when data cannot be curated and reduced to only the relevant information.
 When compared on the standard knowledge base completion tasks, symbolic \gls{srl} methods outperform embeddings approaches by a large margin.
 Finally, embeddings \gls{srl} approaches seem to be a good alternative for assessing the similarity in relational data.
 
@@ -125,9 +126,9 @@ This is especially important for \alp{s} as it can inform us how to impose the l
 
 
 \paragraph{Different representation learning techniques}
-This thesis as explored two representation learning approaches -- \textit{learning by clustering} and the \textit{auto-encoding principle}.
+This thesis has explored two representation learning approaches -- \textit{learning by clustering} and the \textit{auto-encoding principle}.
 The literature on representation learning consists of many different, and effective, ideas.
-It is well worth exploring various ideas, and one particularly interesting are \textit{Generative adversarial networks}~\cite{Goodfellow:2014:GAN:2969033.2969125}, which learns a generative latent model through a competition with a \textit{discriminator} network trying to distinguish between the real data and the samples of the generative model.
+It is well worth exploring various ideas, and one particularly interesting idea are \textit{Generative adversarial networks}~\cite{Goodfellow:2014:GAN:2969033.2969125}, which learns a generative latent model through a competition with a \textit{discriminator} network trying to distinguish between the real data and the samples of the generative model.
 One of the main challenges here is how to propagate the feedback from the discriminator to the generator network, and the bi-directionality of Prolog predicates might be an elegant way to tackle this.
 
 

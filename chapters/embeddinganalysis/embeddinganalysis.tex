@@ -1,4 +1,4 @@
-\chapter{Towards better understanding of relational latent representations}\label{ch:embeddinganalysis}
+\chapter{Towards a better understanding of relational latent representations}\label{ch:embeddinganalysis}
 
 
 This chapter focuses on analysing the properties of relational latent representations.
@@ -26,16 +26,16 @@ This chapter is based on the following publications:
 
 A common criticism of  (relational) representation learning methods concerns their black-box nature.
 Latent features are created through layers of non-linear transformations which are often incomprehensible as the neural architectures implementing the transformation can easily have up to several billions of parameters.
-It is also difficult to know which kind of knowledge latent features capture nor \textit{why} that particular knowledge is useful for the prediction.
+It is also difficult to know which kind of knowledge latent features capture and \textit{why} that particular knowledge is useful for the prediction.
 As both entities and relations are mapped to the points in the Euclidean space, \gls{kge}s thus approximate the original data.
 We currently lack any measure to assess the quality of such approximation, nor do we know how to associate semantics to relations and entities in the Euclidean space.
 
 
 
 This chapter introduces two sets of experiments that offer more insight into the effectiveness of relational latent representations.
-The first set of experiments investigates why representations created by \gls{curled} are effective and identify two properties that correlated well with the increase in the performance of the \gls{srl} methods.
-The second set of experiments compares several state of the art \gls{kge} and \gls{ilp} methods on several benchmark datasets, including both relational classification and knowledge base completion.
-The experiments are designed to gain insights into relative strengths and weaknesses of the respective methods.
+We first identify two properties that correlate well with the increase in the performance when the \gls{ilp} model is learned from the latent representation created by \gls{curled}.
+We then compare several state of the art \gls{kge} and \gls{ilp} methods on several benchmark datasets, including both relational classification and knowledge base completion.
+The experiments are designed to gain insights into the relative strengths and weaknesses of the respective methods.
 The experiments reveal several indicators that might help in choosing one method over another one for a specific  relational dataset.
 
 
@@ -66,7 +66,7 @@ Considering a particular predicate, label entropy reflects a \textit{purity} of 
 Intuitively, if true groundings of predicates tend to predominantly focus on one particular label, we expect model learning to be easier.
 
 
-Sparse representations, one of the cornerstones of deep learning \cite{Bengio2013RLR}, refer to a notion in which concepts are explained based on local (instead of global) properties of instance space.
+Sparse representations, one of the cornerstones of deep learning \cite{Bengio2013RLR}, refer to a notion in which concepts are explained based on local (instead of global) properties of the instance space.
 Even though many properties might exist for a particular problem, sparse representations describe instances using only a small subset of those properties.
 Intuitively, a concept spread across a small number of local regions is expected to be easier to capture than a concept spread globally over an entire instance space.
 
@@ -244,7 +244,7 @@ Symbolic \gls{srl} methods, on the other hand, are capable of capturing very com
 
 
 The major weakness of \gls{kge}s is that vectorisation of complex relational data is necessarily an \textit{approximation} of it, not the exact re-representation.
-We currently lack any measure of the quality of such mapping.
+We currently lack any measure of the quality of such a mapping.
 Furthermore, \gls{kge}s are black-box and uninterpretable, limited reasoning capabilities focused on local information, and have a difficult time handling unseen instances.
 The weakness of the symbolic \gls{srl} methods is that both inference and learning with such methods is highly complex, limiting its applicability, as well as lack of ways to represent similarity between symbols.
 
@@ -277,7 +277,7 @@ We include both quantitative, in terms of performance, and qualitative analysis,
 
 As stated before, the current understanding of the relative strengths and weaknesses of \gls{kge}s and symbolic \gls{srl} methods in very limited.
 Several works, however, do offer interesting insights.
-Nickel et al. (\cite{NickleNIPS2014}) and Toutanova and Chen (\cite{toutanova2015observed}) show that including both latent features from \gls{kge}s and the observable features, in form of random walks over knowledge graphs, in a join model can greatly increase the performance and reduce the learning complexity.
+Nickel et al. (\cite{NickleNIPS2014}) and Toutanova and Chen (\cite{toutanova2015observed}) show that including both latent features from \gls{kge}s and the observable features, in the form of random walks over knowledge graphs, in a joint model can greatly increase the performance and reduce the learning complexity.
 Pujara et al. (\cite{pujara:emnlp17}) show that \gls{kge}s have difficulties handling data with high degree of sparsity and noise -- which is the case with every automatically created knowledge graph.
 Grefenstette (\cite{GrefenstetteTFDS}) introduces a formula framework for simulating logical reasoning through tensor calculation, which can be seen as a form of embeddings that does not require learning.
 
@@ -287,7 +287,7 @@ Toutanova and Chen compare \gls{kge}s with a simple method that takes the types 
 However, they offer no greater insight in possible reasons.
 Vig et al.  compare symbolic \gls{srl} methods with embeddings obtained by the Siamese neural network~\cite{Bromley:1993:SVU:2987189.2987282}, and focus on analysing the impact of the available \textit{background knowledge} on the performance.
 Their results indicate that \gls{kge}s might be beneficial when the background knowledge about the task at hand is limited but is such knowledge is available then the symbolic methods are preferable.
-Our work presented in this paper differs in a way that it goes beyond quantitative analysis and includes substantial qualitative analysis with respect to the complexity of reasoning needed to address the task.
+Our work presented differs in a way that it goes beyond quantitative analysis and includes substantial qualitative analysis with respect to the complexity of reasoning needed to address the task.
 
 
 
@@ -313,7 +313,7 @@ Concretely, we focus on the following question:
 \end{displayquote}
 
 
-Our focus is exclusively on the classification tasks as they give us a well-defined and clear performance measure, in contrast to the clustering task which is ill-defined ~\cite{Estivill-Castro:2002}.
+Our focus is exclusively on classification tasks as they give us a well-defined and clear performance measure, in contrast to the clustering task which is ill-defined ~\cite{Estivill-Castro:2002}.
 
 
 
@@ -397,7 +397,7 @@ Due to the sheer magnitude of the existing \gls{kge} methods \cite{EmbeddingsOve
 Moreover, it is not clear whether a big difference in performance is expected~\cite{DBLP:conf/rep4nlp/KadlecBK17}.
 Therefore, we focus on the two prototypical and, arguably, most used approaches -- TransE and DistMult, as well as the state-of-the-art approach of ComplEx \cite{trouillon2016complex}.
 It is important to note that ComplEx produces embeddings in the \textit{complex Euclidean space} and that each entity is associated with two embeddings - \textit{real} and \textit{imaginary} one.
-In order to create a single embedding out of these two, we consider three version of ComplEx embeddings: (1) taking an average of two embeddings, (2) their sum, and (3) concatenation of two embeddings.
+In order to create a single embedding out of these two, we consider three version of ComplEx embeddings: (1) taking an average of two embeddings, (2) their sum, and (3) the concatenation of the two embeddings.
 
 
 
@@ -490,7 +490,7 @@ The results also indicate that the performance of various KGE models is relative
 
 
 
-What is most interesting in these results is not the difference in the performance itself, but \textit{whether we could explain what gives \gls{kge} methods (dis)advantage on certain datasets?}
+What is most interesting in these results is not the difference in the performance itself, but \textit{whether we could explain what gives \gls{kge}s  an advantage on certain datasets and disadvantage on others?}
 In order to do so, we analyse the results with respect to the semantics of the predicates used in the extracted rules, which yields further interesting results.
 More precisely, we differentiate between \textit{attribute predicates} that associate a specific value of an attribute with an instance, and \textit{relation predicates} that connect two instances.
 We further distinguish between \textit{target} instances having an associated label, and \textit{neighbourhood} instances that provide additional data.
@@ -526,7 +526,7 @@ Table~\ref{tab:ruleproperties} summarises the rules extracted by TILDE w.r.t. th
 
 
 
-The results indicate an interesting connection between the performance and the amount of data information that is found predictive: the properties of TILDE rules extracted for the Hepatitis and Carcinogenesis datasets reveal that the majority of provided information, both attributes and relations, are found predictive.
+The results indicate an interesting connection between the performance and the amount of available information that is found predictive: the properties of the TILDE rules extracted for the Hepatitis and Carcinogenesis datasets reveal that the majority of provided information, both attributes and relations, are found to be predictive.
 For instance, on the Hepatitis dataset,  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
 Similar numbers hold for the Carcinogenesis data.
 
@@ -539,9 +539,9 @@ On the WebKB dataset, only 4 \% of the attributes have been found predictive, as
 
 
 
-The results and the analysis of the rules suggest that \gls{kge} have an edge over the \gls{srl} methods when \textit{most of the information in the neighbourhood of instances is relevant}.
-An explanation for such a big difference in performance might be that SRL methods have to select few predictive rules while learning theories, and thus can discard irrelevant information.
-In contrast, the learning principle of KGEs is designed to take all of the information into account, which seems to make them underperform.
+The results and the analysis of the rules suggest that \gls{kge}s have an edge over the \gls{srl} methods when \textit{most of the information in the neighbourhood of instances is relevant}.
+An explanation for such a big difference in performance might be that \gls{srl} methods have to select few predictive rules while learning theories, and thus can discard irrelevant information.
+In contrast, the learning principle of \gls{kge}s is designed to take all of the information into account, which seems to make them underperform.
 
 
 

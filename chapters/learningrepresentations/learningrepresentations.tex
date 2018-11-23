@@ -19,9 +19,9 @@ As we have seen in Section \ref{sec:intro_ml} of Chapter \ref{ch:introduction}, 
 \end{equation}
 
 
-This also illustrates why we care so much about the representation of data: if the relevant information in $X$ is insufficiently captured or represented, whatever \textit{f} we learn  is doomed to be a bad one.
+This also illustrates why we care so much about the representation of the data: if the relevant information in $X$ is insufficiently captured or represented, whatever \textit{f} we learn  is doomed to be a bad one.
 As one relies on \gls{ml} in scenarios when one has little or no knowledge of \textit{f}, it is very difficult, if not impossible, to know in advance which information is relevant for the mapping.
-Deploying \gls{ml} solution in practice, thus, requires a lot of manual work just to identify the relevant information for the task.
+Deploying a \gls{ml} solution in practice, thus, requires a lot of manual work just to identify the relevant information for the task.
 Insufficiently captured information does not imply that the relevant information is not present, but instead is not represented explicitly enough.
 A typical example is illustrated in Figure \ref{fig:transform} in which blue dots are difficult to separate from red ones in the original data representation, but transforming the data into a new latent representation makes them easy to separate.
 
@@ -53,7 +53,7 @@ Moreover, several mapping function can be \textit{stacked} together to perform m
 
 
 The core focus of representation learning is on \textit{learning} the function(s) \textit{m}$_{(i)}$.
-By the time of writing of this thesis, several thousands of different representation learning methods exist in the literature \cite{Goodfellow2016}.
+By the time this thesis was written, several thousands of different representation learning methods exist in the literature \cite{Goodfellow2016}.
 In this section, we illustrate the principles of representation learning on a few prototypical approaches.
 
 
@@ -62,7 +62,7 @@ In this section, we illustrate the principles of representation learning on a fe
 
 
 \newglossaryentry{ann}{name={ANN},description={Artificial Neural Networks}}
-Representation learning as a field has risen from the advances in \textit{artificial neural networks} (\gls{ann}).
+Representation learning as a field has risen from the advances in \textit{Artificial Neural Networks}.
 Until this day, almost all representation learning methods are developed within the framework of \gls{ann}s.
 
 \begin{figure}
@@ -83,7 +83,7 @@ The interactions between neurons are dictated by their connections (edges connec
 An \gls{ann} in Figure \ref{fig:ann} consists of three \textit{layers}: an \textit{input layer} which takes the data $X$, an \textit{output layer} capturing the target concept $y$ and a \textit{hidden layer} performing the representation transformation.
 \gls{ann} operates by activating neurons in different amounts depending on the input data -- similar to the human brain.
 Each neuron in the hidden layer is connected to all of the input neurons but with different \textit{strengths} of connections.
-In formal terms, the amount of activation of any individual neuron equals
+In formal terms, the  activation of any individual neuron equals
 
 \begin{equation}
 	a(X) = n(\sum_{i=1}^N w_i \times x_i)
@@ -95,7 +95,7 @@ The function \textit{n} is any non-linear function determining the activation ba
 
 
 
-The task of learning \gls{ann}s is the one of learning the strengths of connections given a fixed structure of an \gls{ann}s.
+The task of learning \gls{ann}s is the one of learning each connection's strength given a fixed structure of an \gls{ann}s.
 Once learned, the activation's of the neurons in the hidden layer represents the new representation of data.
 
 
@@ -113,7 +113,7 @@ A benefit of unsupervised representation learning is that the new representation
 
 
 Learning new representations in an unsupervised way is substantially more difficult than the supervised case.
-Given the labelled information, one can verify how useful every feature in the new representation is  by, for instance, evaluation to which extent each feature contributes towards distinguishing different target labels.
+Given the labelled information, one can verify how useful every feature in the new representation is  by, for instance, evaluating to which extent each feature contributes towards distinguishing different target labels.
 In the unsupervised case, we have no access to such information.
 The question then is: \textit{What constitutes a good representation if we don't know the target task?}
 
@@ -128,18 +128,18 @@ The question then is: \textit{What constitutes a good representation if we don't
 
 
 Auto-encoders introduce a practical way to circumvent tackling this difficult question first.
-Auto-encoders are \gls{ann}s that learn data representation by trying to compress the original data such that the original data can be reliably reconstructed from the compressed representation.
-Thus, auto-encoders \textit{tricks} the supervised learning method into an unsupervised one.
-Two parts of an auto-encoder (Figure \ref{fig:ae}) are an \textit{encoder}, mapping the original data to a new representation, and a \textit{decoder} mapping the latent representation of data back to the original data representation.
+Auto-encoders are \gls{ann}s that learn a data representation by trying to compress the original data such that the original data can be reliably reconstructed from the compressed representation.
+Thus, auto-encoders \textit{leverages} the supervised learning method for unsupervised learning.
+The two parts of an auto-encoder (Figure \ref{fig:ae}) are an \textit{encoder}, mapping the original data to a new representation, and a \textit{decoder} mapping the latent representation of data back to the original data representation.
 It is important to note that training auto-encoders does not require any change in learning \gls{ann}s, except for the requirement that the \gls{ann} reconstructs its own input $y \approx X$.
 
 
 
 
-The key in successfully learning representation with auto-encoders lies in imposing certain constraints on the hidden layer of the auto-encoder.
-Otherwise, without the constraints, nothing prevents the auto-encoders to learn the \textit{identity mapping} which would guarantee the perfect reconstruction.
+The key in successfully learning a representation with auto-encoders lies in imposing certain constraints on the hidden layer of the auto-encoder.
+Otherwise, without the constraints, nothing prevents the auto-encoder learning the \textit{identity mapping} which would guarantee the perfect reconstruction.
 The most common way of preventing the learning of identity mapping is to force the auto-encoders to be \textit{compressive}; this is achieved by restricting the dimension of the hidden layer to be \textit{smaller} than the dimension of the input data.
-This way, the auto-encoder is forced to exploit the patterns in data in order to maximise the reconstruction from the latent representation.
+This way, the auto-encoder is forced to exploit patterns in the data in order to maximise the reconstruction from the latent representation.
 
 
 
@@ -151,7 +151,7 @@ This way, the auto-encoder is forced to exploit the patterns in data in order to
 \label{ch3:sec:properties}
 
 
-The success of representation learning opened many novel research questions, one of the most important ones being: \textit{what constitutes a good data representation?}
+The success of representation learning has opened many novel research questions, one of the most important ones being: \textit{what constitutes a good data representation?}
 Bengio and LeCun \cite{Bengio2013RLR} argue that explicitly dealing with representations is important and beneficial because representation can be convenient to express general priors about the real worlds.
 The priors we are interested in should not be task-specific, but likely useful for many different \gls{ai} tasks.
 Investigating such general priors has largely shaped the representation learning research over the past decade, and could likely be its most important contribution.
@@ -160,7 +160,7 @@ Some of the general-purpose representation priors are the following.
 
 
 \paragraph{\textbf{Smoothness and locality}}
-The most basic representation prior is \textit{smoothness}: learning a function $f$ is locally consistent, i.e., if $ x \approx y$ then $f(x) \approx f(y)$.
+The most basic representation prior is \textit{smoothness}: learning a function $f$ that is locally consistent, i.e., if $ x \approx y$ then $f(x) \approx f(y)$.
 This property simply states that predictions should be \textit{robust} and generalise to local regions of feature space, reflected in a requirement that similar examples should have a similar prediction.
 %This can be also interpreted as \textit{robustness}: small alteration of instance's features should not change the prediction of an \gls{ml} system.
 
@@ -174,7 +174,7 @@ The concept of distributed representation directly relates the quality of repres
 An intuitive way to think about the capacity of the representation is comparing the number of parameters a representation requires to the number of regions it can represent.
 On the lower end, \textit{one-hot} representations common among many \gls{ml} methods can represent $N$ regions with $N$ parameters.
 On the upper end, distributed representations can represent up to $2^N$ regions with $N$ parameters.
-Representation learning advertises learning of representation with the latter properties, as the gain in expressivity is evident.
+Representation learning advertises learning of representations with the latter properties, as the gain in expressivity is evident.
 
 
 
@@ -192,8 +192,8 @@ As the number of paths between concepts of different levels of abstractions (i.e
 
 \paragraph{\textbf{Shared factors across tasks}}
 Given many learning tasks of interest, a good data representation contains factors that are shared among many tasks.
-More precisely, each factor in a representation helps to explain many several different tasks.
-This does not necessarily work for supervised tasks: given a data $X$ and a target task $Y$, a representation useful for explaining the data generating distribution $P(X)$ tend to be useful when learning a predictive task $Y$ given $X$, $P(Y|X)$.
+More precisely, each factor in a representation helps to explain several different tasks.
+This does not necessarily work for supervised tasks: given data $X$ and a target task $Y$, a representation useful for explaining the data generating distribution $P(X)$ tend to be useful when learning a predictive task $Y$ given $X$, $P(Y|X)$.
 If this property if fulfilled, it allows having a single data representation for different tasks which can have many practical benefits for big data, e.g., storage.
 Moreover, it also allows for sharing statistical strength across tasks.
 
@@ -212,7 +212,7 @@ This also makes the representation more robust to noise; as only a small number 
 \paragraph{\textbf{Natural clustering and manifolds}}
 Humans have named categories, they name things, and one of the prevalent hypothesis in neuroscience is that this is due to the statistical regularities in the world we perceive.
 This means that categories \textit{naturally group} into regions that tend to be well separated and non-overlapping.
-The regions where different categories lie are therefore \textit{more dense} than the regions between categories; these regions are known as \textit{data manifold}.
+The regions where different categories lie are therefore \textit{more dense} than the regions between categories; these regions are known as a \textit{data manifold}.
 Many of the representation learning approaches try to exploit this property.
 
 
@@ -247,7 +247,7 @@ In this section, we provide a brief overview of the main ideas present in transf
 \newglossaryentry{kge}{name={KGE},description={Knowledge Graph Embeddings}}
 
 By far the largest group of methods for representation learning with relational data are \textit{knowledge graph embeddings} (\gls{kge}).
-Knowledge graph embeddings, in their core, approximate the symbolic data (such as the one described in Chapter \ref{ch:learninglogic}) with vectors and/or matrices in the Euclidean space.
+Knowledge graph embeddings, at their core, approximate the symbolic data (such as the one described in Chapter \ref{ch:learninglogic}) with vectors and/or matrices in the Euclidean space.
 For instance, Figure \ref{fig:emb} illustrates a small part of a large knowledge graph capturing the information about Barack and Michelle Obama.
 \gls{kge}s replace entities, the constant symbols such as \textit{barack} and \textit{michelle}, with $n$-dimensional vectors and relations, the predicate symbols such as \textit{wasBornIn} and \textit{isMarriedTo}, with either vectors or matrices.
 
@@ -304,9 +304,9 @@ In contrast to \gls{srl} models such as Problog and Markov logic networks which 
 An alternative approach is to use parts of the relational information directly as features.
 
 
-One such approach is \textit{DeepWalk} \cite{Perozzi:2014:DOL:2623330.2623732}, which combines the ideas of random walks in a graph with the language modelling methodologies.
+One such approach is \textit{DeepWalk} \cite{Perozzi:2014:DOL:2623330.2623732}, which combines the ideas of random walks in a graph with language modelling methodologies.
 In order to learn the vector representations of objects in a graph, \textit{DeepWalk} first performs random walks collecting the sequences of nodes.
-The obtained node sequences are treated as \textit{sentences} in a document and popular word embedding method of  \textit{SkipGram} \cite{NIPS2013_Skipgram} which learns word embeddings based on the co-occurrences of words.
+It then builds the probabilistic model of node traversals by means of \textit{SkipGram} \cite{NIPS2013_Skipgram}, a popular word embeddings method based on the co-occurrences of words.
 
 
 
@@ -316,7 +316,7 @@ Therefore, these methods can be easily applied in the inductive settings.
 
 
 
-\textit{Path-ranking Algorithm} is a model oriented towards the knowledge base completion tasks and it considers the task of ranking target nodes $y$ with respect to a query node $x$.
+\textit{Path-ranking Algorithm} is a model oriented towards knowledge base completion tasks and it considers the task of ranking target nodes $y$ with respect to a query node $x$.
 It starts by enumerating a large collection of length-bounded paths, followed by estimation of the conditional probability distribution for each rule.
 The discovered rules are considered to be the \textit{ranking experts}, which are combined by means of logistic regression.
 
@@ -343,7 +343,7 @@ Moreover, Relational Boltzmann machines use pathfinding as a relational features
 
 \newglossaryentry{lrnn}{name={LRNN},description={Lifted Relational Neural Network}}
 \newglossaryentry{relnn}{name={RelNN},description={Relational Neural Network}}
-Previously discussed embeddings approaches are by far the predominant paradigm when learning latent representations of relational data.
+The previously discussed embeddings approaches are by far the predominant paradigm when learning latent representations of relational data.
 Developing logic-based methods for relational representation learning attracted significantly less attention, but offers many benefits as discussed in Chapter~\ref{ch:introduction}.
 Two examples are \textit{Lifted relational neural networks} (\gls{lrnn}) \cite{LRNN} and \gls{relnn} \cite{Kazemi2018}.
 
@@ -366,7 +366,7 @@ The mapping between logical and neural constructs is dictated via different type
 	\item different instantiations of the same rule are handled through \textit{aggregation neurons}.
 \end{itemize}
 The final structure of the \gls{lrnn} is dictated by the data (Figure~\ref{fig:lrnn}, right).
-Additionally, parameter learning is inherited from the neural networks, as well as the inference.
+Additionally, parameter learning is inherited from the neural networks, as well as inference.
 
 
 
@@ -401,7 +401,7 @@ Predicates can also be invented by instantiating second-order templates \cite{Si
 
 One of the most successful approaches to predicate invention is recently introduced \textit{meta-interpretative} learning framework (MIL) \cite{MuggletonMIL,Cropper2018,Cropper:2015}.
 It is based on Prolog's meta-interpreter, Prolog's ability to access its own code.
-The core idea is very simple: the user specifies a set of \textit{templates} imposing the structure on the potential clauses and the meta-interpreter \textit{fills in} the templates with the predicates in the in the dataset, generating a logic theory.
+The core idea is very simple: the user specifies a set of \textit{templates} imposing the structure on the potential clauses and the meta-interpreter \textit{fills in} the templates with the predicates in the dataset, generating a logical theory.
 MIL has proven to be a very effective approach for relational representation change in many domains, from learning robotic strategies to string transformations \cite{Cropper2015LearningEL,DBLP:journals/ml/MuggletonDSTWZ18,DBLP:conf/ilp/CropperTM15}
 
 
@@ -429,7 +429,7 @@ This approach requires a domain knowledge that specifies Horn clauses that are k
 
 
 
-An interesting approach towards combining logical and embedding approaches for relational representation learning comes from the \textit{differentiable theorem proving}~\cite{DTP2017}.
+An interesting approach towards combining logical and embedding approaches for relational representation learning comes from \textit{differentiable theorem proving}~\cite{DTP2017}.
 This approach starts from an observation that the standard theorem proving procedures (e.g., Prolog) are often too brittle for usage with real-world knowledge bases which are not perfect and contain lots of noise.
 As standard theorem proving techniques operate purely on the syntactic level, such techniques cannot detect semantic similarity between predicates such as \textit{grandfatherOf} and \textit{grandpa}.
 This is the scenario that differentiable theorem proving addresses: \textit{how can we enable such semantic interpretation of the symbols in the knowledge base?}

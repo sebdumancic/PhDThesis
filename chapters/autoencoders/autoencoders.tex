@@ -34,7 +34,7 @@ Though the discovered features are likely to be useful for many different tasks,
 
 
 In this chapter we ask the following question: \textit{how can we learn latent representations of relational data in a principled framework that can keep data and reasoning at the relational level?}
-We are interested in learning relational latent representation by means of learning and inference methods from \gls{srl} community.
+We are interested in learning relational latent representation by means of learning and inference methods from the \gls{srl} community.
 
 
 
@@ -51,7 +51,7 @@ Fifth, SRL methods allow for incorporation of \textit{background knowledge} and 
 
 
 This work takes a fresh look at the representation learning problem and induces relational latent representations in a \textit{symbolic way}, instead of the gradient-based optimisation.
-We introduce \textit{auto-encoding logic programs} (\alp{s}) -- a novel relational\gls{dl}L component which uses logic programs as a computation engine instead of neural networks.
+We introduce \textit{auto-encoding logic programs} (\alp{s}) -- a novel relational \gls{dl} component which uses logic programs as a computation engine instead of neural networks.
 We focus on auto-encoders as they have proven to be among the most versatile \gls{dl} primitives and applicable to different learning settings (un-, semi- and supervised learning) using the same learning principle \cite{SSLVAE2014,VincentDaE,Kingma2014,BengioSAE}.
 This versatility is important as it makes a single latent representation suitable for many tasks within \gls{srl}.
 There tasks range from learning predictive models to structure learning.
@@ -94,7 +94,7 @@ The key ingredient of their success is the limited capacity of the latent repres
 \textit{Traditional} auto-encoders use vectors as a data representation format, and matrices to represent the mapping functions for encoder and decoder.
 
 
-Intuitively, our goal is to lift the framework of auto-encoders to use \textit{first-order logic as a data representation language},  and \textit{logic programs} as mapping functions of encoder and decoder (Figure \ref{fig:alp}).
+Intuitively, our goal is to lift the framework of auto-encoders to use \textit{first-order logic as a data representation language},  and \textit{logic programs} as mapping functions of the encoder and decoder (Figure \ref{fig:alp}).
 It is important to note that by assimilating logic programs, the mapping functions of \alp{s} are realised in a Turing-complete language, giving them the potential to learn arbitrarily complex latent representations.
 
 
@@ -233,7 +233,7 @@ The optimisation task then corresponds to finding the assignment to decision var
 Constraints have two primary functions in the proposed framework: (1) imposing the \textit{capacity constraint} which controls sparsity in the latent representation, and (2) imposing structure on the search space to speed up the search for the solution.
 
 
-\textit{Capacity constraints}, such as sparsity or compression, are the key ingredient of \textit{traditional auto-encoders} preventing them from learning the \textit{identity mapping} as latent representation.
+\textit{Capacity constraints}, such as sparsity or compression, are the key ingredient of \textit{traditional auto-encoders} preventing them from learning the \textit{identity mapping} as the latent representation.
 We impose such a constraint by limiting the \textit{average number of facts per latent predicate} through the following hard constraint
 $$ \frac{\sum_{i=1}^{N}w_i\text{\texttt{ec}}_i}{\sum_{i=1}^N\text{\texttt{ec}}_i} \leq \gamma G$$
 where \texttt{ec}$_i$ are decision variables corresponding to the encoder clauses, $w_i$ indicates the number of latent facts they entail and which can be pre-computed, $\gamma$ is the \textit{compression parameter} and $G$ is the average number of facts in the original data representation.
@@ -362,7 +362,7 @@ The experiments aim at answering the following question:
 \end{displayquote}
 
 We focus on evaluation in a generative learning settings, and focus on learning generative \textit{Markov Logic Networks}~\cite{Richardson2006}.
-This means, more precisely, that we are interested in whether learning the structure of a generative model in \textit{latent space}, and decoding it back to the original space, is more effective (in terms of how well it explains the data) than learning the model in the original data space.
+This means, more precisely, that we are interested in whether learning the structure of a generative model in the \textit{latent space}, and decoding it back to the original space, is more effective (in terms of how well it explains the data) than learning the model in the original data space.
 
 
 To answer the question, we apply the following procedure.

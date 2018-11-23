@@ -2,7 +2,7 @@
 
 
 This chapter introduces a novel framework for relational data clustering.
-The main contribution of this chapter is a new dissimilarity measure for relational objects based on the concept of neighbourhood tree -- a compact summary of the neighbourhood of a relational object.
+The main contribution of this chapter is a new dissimilarity measure for relational objects based on the concept of a neighbourhood tree -- a compact summary of the neighbourhood of a relational object.
 The proposed relational clustering framework will serve as a basis for the relational latent representation method introduced in the next chapter.
 This chapter is based on the following publications:
 
@@ -33,8 +33,8 @@ This chapter is based on the following publications:
 
 
 Clustering is an under-specified learning task: there is no universal criterion for what makes a good clustering, it is inherently subjective.
-This is known for i.i.d. data \cite{Estivill-Castro:2002}, and even more true for relational data in which the data set contains instances with relationships between them.
-Different methods for relational clustering have very different biases, which are often left implicit; for instance, some methods represent the relational information as a graph (which means they assume a single binary relation) and assume that similarity refers to proximity in the graph, whereas other methods that take the relational database stance assume the similarity comes from relationships objects participate in.
+This is known for i.i.d. data \cite{Estivill-Castro:2002}, and is even more true for relational data where the data set contains instances with relationships between them.
+Different methods for relational clustering have very different biases, which are often left implicit; for instance, some methods represent the relational information as a graph (which means they assume a single binary relation) and assume that similarity refers to proximity in the graph, whereas other methods that take the relational database stance assume the similarity comes from the relationships objects participate in.
 %, assuming typed objects that may participate in multiple, possibly non-binary, relationships.
 Such strong implicit biases make use of a clustering algorithm difficult for a problem at hand, without a deep understanding of both the clustering method and the problem at hand.
 
@@ -42,7 +42,7 @@ Such strong implicit biases make use of a clustering algorithm difficult for a p
   \centering
   \medskip
   \includegraphics[width=.9\textwidth]{bigpeople_new}
-  \caption[Example relational dataset]{An illustration of a relational dataset containing people and organisations, and different clusters one might find in it. Instances - people and organisations, are represented by vertices, while relationships among them are represented with edges. The rectangles list an associated set of attributes for the corresponding vertex.}
+  \caption[Example relational dataset]{An illustration of a relational dataset containing people and organisations, and different clusters one might find in it. Instances - people (gray vertices) and organisations (white vertices), are represented by vertices, while relationships among them are represented with edges. The rectangles list an associated set of attributes for the corresponding vertex.}
   \label{fig:clustering:intro}
 \end{figure}
 
@@ -107,7 +107,7 @@ A disadvantage is that edges in a graph can represent only binary relationships.
 
 
 Though the different representations are largely equivalent, they provide different views on the data, which affects the clustering methods used.
-For instance, a notion such as shortest path distance is much more natural in the graph view than in the logic based view, while the fact that there are  different types of entities is more explicit in the database view (one table per type).
+For instance, a notion such as shortest path distance is much more natural in the graph view than in the logic-based view, while the fact that there are  different types of entities is more explicit in the database view (one table per type).
 The distinction between entities and attribute values is explicit in the graph, but more implicit in the database view (key vs. non-key attributes) and absent in the logic view.
 
 
@@ -179,7 +179,7 @@ The following section introduces \textit{neighbourhood trees}, a structure we us
 \end{algorithm}
 
 
-A neighbourhood tree is a directed graph rooted in a vertex of interest, i.e. the vertex whose neighbourhood one wants to describe.
+A neighbourhood tree is a directed graph rooted at a vertex of interest, i.e. the vertex whose neighbourhood one wants to describe.
 It is constructed simply by following the hyper-edges from the root vertex, as outlined in Algorithm \ref{algo:NT}.
 The construction of the neighbourhood tree is parametrised with the pre-specified depth, a vertex of interest and the original hyper-graph.
 Consider a vertex $v$.
@@ -411,8 +411,8 @@ Further, the $\chi^2$ distance takes the multiplicity of elements into account (
 
 \newglossaryentry{wlst}{name={WLST},description={Weisfeiler-Lehman subtree kernel}}
 Within the graph kernel community, two prominent groups exist:  \textit{Weisfeiler-Lehman graph kernels (WL)} \cite{Shervashidze2011,shervashidze09fastsubtree,FrasconiCRG14,haussler99convolution,ICPR2014BaiRH}  and \textit{random walk based kernels}~\cite{WachmanK07,Lovasz1996}.
-A common feature of these approaches is that they measure a similarity of graph by comparing their structural properties.
-The Weisfeiler-Lehman Graph Kernels is a family of graph kernels developed upon the \textit{Weisfeiler-Lehman isomorphism test}.
+A common feature of these approaches is that they rely on global structural properties of graphs.
+The Weisfeiler-Lehman Graph Kernels are a family of graph kernels developed upon the \textit{Weisfeiler-Lehman isomorphism test}.
 The key idea of the WL isomorphism test is to extend the set of vertex attributes by the attributes of the set of neighbouring vertices, and compress the augmented attribute set into new set of attributes.
 There each new attribute of a vertex corresponds to a subtree rooted from the vertex, similarly to the neighbourhood trees.
 Shervashidze and Borgwardt have introduced a fast WL subtree kernel (\gls{wlst}) \cite{shervashidze09fastsubtree} for un-directed graphs by performing the WL isomorphism test to update the vertex labels, followed by counting the number of matched vertex labels.
@@ -978,7 +978,7 @@ ReCeNT achieves the best performance on all data sets.
 On the IMDB data set, \gls{recent} achieves perfect performance, as do RIBL and VE.  On UWCSE, \gls{recent} is 100\% accurate; its closest competitor, \gls{cc}, achieves 99.85\%.
 From the classification viewpoint, these two data sets are easy: the classes are differentiable by one particular attribute or relation.
 %Thus, high performance of most (dis)similarity measure is not surprising, especially in the case of IMDB.
-On Mutagenesis and Terrorists, the difference is more outspoken: \gls{recent} achieves around 85\% accuracy, with its closest competitor (\gls{hsag}) achieving 76\% or 77\%.
+On Mutagenesis and Terrorists, the difference is more pronounced: \gls{recent} achieves around 85\% accuracy, with its closest competitor (\gls{hsag}) achieving 76\% or 77\%.
 On WebKB, finally, \gls{recent} and \gls{ribl} substantially outperform all the other approaches, with \gls{recent} achieving 100\% and \gls{ribl} 84.11\%.
 
 The remarkable performance of \gls{recent} on WebKB is explained by inspecting the tuned weights.  These reveal that \gls{recent}'s ability to jointly consider vertex identity, edge type distribution, and vertex attributes (in this case, words on webpages) are the reason why it performs so well.  None of the other approaches take all three components into account, which is why they achieve substantially worse results.

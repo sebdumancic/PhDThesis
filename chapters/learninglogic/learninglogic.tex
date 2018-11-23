@@ -5,7 +5,7 @@
 This chapter briefly introduces the concepts of statistical relational learning.
 It starts with a short introduction to logic, starting from the propositional logic and gradually climbs the ladder of complexity all the way to the logic programming.
 It continues with a brief introduction to Inductive logic programming.
-Finally, it touches upon a contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory to quantify the uncertainty of the reasoning.
+Finally, it touches upon the contemporary topic of \textit{Probabilistic} Inductive Logic Programming which combines Inductive Logic Programming  with probability theory to quantify the uncertainty of the reasoning.
 
 
 
@@ -26,7 +26,7 @@ The propositions are constructed from propositional \textit{variables} and \text
 Propositional variables denote \textit{aspects} of the world considered by the model, for instance, \textit{sun}, \textit{rainbow} and \textit{bob\_runs}.
 Variables are used in propositions as \textit{literals} -- a propositional variable or its negation.
 The connectivity operators compose literals into more complicated statements.
-Such operators in \textit{conjunction} (AND operator), \textit{disjunction} (OR operator), \textit{implication} (IF-THEN operator) and \textit{equivalence} (IF-AND-ONLY-IF	operator).
+Such operators are \textit{conjunction} (AND operator), \textit{disjunction} (OR operator), \textit{implication} (IF-THEN operator) and \textit{equivalence} (IF-AND-ONLY-IF	operator).
 
 
 A \textit{logical theory} is a collection of propositions, more precisely, a conjunction of propositions.
@@ -38,7 +38,7 @@ An interpretation that satisfies the proposition is a \textit{model} of that pro
 
 \paragraph{Example} The proposition
 $$\text{\texttt{playful}} \wedge \text{\texttt{fluffy}} \Rightarrow \text{\texttt{ideal\_pet}} $$
-encodes that when something is playful (variable \texttt{playful} is true) and fluffy (variable \texttt{fluffy} is true )then it is an ideal pet (variable \texttt{ideal\_pet} is true).
+encodes that when something is playful (variable \texttt{playful} is true) and fluffy (variable \texttt{fluffy} is true) then it is an ideal pet (variable \texttt{ideal\_pet} is true).
 Every interpretation in which \texttt{ideal\_pet} is true is a model of this proposition.
 
 
@@ -65,8 +65,8 @@ For instance, to indicate that two animals are of the same species would require
 
 
 
-To overcome this issue, \textit{predicate logic} extends the propositional logic with \textit{objects} and \textit{relations} among them, resulting in a powerful language for representing mathematical formalisms.
-An especially attractive feature of predicate logic is its universal \textit{inference algorithm} -- one can state a set of axioms, or facts, and theorems in predicate logic and rely on \textit{resolution} \cite{Robinson:1965:Resolution} inference algorithm to derive new axioms and theorems from the old ones.
+To overcome this issue, \textit{predicate logic} extends  propositional logic with \textit{objects} and \textit{relations} among them, resulting in a powerful language for representing mathematical formalisms.
+An especially attractive feature of predicate logic is its universal \textit{inference algorithm} -- one can state a set of axioms, or facts, and theorems in predicate logic and rely on the \textit{resolution} \cite{Robinson:1965:Resolution} inference algorithm to derive new axioms and theorems from the old ones.
 
 
 
@@ -96,8 +96,7 @@ Finally, a \textit{formula} in predicate logic is defined as:
 \end{itemize}
 
 
-A \textit{literal} in predicate logic is an atom or its negation.
-A Formula is \textit{ground} if it does not contain logical variables, meaning that the variables are \textit{bind} to the exact objects or individuals.
+A Formula is \textit{ground} if it does not contain logical variables, meaning that the variables are \textit{bound} to the exact objects or individuals.
 
 
 
@@ -119,7 +118,7 @@ $$\forall X \quad \text{\texttt{is\_playful(X)}} \wedge \text{\texttt{is\_fluffy
  Predicate logic allows us to easily express more complex knowledge relating different objects.
  For instance, we can refine the previous formula and add a condition that an ideal pet also needs to have at least one friend:
  $$\forall X, \exists Y \quad \text{\texttt{is\_playful(X)}} \wedge \text{\texttt{is\_fluffy(X)}} \wedge \text{\texttt{friends(X,Y)}} \Rightarrow \text{\texttt{ideal\_pet(X)}}. $$
- Assuming the domain being $\{$\texttt{cat,hamster,alpaca}$\}$, the groundings of the predicate \texttt{is\_playful(X)} are: \texttt{is\_playful(cat)}, \texttt{is\_playful(hamster)} and \texttt{is\_playful(alpaca)}.
+ Assuming the domain $\{$\texttt{cat,hamster,alpaca}$\}$, the groundings of the predicate \texttt{is\_playful(X)} are: \texttt{is\_playful(cat)}, \texttt{is\_playful(hamster)} and \texttt{is\_playful(alpaca)}.
 
 
 
@@ -139,7 +138,7 @@ $$\forall X \quad \text{\texttt{is\_playful(X)}} \wedge \text{\texttt{is\_fluffy
 
 
 \textit{Logic programming} uses the language of predicate logic for computer programming.
-It uses a subset of predicate logic in which the domains are restricted to \textit{Herbrand base} -- the set of all ground atoms that can be constructed from the constant and function symbols in the alphabet.
+It uses a subset of predicate logic in which the domains are restricted to the \textit{Herbrand base} -- the set of all ground atoms that can be constructed from the constant and function symbols in the alphabet.
 Furthermore, it restricts the formulas to be in the form of \textit{Horn clauses}.
 
 
@@ -157,7 +156,7 @@ then the clause can be written as an \textit{if-then} rule, for instance in the 
 
 $$ \underbrace{\text{\texttt{A}}_1, \text{\ldots}, \text{\texttt{A}}_n}_{\text{\textit{head}}} \text{\texttt{:-}} \underbrace{\text{\texttt{B}}_1, \text{\texttt{\ldots}}, \text{\texttt{B}}_m}_{\text{\textit{body}}}.$$
 
-Comma in the \textit{head} of the rule stands for a disjunction, while in the \textit{body} it indicates the conjunction of literals.
+A comma in the \textit{head} of the rule stands for a disjunction, while in the \textit{body} it indicates the conjunction of literals.
 A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$.
 
 
@@ -165,7 +164,7 @@ A \textit{Horn clause} is a clause with only one positive literal, i.e., $n = 1$
 A very attractive property of clausal logic is that it forms a very general framework for representing knowledge.
 For example, a clausal statement with $n > 0$ and $m = 0$ indicates a fact.
 If $n, m > 0$, then such a statement is a rule.
-A statement wit $n=0$ and $m > 0$ represents a \textit{Prolog query} -- a statement whose truth assignment we want to check.
+A statement with $n=0$ and $m > 0$ represents a \textit{Prolog query} -- a statement whose truth assignment we want to check.
 Moreover, even the learning algorithm itself can be represented as a set of clauses.
 
 
@@ -179,7 +178,7 @@ Predicate logic ($\Rightarrow$) interprets it in a declarative way, while logic 
 Some pet owners are pickier than others and require a certain pedigree from their current and future pets.
 Let us assume that royal ancestry exists among the animal species as well and that some pet owners want royal pets.
 How do we express this requirement in logic?
-Let us define royal ancestry as follows: \textit{some is of royal ancestry if at least one of her ancestors was a king or queen}.
+Let us define royal ancestry as follows: \textit{someone is of royal ancestry if at least one of her ancestors was a king or queen}.
 Starting simple, some is royal if he or she is a king or queen:
 $$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{is\_king(X)}}.$$
 $$ \text{\texttt{royal(X)}} \text{ :- } \text{\texttt{is\_queen(X)}}.$$
