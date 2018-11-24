@@ -141,6 +141,7 @@ When analysing the entropy and sparsity of representations, predicates indicatin
 \textbf{Label entropy.}
 Figure~\ref{fig:Entropy} summarises the label entropy for each dataset.
 In all cases where representation learning proved helpful (i.e., IMDB, UWCSE, Hepatitis), latent representations have a substantially larger number of predicates with low label entropy compared to the original data representation.
+This means that the true groundings of latent predicate contain entities with the same label in a higher proportion than the predicate in the original data representation.
 The latent representation for the TerroristAttack datasets, however, shows a different behaviour in which latent features with high entropy dominate the representation.
 These results agree with the expectation that a high number of low entropy features makes learning easier.
 However, not all latent features have low label entropy.
@@ -325,7 +326,7 @@ To make sure this training criterion does not put \gls{kge}s at a disadvantage, 
 
 
 
-As \gls{kge} methods are focused on the knowledge graph completion task, they assume that all instances are given at once and focus on filling in the missing links in data.
+As \gls{kge} methods are focused on the knowledge graph completion task, they assume that all entities are given in advance and focus on filling in the missing links in data.
 Therefore, they have difficulties with unseen instances.
 We do not address this issue here, but simply learn the representation of both training and test data at the same time (with labels excluded).
 It is, however, worth noting that \gls{kge} methods have a certain advantage due to this.
@@ -475,7 +476,7 @@ As Hits@1 directly correspond to the accuracy, and we use this as a primary mean
 		\caption{Performance with kNNs\label{fig:knns}}
 	\end{subfigure}
 
-	\caption{Performance with different classifiers on the relational classification problems}
+	\caption[Difference in performance between sub-symbolic and symbolic methods.]{Difference in performance between sub-symbolic and symbolic methods. The values \textit{above} the line indicate that sub-symbolic methods perform better, while the values below the line indicate the cases on which symbolic methods perform better.}
 \end{figure}
 
 
@@ -527,6 +528,7 @@ Table~\ref{tab:ruleproperties} summarises the rules extracted by TILDE w.r.t. th
 
 
 The results indicate an interesting connection between the performance and the amount of available information that is found predictive: the properties of the TILDE rules extracted for the Hepatitis and Carcinogenesis datasets reveal that the majority of provided information, both attributes and relations, are found to be predictive.
+We define the predictive information as follows: the proportion of available attribute and relationship information that a learned symbolic approach uses, i.e., the proportion of available attributes and relationships that are present in the extracted rules.
 For instance, on the Hepatitis dataset,  the induced rules incorporate 100 \% of the target attributes and 66 \% of relations involving target instances, as well as 70 \% of the predicates related to the neighbouring instances.
 Similar numbers hold for the Carcinogenesis data.
 

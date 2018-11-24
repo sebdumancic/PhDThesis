@@ -1,4 +1,4 @@
-\chapter{Auto-encoding Logic Programs}\label{ch:alps}
+\chapter{Auto-encoding logic programs}\label{ch:alps}
 
 
 This chapter discussed the third contribution of the thesis in the form of \textit{auto-encoding logic programs}.
@@ -38,7 +38,7 @@ We are interested in learning relational latent representation by means of learn
 
 
 
-We argue that fully retaining first-order logic as a data representation language within \gls{dl} approaches offers several benefits.
+We argue that fully retaining first-order logic as a data representation language within deep learning approaches offers several benefits.
 First, predicate logic is a Turing-equivalent programming language and thus provides a language that does not introduce any limitations upfront.
 Second, it is easily interpretable (whereas \gls{dl} is a \textit{black-box}) and modular which might allow for efficient learning strategies.
 Third, once the domain model is obtained, \gls{srl} systems can answer any question w.r.t. the provided domain model and the user thus does not have to commit to a specific learning task in advance.
@@ -56,7 +56,7 @@ We focus on auto-encoders as they have proven to be among the most versatile \gl
 This versatility is important as it makes a single latent representation suitable for many tasks within \gls{srl}.
 There tasks range from learning predictive models to structure learning.
 A key difference between the predicate invention approaches and \alp{s} is that that we create latent representations in an entirely unsupervised manner, whereas predicate invention is defined as a supervised method.
-An exception to that is the work related ton \textit{statistical predicate invention}~\cite{Kok2007} which also addresses a generative learning setup within \gls{srl}, but never explicitly creates latent representation.
+An exception to that is the work related to \textit{statistical predicate invention}~\cite{Kok2007} which also addresses a generative learning setup within \gls{srl}, but never explicitly creates latent representation.
 Moreover, it is not used to provide novel language constructs to an \gls{srl} learner, but only to compress the existing KB by identifying entities \textit{identical} to each other and thus speed up learning~\cite{Kok:2009:LML:1553374.1553440}.
 If one would explicitly construct the latent representation, learning generative models would be extremely difficult due to the very large number of created constructs.
 %\wannes{True for all methods? Eg Kok's SPI (they state ``The invented predicates capture arbitrary regularities over all relations, and are not just used to predict a designated target relation.'' + evaluate AUC)?}.
@@ -401,7 +401,7 @@ We use standard SRL benchmark datasets to evaluate \alp{s}.
 The data contains web pages, their mutual links and more semantic information about relationships between pages, such as whether the page belongs to a student or a faculty member and courses they teach (we omit the word information, as in \cite{mihalkova:icml07}).
 \textit{Cora-ER} contains a set of papers, their authors, title and venues, together entity resolution information (i.e., titles, authors and venues that refer to the same entities but are spelled differently).
 \textit{UWCSE} contains the information about the employees of five departments at the CS department of University of Washington: student and professors together with mentorship relationships, courses they teach and so on.
-We have experimented with other common SRL datasets, but have removed the once on which BUSL did not manage to learn a model (AUC-PR $< 0.2$) (and IMDB on which no improvement was observed as the dataset is very easy to model).
+We have experimented with other common SRL datasets, but have removed the on which BUSL did not manage to learn a model (AUC-PR $< 0.2$) (and IMDB on which no improvement was observed as the dataset is very easy to model).
 
 
 

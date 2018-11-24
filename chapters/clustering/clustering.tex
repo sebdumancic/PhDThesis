@@ -101,7 +101,7 @@ Each table contains multiple attributes, each of which can be an identifier for 
 The logic-based format \textit{(a)} is very similar; it consists of logical facts, where the predicate name corresponds to the table’s name and the arguments to the attribute values.
 There is a one-to-one mapping between rows in a table and logical facts.
 The logic based view allows for easy integration of background knowledge (in the form of first-order logic rules) with the data.
-Finally, there is the attributed graph representation \textit{(c)}, where entities are nodes in the graph, binary relationships between them are edges, and nods and edges can have attributes.
+Finally, there is the attributed graph representation \textit{(c)}, where entities are nodes in the graph, binary relationships between them are edges, and nodes and edges can have attributes.
 This representation has the advantage that it makes the entities and their connectivity more explicit, and it naturally separates identifiers from real attributes (e.g., the \texttt{PName} attribute from the \texttt{Person} table is not listed as an attribute of \texttt{Person} nodes, because it only serves to uniquely identify a person, and in the graph representation the node itself performs that function).
 A disadvantage is that edges in a graph can represent only binary relationships.
 
@@ -179,7 +179,7 @@ The following section introduces \textit{neighbourhood trees}, a structure we us
 \end{algorithm}
 
 
-A neighbourhood tree is a directed graph rooted at a vertex of interest, i.e. the vertex whose neighbourhood one wants to describe.
+A neighbourhood tree is a tree rooted at a vertex of interest, i.e. the vertex whose neighbourhood one wants to describe.
 It is constructed simply by following the hyper-edges from the root vertex, as outlined in Algorithm \ref{algo:NT}.
 The construction of the neighbourhood tree is parametrised with the pre-specified depth, a vertex of interest and the original hyper-graph.
 Consider a vertex $v$.
@@ -191,7 +191,7 @@ If there are multiple hyper-edges connecting vertices $v$ and $v'$, $v'$ is adde
 Repeat this procedure for each $v'$ on depth 1 (stored in variable \texttt{toVisit}).
 The vertices thus added are at depth 2.
 Continue this procedure up to some predefined depth $d$.
-The root element is never added to the subsequent levels.
+The root element is never added to the subsequent levels, while other vertices are added as encountered.
 An example of a neighbourhood tree is given in Figure \ref{fig:clustering:ng}.
 
 
@@ -229,7 +229,7 @@ d(A,B) = \sum_{x \in A \cup B} { (f_A(x)-f_B(x))^2  \over f_A(x) + f_B(x) }
 \noindent where $f_S(x)$ is the relative frequency of element $x$ in multi-set $S$ (e.g., for $A=\{a,b,b,c\}$, $f_A(a)=0.25$ and $f_A(b)=0.5$).
 
 
-In the continuous case, we compare distributions by applying aggregate functions to the multi-set of values, and comparing these aggregates.
+For attributes with continuous domains, we compare distributions by applying aggregate functions to the multi-set of values, and comparing these aggregates.
 Given a set $\mathcal{A}$ of aggregate functions, the dissimilarity is defined as
 \begin{equation}
     d(A,B) = \sum_{f \in \mathcal{A}} {f(A)-f(B) \over r }
@@ -416,12 +416,12 @@ The Weisfeiler-Lehman Graph Kernels are a family of graph kernels developed upon
 The key idea of the WL isomorphism test is to extend the set of vertex attributes by the attributes of the set of neighbouring vertices, and compress the augmented attribute set into new set of attributes.
 There each new attribute of a vertex corresponds to a subtree rooted from the vertex, similarly to the neighbourhood trees.
 Shervashidze and Borgwardt have introduced a fast WL subtree kernel (\gls{wlst}) \cite{shervashidze09fastsubtree} for un-directed graphs by performing the WL isomorphism test to update the vertex labels, followed by counting the number of matched vertex labels.
-The difference between our approach and WL kernel family is subtle but important: WL graph kernels extend the set of attributes by identifying isomorphic sub-trees present in (sub)graphs.
+WL family of graph kernels, in contrast to our approach, extends the set of attributes by identifying isomorphic sub-trees present in (sub)graphs.
 This is reflected in the bias they impose, that is, the similarity comes from the structure of a graph (in our case, a neighbourhood tree).
 
 
 \newglossaryentry{rkoh}{name={RKOH},description={A rooted kernel for ordered hyper-graphs}}
-\textit{A Rooted Kernel for Ordered hyper-graph (RKOH)} \cite{WachmanK07} is an instance of random walk kernels successfully applied in relational learning tasks.
+\textit{A Rooted Kernel for Ordered hyper-graph (\gls{rkoh})} \cite{WachmanK07} is an instance of random walk kernels successfully applied in relational learning tasks.
 These approaches estimate the similarity of two (hyper)graphs by comparing the walks one can obtain by traversing the hyper-graph.
 \gls{rkoh} defines a similarity measure that compares two hyper-graphs by comparing the paths originating at every edge of both hyper-graphs, instead of the paths originating at the root of the hyper-graph.
 \gls{rkoh} does not differentiate between attributes and hyper-edges, but treats everything as an hyper-edge instead (an attribute can be seen as an unary edge).
@@ -470,7 +470,8 @@ For the sake of clarity of comparison, assume a homogeneous graph with only one 
 Let $N$ be the number of vertices in a hyper-graph, $L$ be the total number of hyper-edges, and $d$ be the depth of a neighbourhood representation structure, where applicable.
 Let, as well, $A$ be the number of attributes in a data set.
 Additionally, assume that all vertices participate in the same number of hyper-edges, which we will refer to as $E$.
-We will refer to the length of clause in CC and path in RKOH as $l$.
+This might seem like a strong assumption, but suffices for the purpose of the analysis.
+We will refer to the length of clause in \gls{cc} and path in \gls{rkoh} as $l$.
 
 
 
@@ -616,16 +617,18 @@ We focus on answering the following questions:
 In each experiment, we have used the aforementioned (dis)similarity measures in conjunction with spectral \cite{Spectral},  and hierarchical \cite{Agglomerative} clustering algorithms.
 We have intentionally chosen two clustering approaches which assume different biases, to be able to see how each similarity measure is affected by assumptions clustering algorithms make.
 We have altered the depth on neighbourhood trees between 1 and 2 wherever it was possible, and report both results.
+% TODO: David - tell us what these are and what biases they have
 
 
 
 
-We evaluate each approach using the following validation method: we set the number of clusters to be equal to the true number of clusters in each data set, and evaluate the obtained clustering with regards to how well it matches the known clustering given by the labels.
+We evaluate each approach using the following validation method: we set the number of clusters to be equal to the provided number of classes in each data set, and evaluate the obtained clustering with regards to how well it matches the known clustering given by the labels.
 Each obtained clustering is then evaluated using the \textit{adjusted Rand index} (ARI)  \cite{Rand71,MoreyARI}.
 The ARI measures the similarity between two clusterings, in this case between the obtained clustering and the provided labels.
-The ARI score ranges between -1 and 1, where a score closer to 1 corresponds to higher similarity between two clusterings, and hence better performance, while 0 is the chance level.
+The ARI score ranges between -1 and 1, where a score closer to 1 corresponds to the better matching between the obtained clustering and the ground truth one, and hence better performance, while 0 is the chance level.
 For each data set, and each similarity measure, we report the ARI score they achieve.
 Additionally, we have set a timeout to 24 hours and do not report results for an approach that takes more time to compute.
+% TODO: DAvid -define ARI
 
 
 
@@ -654,70 +657,49 @@ The subscript in \gls{recent}, \gls{hsag}, \gls{ribl} and kernel approaches  den
 The subscript in \gls{cc} denotes the length of the clauses.
 The second subscript in \gls{wlst} and \gls{rkoh} indicates their parameters: with \gls{wlst} it is the $h$ parameter indicating the number of iterations, whereas with \gls{rkoh} it indicates the length of the walk.
 
-
-
-
 \begin{table}[t]
-%\captionsetup{justification=centerlast}
-\centering
-\footnotesize
-\caption[Performance of relational clustering approaches]{Performance of all approaches. For each similarity measure, the ARI achieved when the true number of clusters was used. The results are shown for both hierarchical and spectral clustering, while the depth of the approaches is indicated by the subscript. The last column counts the number of wins per algorithm, where ''win'' means achieving the highest ARI on a data set.}
-\label{tab:ClustResults}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}[t]{@{}lrrrrrrrrrrr@{}}
-	\toprule
-	\textbf{Similarity} & \multicolumn{2}{r}{\textbf{Muta}} & \multicolumn{2}{r}{\textbf{UWCSE}} & \multicolumn{2}{r}{\textbf{WebKB}} & \multicolumn{2}{r}{\textbf{Terror}}  & \multicolumn{2}{r}{\textbf{IMDB}} & \textbf{W} \\
-	\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
-	                     &  H       & S              & H      & S                 & H      & S         & H    & S           & H   & S &  \\
-	\midrule
-	\textbf{Baseline}     &  -0.02 & -0.03		     &   0.25 	&  0.2         	  &  0.00  &  0.25     & 0.00 & 0.17 		& 0.05 & 0.05 & 0  \\
+	\centering
+	\footnotesize
+	\caption[Performance of relational clustering approaches]{Performance of all approaches. For each similarity measure, the ARI achieved when the true number of clusters was used is reported (higher value is better). The results are shown for both hierarchical and spectral clustering, while the depth of the approaches is indicated by the subscript. The last column counts the number of wins per algorithm, where ''win'' means achieving the highest ARI on a data set.}
+	\label{tab:ClustResults}
+	\resizebox{\linewidth}{!}{%
+		\begin{tabular}[t]{@{}lrrrrrrrrrrr@{}}
+			\toprule
+			\textbf{Similarity}		& \multicolumn{5}{r}{\textbf{Spectral clustering}} & \multicolumn{5}{r}{\textbf{Hierarchical clustering}} & \textbf{Win} \\
+							\cmidrule(lr){2-6} \cmidrule(lr){7-11}
+							&  \textbf{Muta} & \textbf{UWCSE} & \textbf{WebKB} & \textbf{Terror} & \textbf{IMDB} &  \textbf{Muta} & \textbf{UWCSE} & \textbf{WebKB} & \textbf{Terror} & \textbf{IMDB} & \\
+			\midrule
+			\textbf{Baseline} & -0.03 & 0.20 & 0.25 & 0.17 & 0.05  &    -0.02 	& 0.25 	& 0.00  & 0.00 & 0.05      	& 0 \\
+			\textbf{\gls{hs}} 			& -     & 0.06 & 0.10 & -0.01 & 0.00  &   -				& 0.01 	& 0.00	& 0.01 & 0.00				& 0 \\
+			\textbf{\gls{cc}$_2$}		& 0.01	& 0.82 & 0.04	& 0.01	& 0.10 	&     0.00  & 0.10	& 0.00	& 0.01 & 0.10				& 0 \\
+			\textbf{\gls{cc}$_4$}		& 0.01  & 0.92 & 0.04 & 0.01	& 0.10	&			0.00	& 0.00	& 0.00	& 0.01 & 0.10				& 0 \\
+			\midrule
+			\textbf{\gls{recent}$_1$} & \textbf{0.35} & \textbf{0.98} & \textbf{0.57} & \textbf{0.26} & \textbf{1.0}   & \textbf{0.32} & \textbf{0.97} & \textbf{0.04} & 0.00 & 0.62     & \textbf{8} \\
+			\textbf{\gls{ribl}$_1$}  & 0.26 & 0.68 & 0.1 & - & 0.38     &     0.22 & 0.89 & 0.00 & - & 0.35     & 0 \\
+			\textbf{\gls{hsag}$_1$}  & 0.06 & 0.0 & 0.05 & 0.24 & -0.05   &  -0.01 & 0.10 & 0.01 & 0.00 & 0.04   & 0 \\
+			\textbf{\gls{wlst}$_{1,5}$} & 0.02 & 0.33 & 0.33 & 0.07 & 0.66    & 0.00 & -0.01 & 0.00 & \textbf{0.27} & -0.01    & 1 \\
+			\textbf{\gls{wlst}$_{1,10}$} & 0.02 & 0.33 & 0.32 & 0.11 & 0.31    & 0.00 & -0.01 & 0.00 & \textbf{0.27} & -0.01		& 1 \\
+			\textbf{V$_1$}				& 0.03 & 0.19 & 0.00 & 0.00 &	0.00     & 0.00 &	-0.01 &	0.00 & 0.00 & 0.00 							& 0 \\
+			\textbf{VE$_1$}				& 0.03 & 0.36 & 0.00 & 0.00 & \textbf{1.0}    & 0.00 & 0.01 & 0.00 & 0.00 & \textbf{1.0}   & 2 \\
+			\textbf{\gls{rkoh}$_{1,2}$} & 0.10 & 0.20 & -    & -		& 0.83						& 0.10 & 0.20 & -		 & -		& 0.83					 & 0 \\
+			\textbf{\gls{rkoh}$_{1,4}$} & - & -         &     -   	& -         &  - 	 & -   & -  & - 			&  -  & - & 0 \\
+			\midrule
+			\textbf{\gls{recent}$_2$}   & 0.30 & 0.16 & 0.40 & 0.16 & \textbf{1.0}    & 0.08 & 0.1 & 0.02 & 0.01 & 0.13     & 1 \\
+			\textbf{\gls{ribl}$_2$}     & - 	 & 0.68 & -		 & -		& 0.78						& -		 & 0.0 & -		& -		 & 0.63			& 0 \\
+			\textbf{\gls{hsag}$_2$}			& 0.06 & 0.00 & 0.04 & 0.23 & 0.09						& -0.01& 0.1 & 0.00 & 0.00 & 0.04			& 0 \\
+			\textbf{\gls{wlst}$_{2,5}$} & 0.01 & 0.02 & 0.52 & 0.11 & 0.31						& 0.00 & 0.02 & 0.00 & \textbf{0.27} & -0.04     & 1 \\
+			\textbf{\gls{wlst}$_{2,10}$}& 0.01 & 0.02 & 0.52 & 0.12 & 0.36						& 0.00 & 0.02 & 0.00 & 0.05 & -0.04				& 0 \\
+			\textbf{V$_2$}				& 0.07 & 0.00 & 0.00 & 0.00 & 0.00						& 0.00 & 0.01 & 0.00 & 0.00 & 0.00				& 0 \\
+			\textbf{VE$_2$}				& 0.00 & 0.38 & \textbf{0.56} & 0.00 & 0.53   & 0.00 & 0.01 & 0.00 & 0.00 & 0.00				& 1 \\
+			\textbf{\gls{rkoh}$_{2,2}$}  & -  & -         &  -      	& -         &  - 	 & -   & -  & - 			& -  & - & 0 \\
+			\textbf{\gls{rkoh}$_{2,4}$}    & - & -         &     -   	& -         &  - 	 & -   & -  & - 			&  -  & - & 0   \\
+			\bottomrule
 
-	\textbf{HS}          &  -	 & -		     	 &   0.01 	&  0.06           &  0.0 &  0.10      	& 0.01 & -0.01		& 0.00 & 0.00 & 0 \\
-
-	\textbf{CC$_2$}      &  0.00 &  0.01	     	 &  0.1	 &  0.82       	  	   & 0.00 & 0.04       & 0.01 & 0.01 		& 0.1 & 0.1  & 0\\
-
-	\textbf{CC$_4$}      &  0.00 &  0.01	     	 &  0.00 & 0.92 	   & 0.00 & 0.04       			& 0.01 & 0.01  		& 0.1 & 0.1 & 0 \\
-	\midrule
-	\textbf{ReCeNT$_1$}    &  \textbf{0.32} & \textbf{0.35}     &\textbf{0.97} 	&  \textbf{0.98}   &  \textbf{0.04  } &  \textbf{0.57} & 0.00 & \textbf{0.26} & 0.62 & \textbf{1.0}  & \textbf{8}\\
-
-	\textbf{RIBL$_1$}    &  0.22 & 0.26 		     &   0.89       	& 0.68      &  0.0           	 &  0.1   & - & -  & 0.35 &  0.38 & 0   \\
-
-	\textbf{HSAG$_1$}    &  -0.01 & 0.06           &   0.1        	&  0.0               &  0.01       	 &  0.05    & 0.00 & 0.24 & 0.04 &  -0.05 & 0    \\
-
-	\textbf{WLST$_{1,5}$}    & 0.00 & 0.02        &    -0.01    	&   0.33     &    0.00 	 & 0.33 & \textbf{0.27} & 0.07  & -0.01 & 0.66 & 1      \\
-
-	\textbf{WLST$_{1,10}$}    & 0.00 & 0.02      &   -0.01    & 0.33        &   0.00  & 0.32  & \textbf{0.27} & 0.11 & -0.01 & 0.31 & 1       \\
-
-	\textbf{V$_1$}    & 0.00  & 0.03         &   -0.01       	&   0.19      &   0.00    	 &  0.00   & 0.00 & 0.00  & 0.00 & 0.00 & 0     \\
-
-	\textbf{VE$_1$}    & 0.00 & 0.03         &     0.01   	& 0.36         &  0.00 	 & 0.00   &0.00  & 0.00 & \textbf{1.0}  &  \textbf{1.0} & 2     \\
-
-	\textbf{RKOH$_{1,2}$}    & 0.1 & 0.1         &  0.2      	&   0.2       &  - 	 & -   & -  & - 			& 0.83  &  0.83 & 0    \\
-
-	\textbf{RKOH$_{1,4}$}    & - & -         &     -   	& -         &  - 	 & -   & -  & - 			&  -  & - & 0     \\
-	\midrule
-	\textbf{ReCeNT$_2$}    &  0.08  & 0.3    & 0.1	 	&  0.16  	    	  &  0.02   &  0.4 & 0.01 & 0.16 & 0.13 & \textbf{1.0} & 1 \\
-
-	\textbf{RIBL$_2$}    &  -            &   -		     &   0.0			&  0.68    &  -              &  -     & - & -   & 0.63 & 0.78 & 0   \\
-
-	\textbf{HSAG$_2$}    &  -0.01          &   0.06	         &   0.1     	 	&  0.0          	  &  0.0       	  	  &  0.04      & 0.00 & 0.23  & 0.04 & 0.09 & 0  \\
-
-	\textbf{WLST$_{2,5}$}    &     0.00    &   0.01      &   0.02	 	&  0.02        	  &     0.00 &  0.52  & \textbf{0.27} & 0.11   & -0.04 & 0.31 & 1  \\
-
-	\textbf{WLST$_{2,10}$}    &      0.00      &  0.01       &   	 0.02	&  0.02        	  &     0.00  &  0.52  & 0.05 & 0.12  & -0.04 & 0.36 & 0   \\
-
-	\textbf{V$_2$}    &    0.00     &   0.07     &     0.01 	 	&   0.00      	  &       0.00	  & 0.00 & 0.00 & 0.00  & 0.00 & 0.00 & 0  \\
-
-	\textbf{VE$_2$}    & 0.00   &  0.00          &   0.01 	 	&  0.38   	  &   0.00  	  & \textbf{0.56}    & 0.00 & 0.00  & 0.00 & 0.53 & 1   \\
-
-	\textbf{RKOH$_{2,2}$}    & -  & -         &  -      	& -         &  - 	 & -   & -  & - 			& -  & - & 0     \\
-
-	\textbf{RKOH$_{2,4}$}    & - & -         &     -   	& -         &  - 	 & -   & -  & - 			&  -  & - & 0   \\
-	\bottomrule
-\end{tabular}
-}
-
+		\end{tabular}
+	}
 \end{table}
+
+
 
 
 
@@ -787,49 +769,38 @@ These results justify the basic assumption of this approach that important infor
 
 \subsubsection{\textbf{(Q2) Relevance of components}}
 
-\begin{table*}[t]
-%\captionsetup{justification=centerlast}
-\begin{center}
-\footnotesize
+\begin{table}[t]
+	\begin{center}
+		\footnotesize
+		\label{tab:RResultsComponenets}
+		\caption[Clustering performance of individual similarity components]{Performance of \gls{recent} (in terms of ARI; higher values are better) with different parameter settings. The upper part of the table presents results with the neighbourhood trees with depth of 1, whereas the bottom part contains the results with depth set to 2. The parameters in italic indicate the best performance achieved.}
+		\resizebox{\linewidth}{!}{%
+			\begin{tabular}[t]{@{}lrrrrrrrrrr@{}}
+				\toprule
+				\textbf{Parameters} & \multicolumn{5}{r}{\textbf{Spectral clustering}} & \multicolumn{5}{r}{\textbf{Hierarchical clustering}} \\
+					\cmidrule(lr){2-6} \cmidrule(l){7-11}
+							& \textbf{Muta} & \textbf{UWCSE} & \textbf{WebKB} & \textbf{Terror} & \textbf{IMDB} & \textbf{Muta} & \textbf{UWCSE} & \textbf{WebKB} & \textbf{Terror} & \textbf{IMDB} \\
+				\midrule
+				1,0,0,0,0 & 0.00 & 0.2 & 0.25 & 0.17 & 0.05   &   0.00 & 0.25 & 0.00 & 0.01 & 0.05 \\
+				0,1,0,0,0 & 0.00 & 0.12 & 0.00 & -0.01 & 0.00   &    0.00 &  0.52 & 0.00 & 0.00 & 0.00 \\
+				0,0,1,0,0 & 0.00 & 0.10 & 0.10 & 0.00 & 0.13     &    0.00 & 0.05 & 0.00 & 0.00 & 0.14  \\
+				0,0,0,1,0 & 0.30 & -0.03 & 0.20 & -0.01 & 0.17    &   0.30 & 0.02 & 0.00 & 0.00 & 0.17   \\
+				0,0,0,0,1 & 0.25 & 0.07 & 0.02 & 0.00 & 1.0      &    0.24 & 0.17 & 0.00 & -0.01 & 1.0  \\
+				\textit{0.2,0.2,0.2,0.2,0.2} & 0.35 & 0.86 & 0.56 & 0.26 & 1.0       &  0.32 & 0.96 & 0.04 &  0.00 & 0.62 \\
+				\midrule
+				1,0,0,0,0    &   0.00 & 0.2 & 0.27 & 0.17 & -0.05      &    0.00 &    0.00 & 0.00 & 0.00 & 0.05 \\
+				0,1,0,0,0    &   0.00 & 0.16 & 0.00 & -0.01 & 0.00     &     0.00 & 0.03 & 0.00 & 0.00 & 0.0 \\
+				0,0,1,0,0    &   0.00 & 0.08 & 0.01 & 0.00 & 0.13			 &    0.00  & 0.00 & 0.00 & 0.01 & 0.15 \\
+				0,0,0,1,0    &   0.29 & -0.03 & 0.2 & -0.01 & 0.00     &     0.29 & 0.01 & 0.02 & -0.01 & 0.00 \\
+				0,0,0,0,1    &   0.27 & 0.03 & 0.02 & 0.00 & 1.0       &     0.00 & -0.04 & 0.00 & 0.00 & 1.0 \\
+				\textit{0.2,0.2,0.2,0.2,0.2} & 0.3 & 0.07 & 0.4 & 0.16 & 1.0    &  0.08 &  0.1 &  0.02 &  0.01 &  0.13 \\
+				\bottomrule
 
-\caption[Clustering performance of individual similarity components]{Performance of \gls{recent} with different parameter settings. The upper part of the table presents results with the neighbourhood trees with depth of 1, whereas the bottom part contains the results with depth set to 2. The parameters in italic indicate the best performance achieved.}
+			\end{tabular}
+		}
+	\end{center}
+\end{table}
 
-\begin{tabular}[t]{@{}lrrrrrrrrrr@{}}
-	\toprule
-	\textbf{Parameters} & \multicolumn{2}{r}{\textbf{Muta}} & \multicolumn{2}{r}{\textbf{UWCSE}} & \multicolumn{2}{r}{\textbf{WebKB}} & \multicolumn{2}{r}{\textbf{Terror}}  & \multicolumn{2}{r}{\textbf{IMDB}} \\
-	\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
-	                     &  Hier. & Spec    & Hier. & Spec & Hier.  & Spec  & Hier.  & Spec   & Hier.  & Spec   \\
-	\midrule
-	1,0,0,0,0   &  0.00	   &   0.00		 		& 0.25 & 0.2     		& 0.00  & 0.25       & 0.01 & 0.17 		& 0.05 & 0.05   \\
-
-	0,1,0,0,0 &  	0.00  &  0.00     	 		& 0.52 & 0.12   		& 0.00  & 0.00     	  & 0.00 & -0.01		& 0.0 & 0.00  \\
-
-	0,0,1,0,0  &  	0.00  &  0.00	      		& 0.05 & 0.1  	  		& 0.00 & 0.1         & 0.00 & 0.00  		& 0.14 & 0.13  \\
-
-	0,0,0,1,0  & 0.30  &  0.30    				& 0.02 & -0.03 	   		& 0.00 & 0.2         & 0.00 & -0.01 		& 0.17 & 0.17  \\
-
-	0,0,0,0,1  &    0.24  & 0.25				& 0.17 &  0.07     		& 0.00 & 0.02  		  & -0.01 & 0.00  		& 1.0 &   1.0   \\
-
-	\textit{0.2,0.2,0.2,0.2,0.2} & 0.32 & 0.35 &0.96 &  0.86   		& 0.04 & 0.56 		  & 0.00 & 0.26 		& 0.62 & 1.0  \\
-	\midrule
-	1,0,0,0,0  &  	0.00   & 0.00	 			& 0.00 & 0.2   			& 0.00 & 0.27 		  & 0.00 & 0.17  		& 0.05 & -0.05   \\
-
-	0,1,0,0,0 &  	0.00  & 0.00	 			& 0.03 & 0.16 			& 0.00	& 0.00 		  & 0.00 & -0.01 		& 0.0 & 0.00  \\
-
-	0,0,1,0,0  &  	0.00 &  0.00  				& 0.00 & 0.08  	  		& 0.00 & 0.01      	  & 0.01 & 0.00 		& 0.15 & 0.13  \\
-
-	0,0,0,1,0  &  	0.29 &  0.29   				& 0.01 & -0.03			& 0.02  & 0.2 	  	  & -0.01 & -0.01		& 0.00 & 0.00  \\
-
-	0,0,0,0,1  &   0.00 & 0.27     			    & 0.03 	& -0.04			& 0.00 & 0.02  		  & 0.00 &  0.00		& 1.0 &  1.0    \\
-
-	\textit{0.2,0.2,0.2,0.2,0.2} & 0.08 & 0.3  & 0.1	&  0.07  	    &  0.02&  0.4 		  & 0.01 & 0.16 		& 0.13 & 1.0 \\
-	\bottomrule
-
-\end{tabular}
-\label{tab:RResultsComponenets}
-
-\end{center}
-\end{table*}
 
 In the second experiment, we evaluate how relevant each of the five components in Equation~\ref{eq:Sim} is.
 Table~\ref{tab:RResultsComponenets} summarises the results.
@@ -845,15 +816,6 @@ This guarantees that if a component contains useful information, it is taken int
 If a component has no useful information, it adds some noise to the similarity measure, but the clustering process seems quite resilient to this.
 If {\em most} of the components are irrelevant, the noise can dominate the pattern.
 This is likely what happens in experiment 1 when depth 2 neighbourhood trees are used: too much irrelevant information is introduced at level two, dominating the signal at level one.
-%Not having these two properties also explains why other approaches perform well only on the tasks that suit their biases.
-
-%These results suggest that the main benefit of ReCeNT comes from (1) consideration of several sources of relational similarity, and (2) decoupling those individual sources in to a linear combination.
-%By doing this, ReCeNT is able to extract useful information even if it is present only in a subset of the components.
-%A possible explanation might be the following one: if an individual component does not contain any pattern or important information, it behaves as addition of random noise to the remaining components (assuming they contain important information).
-%Hence, it follows the assumption underlying every machine learning algorithm: the data is composed of a pattern and random noise.
-%Unfortunately, this also means that if most of the components are irrelevant, the noise can dominate the pattern.
-%The latter case is evident in the results of the experiment 1 when the depth of 2 was used for the neighbourhood trees, which are substantially worse than the results with the depth of 1.
-%Not having these two properties also explains why other approaches perform well only on the tasks that suit their biases.
 
 
 
@@ -874,9 +836,9 @@ However, tuning the weights in an automated and systematic way is a difficult ta
 Many clustering evaluation criteria, such as ARI, require a reference clustering which is not available during clustering itself.  Other clustering quality measures do not require a reference clustering, but each of those has its own bias \cite{VanCraenendonck15}.
 
 
-\begin{table}
+\begin{table}[t]
     \centering
-    \caption[Affinity aggregation results]{\textbf{Affinity aggregation results.} The subscript indicates the depth of the neighbourhood tree.}
+    \caption[Affinity aggregation results]{\textbf{Affinity aggregation results.} Performance is indicated in terms of ARI. The subscript indicates the depth of the neighbourhood tree.}
     \begin{tabular}{@{}cccccc@{}}
         \toprule
         \textbf{Approach} & \textbf{IMDB} & \textbf{UWCSE} & \textbf{Mutagenesis} & \textbf{WebKB} & \textbf{Terror} \\
@@ -914,6 +876,8 @@ This confirms that learning the appropriate bias (and the corresponding paramete
 The main exceptions are found for depth 2: here, a substantial improvement is found for UWCSE and TerroristAttack.
 This seems to indicate that the bad performance on depth 2 is indeed due to an overload of irrelevant information, and that AASC is able to weed out some of that.
 Still, the obtained results for depth 2 are not comparable to the ones obtained for depth 1.
+The cause of this is the non-selectiveness of \gls{recent}: further we go from the root vertex, encountered information is less relevant for that vertex.
+Therefore, most of the information is irrelevant, but \gls{recent} does not account for that.
 We conclude that tuning the weights in an unsupervised manner will require more sophisticated methods than the current state of the art.
 
 
@@ -937,15 +901,15 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 
 
 
-\begin{table}
+\begin{table}[t]
 %\captionsetup{justification=centerlast}
 	\begin{center}
 		\small
-		\caption[Performance of the kNN classifier with different (dis)similarity measures.]{Performance of the kNN classifier with different (dis)similarity measures and weight learning. The performance is expressed in terms of accuracy over the 10-fold cross validation. }
+		\caption[PAccuracy of the kNN classifier with different (dis)similarity measures.]{Accuracy of the kNN classifier with different (dis)similarity measures and weight learning. The performance is expressed in terms of accuracy over the 10-fold cross validation. }
 			\label{tab:SupervisedRes}
 		\begin{tabular}[htb]{@{}cccccc@{}}
 		\toprule
-		\textbf{Approach} & \textbf{IMDB}   & \textbf{UWCSE}& \textbf{Mutagenesis}  & \textbf{WebKB}    &  \textbf{Terrorists} \\
+		\textbf{Similarity} & \textbf{IMDB}   & \textbf{UWCSE}& \textbf{Mutagenesis}  & \textbf{WebKB}    &  \textbf{Terrorists} \\
 		\midrule
 		\gls{hs} 		 		  &	88.08	        &	76.66       &  0.00                 &		12.78       &   	27.51		\\
 
@@ -1055,10 +1019,25 @@ These approaches are also orders of magnitude more efficient than \gls{ribl} and
 That is particularly the case for RKOH which did not complete in 24 hours even with the depth of 1, when the walk length was set to 4.
 
 
+\section{Conclusion}
+
+We have introduced a novel dissimilarity measure for clustering relational objects, based on a hyper-graph interpretation of a relational data set.
+In contrast with the previous approaches, our approach takes multiple aspects of relational similarity into account, and  allows one to focus on a specific vertex type of interest, while at the same time leveraging the information contained in other vertices.
+We develop the dissimilarity measure to be versatile enough to capture relevant information, regardless whether it comes from attributes, proximity or connectedness in a hyper-graph.
+To make our approach efficient, we introduce neighbourhood trees, a structure to compactly represent the distribution of attributes and hyper-edges in the neighbourhood of a vertex.
+
+
+We experimentally evaluate our approach on several data sets on both clustering and classification tasks.
+The experiments show that the proposed method often achieves better results than the competitor methods with regards to the quality of clustering and classification, showing that it indeed is versatile enough to adapt to each data set individually.
+Moreover, the proposed approach, though more expressive, is as efficient as the state-of-the-art approaches.
+One open challenge is to which extent the parameters of the proposed similarity measure can be learnt from data in an unsupervised (or a semi-supervised) way.
+
+
 \begin{tcolorbox}[enhanced,attach boxed title to top center={yshift=-3mm,yshifttext=-1mm}, colback=blue!5!white, colframe=blue!75!black, colbacktitle=white, coltitle=red!25!black,
 title=Intermezzo: Semi-supervised clustering with COBRAS,fonttitle=\bfseries, boxed title style={size=small,colframe=blue!75!black} ]
 
 	Clustering is a difficult task due to the lack of a clear criterion for evaluating clusterings.
+	We have dealt with that by relying on the available supervision to provide the ground truth.
 	\textit{Semi-supervised clustering} starts from a position that, even though a fully labelled dataset is not available, the user is able to provide a limited amount of feedback that can be further used to guide the clustering procedure.
 	The feedback usually takes the form of the following question: \textit{do instances i and j have the same cluster label in the target clustering?} Answering the question with \texttt{yes} yields a \textit{must-link} constraint and a \textit{cannot-link} constraint otherwise. \\
 
@@ -1085,18 +1064,7 @@ title=Intermezzo: Semi-supervised clustering with COBRAS,fonttitle=\bfseries, bo
 
 
 
-\section{Conclusion}
 
-We have introduced a novel dissimilarity measure for clustering relational objects, based on a hyper-graph interpretation of a relational data set.
-In contrast with the previous approaches, our approach takes multiple aspects of relational similarity into account, and  allows one to focus on a specific vertex type of interest, while at the same time leveraging the information contained in other vertices.
-We develop the dissimilarity measure to be versatile enough to capture relevant information, regardless whether it comes from attributes, proximity or connectedness in a hyper-graph.
-To make our approach efficient, we introduce neighbourhood trees, a structure to compactly represent the distribution of attributes and hyper-edges in the neighbourhood of a vertex.
-
-
-We experimentally evaluate our approach on several data sets on both clustering and classification tasks.
-The experiments show that the proposed method often achieves better results than the competitor methods with regards to the quality of clustering and classification, showing that it indeed is versatile enough to adapt to each data set individually.
-Moreover, the proposed approach, though more expressive, is as efficient as the state-of-the-art approaches.
-One open challenge is to which extent the parameters of the proposed similarity measure can be learnt from data in an unsupervised (or a semi-supervised) way.
 
 
 

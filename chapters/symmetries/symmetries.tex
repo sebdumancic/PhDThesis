@@ -70,8 +70,8 @@ An interesting part about this approach is that it does not require any new algo
 \newglossaryentry{curled}{name={CUR$^2$LED},description={Clustering-based Unsupervised Relational Representation Learning with Explicit Distributed Representation}}
 %Here we focus on the problem of \textit{unsupervised} learning a \textit{feature hierarchy} with relational data.
 This chapter introduces \gls{curled} - a \textit{clustering-based unsupervised relational representation learning with explicit distributed representation}, inspired by the work of \cite{coates2011analysis}.
-The core idea behind \gls{curled} is that capturing groups of similar relational objects serve as a good \textit{proxy} for useful representations, as it identifies \textit{locally consistent} regions in example space.
-All members in such a group are \textit{symmetric} to each other, meaning that for the purpose of reasoning they can be interchanged with one another.
+The core idea behind \gls{curled} is that capturing groups of similar relational objects serves as a good \textit{proxy} for useful representations.
+All members in such a group are \textit{locally symmetric} to each other, meaning that for the purpose of reasoning they can be interchanged with one another within such local region.
 They are approximately symmetric as they are similar, but not identical.
 
 
@@ -116,7 +116,7 @@ The complexity of relational data causes several issues in devising a general re
 In the case of tabular data, the dataset contains only instances and their features, thus, one clusters the instances.
 However, relational data additionally describes relationships among instances and  varies from a single large network of many interconnected entities (a \textit{mega-example}) to a set of many disconnected networks where each network is an example.
 Ideally, one would address both cases.
-\gls{curled} assumes that relational data is provided as a labelled hyper-graph, where examples form vertices and relations between them form hyper-edges, and does not make a distinction between the above-mentioned cases.
+\gls{curled} assumes the same formalism as \gls{recent}: relational data is provided as a labelled hyper-graph, where examples form vertices and relations between them form hyper-edges, and does not make a distinction between the above-mentioned cases.
 Formally said, the data structure is a typed, labelled hyper-graph $H = (V,E, \tau, \lambda)$ with $V$ being a set of vertices, $E$ a set of hyper-edges, $\tau$  a function  assigning a type to each vertex and hyper-edge, and $\lambda$ a function assigning a vector of values to each vertex.
 \gls{curled} learns a new representation by clustering both \textit{vertices and hyper-edges in a hyper-graph}.
 Considering that vertices have associated types, \gls{curled} does not allow mixing of types, i.e., a cluster can contain only vertices of the same type.
@@ -203,35 +203,7 @@ In the experiments we use spectral and hierarchical clustering.
 What makes \gls{recent} an attractive relational clustering framework is the wide range of similarities it considers.
 We will refer to them as \textit{core similarities}.
 Furthermore, which similarity is used is easily adaptable with just a few parameters.
-%We provide a concise and intuitive description here, and refer the reader to the original paper for the details.
 
-
-%The core concept of ReCeNT is a \textit{neighbourhood tree} (NT).
-%The NT is a rooted directed graph describing a neighbourhood of a certain vertex in the hyper-graph.
-%It provides a summary of all paths that can be taken, starting from that particular vertex.
-%The depth of a NT, i.e., how many vertices a path can contain excluding the root vertex, is pre-specified.
-%ReCeNT compares two vertices by comparing their NTs.
-
-
-
-%This comparison is achieved by first decomposing the NT into different multisets.
-%The multiset $V^l_{t}(g)$ contains all vertices of type $t$ at distance $l$ of a particular NT $g$.
-%$E^l(g)$ is the multiset of hyper-edge labels between vertices of distances $l$ and $l+1$.
-%Finally, $B^l_{t,a}(g)$ is the multiset of values of attribute $a$ observed among the nodes of type $t$ at distance $l$.
-%Using only these three types of multisets, one can express a wide range of similarities.
-%What ReCeNT considers are:
-%\begin{enumerate}
-%    \item the similarity of the root vertices in terms of attribute values, by means of $B^0_{t,a}$
-%    \item the similarity of attribute values of the neighbouring vertices, by means of $B^{l>0}_{t,a}$
-%    \item the connectivity of the root vertices, by means of $V^l_t$
-%    \item the similarity of neighbourhoods in terms of the vertex identities, by means of $V^l_t$
-%    \item the similarity of hyper-edge labels of two neighbourhoods, by means of $E^l$.
-%\end{enumerate}
-
-
-%Each of the components represents a distinct notion of similarity.
-%We will refer to them as \textit{core similarities}.
-%These core similarities can further be combined to represent more complex similarities.
 
 
 \subsection{Hyper-edge Similarity}
@@ -360,14 +332,17 @@ To verify whether that is the case with the representation created by \gls{curle
 
 
 \newglossaryentry{tilde}{name={TILDE},description={Top-Down Induction of Logical Decision Trees}}
-In order to do so, we use \gls{tilde} \cite{Blockeel1998285}, a relational decision tree learner, and perform leave-one-out cross validation.
-$\mathcal{C}$-representations and \gls{tilde} were learned on training folds, and the objects from the test fold were mapped to the $\mathcal{C}$-representation and used to test \gls{tilde}.
+
+In order to answer these questions, we compare the performances of a relational decision tree learner \gls{tilde} \cite{Blockeel1998285}, and perform leave-one-out cross validation.
+When using the original data representation, we learn \gls{tilde} on training data and test it on the test fold.
+When using $\mathcal{C}$-representations, we first perform \gls{curled} procedure on the training data and learn \gls{tilde} on the obtained $\mathcal{C}$-representation.
+For test, we first map the test fold to the corresponding $\mathcal{C}$-representation by assigning objects and relationships to their closest clusters in each of the similarity interpretations.
 The following similarity interpretation were used for each dataset: (0.5,0.5,0.0,0.0,0.0), (0.0,0.0,0.33,0.33,0.34), (0.2,0.2,0.2,0.2,0.2).
 The first set of weights uses only the attribute information, the second one only the link information, while the last one combines every component.
 
 
 
-As a complexity measure of a model we use the number of nodes a trained \gls{tilde} model has.
+As a complexity measure of a model we report the average number of nodes a trained \gls{tilde} model has.
 We use the following values for the $\alpha$ parameter in Equation~\ref{eq:Sat}: $\{ 0.1,0.05, 0.01 \}$.
 In the case of MRC, we used the following values for the $\lambda$ parameter: $\{-1,-5,-10\}$.
 The $\lambda$ parameter has the same role as $\alpha$ in the proposed approach, affecting the number of clusters chosen for each type.\footnote{Note that it is difficult to exactly match the values of $\alpha$ and $\lambda$ as both methods operate on different scales, and the authors do not provide a way how to choose an appropriate value}
@@ -382,7 +357,7 @@ The $\lambda$ parameter has the same role as $\alpha$ in the proposed approach, 
 \captionsetup{justification=centerlast}
     \begin{center}
         \footnotesize
-        \caption[Performance of \gls{tilde} models learned on the original and latent representations.]{\textbf{Performance comparison for TILDE models learned on the original and $\mathcal{C}$-representations.} The first column specifies the parameters used for $\mathcal{C}$-representation, i.e., clustering algorithm (S-spectral, H-hierarchical), selection criterion and its parameter values. Both accuracies on a test set (Acc) and complexities (Cplx) are reported.}
+        \caption[Predictive accuracy of \gls{tilde} models learned on the original and latent representations.]{\textbf{Performance comparison for TILDE models learned on the original and $\mathcal{C}$-representations.} The first column specifies the parameters used for $\mathcal{C}$-representation, i.e., clustering algorithm (S-spectral, H-hierarchical), selection criterion and its parameter values. Both accuracies on a test set (Acc) and complexities (Cplx) are reported.}
         \resizebox{0.98\textwidth}{!}{%
         \begin{tabular}[th]{@{}lrrrrrrrrrrrrr@{}}
             \toprule
@@ -540,7 +515,7 @@ Moreover, \gls{curled} is easily parallelised which can substantially improve it
 \captionsetup{justification=centerlast}
 \centering
 \footnotesize
-\caption[Vocabulary sizes of various latent representations create by \gls{curled}]{Vocabulary sizes. M indicates MRC, while S and H indicate \gls{curled} representations with spectral and hierarchical clustering, respectively. Vocabulary sizes obtained with \textit{merging} and \textit{combination} similarities were similar, so only the one for merging is reported. }
+\caption[Number of clusters in various $\mathcal{C}$-representations]{Number of clusters in various $\mathcal{C}$-representations. M indicates MRC, while S and H indicate \gls{curled} representations with spectral and hierarchical clustering, respectively. Vocabulary sizes obtained with \textit{merging} and \textit{combination} similarities were similar, so only the one for merging is reported. }
 \resizebox{0.9\linewidth}{!}{%
 \begin{tabular}[t]{@{}lrrrrrr@{}}
 	\toprule
@@ -641,7 +616,7 @@ In contrast, \texttt{member} is not a $0.3$-confident elements as its standard d
 
 The above-described procedure explains the latent features in terms of distribution of the elements in the neighbourhood of an instance, which has its pros and cons.
 On the downside, this type of explanation does not conform to the standard first-order logic syntax common within relational learning.
-Despite this reduced readability, these explanations are substantially more transparent and interpretable than the ones produced by the embeddings approaches.
+Despite this reduced readability, these explanations are more transparent and readable compared to the deep neural networks.
 However, one benefit of this approach is that it increases the expressivity of a relational learner by extensionally defining  properties otherwise inexpressible in the first-order logic.
 
 
@@ -720,7 +695,7 @@ Both aforementioned examples are easy to understand and interpret without an ext
 The other tasks that have benefited more from the latent features are substantially more difficult to understand.
 For instance, the latent features created from the Mutagenesis dataset reduce the complexity of the relational decision tree from 27 to only 3 nodes, while improving the accuracy for 4 \%.
 Similarly, on the Hepatitis dataset the latent features reduced the complexity of a decision tree from 22 nodes down to 5, improving the accuracy for 11 \%.
-Because these examples require an extensive knowledge to interpret them, we leave them out from this work.
+
 
 
 
