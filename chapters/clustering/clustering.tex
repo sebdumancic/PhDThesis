@@ -425,6 +425,7 @@ This is reflected in the bias they impose, that is, the similarity comes from th
 These approaches estimate the similarity of two (hyper)graphs by comparing the walks one can obtain by traversing the hyper-graph.
 \gls{rkoh} defines a similarity measure that compares two hyper-graphs by comparing the paths originating at every edge of both hyper-graphs, instead of the paths originating at the root of the hyper-graph.
 \gls{rkoh} does not differentiate between attributes and hyper-edges, but treats everything as an hyper-edge instead (an attribute can be seen as an unary edge).
+\nocite{Mall:1972876}
 
 
 \begin{table}
@@ -905,7 +906,7 @@ each training fold, an internal 10-fold cross-validation is used to tune the par
 %\captionsetup{justification=centerlast}
 	\begin{center}
 		\small
-		\caption[PAccuracy of the kNN classifier with different (dis)similarity measures.]{Accuracy of the kNN classifier with different (dis)similarity measures and weight learning. The performance is expressed in terms of accuracy over the 10-fold cross validation. }
+		\caption[Accuracy of the kNN classifier with different (dis)similarity measures.]{Accuracy of the kNN classifier with different (dis)similarity measures and weight learning. The performance is expressed in terms of accuracy over the 10-fold cross validation. }
 			\label{tab:SupervisedRes}
 		\begin{tabular}[htb]{@{}cccccc@{}}
 		\toprule

@@ -105,6 +105,9 @@ These examples constitute our \textit{training data}, and are collected in a sim
 
 
 
+
+
+
 Once the data is compiled, you can proceed with learning the  mapping from the inputs to the outputs -- the decision function.
 This leaves you with the second choice -- what should the decision function look like?
 One choice could be \texttt{IF-THEN} rules:
@@ -113,7 +116,10 @@ One choice could be \texttt{IF-THEN} rules:
 \end{center}
 An alternative option would be to assign an \textit{importance} to each feature so that a desirable potential pet gets a positive score, while the un-desirable one gets a negative score:
 
+{
+\small
 $$ w_1 \cdot \text{legs} + w_2 \cdot \text{fluffiness} + w_3 \cdot \text{diary} + w_4 \cdot \text{playful} - w_5 \cdot \text{spits} - w_6 \cdot \text{bites} - w_7 \geq 0$$
+}
 
 In this case, we would have to replace categorical choices, such as the  \texttt{playful} feature, with a numerical equivalent.
 For example, we could replace \texttt{no} with 0, \texttt{sometimes} with 1 and \texttt{yes} with 2.
@@ -123,6 +129,8 @@ Many choices are possible, and the right one depends on the task at hand.
 Once the model has been learned, either by finding the rules or by tuning the weights of the decision function, the model can be applied to make decisions about new examples.
 For instance, if we wish to know whether an alpaca would make a good pet, we can ask the model.
 Looking at the first rule, the answer would be \texttt{yes} as an alpaca has four legs and a level of fluffiness above 4.
+This defines a \textit{supervised} machine learning task; if the examples of the output and not provided but have to be discovered, this constitutes an \textit{unsupervised} machine learning task.
+An example of an unsupervised task is \textit{clustering} which concerns discovering natural groups in data.
 
 
 
@@ -373,6 +381,13 @@ We compare their performance on various relational datasets, identify their stre
 
 
 
+
+
+These four contributions serve as an exploration of various ideas in learning relational latent representations.
+The first contribution introduces a methods that discovers natural structure in data, by grouping similar objects, and the second contribution leverages the discovered structure to define new features.
+The third contribution pushes this idea forward and defines novel reconstruction-based representation learning framework that entirely depends on logic and logic programs.
+The fourth contributions takes a critical view of the two relational representation learning paradigms, symbolic and sub-symbolic one, and identifies directions for hybrid learners that leverage the strengths of both paradigms.
+These advancements contribute to the fundamentals of \textit{symbolic principles} towards relational representation learning, and our hope is that they initiate novel developments that offer a symbolic alternative to the existing methods that transform relational data into vectors that only approximate the rich structure.
 
 
 

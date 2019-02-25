@@ -372,7 +372,18 @@ To learn the \textit{latent} MLN model, we first learn the latent representation
 To evaluate the learned \gls{mln}s, we query each fact regarding one specific predicate given everything else as evidence.
 This is repeated for each predicate in a test interpretation.
 In case of latent \gls{mln}, predicate is removed before the rest of the data is encoded to the latent space.
-To allow for comparing the latent \gls{mln} with the baseline model, once the structure is learned in the latent space we append the corresponding decoder from ALPs to the latent model (see Supplementary material).
+To allow for comparing the latent \gls{mln} with the baseline model, once the structure is learned in the latent space we add the corresponding decoder clauses from \alp{s} to the latent model.
+An issue with doing that is that the Alps as specified under the \textit{clausal logic} semantics  while MLNs operate under the \textit{first-order logic} semantics.
+To convert between the two semantics, we rely on the clausal normal form~\cite{VanEmden:1976:SPL:321978.321991,Russell:2009:AIM:1671238,Jackson:2004:CFC:2103144.2103160} in which the clause
+\begin{center}
+	\texttt{h($\cdot$) :- b$_1$($\cdot$),b$_2$($\cdot$).}
+\end{center}
+can be written as the following first-order logic formula
+\begin{center}
+	\texttt{h($\cdot$) $\vee$ $\neg$b$_1$($\cdot$) $\vee$ $\neg$b$_2$($\cdot$).}
+\end{center}
+
+Therefore, we convert each decoder clause in the same way and add it to the MLN as a deterministic formula.
 This ensures that the baseline and latent \gls{mln}s operate in the same space.
 The only difference when performing inference with latent \gls{mln} is that each latent predicate that could have been effected by removal of the test predicate (i.e., the test predicate is present in the body of the encoder clause defining the specific latent predicate) has to be declared \textit{open world}, otherwise MLNs will assume that all atoms not present in the database are \textit{false}.
 

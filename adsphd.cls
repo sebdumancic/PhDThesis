@@ -6,13 +6,13 @@
 %% conditions of the LaTeX Project Public License, either
 %% version 1.2 of this license or (at your option) any later
 %% version.  The latest version of the license is in:
-%% 
+%%
 %%    http://www.latex-project.org/lppl.txt
-%% 
+%%
 %% Information about the ADS guidelines:
 %%
 %%    https://set.kuleuven.be/intranet-associatie/ADS/guidelines_PhDthesis.htm
-%% 
+%%
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
 \ProvidesClass{adsphd}
     [2016/05/30 v1.3 Standard KU Leuven Arenberg Doctoral School PhD class]
@@ -189,7 +189,8 @@
   \ifpdf
     \PassOptionsToPackage{plainpages=false,pdfpagelabels,bookmarks,breaklinks,pdfborder={0 0 0}}{hyperref}
   \else
-    \PassOptionsToPackage{plainpages=false,pdfpagelabels,ps2pdf,bookmarks,breaklinks,pdfborder={0 0 0}}{hyperref}
+    % CHANGED: \PassOptionsToPackage{plainpages=false,pdfpagelabels,ps2pdf,bookmarks,breaklinks,pdfborder={0 0 0}}{hyperref}
+    \PassOptionsToPackage{plainpages=false,pdfpagelabels,bookmarks,breaklinks,pdfborder={0 0 0}}{hyperref}
   \fi
 \fi
 
@@ -239,7 +240,7 @@
 \fi
 
 \ifadsphd@draft
-  \typeout{adsphd.cls: [draft]}  
+  \typeout{adsphd.cls: [draft]}
   \PassOptionsToClass{draft}{report}
   \adsphd@showlabelstrue
   % Show a frame around each logical
@@ -304,11 +305,11 @@
 
 \ifadsphd@showgit
   \DisableKeyvalOption[action=warning,package=adsphd]{adsphd}{showgit}
-  \def\gittmpfile{/tmp/gitdescribe.txt} 
-  \immediate\write18{touch \gittmpfile} 
-  % Check whether shell escapes are enabled 
-  \IfFileExists{\gittmpfile}{\shellescapetrue}{\shellescapefalse} 
-  \ifshellescape 
+  \def\gittmpfile{/tmp/gitdescribe.txt}
+  \immediate\write18{touch \gittmpfile}
+  % Check whether shell escapes are enabled
+  \IfFileExists{\gittmpfile}{\shellescapetrue}{\shellescapefalse}
+  \ifshellescape
     \adsphd@showgittrue
     %\newcommand*\cropgitinfo{\gitdescribe}
     \immediate\write18{git describe --tags --long --always > \gittmpfile} %
@@ -706,7 +707,7 @@
 \renewcommand{\sfdefault}{\origsfdefault}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The document consists of 
+% The document consists of
 %  \frontmatter -> Preface, Summary, etc
 %  \mainmatter  -> Main text
 %  \appendix    -> Appendix
@@ -718,7 +719,7 @@
 % and Pages]).
 % In the course of the booklet, the numbering should be changed
 % (resetted) only twice(!), i.e., using \frontmatter and \mainmatter.
-\pagenumbering{alph} 
+\pagenumbering{alph}
 
 \newcommand{\frontmatter}{\cleardoublepage\pagenumbering{roman}}
 
@@ -923,8 +924,8 @@
 \newenvironment{ftw_instructions}{
   \definecolor{shadecolor}{gray}{0.85}
   \begin{shaded}
-  \textbf{Instructies van de faculteit:} 
-  
+  \textbf{Instructies van de faculteit:}
+
   }%
   {
     \end{shaded}
@@ -1161,7 +1162,7 @@ De appendices kunnen desgevallend worden gebundeld in een apart boekdeel.
     \typeout{adsphd.cls: Using custom cover page (\@customcoverpage)}
     \input{\@customcoverpage}
   }{
-    \typeout{adsphd.cls: Cannot find custom cover page 
+    \typeout{adsphd.cls: Cannot find custom cover page
       (\@customcoverpage). Restoring default cover page.}
     \let\makefrontcovergeneralX\orig@makefrontcovergeneralX
     \let\makebackcovergeneralX\orig@makebackcovergeneralX
@@ -1274,7 +1275,7 @@ De appendices kunnen desgevallend worden gebundeld in een apart boekdeel.
   }
   \end{textblock*}
   %
-  % Create blue background 
+  % Create blue background
   \begin{textblock*}{60mm+\lbleed}(0mm-\lbleed+#1, 20mm)
   \textblockcolour{}
   \includegraphics[width=60mm+\lbleed,height=20mm]{image/blue}
@@ -1339,20 +1340,20 @@ De appendices kunnen desgevallend worden gebundeld in een apart boekdeel.
   % Create header
   \frontcoverheaderXII{#1}
   %
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Title, subtitle, authorname, text and date can be moved around.
-  % Change the textblock* commands below. 
+  % Change the textblock* commands below.
   %
   % Syntax of textblock environment:
-  % 
+  %
   %   \begin{textblock*}{width}(xpos,ypos)
   %     ...
   %   \end{textblock*}
-  % 
+  %
   % !! Make sure not to remove the '+#1' part!!!
   %
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Place the DRAFT notifier on the front page to avoid printing a wrong
   % version
@@ -1476,7 +1477,7 @@ De appendices kunnen desgevallend worden gebundeld in een apart boekdeel.
   \rule{0pt}{2.1mm}
   \end{textblock*}
   %
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Add footer
   \frontcoverfooterXII{#2}
@@ -1490,20 +1491,20 @@ De appendices kunnen desgevallend worden gebundeld in een apart boekdeel.
   % Create header
   \frontcoverheaderX{#1}
   %
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Title, subtitle, authorname, text and date can be moved around.
-  % Change the textblock* commands below. 
+  % Change the textblock* commands below.
   %
   % Syntax of textblock environment:
-  % 
+  %
   %   \begin{textblock*}{width}(xpos,ypos)
   %     ...
   %   \end{textblock*}
-  % 
+  %
   % !! Make sure not to remove the '+#1' part!!!
   %
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Place the DRAFT notifier on the front page to avoid printing a wrong
   % version
@@ -1557,7 +1558,7 @@ De appendices kunnen desgevallend worden gebundeld in een apart boekdeel.
   \begin{center} {\small\sffamily\@date }\end{center}
   \end{textblock*}
   %
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Add footer
   \frontcoverfooterX{#2}
@@ -1874,7 +1875,7 @@ without written permission from the publisher.
   %
   % Get adsphdspinewidth as #3
   \setlength{\adsphdspinewidth}{#3}
-  % 
+  %
   % Get spinetitlewidth as #4
   \ifthenelse{\equal{#4}{}}
   {}{
@@ -1916,7 +1917,7 @@ without written permission from the publisher.
     }
   }
   %
-  \begin{textblock*}{\adsphdspinewidth}(0mm+#1,49mm-\authorlenpenalty) % 9mm whitespace 
+  \begin{textblock*}{\adsphdspinewidth}(0mm+#1,49mm-\authorlenpenalty) % 9mm whitespace
                                         % between blue and first letter of the author name
                                         % (possibly less because the author name might be
                                         % reallyreally long)
@@ -1953,7 +1954,7 @@ without written permission from the publisher.
   %
   % Get adsphdspinewidth as #3
   \setlength{\adsphdspinewidth}{#3}
-  % 
+  %
   % Get spinetitlewidth as #4
   \ifthenelse{\equal{#4}{}}
   {}{
@@ -1988,7 +1989,7 @@ without written permission from the publisher.
     }
   }
   %
-  \begin{textblock*}{\adsphdspinewidth}(0mm+#1,20mm-\authorlenpenalty) % 9mm whitespace 
+  \begin{textblock*}{\adsphdspinewidth}(0mm+#1,20mm-\authorlenpenalty) % 9mm whitespace
                                         % between blue and first letter of the author name
                                         % (possibly less because the author name might be
                                         % reallyreally long)

@@ -99,6 +99,7 @@ The task of learning \gls{ann}s is the one of learning each connection's strengt
 Once learned, the activation's of the neurons in the hidden layer represents the new representation of data.
 
 
+
 This flavour of representation learning belongs to the \textbf{supervised} branch, i.e.,  new representation tailored specifically for the given task ($y$).
 
 
@@ -286,6 +287,7 @@ This makes \gls{kge}s a very scalable approach for relational learning.
 The main limitation of these methods is that they only approximate the original structured data, and it is difficult to quantify the \textit{quality} of the approximation.
 Moreover, as the learning problem is defined in terms of \textit{scores} of the facts, \gls{kge}s cannot easily incorporate  long-range dependencies between objects.
 In contrast to \gls{srl} models such as Problog and Markov logic networks which can perform many types of inferences, \gls{kge}s can only be used for ranking the possible answer for a knowledge base completion tasks.
+Relying on score for evaluating the truthfulness of statements is related to the idea of \textit{kernel functions} that estimate the similarity of structured objects \cite{Suykens:2017:DRK:3140935.3140940,suykens2010}.
 
 
 

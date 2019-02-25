@@ -384,11 +384,11 @@ Additionally, if the provided data does not contain useful features, KGE methods
 \end{table}
 
 
-\paragraph{Knowledge base completion datasets}
-Our experiments include standard KBC datasets, FB15k-237 and WN18-RR.
-FB15k-237~\cite{toutanova2015observed} is a subset of Freebase which contains approximately 15000 entities and 237 relations; this is an improved version of the predecessor FB15k, but with inverse relations removed, which gave overly optimistic performance \cite{toutanova2015observed}.
-WN18-RR~\cite{dettmers2018conve} is a subset of the WordNet knowledge graph, consisting of approximately 50 000 entities and 11 relations.
-It is an improved version of the WN18 dataset, which had the same problem as FB15k.
+% \paragraph{Knowledge base completion datasets}
+% Our experiments include standard KBC datasets, FB15k-237 and WN18-RR.
+% FB15k-237~\cite{toutanova2015observed} is a subset of Freebase which contains approximately 15000 entities and 237 relations; this is an improved version of the predecessor FB15k, but with inverse relations removed, which gave overly optimistic performance \cite{toutanova2015observed}.
+% WN18-RR~\cite{dettmers2018conve} is a subset of the WordNet knowledge graph, consisting of approximately 50 000 entities and 11 relations.
+% It is an improved version of the WN18 dataset, which had the same problem as FB15k.
 
 
 
@@ -451,7 +451,7 @@ As Hits@1 directly correspond to the accuracy, and we use this as a primary mean
 
 \subsection{Comparative results}
 
-\subsubsection{Relational classification}
+%\subsubsection{Relational classification}
 
 
 \begin{figure}[!ht]
@@ -487,7 +487,7 @@ As Hits@1 directly correspond to the accuracy, and we use this as a primary mean
 
 
 The experiments with (relational) decision trees (Figure \ref{fig:dtres}) indicate that the decision tree trained on the embeddings features outperform TILDE only on two datasets-- Hepatitis and Carcinogenesis, while performance is equal on the UWCSE dataset.
-The results also indicate that the performance of various KGE models is relatively similar, but \textit{DistMult} and \textit{ComplEXconcat} seem to have a slight edge.
+The results also indicate that the performance of various \gls{kge} models is relatively similar, but \textit{DistMult} and \textit{ComplEXconcat} seem to have a slight edge.
 
 
 
@@ -608,48 +608,51 @@ The likely reason for that is that the filtered information matches the bias of 
 
 
 
-\subsubsection{Knowledge base completion}
-
-
-\begin{table*}[h]
-	\centering
-	\caption{Performance on the knowledge base completion tasks}
-	\label{tab:kbcres}
-	\resizebox{\linewidth}{!}{%
-		\begin{tabular}{@{}lrrrrrr@{}}
-		\toprule
-						& \multicolumn{3}{c}{\textbf{FB15-237}} & \multicolumn{3}{c}{\textbf{WN18-RR}} \\
-			\cmidrule(lr){2-4} \cmidrule{5-7}
-
-						& Mean accuracy & Weighted accuracy & Mean complexity 	& Mean accuracy & Weighted accuracy & Mean complexity \\
-			\midrule
-
-		\textbf{TILDE} 	& .95			& .98				& 10.15			  	& .90			& .83				& 231 \\
-		\midrule
-						& Hits@1			& Hits@3 			& Hits@10			& Hits@1			& Hits@3 			& Hits@10 \\
-						\cmidrule(lr){2-4} \cmidrule{5-7}
-		\textbf{ConvE}	&	.327			&	.356				&	.501				& .40				&	.44				&	.52		\\
-		\textbf{Complex}&	.158			&	.275				&	.428				& .41				&	.46				&	.51		\\
-		\textbf{DistMult}&	.155			&	.263				&	.419				&	.39				&	.44				&	.49		\\
-		\textbf{R-GCN}	&	.153			&	.258				&	.417				&	--				&		--			&		--	\\
-		\bottomrule
-
-
-		\end{tabular}
-	}
-\end{table*}
-
-
-The results on the KBC datasets (Table \ref{tab:kbcres}) indicate that the symbolic SRL methods perform rather well on these datasets.
-On the FB15k-237 dataset, TILDE achieves the mean accuracy of 95\% and the weighted mean accuracy of 98\% while inducing relatively simple model having on average 10.15 nodes in the tree.
-The WN18-RR dataset is rather different than the FB15k-237: TILDE achieves the mean accuracy of 90\% but the weighted mean accuracy of 83\% which means that the relations with a higher number of test examples are predicate less accurately.
-The results show that this dataset is much more complex than the FB15k-237 as it requires rather long chains of reasoning, indicated by large TILDE trees having on average 231 nodes.
-
-
-The performance of \gls{kge} methods lags behind.
-On the FB15k-237 dataset, the best-performing methods in ConvE with Hits@1 of .327 and Hits@10 at .501.
-On the WN18-RR dataset, ConvE also performs the best with Hits@1 of 0.40 and Hits@10 of 0.52.
-These results are consistent with the conclusion from the experiments on relational classification: the size of TILDE trees indicate the relevant information requires several \textit{hops} in a knowledge graph and it is not in the intermediate neighbourhood of entities.
+% \subsubsection{Knowledge base completion}
+%
+%
+% \begin{table*}[h]
+% 	\centering
+% 	\caption{Performance on the knowledge base completion tasks}
+% 	\label{tab:kbcres}
+% 	\resizebox{\linewidth}{!}{%
+% 		\begin{tabular}{@{}lrrrrrr@{}}
+% 		\toprule
+% 						& \multicolumn{3}{c}{\textbf{FB15-237}} & \multicolumn{3}{c}{\textbf{WN18-RR}} \\
+% 			\cmidrule(lr){2-4} \cmidrule{5-7}
+%
+% 										& Hits@1			& Hits@3 			& Hits@10			& Hits@1			& Hits@3 			& Hits@10 \\
+% 			\midrule
+%
+% 		\textbf{TILDE} 	& .875			& .879				& .893			  	& .76			& .76				& .76 \\
+% 		\midrule
+%
+% 		\midrule
+% 		\textbf{ConvE}	&	.327			&	.356				&	.501				& .40				&	.44				&	.52		\\
+% 		\textbf{Complex}&	.158			&	.275				&	.428				& .41				&	.46				&	.51		\\
+% 		\textbf{DistMult}&.155			&	.263				&	.419				&	.39				&	.44				&	.49		\\
+% 		\textbf{R-GCN}	&	.153			&	.258				&	.417				&	--				&		--			&		--	\\
+% 		\bottomrule
+%
+%
+% 		\end{tabular}
+% 	}
+% \end{table*}
+%
+%
+% The results on the KBC datasets (Table \ref{tab:kbcres}) indicate that the symbolic SRL methods perform rather well on these datasets.
+% On the FB15k-237 dataset, TILDE achieves the Hits@1 of .875 and Hits@10 of .893.
+% Moreover, it achieves this performance with relatively simple trees containing 10.15 nodes on average.
+% On the WN18-RR dataset, TILDE achieves the performance of .76 on all three metrics.
+% However, the obtained trees are much more complex than the ones learned on FB15k-237 dataset, having on average 231 nodes.
+% This difference comes from the properties of the dataset: FB15k-237 is a rather sparse dataset having a large number of relations (237), which WN18-RR is a dense dataset with only 11 relations.
+%
+%
+%
+% The performance of \gls{kge} methods lags behind.
+% On the FB15k-237 dataset, the best-performing methods in ConvE with Hits@1 of .327 and Hits@10 at .501.
+% On the WN18-RR dataset, ConvE also performs the best with Hits@1 of 0.40 and Hits@10 of 0.52.
+% These results are consistent with the conclusion from the experiments on relational classification: the size of TILDE trees indicate the relevant information requires several \textit{hops} in a knowledge graph and it is not in the intermediate neighbourhood of entities.
 
 
 
@@ -671,8 +674,6 @@ Our results point to the following conclusion:
 
 This work is not meant as a criticism of any of the considered approaches but hopes to identify \textit{useful bits} of individual approaches that might be worth integrating.
 We hope this work inspires new research directions focused on combining the strengths of both approaches as both communities has already started to explore \cite{DBLP:conf/uai/MinerviniDRR17,demeester2016lifted,Schlichtkrull2017ModelingRD}.
-
-
 
 
 
